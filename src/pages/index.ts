@@ -1,5 +1,5 @@
 import AdminPage from './AdminPage';
-import ApplyEventPage from './ApplyEventpage';
+import ApplyEventPage from './ApplyEventPage';
 import CreateEventPage from './CreateEventPage';
 import CreateResumePage from './CreateResumePage';
 import EditProfilePage from './EditProfilePage';
