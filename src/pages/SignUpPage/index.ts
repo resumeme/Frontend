@@ -1,5 +1,5 @@
 import CommonSignUpPage from './CommonSignUpPage';
-import MenteeSignUpPage from './MenteeSignupPage';
+import MenteeSignUpPage from './MenteeSignUpPage';
 import MentorSignUpPage from './MentorSignUpPage';
 
-export { MenteeSignUpPage, MentorSignUpPage, CommonSignUpPage };
+export { CommonSignUpPage, MenteeSignUpPage, MentorSignUpPage };
