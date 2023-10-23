@@ -1,4 +1,4 @@
-import { Layout } from './routes';
+import Layout from '~/routes/Layout';
 
 const App = () => {
   return <Layout />;
