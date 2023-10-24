@@ -1,11 +1,7 @@
-import Test from '~/Test';
+import Layout from '~/routes/Layout';
 
-function App() {
-  return (
-    <>
-      <Test></Test>
-    </>
-  );
-}
+const App = () => {
+  return <Layout />;
+};
 
 export default App;
