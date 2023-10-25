@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
@@ -9,7 +11,7 @@ const theme = extendTheme({
     xl: '80em', // ~1280px
   },
   styles: {
-    // eslint-disable-line no-unused-vars
+    // @ts-ignore
     global: (props: StyleFunctionProps) => ({
       body: {
         color: 'default',
