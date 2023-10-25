@@ -6,11 +6,14 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
+    'plugin:react/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '!.storybook', '!.config'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'import'],
   rules: {
+    'no-console': 'warn',
+    'react/react-in-jsx-scope': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'import/order': [
       'warn',
