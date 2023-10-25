@@ -5,10 +5,11 @@ const Fonts = () => {
     <Global
       styles={`
         @font-face {
-          font-family: 'Pretendard-Regular';
-          src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-          font-weight: 400;
+          font-family: 'Pretendard Variable';
+          font-weight: 45 920;
           font-style: normal;
+          font-display: swap;
+          src: url('/fonts/PretendardVariable.woff2') format('woff2-variations');
         }
       `}
     />

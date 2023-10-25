@@ -41,7 +41,7 @@ const theme = extendTheme({
       600: '#65B890',
       700: '#4DAF80',
       800: '#35A46F',
-      900: '#05904D',
+      900: '#05904D', // 기본 prime 색상
     },
     highlight: {
       900: '#FA3D3D',
@@ -49,9 +49,8 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: 'Pretendard-Regular',
-    body: 'Pretendard-Regular',
-    mono: 'Pretendard-Regular',
+    heading: 'Pretendard Variable',
+    body: 'Pretendard Variable',
   },
   fontWeights: {
     hairline: 100,
