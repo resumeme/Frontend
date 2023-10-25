@@ -1,3 +1,5 @@
+const { VITE_BASE_URL } = import.meta.env;
+
 export const environments = {
-  baseUrlEnv: process.env.REACT_APP_BASE_URL,
+  baseUrlEnv: VITE_BASE_URL,
 };
