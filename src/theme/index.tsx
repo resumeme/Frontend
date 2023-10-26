@@ -1,6 +1,8 @@
 /* eslint-disable */
 
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
+import { borderRadius } from '~/theme/foundations/borderRadius';
+import { Button } from './components/button';
 
 const theme = extendTheme({
   breakpoints: {
@@ -78,6 +80,8 @@ const theme = extendTheme({
     '8xl': '6rem',
     '9xl': '8rem',
   },
+  ...borderRadius,
+  components: { Button },
 });
 
 export default theme;
