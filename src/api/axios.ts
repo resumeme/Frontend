@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { redirect } from 'react-router-dom';
-import constants from '~/constants';
+import { environments } from '~/config/environments';
 
 export const resumeMeAxios = axios.create({
-  baseURL: constants.baseUrlEnv,
+  baseURL: environments.baseUrlEnv(),
   headers: {
     'Content-Type': 'application/json',
   },
