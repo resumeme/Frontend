@@ -2,7 +2,7 @@
 
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
 import { borderRadius } from '~/theme/foundations/borderRadius';
-import { Button } from './components/button';
+import { Button } from '~/theme/components/button';
 
 const theme = extendTheme({
   breakpoints: {
