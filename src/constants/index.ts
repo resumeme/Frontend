@@ -1,7 +1,3 @@
-import { environments } from './environments';
-
-const constants = {
-  ...environments,
-};
+const constants = {};
 
 export default constants;
