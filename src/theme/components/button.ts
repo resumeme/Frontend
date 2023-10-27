@@ -32,6 +32,7 @@ const Button = defineStyleConfig({
   },
   variants: {
     cancel: {
+      border: '1px solid',
       borderColor: 'gray.300',
       color: 'gray.400',
       bg: 'gray.100',
