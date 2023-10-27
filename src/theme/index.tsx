@@ -3,6 +3,7 @@
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
 import { borderRadius } from '~/theme/foundations/borderRadius';
 import { Button } from '~/theme/components/button';
+import { inputTheme } from './inputTheme';
 
 const theme = extendTheme({
   breakpoints: {
@@ -81,7 +82,7 @@ const theme = extendTheme({
     '9xl': '8rem',
   },
   ...borderRadius,
-  components: { Button },
+  components: { Input: inputTheme, Button },
 });
 
 export default theme;
