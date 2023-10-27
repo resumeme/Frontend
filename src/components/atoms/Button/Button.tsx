@@ -12,8 +12,6 @@ const Button = ({ size = 'full', variant = 'default', children }: ButtonProps) =
     <ChakraButton
       variant={variant}
       size={size}
-      height={'2.69rem'}
-      borderRadius={'buttonRadius'}
     >
       {children}
     </ChakraButton>
