@@ -1,3 +1,4 @@
+import { theme } from '@chakra-ui/react';
 import type { Preview } from '@storybook/react';
 import theme from '../src/theme/index';
 
