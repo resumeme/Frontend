@@ -151,13 +151,15 @@ export const DateInput = () => {
 
   const formInputSchema: FormInputSchema = {
     openEventDate: {
+      type: 'datetime-local',
+      label: '신청 기간',
+      placeholder: '',
       errorTypes: {
         required: true,
       },
-      label: '신청 기간',
-      placeholder: '',
     },
     closeEventDate: {
+      type: 'datetime-local',
       label: '',
       placeholder: '',
       errorTypes: {
@@ -180,7 +182,7 @@ export const DateInput = () => {
               label={formInputSchema[key].label}
               register={{ ...register(key, { ...formInputSchema[key].errorTypes }) }}
               errors={errors}
-              type="datetime-local"
+              type={formInputSchema[key].type}
             />
           ))}
         </HStack>
