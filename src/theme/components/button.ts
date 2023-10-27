@@ -14,6 +14,21 @@ const Button = defineStyleConfig({
     xs: {
       w: '3.16rem',
     },
+    full: {
+      w: '100%',
+    },
   },
+  variants: {
+    cancel: {
+      borderColor: 'gray.300',
+      color: 'gray.400',
+      bg: 'gray.100',
+    },
+    default: {
+      color: 'gray.100',
+      bg: 'primary.900',
+    },
+  },
+  defaultProps: {},
 });
 export { Button };

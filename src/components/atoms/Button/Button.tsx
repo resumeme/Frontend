@@ -1,31 +1,19 @@
 import { Button as ChakraButton } from '@chakra-ui/react';
 
 type ButtonProps = {
-  type?: 'default' | 'cancel';
-  size: 'lg' | 'md' | 'sm' | 'xs';
+  variant?: 'default' | 'cancel';
+  size?: 'lg' | 'md' | 'sm' | 'xs' | 'full';
+
   children: string;
 };
 
-const Button = ({ size, type = 'default', children }: ButtonProps) => {
-  const buttonStyle = {
-    default: {
-      backgroundColor: 'primary.900',
-      color: 'gray.100',
-      variant: 'solid',
-    },
-    cancel: {
-      backgroundColor: 'gray.100',
-      color: 'gray.400',
-      variant: 'outline',
-    },
-  };
+const Button = ({ size = 'full', variant = 'default', children }: ButtonProps) => {
   return (
     <ChakraButton
-      backgroundColor={buttonStyle[type]['backgroundColor']}
-      color={buttonStyle[type]['color']}
-      variant={buttonStyle[type]['variant']}
-      height={'2.69rem'}
+      variant={variant}
       size={size}
+      height={'2.69rem'}
+      borderRadius={'buttonRadius'}
     >
       {children}
     </ChakraButton>
