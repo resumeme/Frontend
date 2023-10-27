@@ -27,6 +27,7 @@ const Button = defineStyleConfig({
     },
     full: {
       w: '100%',
+      h: '2.69rem',
     },
   },
   variants: {
