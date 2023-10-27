@@ -103,7 +103,7 @@ const CommonSignUpPage = () => {
           {Object.keys(formInputSchema).map((key) => (
             <FormInput
               isRequired={'required' in formInputSchema[key].errorTypes}
-              direction="row"
+              direction="column"
               key={key}
               id={key}
               placeholder={formInputSchema[key].placeholder}

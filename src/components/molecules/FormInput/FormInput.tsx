@@ -17,10 +17,12 @@ const FormInput = ({
     >
       <Flex direction={direction}>
         <FormLabel
+          fontSize={'1.125rem'}
           w={'6rem'}
           htmlFor={id}
           mx={0}
           mt={'0.5rem'}
+          color={'gray.700'}
         >
           {label}
           {isRequired && (
@@ -38,6 +40,7 @@ const FormInput = ({
           direction={'column'}
         >
           <Input
+            h={'3.125rem'}
             w={'100%'}
             flexGrow={'1'}
             id={id}
