@@ -7,7 +7,7 @@ type LabelProps = ChakraBadgeProps & {
 };
 
 const Label = ({
-  children,
+  children = '기본값',
   px = '2.5',
   py = '1',
   bg = 'gray.800',
