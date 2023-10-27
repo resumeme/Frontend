@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, HStack, Stack } from '@chakra-ui/react';
 import { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import { FormInput } from '.';
@@ -121,6 +121,69 @@ export const Horizontal = () => {
           />
         ))}
 
+        <Button
+          mt={4}
+          bgColor="primary.900"
+          isLoading={isSubmitting}
+          type="submit"
+        >
+          등록하기
+        </Button>
+      </form>
+    </Box>
+  );
+};
+
+export const DateInput = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = (values: { [key: string]: string }) => {
+    return new Promise(() => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+      }, 3000);
+    });
+  };
+
+  const formInputSchema: FormInputSchema = {
+    openEventDate: {
+      errorTypes: {
+        required: true,
+      },
+      label: '신청 기간',
+      placeholder: '',
+    },
+    closeEventDate: {
+      label: '',
+      placeholder: '',
+      errorTypes: {
+        required: true,
+      },
+    },
+  };
+
+  return (
+    <Box w={'100%'}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <HStack>
+          {Object.keys(formInputSchema).map((key) => (
+            <FormInput
+              isRequired={'required' in formInputSchema[key].errorTypes}
+              direction="row"
+              key={key}
+              id={key}
+              placeholder={formInputSchema[key].placeholder}
+              label={formInputSchema[key].label}
+              register={{ ...register(key, { ...formInputSchema[key].errorTypes }) }}
+              errors={errors}
+              type="datetime-local"
+            />
+          ))}
+        </HStack>
         <Button
           mt={4}
           bgColor="primary.900"

@@ -30,25 +30,32 @@ const FormInput = ({
         direction={direction}
         spacing={0}
       >
-        <FormLabel
-          fontSize={'1.125rem'}
-          w={'6rem'}
-          htmlFor={id}
-          mx={0}
-          mt={'0.5rem'}
-          color={'gray.700'}
-        >
-          {label}
-          {isRequired && (
-            <Box
-              as="span"
-              color="primary.900"
-            >
-              {' '}
-              *
-            </Box>
-          )}
-        </FormLabel>
+        {label && (
+          <FormLabel
+            fontWeight={600}
+            lineHeight={'normal'}
+            fontSize={'1.125rem'}
+            w={'6.9375rem'}
+            minW={'6.9375rem'}
+            htmlFor={id}
+            mx={0}
+            mt={'0.5rem'}
+            color={'gray.700'}
+            p={0}
+          >
+            {label}
+            {isRequired && (
+              <Box
+                as="span"
+                color="primary.900"
+              >
+                {' '}
+                *
+              </Box>
+            )}
+          </FormLabel>
+        )}
+
         <VStack
           w={'100%'}
           alignItems={'flex-start'}
@@ -68,7 +75,7 @@ const FormInput = ({
             />
             {type === 'datetime-local' && (
               <Select
-                w={'5rem'}
+                w={'6rem'}
                 placeholder="시간"
                 _placeholder={{ color: 'gray.400' }}
                 color={'gray.900'}
