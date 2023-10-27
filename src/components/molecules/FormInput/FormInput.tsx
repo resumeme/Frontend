@@ -9,6 +9,7 @@ const FormInput = ({
   errors,
   direction = 'column',
   isRequired = false,
+  type = 'text',
 }: FormInputProps) => {
   return (
     <FormControl
@@ -40,6 +41,7 @@ const FormInput = ({
           direction={'column'}
         >
           <Input
+            type={type}
             h={'3.125rem'}
             w={'100%'}
             flexGrow={'1'}

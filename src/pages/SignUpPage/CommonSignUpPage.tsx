@@ -60,6 +60,12 @@ const CommonSignUpPage = () => {
         minLength: { message: '11자리 이하로 입력해주세요.', value: 9 },
       },
     },
+    date: {
+      type: 'datetime-local',
+      label: '시작날짜',
+      placeholder: '연도-월-일',
+      errorTypes: { required: true },
+    },
   };
 
   return (
@@ -110,6 +116,7 @@ const CommonSignUpPage = () => {
               label={formInputSchema[key].label}
               register={{ ...register(key, { ...formInputSchema[key].errorTypes }) }}
               errors={errors}
+              type={formInputSchema[key].type}
             />
           ))}
           <FormControl isInvalid={!!errors.name}>
