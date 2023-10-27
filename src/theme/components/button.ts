@@ -41,20 +41,6 @@ const Button = defineStyleConfig({
       color: 'gray.100',
       bg: 'primary.900',
     },
-    full: {
-      w: '100%',
-    },
-  },
-  variants: {
-    cancel: {
-      borderColor: 'gray.300',
-      color: 'gray.400',
-      bg: 'gray.100',
-    },
-    default: {
-      color: 'gray.100',
-      bg: 'primary.900',
-    },
   },
   defaultProps: {},
 });
