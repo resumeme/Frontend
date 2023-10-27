@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
+import { inputTheme } from './inputTheme';
 
 const theme = extendTheme({
   breakpoints: {
@@ -78,6 +79,7 @@ const theme = extendTheme({
     '8xl': '6rem',
     '9xl': '8rem',
   },
+  components: { Input: inputTheme },
 });
 
 export default theme;
