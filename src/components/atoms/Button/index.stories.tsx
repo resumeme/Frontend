@@ -2,17 +2,20 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '.';
 
 const meta = {
-  title: 'Example/Button',
+  title: 'Resumeme/Components/Button',
   component: Button,
+  tags: ['autodocs'],
   argTypes: {
-    type: {
-      type: 'string',
+    variant: {
+      options: ['default', 'cancel'],
+      control: { type: 'radio' },
     },
     size: {
-      type: 'string',
+      options: ['lg', 'md', 'sm', 'xs', 'full'],
+      control: { type: 'radio' },
     },
     children: {
-      type: 'string',
+      control: 'text',
     },
   },
 } satisfies Meta<typeof Button>;
@@ -22,7 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultButton: Story = {
   args: {
-    type: 'default',
+    variant: 'default',
     size: 'lg',
     children: 'Button',
   },
@@ -30,19 +33,8 @@ export const DefaultButton: Story = {
 
 export const CancelButton: Story = {
   args: {
-    type: 'cancel',
+    variant: 'cancel',
     size: 'lg',
     children: 'Button',
   },
-};
-
-export const Seconds = () => {
-  return (
-    <Button
-      size="lg"
-      type="cancel"
-    >
-      등록하기
-    </Button>
-  );
 };
