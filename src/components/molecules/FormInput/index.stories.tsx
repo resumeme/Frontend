@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Stack } from '@chakra-ui/react';
+import { Box, Button, HStack } from '@chakra-ui/react';
 import { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import { FormInput } from '.';
