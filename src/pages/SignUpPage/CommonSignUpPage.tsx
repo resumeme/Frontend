@@ -56,12 +56,12 @@ const CommonSignUpPage = () => {
       placeholder: '"-"기호 없이 작성해주세요.',
       errorTypes: {
         required: { message: '연락처를 입력해주세요.', value: true },
-        maxLength: { message: '9자리 이상 입력해주세요.', value: 11 },
-        minLength: { message: '11자리 이하로 입력해주세요.', value: 9 },
+        maxLength: { message: '11자리 이하로 입력해주세요.', value: 11 },
+        minLength: { message: '9자리 이상 입력해주세요.', value: 9 },
       },
     },
     date: {
-      type: 'date',
+      type: 'datetime-local',
       label: '시작날짜',
       placeholder: '연도-월-일',
       errorTypes: { required: true },

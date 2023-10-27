@@ -3,7 +3,6 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Flex,
   Box,
   Select,
   HStack,
@@ -50,27 +49,29 @@ const FormInput = ({
             </Box>
           )}
         </FormLabel>
-        <VStack w={'100%'}>
+        <VStack
+          w={'100%'}
+          alignItems={'flex-start'}
+        >
           <HStack
             w={'100%'}
             spacing={'0.81rem'}
           >
             <Input
-              type={type}
+              type={type === 'datetime-local' ? 'date' : type}
               h={'3.125rem'}
-              maxW={type === 'date' ? '10rem' : '100%'}
+              maxW={type === 'date' || type === 'datetime-local' ? '10rem' : '100%'}
               flexGrow={'1'}
               id={id}
               placeholder={placeholder}
               {...register}
             />
-            {type === 'date' && (
+            {type === 'datetime-local' && (
               <Select
-                m={0}
-                p={0}
-                textAlign={'center'}
                 w={'5rem'}
-                placeholder="시간표"
+                placeholder="시간"
+                _placeholder={{ color: 'gray.400' }}
+                color={'gray.900'}
                 h={'3.125rem'}
               >
                 {[...Array(24).keys()].map((hour) => (
