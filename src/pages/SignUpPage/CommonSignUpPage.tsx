@@ -61,7 +61,7 @@ const CommonSignUpPage = () => {
       },
     },
     date: {
-      type: 'datetime-local',
+      type: 'date',
       label: '시작날짜',
       placeholder: '연도-월-일',
       errorTypes: { required: true },

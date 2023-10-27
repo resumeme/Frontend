@@ -1,4 +1,15 @@
-import { Input, FormControl, FormLabel, FormErrorMessage, Flex, Box } from '@chakra-ui/react';
+import {
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Flex,
+  Box,
+  Select,
+  HStack,
+  Stack,
+  VStack,
+} from '@chakra-ui/react';
 import { FormInputProps } from '~/types/formInput';
 
 const FormInput = ({
@@ -16,7 +27,10 @@ const FormInput = ({
       isInvalid={!!errors[id]}
       w={'100%'}
     >
-      <Flex direction={direction}>
+      <Stack
+        direction={direction}
+        spacing={0}
+      >
         <FormLabel
           fontSize={'1.125rem'}
           w={'6rem'}
@@ -36,22 +50,43 @@ const FormInput = ({
             </Box>
           )}
         </FormLabel>
-        <Flex
-          w={'100%'}
-          direction={'column'}
-        >
-          <Input
-            type={type}
-            h={'3.125rem'}
+        <VStack w={'100%'}>
+          <HStack
             w={'100%'}
-            flexGrow={'1'}
-            id={id}
-            placeholder={placeholder}
-            {...register}
-          />
+            spacing={'0.81rem'}
+          >
+            <Input
+              type={type}
+              h={'3.125rem'}
+              maxW={type === 'date' ? '10rem' : '100%'}
+              flexGrow={'1'}
+              id={id}
+              placeholder={placeholder}
+              {...register}
+            />
+            {type === 'date' && (
+              <Select
+                m={0}
+                p={0}
+                textAlign={'center'}
+                w={'5rem'}
+                placeholder="시간표"
+                h={'3.125rem'}
+              >
+                {[...Array(24).keys()].map((hour) => (
+                  <option
+                    key={hour + 1}
+                    value={`${hour + 1}시`}
+                  >
+                    {hour + 1}시
+                  </option>
+                ))}
+              </Select>
+            )}
+          </HStack>
           <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>
-        </Flex>
-      </Flex>
+        </VStack>
+      </Stack>
     </FormControl>
   );
 };
