@@ -1,6 +1,9 @@
+import { theme as defaultTheme } from '@chakra-ui/react';
+
 const borderRadius = {
   radii: {
-    xl: '0.25rem',
+    ...defaultTheme.radii,
+    xl: '0.625rem',
   },
 };
 

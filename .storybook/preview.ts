@@ -1,3 +1,4 @@
+import { theme } from '@chakra-ui/react';
 import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
@@ -8,6 +9,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    chakra: {
+      theme,
     },
   },
 };

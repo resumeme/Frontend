@@ -1,45 +1,35 @@
-interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
-}
+import { Button as ChakraButton } from '@chakra-ui/react';
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+type ButtonProps = {
+  type?: 'default' | 'cancel';
+  size: 'lg' | 'md' | 'sm' | 'xs';
+  children: string;
+};
+
+const Button = ({ size, type = 'default', children }: ButtonProps) => {
+  const buttonStyle = {
+    default: {
+      backgroundColor: 'primary.900',
+      color: 'gray.100',
+      variant: 'solid',
+    },
+    cancel: {
+      backgroundColor: 'gray.100',
+      color: 'gray.400',
+      variant: 'outline',
+    },
+  };
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
+    <ChakraButton
+      backgroundColor={buttonStyle[type]['backgroundColor']}
+      color={buttonStyle[type]['color']}
+      variant={buttonStyle[type]['variant']}
+      height={'2.69rem'}
+      size={size}
     >
-      {label}
-    </button>
+      {children}
+    </ChakraButton>
   );
 };
+
+export default Button;
