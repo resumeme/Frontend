@@ -3,7 +3,6 @@
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
 import { Button } from '~/theme/components/button';
 import { inputTheme } from './inputTheme';
-import { Button } from '~/theme/components/button';
 
 const theme = extendTheme({
   breakpoints: {
