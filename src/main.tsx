@@ -4,8 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import router from '~/routes/router';
-import Fonts from '~/theme/font.tsx';
-import theme from '~/theme/index.tsx';
+import theme from '~/theme/theme';
+import Fonts from '~/theme/typography/fonts';
 
 const queryClient = new QueryClient();
 
