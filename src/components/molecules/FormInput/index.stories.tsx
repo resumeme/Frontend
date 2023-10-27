@@ -2,7 +2,7 @@ import { Box, Button } from '@chakra-ui/react';
 import { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import { FormInput } from '.';
-import { formInputSchema } from '~/types/formInputSchema';
+import { FormInputSchema } from '~/types/formInput';
 
 const meta: Meta<typeof FormInput> = {
   title: 'Components/molecules/FormInput',
@@ -26,7 +26,7 @@ export const Vertical = () => {
     });
   };
 
-  const formInputSchema: formInputSchema = {
+  const formInputSchema: FormInputSchema = {
     name: {
       errorTypes: {
         required: { message: '이름을 입력해 주세요.', value: true },
@@ -85,7 +85,7 @@ export const Horizontal = () => {
     });
   };
 
-  const formInputSchema: formInputSchema = {
+  const formInputSchema: FormInputSchema = {
     name: {
       errorTypes: {
         required: { message: '이름을 입력해 주세요.', value: true },
