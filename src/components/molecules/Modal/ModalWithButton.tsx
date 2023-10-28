@@ -1,7 +1,7 @@
 import { Button, useDisclosure } from '@chakra-ui/react';
 import Modal, { ModalProps } from './Modal';
 
-const ModalWithButton = ({ title, hasCloseButton, hasFooter, children }: ModalProps) => {
+const ModalWithButton = ({ size, title, hasCloseButton, hasFooter, children }: ModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -12,6 +12,7 @@ const ModalWithButton = ({ title, hasCloseButton, hasFooter, children }: ModalPr
         hasCloseButton={hasCloseButton}
         hasFooter={hasFooter}
         title={title}
+        size={size}
       >
         {children}
       </Modal>

@@ -15,6 +15,7 @@ export type ModalProps = ModalBodyProps & {
   onClose: () => void;
   hasCloseButton?: boolean;
   hasFooter?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   title?: string;
   children?: React.ReactNode;
 };
@@ -24,6 +25,7 @@ const Modal = ({
   onClose,
   hasCloseButton = true,
   hasFooter = false,
+  size = 'xl',
   title,
   children,
   ...modalBodyProps
@@ -34,7 +36,7 @@ const Modal = ({
         isOpen={isOpen}
         onClose={onClose}
         isCentered
-        size="3xl"
+        size={size}
       >
         <ModalOverlay bg={'rgba(229, 232, 235, 0.80)'} />
         <ModalContent

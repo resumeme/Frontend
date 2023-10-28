@@ -9,7 +9,12 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    size: {
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'full'],
+      control: { type: 'radio' },
+    },
+  },
 } satisfies Meta<typeof ModalWithButton>;
 
 export default meta;
