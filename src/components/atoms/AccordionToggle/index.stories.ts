@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import AccordionToggleButton from './AccordionToggleButton';
+import AccordionToggle from './AccordionToggle';
 
 const meta = {
-  title: 'Resumeme/Components/AccordionToggleButton',
-  component: AccordionToggleButton,
+  title: 'Resumeme/Components/AccordionToggle',
+  component: AccordionToggle,
   parameters: {
     layout: 'centered',
   },
@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     text: { control: 'text' },
   },
-} satisfies Meta<typeof AccordionToggleButton>;
+} satisfies Meta<typeof AccordionToggle>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -8,7 +8,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 
-type AccordionToggleButtonProps = {
+type AccordionToggleProps = {
   text: string;
   pannelPx?: string;
   pannelPy?: string;
@@ -16,14 +16,14 @@ type AccordionToggleButtonProps = {
   children: React.ReactNode;
 };
 
-const AccordionToggleButton = ({
+const AccordionToggle = ({
   text,
   pannelPx = '0',
   pannelPy = '1rem',
   fontSize = 'sm',
   children,
   ...props
-}: AccordionToggleButtonProps) => {
+}: AccordionToggleProps) => {
   return (
     <Flex>
       <Accordion
@@ -63,4 +63,4 @@ const AccordionToggleButton = ({
   );
 };
 
-export default AccordionToggleButton;
+export default AccordionToggle;
