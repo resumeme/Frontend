@@ -5,7 +5,7 @@ import { FormInput } from '.';
 import { FormInputSchema } from '~/types/formInput';
 
 const meta: Meta<typeof FormInput> = {
-  title: 'Components/molecules/FormInput',
+  title: 'Resumeme/Components/FormInput',
   component: FormInput,
 };
 
