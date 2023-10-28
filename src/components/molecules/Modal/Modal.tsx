@@ -31,40 +31,38 @@ const Modal = ({
   ...modalBodyProps
 }: ModalProps) => {
   return (
-    <>
-      <ChakraModal
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        size={size}
+    <ChakraModal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      size={size}
+    >
+      <ModalOverlay bg={'rgba(229, 232, 235, 0.80)'} />
+      <ModalContent
+        borderRadius={'1.5rem'}
+        p={'1.5rem'}
       >
-        <ModalOverlay bg={'rgba(229, 232, 235, 0.80)'} />
-        <ModalContent
-          borderRadius={'1.5rem'}
-          p={'1.5rem'}
-        >
-          {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
-          {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
-          <ModalBody {...modalBodyProps}>{children}</ModalBody>
-          {hasFooter && (
-            <ModalFooter
-              paddingBottom={0}
-              px={0}
+        {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
+        {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
+        <ModalBody {...modalBodyProps}>{children}</ModalBody>
+        {hasFooter && (
+          <ModalFooter
+            paddingBottom={0}
+            px={0}
+          >
+            {/*FIXME - 공통 버튼 컴포넌트로 대체하기 */}
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={onClose}
             >
-              {/*FIXME - 공통 버튼 컴포넌트로 대체하기 */}
-              <Button
-                colorScheme="blue"
-                mr={3}
-                onClick={onClose}
-              >
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
-            </ModalFooter>
-          )}
-        </ModalContent>
-      </ChakraModal>
-    </>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        )}
+      </ModalContent>
+    </ChakraModal>
   );
 };
 
