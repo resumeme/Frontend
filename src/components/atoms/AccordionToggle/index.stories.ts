@@ -8,9 +8,6 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    text: { control: 'text' },
-  },
 } satisfies Meta<typeof AccordionToggle>;
 
 export default meta;
