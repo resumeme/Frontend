@@ -12,7 +12,7 @@ type AccordionToggleButtonProps = {
   text: string;
   pannelPx?: string;
   pannelPy?: string;
-  iconSize?: string;
+  fontSize?: string;
   children: React.ReactNode;
 };
 
@@ -20,7 +20,7 @@ const AccordionToggleButton = ({
   text,
   pannelPx = '0',
   pannelPy = '1rem',
-  iconSize = '1.2rem',
+  fontSize = 'sm',
   children,
   ...props
 }: AccordionToggleButtonProps) => {
@@ -42,13 +42,13 @@ const AccordionToggleButton = ({
               as="span"
               flex={1}
               textAlign={'left'}
-              fontSize={'sm'}
+              fontSize={fontSize}
             >
               {text}
             </Box>
             <AccordionIcon
               marginLeft={'0.37rem'}
-              boxSize={iconSize}
+              fontSize={fontSize}
             />
           </AccordionButton>
           <AccordionPanel
