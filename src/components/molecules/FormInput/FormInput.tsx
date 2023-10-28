@@ -75,7 +75,7 @@ const FormInput = ({
             />
             {type === 'datetime-local' && (
               <Select
-                w={'6rem'}
+                w={'fit-content'}
                 placeholder="시간"
                 _placeholder={{ color: 'gray.400' }}
                 color={'gray.900'}
