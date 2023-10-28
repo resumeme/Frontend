@@ -10,7 +10,7 @@ import {
   ModalBodyProps,
 } from '@chakra-ui/react';
 
-type ModalProps = ModalBodyProps & {
+export type ModalProps = ModalBodyProps & {
   isOpen: boolean;
   onClose: () => void;
   hasCloseButton?: boolean;
