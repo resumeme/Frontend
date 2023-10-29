@@ -1,13 +1,14 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/form-control';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { CheckIcon } from '@chakra-ui/icons';
-import { Input } from '@chakra-ui/input';
 import { Box, Container } from '@chakra-ui/layout';
 import { Card, CardBody, Image, Stack, HStack, Button } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { Divider } from '@chakra-ui/react';
 import { Step, StepIndicator, Stepper, useSteps } from '@chakra-ui/stepper';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { FormInput } from '~/components/molecules/FormInput';
+import { FormInputSchema } from '~/types/formInput';
 
 const CommonSignUpPage = () => {
   const steps = [
@@ -18,18 +19,13 @@ const CommonSignUpPage = () => {
 
   const { activeStep, setActiveStep } = useSteps({ index: 1, count: steps.length });
 
-  type FormValues = {
-    name: string;
-    nickName: string;
-    phoneNumber: number;
-  };
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
+  } = useForm();
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
+  const onSubmit = (values: { [key: string]: string }) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -37,17 +33,32 @@ const CommonSignUpPage = () => {
     });
   };
 
-  const errorMessage = {
-    name: '이름을 입력해주세요.',
+  const formInputSchema: FormInputSchema = {
+    name: {
+      errorTypes: {
+        required: { message: '이름을 입력해 주세요.', value: true },
+        maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
+      },
+      label: '이름',
+      placeholder: '본명을 입력해주세요.',
+    },
     nickName: {
-      required: '닉네임을 입력해주세요.',
-      minLength: '2글자 이상 입력해주세요.',
-      maxLength: '10글자 이하로 입력해주세요.',
+      label: '닉네임',
+      placeholder: '닉네임을 입력해주세요',
+      errorTypes: {
+        required: { message: '닉네임을 입력해 주세요.', value: true },
+        maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
+        minLength: { message: '2자리 이상 입력해 주세요.', value: 2 },
+      },
     },
     phoneNumber: {
-      required: '연락처를 입력해주세요.',
-      minLength: '9글자 이상 입력해주세요.',
-      maxLength: '11글자 이하로 입력해주세요.',
+      label: '연락처',
+      placeholder: '"-"기호 없이 작성해주세요.',
+      errorTypes: {
+        required: { message: '연락처를 입력해주세요.', value: true },
+        maxLength: { message: '11자리 이하로 입력해주세요.', value: 11 },
+        minLength: { message: '9자리 이상 입력해주세요.', value: 9 },
+      },
     },
   };
 
@@ -89,59 +100,19 @@ const CommonSignUpPage = () => {
       </Box>
       <Stack>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor="name">이름</FormLabel>
-            <Input
-              id="name"
-              placeholder="본명을 입력해주세요."
-              {...register('name', {
-                required: true,
-                pattern: /&s/,
-              })}
+          {Object.keys(formInputSchema).map((key) => (
+            <FormInput
+              isRequired={'required' in formInputSchema[key].errorTypes}
+              direction="column"
+              key={key}
+              id={key}
+              placeholder={formInputSchema[key].placeholder}
+              label={formInputSchema[key].label}
+              register={{ ...register(key, { ...formInputSchema[key].errorTypes }) }}
+              errors={errors}
+              type={formInputSchema[key].type}
             />
-            {errors?.name && <FormErrorMessage>{errorMessage.name}</FormErrorMessage>}
-          </FormControl>
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor="nickName">닉네임</FormLabel>
-            <Input
-              id="nickName"
-              placeholder="닉네임을 2글자 이상 10글자 이하로 작성해주세요."
-              {...register('nickName', {
-                required: true,
-                minLength: 2,
-                maxLength: 10,
-              })}
-            />
-
-            {
-              <FormErrorMessage>
-                {errorMessage.nickName[errors.nickName?.type as keyof typeof errorMessage.nickName]}
-              </FormErrorMessage>
-            }
-          </FormControl>
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor="phoneNumber">연락처</FormLabel>
-            <Input
-              focusBorderColor="primary.900"
-              id="phoneNumber"
-              placeholder="'-'기호 없이 작성해주세요."
-              {...register('phoneNumber', {
-                required: true,
-                minLength: 9,
-                maxLength: 11,
-              })}
-            />
-
-            {
-              <FormErrorMessage>
-                {
-                  errorMessage.phoneNumber[
-                    errors.phoneNumber?.type as keyof typeof errorMessage.phoneNumber
-                  ]
-                }
-              </FormErrorMessage>
-            }
-          </FormControl>
+          ))}
           <FormControl isInvalid={!!errors.name}>
             <FormLabel>역할 선택 *</FormLabel>
             <HStack mx={'auto'}>

@@ -6,7 +6,7 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 );
 
 const inputBaseStyle = definePartsStyle({
-  field: {},
+  field: { _placeholder: { color: 'gray.400' } },
 });
 const inputVariantOutline = definePartsStyle(() => {
   return {
@@ -23,9 +23,9 @@ const inputVariants = {
   outline: inputVariantOutline,
 };
 
-const inputTheme = defineMultiStyleConfig({
+const Input = defineMultiStyleConfig({
   baseStyle: inputBaseStyle,
   variants: inputVariants,
 });
 
-export { inputTheme };
+export { Input };
