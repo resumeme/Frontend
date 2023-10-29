@@ -10,16 +10,16 @@ import {
 
 type AccordionToggleProps = {
   text: string;
-  pannelPx?: string;
-  pannelPy?: string;
+  panelPx?: string;
+  panelPy?: string;
   fontSize?: string;
   children: React.ReactNode;
 };
 
 const AccordionToggle = ({
   text,
-  pannelPx = '0',
-  pannelPy = '1rem',
+  panelPx = '0',
+  panelPy = '1rem',
   fontSize = 'sm',
   children,
   ...props
@@ -52,8 +52,8 @@ const AccordionToggle = ({
             />
           </AccordionButton>
           <AccordionPanel
-            px={pannelPx}
-            py={pannelPy}
+            px={panelPx}
+            py={panelPy}
           >
             {children}
           </AccordionPanel>
