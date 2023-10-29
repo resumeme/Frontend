@@ -1,7 +1,7 @@
 import { AvatarProps as ChakraAvatarProps, Avatar as ChakraAvatar } from '@chakra-ui/react';
 
 type AvatarProps = {
-  size?: 'sm' | 'md' | 'lg' | 'full';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'full';
 } & Omit<ChakraAvatarProps, 'size'>;
 
 const Avatar = ({ size = 'md', ...props }: AvatarProps) => {
