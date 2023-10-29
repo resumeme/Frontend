@@ -136,15 +136,29 @@ export const Horizontal = () => {
 
 export const DateInput = () => {
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = (values: { [key: string]: string }) => {
+    const { openEventDate, openEventDateTime, closeEventDate, closeEventDateTime } = values;
+
+    let openDateTime = '',
+      closeDateTime = '';
+    if (openEventDateTime) {
+      const hour = openEventDateTime.replace('시', '');
+      openDateTime = `${openEventDate}T${hour.padStart(2, '0')}:00:00`;
+    }
+    if (closeEventDateTime) {
+      const hour = closeEventDateTime.replace('시', '');
+      closeDateTime = `${closeEventDate}T${hour.padStart(2, '0')}:00:00`;
+    }
+
     return new Promise(() => {
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify({ ...values, openDateTime, closeDateTime }, null, 2));
       }, 3000);
     });
   };
@@ -183,6 +197,7 @@ export const DateInput = () => {
               register={{ ...register(key, { ...formInputSchema[key].errorTypes }) }}
               errors={errors}
               type={formInputSchema[key].type}
+              control={control}
             />
           ))}
         </HStack>

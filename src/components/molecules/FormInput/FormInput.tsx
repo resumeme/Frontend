@@ -9,6 +9,7 @@ import {
   Stack,
   VStack,
 } from '@chakra-ui/react';
+import { Controller } from 'react-hook-form';
 import { FormInputProps } from '~/types/formInput';
 
 const FormInput = ({
@@ -20,6 +21,7 @@ const FormInput = ({
   direction = 'column',
   isRequired = false,
   type = 'text',
+  control,
 }: FormInputProps) => {
   return (
     <FormControl
@@ -74,22 +76,29 @@ const FormInput = ({
               {...register}
             />
             {type === 'datetime-local' && (
-              <Select
-                w={'fit-content'}
-                placeholder="시간"
-                _placeholder={{ color: 'gray.400' }}
-                color={'gray.900'}
-                h={'3.125rem'}
-              >
-                {[...Array(24).keys()].map((hour) => (
-                  <option
-                    key={hour + 1}
-                    value={`${hour + 1}시`}
+              <Controller
+                name={`${id}Time`}
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    w={'fit-content'}
+                    placeholder="시간"
+                    _placeholder={{ color: 'gray.400' }}
+                    color={'gray.900'}
+                    h={'3.125rem'}
+                    {...field}
                   >
-                    {hour + 1}시
-                  </option>
-                ))}
-              </Select>
+                    {[...Array(24).keys()].map((hour) => (
+                      <option
+                        key={hour + 1}
+                        value={`${hour + 1}시`}
+                      >
+                        {hour + 1}시
+                      </option>
+                    ))}
+                  </Select>
+                )}
+              />
             )}
           </HStack>
           <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>

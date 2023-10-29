@@ -1,6 +1,12 @@
 import { InputProps } from '@chakra-ui/react';
 import { HTMLInputTypeAttribute } from 'react';
-import { FieldErrors, FieldValues, RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
+import {
+  Control,
+  FieldErrors,
+  FieldValues,
+  RegisterOptions,
+  UseFormRegisterReturn,
+} from 'react-hook-form';
 
 type FormInputSchema = {
   [key: string]: {
@@ -19,6 +25,7 @@ type FormInputProps = {
   register: UseFormRegisterReturn;
   errors: FieldErrors;
   direction?: 'column' | 'row';
+  control?: Control;
 } & InputProps;
 
 export type { FormInputSchema, FormInputProps };
