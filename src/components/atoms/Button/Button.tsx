@@ -1,17 +1,17 @@
-import { Button as ChakraButton } from '@chakra-ui/react';
+import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
 
-type ButtonProps = {
+type ButtonProps = ChakraButtonProps & {
   variant?: 'default' | 'cancel';
   size?: 'lg' | 'md' | 'sm' | 'xs' | 'full';
-
   children: string;
 };
 
-const Button = ({ size = 'full', variant = 'default', children }: ButtonProps) => {
+const Button = ({ size = 'full', variant = 'default', children, ...props }: ButtonProps) => {
   return (
     <ChakraButton
       variant={variant}
       size={size}
+      {...props}
     >
       {children}
     </ChakraButton>
