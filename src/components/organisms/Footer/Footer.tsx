@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, Flex, HStack, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -153,7 +153,6 @@ const Footer = () => {
               <Link to={'/event/view'}>
                 <Text fontWeight={600}>커뮤니티</Text>
               </Link>
-
               <Link to={'/coffee-chat'}>
                 <Text mt={'1.13rem'}>멘토 커피챗</Text>
               </Link>
