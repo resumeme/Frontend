@@ -1,15 +1,24 @@
-import { Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <>
+    <Box
+      bg={'white'}
+      w={'100%'}
+      borderTop={'1px solid'}
+      borderColor={'gray.300'}
+    >
       <Flex
-        w={'100%'}
+        mx={'auto'}
+        maxW={'4xl'}
         direction={'column'}
         px={'0.75rem'}
       >
-        <Flex w={'100%'}>
+        <Flex
+          w={'100%'}
+          mt={'3.14rem'}
+        >
           <Text
             mr={'auto'}
             fontWeight={900}
@@ -133,7 +142,7 @@ const Footer = () => {
           borderColor={'gray.300'}
         />
         <Text
-          mt={'1rem'}
+          my={'1.16rem'}
           color={'gray.400'}
           fontSize={'0.75rem'}
           fontWeight={700}
@@ -141,7 +150,7 @@ const Footer = () => {
           ⓒ 2023 이력, 써{' '}
         </Text>
       </Flex>
-    </>
+    </Box>
   );
 };
 
