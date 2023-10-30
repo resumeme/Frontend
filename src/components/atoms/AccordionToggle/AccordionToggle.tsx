@@ -4,11 +4,12 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  AccordionProps,
   Flex,
   Box,
 } from '@chakra-ui/react';
 
-type AccordionToggleProps = {
+type AccordionToggleProps = AccordionProps & {
   text: string;
   panelPx?: string;
   panelPy?: string;
