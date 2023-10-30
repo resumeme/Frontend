@@ -3,16 +3,16 @@ import { Position } from './position';
 
 export default interface Career {
   companyName: string;
-  position: '' | Position;
+  position: Position;
   skills?: string[];
   duties?: Duty[];
   isCurrentlyEmployed: boolean;
-  careerStartDate?: string;
-  endDate: DateString;
+  careerStartDate: DateString;
+  endDate?: DateString;
   careerContent: string;
 }
 
-interface Duty {
+export interface Duty {
   title?: string;
   description?: string;
   startDate?: DateString;
