@@ -1,4 +1,5 @@
 import { Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -107,13 +108,16 @@ const Footer = () => {
           >
             <Flex direction={'column'}>
               <Text fontWeight={600}>이력서</Text>
-              <Text mt={'1.13rem'}>나의 이력서</Text>
-              <Text>이력서 관리</Text>
+              <Link to={'/event/view'}>
+                <Text mt={'1.13rem'}>이력서 관리</Text>
+              </Link>
+              <Text>합격 이력서</Text>
             </Flex>
             <Flex direction={'column'}>
-              <Text fontWeight={600}>피드백</Text>
-              <Text mt={'1.13rem'}>멘토 피드백</Text>
-              <Text>공개 피드백</Text>
+              <Text fontWeight={600}>이벤트</Text>
+              <Link to={'/event/view'}>
+                <Text mt={'1.13rem'}>진행중인 이벤트</Text>
+              </Link>
             </Flex>
             <Flex direction={'column'}>
               <Text fontWeight={600}>커뮤니티</Text>
