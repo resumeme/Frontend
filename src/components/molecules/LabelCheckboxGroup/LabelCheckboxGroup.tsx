@@ -29,6 +29,7 @@ const LabelCheckboxGroup = ({
   variant = 'default',
   spacing = '12px',
   onChange,
+  ...props
 }: LabelCheckboxGroupProps) => {
   let selectedOptions = options;
 
@@ -38,7 +39,10 @@ const LabelCheckboxGroup = ({
 
   return (
     <>
-      <CheckboxGroup onChange={onChange}>
+      <CheckboxGroup
+        onChange={onChange}
+        {...props}
+      >
         <Stack
           spacing={spacing}
           direction="row"
