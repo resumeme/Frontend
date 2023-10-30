@@ -31,10 +31,30 @@ const Footer = () => {
             fontWeight={600}
             spacing={'3.75rem'}
           >
-            <Text>아몬드빼빼로</Text>
-            <Text>이용 약관</Text>
-            <Text>블로그</Text>
-            <Text>개인정보 처리방침</Text>
+            <Link
+              to={'https://www.notion.so/prgrms/11-0-2a36f4b93e324e3390ed43b831f9f557'}
+              target="_blank"
+            >
+              <Text>아몬드빼빼로</Text>
+            </Link>
+            <Link //Todo: 이용약관 추가 시 연결
+              to={''}
+              target=""
+            >
+              <Text>이용 약관</Text>
+            </Link>
+            <Link //Todo: 블로그 생성 시 연결
+              to={''}
+              target=""
+            >
+              <Text>블로그</Text>
+            </Link>
+            <Link //Todo: 개인정보 처리방침 추가 후 연결
+              to={''}
+              target=""
+            >
+              <Text>개인정보 처리방침</Text>
+            </Link>
           </HStack>
         </Flex>
         <Flex alignItems={'end'}>
@@ -117,10 +137,11 @@ const Footer = () => {
           >
             <Flex direction={'column'}>
               <Text fontWeight={600}>이력서</Text>
-              <Link to={'/event/view'}>
+              <Link //Todo: 이력서 관리 라우팅 후 연결
+                to={'/'}
+              >
                 <Text mt={'1.13rem'}>이력서 관리</Text>
               </Link>
-              <Text>합격 이력서</Text>
             </Flex>
             <Flex direction={'column'}>
               <Text fontWeight={600}>이벤트</Text>
@@ -129,10 +150,19 @@ const Footer = () => {
               </Link>
             </Flex>
             <Flex direction={'column'}>
-              <Text fontWeight={600}>커뮤니티</Text>
-              <Text mt={'1.13rem'}>멘토 커피챗</Text>
-              <Text>자유게시판</Text>
-              <Text>공개 이력서</Text>
+              <Link to={'/event/view'}>
+                <Text fontWeight={600}>커뮤니티</Text>
+              </Link>
+
+              <Link to={'/coffee-chat'}>
+                <Text mt={'1.13rem'}>멘토 커피챗</Text>
+              </Link>
+              <Link to={'/general'}>
+                <Text>자유게시판</Text>
+              </Link>
+              <Link to={'/resume/references'}>
+                <Text>합격 이력서</Text>
+              </Link>
             </Flex>
           </HStack>
         </Flex>
