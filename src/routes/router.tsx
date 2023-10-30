@@ -9,6 +9,7 @@ import MainPage from '~/pages/MainPage/MainPage';
 import MenteeMyPage from '~/pages/MyPage/MenteeMyPage';
 import MentorMyPage from '~/pages/MyPage/MentorMyPage';
 import WriteReviewPage from '~/pages/MyPage/WriteReviewPage';
+import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import MenteeEditProfilePage from '~/pages/ProfilePage/MenteeEditProfilePage';
 import MentorEditProfilePage from '~/pages/ProfilePage/MentorEditProfilePage';
 import CommentResumePage from '~/pages/ResumePage/CommentResumePage';
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <MainPage /> },
       { path: 'mypage/mentee', element: <MenteeMyPage /> },
