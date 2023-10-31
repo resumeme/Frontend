@@ -1,17 +1,46 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
-import LabelCheckboxGroup, { LabelCheckboxGroupProps } from './LabelCheckboxGroup';
+import LabelCheckboxGroup from './LabelCheckboxGroup';
 
 const meta: Meta = {
   title: 'Resumeme/Components/LabelCheckboxGroup',
   component: LabelCheckboxGroup,
   tags: ['autodocs'],
+  argTypes: {
+    variant: { control: 'text' },
+    name: { control: 'text' },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-const Template = (args: LabelCheckboxGroupProps) => {
+export const Default = () => {
+  const { control, handleSubmit } = useForm();
+
+  const options = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+  ];
+
+  const onSubmit = (data: { [key: string]: string }) => {
+    alert(`selected options: ${JSON.stringify(data.selectedOptions)}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <LabelCheckboxGroup
+        variant="default"
+        options={options}
+        control={control}
+        name="selectedOptions"
+      />
+      <button type="submit">확인</button>
+    </form>
+  );
+};
+
+export const Role = () => {
   const { control, handleSubmit } = useForm();
 
   const onSubmit = (data: { [key: string]: string }) => {
@@ -21,8 +50,7 @@ const Template = (args: LabelCheckboxGroupProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <LabelCheckboxGroup
-        options={args.options}
-        variant={args.variant}
+        variant="role"
         control={control}
         name="selectedOptions"
       />
@@ -31,23 +59,21 @@ const Template = (args: LabelCheckboxGroupProps) => {
   );
 };
 
-export const Default: Story = Template.bind({});
-Default.args = {
-  options: [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
-  ],
-};
+export const Domain = () => {
+  const { control, handleSubmit } = useForm();
 
-export const Role: Story = Template.bind({});
-Role.args = {
-  variant: 'role',
-  name: 'selectedOptions',
-};
+  const onSubmit = (data: { [key: string]: string }) => {
+    alert(`selected options: ${JSON.stringify(data.selectedOptions)}`);
+  };
 
-export const Domain: Story = Template.bind({});
-Domain.args = {
-  variant: 'domain',
-  name: 'selectedOptions',
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <LabelCheckboxGroup
+        variant="domain"
+        control={control}
+        name="selectedOptions"
+      />
+      <button type="submit">확인</button>
+    </form>
+  );
 };
