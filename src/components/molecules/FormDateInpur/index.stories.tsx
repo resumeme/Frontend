@@ -1,7 +1,8 @@
-import { Flex, FormControl, HStack } from '@chakra-ui/react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { Flex, HStack } from '@chakra-ui/react';
+import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import FormDateInput from './FormDateInput';
+import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
