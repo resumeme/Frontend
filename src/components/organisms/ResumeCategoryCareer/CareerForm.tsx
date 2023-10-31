@@ -8,8 +8,8 @@ import {
   HStack,
   Text,
   Divider,
+  Button as ChakraButton,
 } from '@chakra-ui/react';
-import { Button as ChakraButton } from '@chakra-ui/react';
 import React from 'react';
 import {
   FieldErrors,
@@ -206,10 +206,13 @@ const DutyForm = ({
         m={'1.5rem'}
         borderColor={'gray.300'}
       />
-      <DeleteIcon
+      <ChakraButton
+        w={0}
         alignSelf={'self-end'}
         onClick={() => remove(index)}
-      />
+      >
+        <DeleteIcon />
+      </ChakraButton>
       <FormControl>
         <HStack>
           <FormLabel
