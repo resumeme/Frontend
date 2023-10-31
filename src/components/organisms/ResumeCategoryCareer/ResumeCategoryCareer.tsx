@@ -1,24 +1,10 @@
 import { VStack } from '@chakra-ui/react';
-import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import { useStorage } from '~/hooks/useStorage';
-import Career from '~/types/career';
-import { Duty } from '~/types/career';
-import { DateString } from '~/types/dateString';
-import { Position } from '~/types/position';
-
-interface DefaultDuty extends Omit<Duty, 'startDate' | 'endDate'> {
-  startDate?: '' | DateString;
-  endDate?: '' | DateString;
-}
-interface DefaultCareer extends Omit<Career, 'position' | 'duties' | 'careerStartDate'> {
-  position: '' | Position;
-  duties?: DefaultDuty[];
-  careerStartDate: '' | DateString;
-}
+import { DefaultCareer } from '~/types/career';
 
 const careerDefaultItem: DefaultCareer = {
   companyName: '',

@@ -18,3 +18,14 @@ export interface Duty {
   startDate?: DateString;
   endDate?: DateString;
 }
+
+export interface DefaultDuty extends Omit<Duty, 'startDate' | 'endDate'> {
+  startDate?: '' | DateString;
+  endDate?: '' | DateString;
+}
+
+export interface DefaultCareer extends Omit<Career, 'position' | 'duties' | 'careerStartDate'> {
+  position: '' | Position;
+  duties?: DefaultDuty[];
+  careerStartDate: '' | DateString;
+}
