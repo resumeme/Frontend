@@ -208,6 +208,7 @@ const DutyForm = ({
       />
       <ChakraButton
         w={0}
+        h={0}
         alignSelf={'self-end'}
         onClick={() => remove(index)}
       >
