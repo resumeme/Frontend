@@ -30,6 +30,7 @@ export const Default = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <LabelCheckboxGroup
+        required={false}
         variant="default"
         options={options}
         control={control}

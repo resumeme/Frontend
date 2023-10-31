@@ -7,6 +7,7 @@ export type LabelCheckboxGroupProps = CheckboxGroupProps & {
   variant?: 'role' | 'domain' | 'default';
   spacing?: string;
   name: string;
+  required?: boolean;
   control: Control;
 };
 
@@ -33,6 +34,7 @@ const LabelCheckboxGroup = ({
   spacing = '12px',
   name,
   control,
+  required = true,
   ...props
 }: LabelCheckboxGroupProps) => {
   let selectedOptions = options;
@@ -68,6 +70,7 @@ const LabelCheckboxGroup = ({
             </Stack>
           </CheckboxGroup>
         )}
+        rules={{ required }}
       />
     </>
   );
