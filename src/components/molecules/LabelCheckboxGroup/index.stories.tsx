@@ -15,7 +15,6 @@ const Template = (args: LabelCheckboxGroupProps) => {
   const { control, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    alert(typeof data);
     alert(`selected options: ${JSON.stringify(data.selectedOptions)}`);
   };
 
