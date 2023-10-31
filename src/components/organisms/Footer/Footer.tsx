@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const FOOTER_CONTENT = {
   main: {
-    title: 'resumeme',
+    title: 'resume.me',
   },
   links: {
     almondPepero: {
