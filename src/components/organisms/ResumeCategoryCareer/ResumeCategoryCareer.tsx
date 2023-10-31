@@ -20,8 +20,20 @@ interface DefaultCareer extends Omit<Career, 'position' | 'duties' | 'careerStar
   careerStartDate: '' | DateString;
 }
 
+const careerDefaultItem: DefaultCareer = {
+  companyName: '',
+  position: '',
+  isCurrentlyEmployed: false,
+  careerContent: '',
+  careerStartDate: '',
+};
+
 const ResumeCategoryCareer = () => {
-  const [careerItems, setCareerItems] = useState<DefaultCareer[]>([]);
+  /**TODO zustand persist로 폼 입력값 스토리지에 저장하기 (배열)
+   * 저장한 값을 불러와서 map으로 돌린다
+   * FIXME useState를 zustand store에서 불러오도록 수정하기
+   */
+  const [careerItems, setCareerItems] = useState<object[]>([]);
   const handleItemAdd = () => {
     setCareerItems((prevItems) => [...prevItems, careerDefaultItem]);
   };
@@ -48,14 +60,6 @@ const ResumeCategoryCareer = () => {
   );
 };
 
-const careerDefaultItem: DefaultCareer = {
-  companyName: '',
-  position: '',
-  isCurrentlyEmployed: false,
-  careerContent: '',
-  careerStartDate: '',
-};
-
 const CareerForm = () => {
   const {
     register,
@@ -64,9 +68,9 @@ const CareerForm = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((values) => {
+    /**TODO api 호출해 저장하기 */
     console.log('values', values);
   });
-  console.log('errors', errors);
 
   return (
     <form onSubmit={onSubmit}>
