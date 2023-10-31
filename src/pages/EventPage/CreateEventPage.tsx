@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Divider,
   Flex,
   FormErrorMessage,
@@ -9,7 +8,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
