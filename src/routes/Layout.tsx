@@ -1,11 +1,45 @@
-import { Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
+import Footer from '~/components/organisms/Footer/Footer';
+import { Header } from '~/components/organisms/Header';
 
 const Layout = () => {
   return (
     <>
-      <Heading>예를 들어 Header가 들어갈 공간, Outlet에는 경로가 "/"일 때 null 값이 들어감</Heading>
-      <Outlet />
+      <Box
+        minH={'100vh'}
+        display={'flex'}
+        flexDirection={'column'}
+      >
+        <Box
+          position={'fixed'}
+          w={'full'}
+          top={0}
+          left={'50%'}
+          transform="translate(-50%, 0)"
+          flexGrow={0}
+          flexShrink={0}
+        >
+          <Header />
+        </Box>
+        <Box
+          flexGrow={1}
+          mt={'66px'}
+          w={'100%'}
+          maxW={'992px'}
+          mx={'auto'}
+          py={'3rem'}
+          px={'12px'}
+        >
+          <Outlet />
+        </Box>
+        <Box
+          flexGrow={0}
+          flexShrink={0}
+        >
+          <Footer />
+        </Box>
+      </Box>
     </>
   );
 };
