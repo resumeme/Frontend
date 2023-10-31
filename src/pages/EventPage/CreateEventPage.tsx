@@ -8,7 +8,6 @@ import {
   Input,
   Text,
   Textarea,
-  VStack,
 } from '@chakra-ui/react';
 import { Controller, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
