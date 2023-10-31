@@ -46,10 +46,11 @@ const ResumeCategoryCareer = () => {
         marginTop={'1.56rem'}
         spacing={'1rem'}
       >
-        {careerItems.map(() => (
+        {careerItems?.map(() => (
           <BorderBox
             key={uuidv4()}
             w={'100%'}
+            p={'2rem'}
           >
             <CareerForm />
           </BorderBox>

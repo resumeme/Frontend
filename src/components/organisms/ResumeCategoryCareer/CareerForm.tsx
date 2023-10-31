@@ -1,18 +1,44 @@
-import { FormControl, FormLabel, VStack, Input, FormErrorMessage, HStack } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { AddIcon } from '@chakra-ui/icons';
+import {
+  FormControl,
+  FormLabel,
+  VStack,
+  Input,
+  FormErrorMessage,
+  HStack,
+  Text,
+  Divider,
+} from '@chakra-ui/react';
+import { Button as ChakraButton } from '@chakra-ui/react';
+import React from 'react';
+import { FieldErrors, FieldValues, UseFormRegister, useFieldArray, useForm } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
 
 const CareerForm = () => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  /**TODO remove 기능 추가하기 */
+  const { fields, append } = useFieldArray({
+    control,
+    name: 'duties',
+  });
+
   const onSubmit = handleSubmit((values) => {
     /**TODO api 호출해 저장하기 */
     console.log('values', values);
   });
+
+  const defaultDutyData = {
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -121,6 +147,19 @@ const CareerForm = () => {
             </VStack>
           </HStack>
         </FormControl>
+        {fields?.map((field, index) => (
+          <DutyForm
+            key={field.id}
+            index={index}
+            register={register}
+            errors={errors}
+          />
+        ))}
+        <AddDutyButton
+          onClick={() => {
+            append(defaultDutyData);
+          }}
+        />
         <HStack>
           <Button
             size={'sm'}
@@ -137,6 +176,105 @@ const CareerForm = () => {
         </HStack>
       </VStack>
     </form>
+  );
+};
+
+const DutyForm = ({
+  key,
+  index,
+  errors,
+  register,
+}: {
+  key: string;
+  index: number;
+  errors: FieldErrors<FieldValues>;
+  register: UseFormRegister<FieldValues>;
+}) => {
+  return (
+    <React.Fragment key={key}>
+      <Divider
+        m={'1.5rem'}
+        borderColor={'gray.300'}
+      />
+      <FormControl>
+        <HStack>
+          <FormLabel
+            htmlFor="dutyTitle"
+            w={'9rem'}
+          >
+            주요업무
+          </FormLabel>
+          <VStack flexGrow={1}>
+            <Input
+              id="dutyTitle"
+              {...register(`duties.${index}.title`)}
+            />
+            <FormErrorMessage>
+              {errors.dutyTitle && errors.dutyTitle.message?.toString()}
+            </FormErrorMessage>
+          </VStack>
+        </HStack>
+      </FormControl>
+      <FormControl>
+        <HStack>
+          <FormLabel
+            htmlFor="dutyTerm"
+            w={'9rem'}
+          >
+            업무기간
+          </FormLabel>
+          <VStack flexGrow={1}>
+            <Input
+              id="dutyTerm"
+              {...register(`duties.${index}.term`)}
+            />
+            <FormErrorMessage>
+              {errors.dutyTerm && errors.dutyTerm.message?.toString()}
+            </FormErrorMessage>
+          </VStack>
+        </HStack>
+      </FormControl>
+      <FormControl>
+        <HStack>
+          <FormLabel
+            htmlFor="descriptions"
+            w={'9rem'}
+          >
+            상세 내용
+          </FormLabel>
+          <VStack flexGrow={1}>
+            {/*TODO 에디터로 대체 */}
+            <Input
+              id="descriptions"
+              {...register(`duties.${index}.description`)}
+            />
+            <FormErrorMessage>
+              {errors.descriptions && errors.descriptions.message?.toString()}
+            </FormErrorMessage>
+          </VStack>
+        </HStack>
+      </FormControl>
+    </React.Fragment>
+  );
+};
+
+const AddDutyButton = ({ onClick }: { onClick: React.MouseEventHandler<HTMLButtonElement> }) => {
+  const BG_COLOR = 'primary.100';
+  const MAIN_COLOR = 'primary.900';
+  return (
+    <ChakraButton
+      w={'100%'}
+      bg={BG_COLOR}
+      onClick={onClick}
+      my={'2rem'}
+    >
+      <AddIcon
+        fontSize={'xs'}
+        marginRight={'1rem'}
+        color={MAIN_COLOR}
+      />
+      <Text color={MAIN_COLOR}>주요 업무 추가</Text>
+    </ChakraButton>
   );
 };
 
