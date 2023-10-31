@@ -1,5 +1,6 @@
 import { BellIcon } from '@chakra-ui/icons';
 import { Box, Flex, Button, Stack, Heading } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 type NavItem = {
   label: string;
@@ -16,11 +17,11 @@ const TEXT_CONTENTS = {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: '이력서',
-    href: '#',
+    href: '/mypage/mentee',
   },
   {
     label: '피드백',
-    href: '#',
+    href: '/event/view',
   },
   {
     label: '커뮤니티',
@@ -84,23 +85,25 @@ const Header = () => {
           flex={1}
           justify={'start'}
         >
-          {/* NOTE LOGO */}
-          <Flex align="center">
-            <Box
-              bg="gray.800"
-              w="24px"
-              h="24px"
-              borderRadius="md"
-              mr="12px"
-            />
-            <Heading
-              fontSize={'xl'}
-              fontWeight={'black'}
-              color={'gray.800'}
-            >
-              {TEXT_CONTENTS.LOGO}
-            </Heading>
-          </Flex>
+          <Link to="/">
+            {/* NOTE LOGO */}
+            <Flex align="center">
+              <Box
+                bg="gray.800"
+                w="24px"
+                h="24px"
+                borderRadius="md"
+                mr="12px"
+              />
+              <Heading
+                fontSize={'xl'}
+                fontWeight={'black'}
+                color={'gray.800'}
+              >
+                {TEXT_CONTENTS.LOGO}
+              </Heading>
+            </Flex>
+          </Link>
           <Flex
             display="flex"
             ml={10}
