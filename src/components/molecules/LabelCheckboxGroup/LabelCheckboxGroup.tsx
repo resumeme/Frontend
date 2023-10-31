@@ -68,7 +68,7 @@ const LabelCheckboxGroup = ({
             </Stack>
           </CheckboxGroup>
         )}
-      ></Controller>
+      />
     </>
   );
 };
