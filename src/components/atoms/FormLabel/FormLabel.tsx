@@ -11,7 +11,6 @@ type FormLabelProps = {
 const FormLabel = ({ children, isRequired = false, ...props }: FormLabelProps) => {
   return (
     <ChakraFormLabel
-      {...props}
       fontWeight={600}
       lineHeight={'normal'}
       fontSize={'1.125rem'}
@@ -21,6 +20,7 @@ const FormLabel = ({ children, isRequired = false, ...props }: FormLabelProps) =
       mt={'0.5rem'}
       color={'gray.700'}
       p={0}
+      {...props}
     >
       {children}
       {isRequired && (
