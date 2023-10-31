@@ -43,10 +43,11 @@ const CreateEventPage = () => {
     },
     headCount: {
       label: '인원 수',
-      placeholder: '신청 받을 인원 수를 입력해주세요.',
+      placeholder: '신청 받을 인원 수(2~10)를 입력해주세요.',
       errorTypes: {
         required: true,
-        maxLength: { message: '99명 이하로 입력해 주세요.', value: 2 },
+        max: { message: '10명 이하로 입력해 주세요.', value: 10 },
+        min: { message: '2명 이상 입력해 주세요.', value: 2 },
       },
     },
   };
@@ -117,7 +118,10 @@ const CreateEventPage = () => {
                   >
                     {FORM_TEXT_INPUT_SCHEMA[key].label}
                   </FormLabel>
-                  <VStack w={'100%'}>
+                  <Flex
+                    direction={'column'}
+                    w={'100%'}
+                  >
                     <Input
                       id={key}
                       placeholder={FORM_TEXT_INPUT_SCHEMA[key].placeholder}
@@ -126,7 +130,7 @@ const CreateEventPage = () => {
                     {errors[key]?.message && (
                       <FormErrorMessage>{errors[key]?.message as string}</FormErrorMessage>
                     )}
-                  </VStack>
+                  </Flex>
                 </HStack>
               </FormControl>
             </BorderBox>
