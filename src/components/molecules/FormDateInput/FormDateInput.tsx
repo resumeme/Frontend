@@ -21,7 +21,6 @@ const FormDateInput = ({
       <Input
         {...props}
         type="date"
-        minW={type === 'date' || type === 'datetime-local' ? '16rem' : '100%'}
         flexGrow={'1'}
         {...dateRegister}
       />
