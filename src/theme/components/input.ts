@@ -15,6 +15,9 @@ const inputVariantOutline = definePartsStyle(() => {
         boxShadow: 0,
         borderColor: 'primary.900',
       },
+      border: '1px solid',
+      borderColor: 'gray.300',
+      h: '3.125rem',
     },
   };
 });
