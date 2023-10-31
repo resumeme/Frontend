@@ -1,10 +1,13 @@
 import { CheckboxGroup, CheckboxGroupProps, Stack } from '@chakra-ui/react';
+import { Controller, Control } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
 
-type LabelCheckboxGroupProps = CheckboxGroupProps & {
+export type LabelCheckboxGroupProps = CheckboxGroupProps & {
   options?: Array<{ label: string; value: string }>;
-  vairant?: 'role' | 'domain' | 'default';
+  variant?: 'role' | 'domain' | 'default';
   spacing?: string;
+  name: string;
+  control: Control;
 };
 
 const role = [
@@ -28,7 +31,8 @@ const LabelCheckboxGroup = ({
   options,
   variant = 'default',
   spacing = '12px',
-  onChange,
+  name,
+  control,
   ...props
 }: LabelCheckboxGroupProps) => {
   let selectedOptions = options;
@@ -39,26 +43,32 @@ const LabelCheckboxGroup = ({
 
   return (
     <>
-      <CheckboxGroup
-        onChange={onChange}
-        {...props}
-      >
-        <Stack
-          spacing={spacing}
-          direction="row"
-          flexWrap="wrap"
-        >
-          {selectedOptions &&
-            selectedOptions.map((option) => (
-              <CheckboxStyled
-                key={option.value}
-                value={option.value}
-              >
-                {option.label}
-              </CheckboxStyled>
-            ))}
-        </Stack>
-      </CheckboxGroup>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <CheckboxGroup
+            {...props}
+            {...field}
+          >
+            <Stack
+              spacing={spacing}
+              direction="row"
+              flexWrap="wrap"
+            >
+              {selectedOptions &&
+                selectedOptions.map((option) => (
+                  <CheckboxStyled
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </CheckboxStyled>
+                ))}
+            </Stack>
+          </CheckboxGroup>
+        )}
+      ></Controller>
     </>
   );
 };
