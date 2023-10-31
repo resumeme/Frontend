@@ -71,15 +71,15 @@ const CareerForm = () => {
   return (
     <form onSubmit={onSubmit}>
       {/*FIXME 각각의 Input, Label 컴포넌트 대체하기 */}
-      <FormControl isInvalid={Boolean(errors.name)}>
+      <FormControl isInvalid={Boolean(errors.companyName)}>
         <FormLabel htmlFor="companyName">회사명</FormLabel>
         <Input
           id="companyName"
           {...register('companyName', { required: '회사명을 입력하세요' })}
         />
-        <FormErrorMessage>
-          {errors.companyName && errors.companyName.message?.toString()}
-        </FormErrorMessage>
+        <FormErrorMessage>{errors.companyName?.message?.toString()}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={Boolean(errors.position)}>
         <FormLabel htmlFor="position">직무</FormLabel>
         <Input
           id="position"
