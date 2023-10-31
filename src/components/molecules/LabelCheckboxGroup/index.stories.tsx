@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 const Template = (args: LabelCheckboxGroupProps) => {
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { [key: string]: string }) => {
     alert(`selected options: ${JSON.stringify(data.selectedOptions)}`);
   };
 
