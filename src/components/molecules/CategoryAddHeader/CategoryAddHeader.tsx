@@ -21,6 +21,7 @@ const CategoryAddHeader = ({ categoryTitle, onAddItem }: CategoryAddHeaderProps)
         border={'1px solid'}
         borderColor={'primary.900'}
         borderRadius={'1.22rem'}
+        bg={'none'}
         onClick={onAddItem}
       >
         <AddIcon color={'primary.900'} />
