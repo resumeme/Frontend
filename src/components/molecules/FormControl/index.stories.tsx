@@ -1,4 +1,4 @@
-import { Flex, HStack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
