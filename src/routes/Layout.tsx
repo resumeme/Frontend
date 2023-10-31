@@ -5,42 +5,40 @@ import { Header } from '~/components/organisms/Header';
 
 const Layout = () => {
   return (
-    <>
+    <Box
+      minH={'100vh'}
+      display={'flex'}
+      flexDirection={'column'}
+    >
       <Box
-        minH={'100vh'}
-        display={'flex'}
-        flexDirection={'column'}
+        position={'fixed'}
+        w={'full'}
+        top={0}
+        left={'50%'}
+        transform="translate(-50%, 0)"
+        flexGrow={0}
+        flexShrink={0}
       >
-        <Box
-          position={'fixed'}
-          w={'full'}
-          top={0}
-          left={'50%'}
-          transform="translate(-50%, 0)"
-          flexGrow={0}
-          flexShrink={0}
-        >
-          <Header />
-        </Box>
-        <Box
-          flexGrow={1}
-          mt={'66px'}
-          w={'100%'}
-          maxW={'992px'}
-          mx={'auto'}
-          py={'3rem'}
-          px={'12px'}
-        >
-          <Outlet />
-        </Box>
-        <Box
-          flexGrow={0}
-          flexShrink={0}
-        >
-          <Footer />
-        </Box>
+        <Header />
       </Box>
-    </>
+      <Box
+        flexGrow={1}
+        mt={'66px'}
+        w={'100%'}
+        maxW={'992px'}
+        mx={'auto'}
+        py={'3rem'}
+        px={'12px'}
+      >
+        <Outlet />
+      </Box>
+      <Box
+        flexGrow={0}
+        flexShrink={0}
+      >
+        <Footer />
+      </Box>
+    </Box>
   );
 };
 
