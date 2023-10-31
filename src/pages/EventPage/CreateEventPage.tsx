@@ -1,19 +1,21 @@
 import {
   Checkbox,
-  CheckboxGroup,
+  Divider,
   Flex,
-  FormControl,
   FormErrorMessage,
   HStack,
   Input,
   Text,
   Textarea,
+  VStack,
 } from '@chakra-ui/react';
 import { Controller, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { FormControl } from '~/components/molecules/FormControl';
 import FormDateInput from '~/components/molecules/FormDateInpur/FormDateInput';
+import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { FormInputSchema } from '~/types/formInput';
 
 const CreateEventPage = () => {
@@ -109,136 +111,174 @@ const CreateEventPage = () => {
         >
           {Object.keys(FORM_TEXT_INPUT_SCHEMA).map((key) => (
             <BorderBox key={key}>
-              <FormControl isInvalid={!!errors[key]}>
-                <HStack spacing={0}>
-                  <FormLabel
-                    htmlFor={key}
-                    isRequired={'required' in FORM_TEXT_INPUT_SCHEMA[key].errorTypes}
-                  >
-                    {FORM_TEXT_INPUT_SCHEMA[key].label}
-                  </FormLabel>
-                  <Flex
-                    direction={'column'}
-                    w={'100%'}
-                  >
-                    <Input
-                      id={key}
-                      placeholder={FORM_TEXT_INPUT_SCHEMA[key].placeholder}
-                      {...register(key, { ...FORM_TEXT_INPUT_SCHEMA[key].errorTypes })}
-                    />
-                    {errors[key]?.message && (
-                      <FormErrorMessage>{errors[key]?.message as string}</FormErrorMessage>
-                    )}
-                  </Flex>
-                </HStack>
+              <FormControl
+                spacing="1.63rem"
+                isInvalid={!!errors[key]}
+              >
+                <FormLabel
+                  alignSelf={'center'}
+                  htmlFor={key}
+                  isRequired={'required' in FORM_TEXT_INPUT_SCHEMA[key].errorTypes}
+                >
+                  {FORM_TEXT_INPUT_SCHEMA[key].label}
+                </FormLabel>
+                <Flex
+                  direction={'column'}
+                  w={'100%'}
+                >
+                  <Input
+                    w={'43.5rem'}
+                    id={key}
+                    placeholder={FORM_TEXT_INPUT_SCHEMA[key].placeholder}
+                    {...register(key, { ...FORM_TEXT_INPUT_SCHEMA[key].errorTypes })}
+                  />
+                  {errors[key]?.message && (
+                    <FormErrorMessage>{errors[key]?.message as string}</FormErrorMessage>
+                  )}
+                </Flex>
               </FormControl>
             </BorderBox>
           ))}
           <BorderBox>
-            <FormControl isInvalid={!!errors['jobs']}>
-              <HStack>
-                <FormLabel isRequired>직무</FormLabel>
-                <Controller
-                  name="jobs"
-                  control={control}
-                  render={({ field }) => (
-                    <CheckboxGroup {...field}>
-                      <Checkbox value="web">웹 풀스택</Checkbox>
-                      <Checkbox value="frontend">프론트엔드</Checkbox>
-                      <Checkbox value="backend">백엔드</Checkbox>
-                      <Checkbox value="devops">데브옵스</Checkbox>
-                    </CheckboxGroup>
-                  )}
-                />
-              </HStack>
+            <FormControl
+              spacing="1.63rem"
+              isInvalid={!!errors['jobs']}
+            >
+              <FormLabel
+                htmlFor="jobs"
+                isRequired
+              >
+                직무
+              </FormLabel>
+              <LabelCheckboxGroup
+                required={false}
+                variant="role"
+                control={control}
+                name="jobs"
+              />
             </FormControl>
           </BorderBox>
 
           <BorderBox>
-            <Flex>
-              {Object.keys(FORM_EVENT_DATE_INPUT_SCHEMA).map((key) => (
-                <FormControl
-                  isInvalid={!!errors[key]}
-                  key={key}
-                >
-                  <HStack spacing={0}>
-                    {FORM_EVENT_DATE_INPUT_SCHEMA[key].label && (
-                      <FormLabel
-                        htmlFor={key}
-                        isRequired={'required' in FORM_EVENT_DATE_INPUT_SCHEMA[key].errorTypes}
-                      >
-                        {FORM_EVENT_DATE_INPUT_SCHEMA[key].label}
-                      </FormLabel>
-                    )}
-                    <Flex
-                      direction={'column'}
-                      justifyContent={'space-between'}
-                    >
-                      <FormDateInput
-                        w={'16rem'}
-                        type="datetime-local"
-                        control={control}
-                        dateRegister={{
-                          ...register(key, { ...FORM_EVENT_DATE_INPUT_SCHEMA[key].errorTypes }),
-                        }}
-                        timeRegister={{
-                          ...register(`${key}Time`, {
-                            ...FORM_EVENT_DATE_INPUT_SCHEMA[key].errorTypes,
-                          }),
-                        }}
-                        id={key}
-                      />
-                    </Flex>
-                  </HStack>
-                </FormControl>
-              ))}
-            </Flex>
+            <HStack spacing="2.17rem">
+              <FormControl
+                w={'fit-content'}
+                spacing="1.63rem"
+                isInvalid={!!errors['openEventDate']}
+                key={'openEventDate'}
+              >
+                {FORM_EVENT_DATE_INPUT_SCHEMA['openEventDate'].label && (
+                  <FormLabel
+                    alignSelf={'center'}
+                    htmlFor={'openEventDate'}
+                    isRequired={
+                      'required' in FORM_EVENT_DATE_INPUT_SCHEMA['openEventDate'].errorTypes
+                    }
+                  >
+                    {FORM_EVENT_DATE_INPUT_SCHEMA['openEventDate'].label}
+                  </FormLabel>
+                )}
+                <VStack justifyContent={'space-between'}>
+                  <FormDateInput
+                    w={'13rem'}
+                    type="datetime-local"
+                    control={control}
+                    dateRegister={{
+                      ...register('openEventDate', {
+                        ...FORM_EVENT_DATE_INPUT_SCHEMA['openEventDate'].errorTypes,
+                      }),
+                    }}
+                    timeRegister={{
+                      ...register(`${'openEventDate'}Time`, {
+                        ...FORM_EVENT_DATE_INPUT_SCHEMA['openEventDate'].errorTypes,
+                      }),
+                    }}
+                    id={'openEventDate'}
+                  />
+                </VStack>
+              </FormControl>
+              <Divider
+                w={'1.75rem'}
+                h={'0.0625rem'}
+                border={'1px'}
+                borderColor={'gray.400'}
+                bgColor={'gray.400'}
+              />
+              <FormControl
+                w={'fit-content'}
+                spacing="1.63rem"
+                isInvalid={!!errors['closeEventDate']}
+                key={'closeEventDate'}
+              >
+                <VStack justifyContent={'space-between'}>
+                  <FormDateInput
+                    w={'13rem'}
+                    type="datetime-local"
+                    control={control}
+                    dateRegister={{
+                      ...register('closeEventDate', {
+                        ...FORM_EVENT_DATE_INPUT_SCHEMA['closeEventDate'].errorTypes,
+                      }),
+                    }}
+                    timeRegister={{
+                      ...register(`${'closeEventDate'}Time`, {
+                        ...FORM_EVENT_DATE_INPUT_SCHEMA['closeEventDate'].errorTypes,
+                      }),
+                    }}
+                    id={'closeEventDate'}
+                  />
+                </VStack>
+              </FormControl>
+            </HStack>
           </BorderBox>
           <BorderBox>
             <FormControl
+              spacing="1.63rem"
               isInvalid={!!errors['endEventDate']}
               key={'endEventDate'}
             >
-              <HStack spacing={0}>
-                {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label && (
-                  <FormLabel
-                    htmlFor={'endEventDate'}
-                    isRequired={
-                      'required' in FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes
-                    }
-                  >
-                    {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label}
-                  </FormLabel>
-                )}
-                <Flex direction={'column'}>
-                  <FormDateInput
-                    w={'16rem'}
-                    control={control}
-                    dateRegister={{
-                      ...register('endEventDate', {
-                        ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
-                      }),
-                    }}
-                    id={'endEventDate'}
-                  />
-                </Flex>
-              </HStack>
+              {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label && (
+                <FormLabel
+                  alignSelf={'center'}
+                  htmlFor={'endEventDate'}
+                  isRequired={
+                    'required' in FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes
+                  }
+                >
+                  {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label}
+                </FormLabel>
+              )}
+              <Flex direction={'column'}>
+                <FormDateInput
+                  w={'13rem'}
+                  control={control}
+                  dateRegister={{
+                    ...register('endEventDate', {
+                      ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
+                    }),
+                  }}
+                  id={'endEventDate'}
+                />
+              </Flex>
             </FormControl>
           </BorderBox>
           <BorderBox>
-            <FormControl>
-              <Flex>
-                <FormLabel
-                  htmlFor="eventContent"
-                  isRequired
-                >
-                  {FORM_TEXT_AREA_INPUT_SCHEMA['eventContent'].label}
-                </FormLabel>
-                <Textarea
-                  id="eventContent"
-                  placeholder={FORM_TEXT_AREA_INPUT_SCHEMA['eventContent'].placeholder}
-                />
-              </Flex>
+            <FormControl
+              spacing="1.63rem"
+              isInvalid={!!errors['eventContent']}
+            >
+              <FormLabel
+                htmlFor="eventContent"
+                isRequired
+              >
+                {FORM_TEXT_AREA_INPUT_SCHEMA['eventContent'].label}
+              </FormLabel>
+              <Textarea
+                w={'43.5rem'}
+                h={'26.75rem'}
+                id="eventContent"
+                placeholder={FORM_TEXT_AREA_INPUT_SCHEMA['eventContent'].placeholder}
+              />
             </FormControl>
           </BorderBox>
         </Flex>
