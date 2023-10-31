@@ -1,4 +1,4 @@
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
   FormControl,
   FormLabel,
@@ -11,7 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { Button as ChakraButton } from '@chakra-ui/react';
 import React from 'react';
-import { FieldErrors, FieldValues, UseFormRegister, useFieldArray, useForm } from 'react-hook-form';
+import {
+  FieldErrors,
+  FieldValues,
+  UseFieldArrayRemove,
+  UseFormRegister,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
 
 const CareerForm = () => {
@@ -23,7 +30,7 @@ const CareerForm = () => {
   } = useForm();
 
   /**TODO remove 기능 추가하기 */
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'duties',
   });
@@ -153,6 +160,7 @@ const CareerForm = () => {
             index={index}
             register={register}
             errors={errors}
+            remove={remove}
           />
         ))}
         <AddDutyButton
@@ -184,17 +192,23 @@ const DutyForm = ({
   index,
   errors,
   register,
+  remove,
 }: {
   key: string;
   index: number;
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<FieldValues>;
+  remove: UseFieldArrayRemove;
 }) => {
   return (
     <React.Fragment key={key}>
       <Divider
         m={'1.5rem'}
         borderColor={'gray.300'}
+      />
+      <DeleteIcon
+        alignSelf={'self-end'}
+        onClick={() => remove(index)}
       />
       <FormControl>
         <HStack>
