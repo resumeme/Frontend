@@ -5,7 +5,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  HStack,
   Text,
   Textarea,
 } from '@chakra-ui/react';
