@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
-import { FormDateInput } from '../FormDateInpur';
+import { FormDateInput } from '../FormDateInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';

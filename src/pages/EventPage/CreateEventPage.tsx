@@ -14,7 +14,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
-import FormDateInput from '~/components/molecules/FormDateInpur/FormDateInput';
+import FormDateInput from '~/components/molecules/FormDateInput/FormDateInput';
 import { FormInputSchema } from '~/types/formInput';
 
 const CreateEventPage = () => {
