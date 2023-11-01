@@ -9,6 +9,7 @@ import {
   Text,
   Divider,
   Button as ChakraButton,
+  Checkbox,
 } from '@chakra-ui/react';
 import React from 'react';
 import {
@@ -18,6 +19,7 @@ import {
   UseFormRegister,
   useFieldArray,
   useForm,
+  useWatch,
 } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
 
@@ -47,18 +49,18 @@ const CareerForm = () => {
     endDate: '',
   };
 
+  const isCurrentlyEmployed = useWatch({
+    control,
+    name: 'isCurrentlyEmployed',
+  });
+
   return (
     <form onSubmit={onSubmit}>
       {/*FIXME 커스텀 Input, Label 컴포넌트 대체하기 */}
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.companyName)}>
           <HStack>
-            <FormLabel
-              htmlFor="companyName"
-              w={'9rem'}
-            >
-              회사명
-            </FormLabel>
+            <FormLabel w={'9rem'}>회사명</FormLabel>
             <VStack
               flexGrow={1}
               alignItems={'start'}
@@ -75,33 +77,55 @@ const CareerForm = () => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.term)}>
           <HStack>
-            <FormLabel
-              htmlFor="term"
-              w={'9rem'}
-            >
-              재직기간
-            </FormLabel>
+            <FormLabel w={'9rem'}>재직기간</FormLabel>
             <VStack
               flexGrow={1}
               alignItems={'start'}
             >
               <Input
-                id="term"
+                id="careerStartDate"
                 type="date"
-                {...register('term', { required: '재직기간을 입력하세요.' })}
+                {...register('careerStartDate', {
+                  required: '재직 시작일을 입력하세요.',
+                  valueAsDate: true,
+                })}
               />
-              <FormErrorMessage>{errors.term && errors.term.message?.toString()}</FormErrorMessage>
+              <FormErrorMessage>
+                {errors.careerStartDate && errors.careerStartDate.message?.toString()}
+              </FormErrorMessage>
             </VStack>
+            <Divider
+              w={'1rem'}
+              borderColor={'gray.400'}
+            />
+            <VStack
+              flexGrow={1}
+              alignItems={'start'}
+            >
+              <Input
+                id="endDate"
+                type="date"
+                disabled={isCurrentlyEmployed}
+                {...register('endDate', {
+                  required: '재직 종료일을 입력하세요.',
+                  valueAsDate: true,
+                })}
+              />
+              <FormErrorMessage>
+                {errors.endDate && errors.endDate.message?.toString()}
+              </FormErrorMessage>
+            </VStack>
+            <Checkbox
+              id="isCurrentlyEmployed"
+              {...register('isCurrentlyEmployed')}
+            >
+              재직 중
+            </Checkbox>
           </HStack>
         </FormControl>
         <FormControl isInvalid={Boolean(errors.position)}>
           <HStack>
-            <FormLabel
-              htmlFor="position"
-              w={'9rem'}
-            >
-              직무
-            </FormLabel>
+            <FormLabel w={'9rem'}>직무</FormLabel>
             <VStack
               flexGrow={1}
               alignItems={'start'}
@@ -118,12 +142,7 @@ const CareerForm = () => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.skills)}>
           <HStack>
-            <FormLabel
-              htmlFor="skills"
-              w={'9rem'}
-            >
-              사용 스택
-            </FormLabel>
+            <FormLabel w={'9rem'}>사용 스택</FormLabel>
             <VStack flexGrow={1}>
               <Input
                 id="skills"
@@ -137,12 +156,7 @@ const CareerForm = () => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.others)}>
           <HStack>
-            <FormLabel
-              htmlFor="others"
-              w={'9rem'}
-            >
-              기타 설명
-            </FormLabel>
+            <FormLabel w={'9rem'}>기타 설명</FormLabel>
             <VStack flexGrow={1}>
               <Input
                 id="others"
