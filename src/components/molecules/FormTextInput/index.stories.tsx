@@ -12,19 +12,6 @@ const meta = {
   title: 'Resumeme/Components/FormTextInput',
   component: FormTextInput,
   tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      options: ['default', 'cancel'],
-      control: { type: 'radio' },
-    },
-    size: {
-      options: ['lg', 'md', 'sm', 'xs', 'full'],
-      control: { type: 'radio' },
-    },
-    children: {
-      control: 'text',
-    },
-  },
 } satisfies Meta<typeof FormTextInput>;
 
 export default meta;
