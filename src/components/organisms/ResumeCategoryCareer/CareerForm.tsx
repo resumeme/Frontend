@@ -85,6 +85,7 @@ const CareerForm = () => {
           />
           <Checkbox
             id="isCurrentlyEmployed"
+            ml={'1rem'}
             {...register('isCurrentlyEmployed')}
           >
             재직 중
