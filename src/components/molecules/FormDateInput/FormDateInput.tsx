@@ -30,6 +30,7 @@ const FormDateInput = ({
           control={control}
           render={({ field }) => (
             <Select
+              flexShrink={0}
               {...timeRegister}
               border="1px solid"
               borderColor="gray.300"

@@ -17,7 +17,7 @@ const FormLabel = ({ children, isRequired = false, ...props }: FormLabelProps) =
       w={'6.9375rem'}
       minW={'6.9375rem'}
       mx={0}
-      mt={'0.5rem'}
+      mt={'0.87rem'}
       color={'gray.700'}
       p={0}
       {...props}
