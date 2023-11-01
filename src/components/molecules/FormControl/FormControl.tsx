@@ -16,10 +16,7 @@ const FormControl = ({
   ...props
 }: FormControlProps) => {
   return (
-    <ChakraFormControl
-      w={'100%'}
-      {...props}
-    >
+    <ChakraFormControl {...props}>
       <Stack
         direction={direction}
         spacing={spacing}

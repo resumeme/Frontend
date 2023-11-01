@@ -4,19 +4,21 @@ import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 type FormTextInputProps = {
   id: string;
   register: UseFormRegisterReturn;
-  errors: FieldErrors;
+  errors?: FieldErrors;
 } & Omit<InputProps, 'type'>;
 
 const FormTextInput = ({ id, register, errors, ...props }: FormTextInputProps) => {
   return (
-    <Flex direction={'column'}>
+    <Flex
+      direction={'column'}
+      flexGrow={1}
+    >
       <Input
         id={id}
         {...props}
-        flexGrow={'1'}
         {...register}
       />
-      {errors[id]?.message && <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>}
+      {errors && <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>}
     </Flex>
   );
 };
