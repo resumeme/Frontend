@@ -1,5 +1,13 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { VStack, HStack, Text, Divider, Button as ChakraButton, Checkbox } from '@chakra-ui/react';
+import {
+  VStack,
+  HStack,
+  Text,
+  Divider,
+  Button as ChakraButton,
+  Checkbox,
+  Flex,
+} from '@chakra-ui/react';
 import React from 'react';
 import {
   Control,
@@ -53,18 +61,18 @@ const CareerForm = () => {
     <form onSubmit={onSubmit}>
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.companyName)}>
-          <FormLabel w={'9rem'}>회사명</FormLabel>
+          <FormLabel isRequired>회사명</FormLabel>
           <FormTextInput
             id="companyName"
             register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
             errors={errors}
           />
         </FormControl>
-        <HStack
+        <Flex
           alignSelf={'start'}
           width={'100%'}
         >
-          <FormLabel w={'9rem'}>재직기간</FormLabel>
+          <FormLabel isRequired>재직기간</FormLabel>
           <TermInput
             startDateName="careerStartDate"
             endDateName="endDate"
@@ -81,9 +89,9 @@ const CareerForm = () => {
           >
             재직 중
           </Checkbox>
-        </HStack>
+        </Flex>
         <FormControl isInvalid={Boolean(errors.position)}>
-          <FormLabel w={'9rem'}>직무</FormLabel>
+          <FormLabel isRequired>직무</FormLabel>
           <FormTextInput
             id="position"
             register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
@@ -91,7 +99,7 @@ const CareerForm = () => {
           />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.skills)}>
-          <FormLabel w={'9rem'}>사용 스택</FormLabel>
+          <FormLabel>사용 스택</FormLabel>
           <FormTextInput
             id="skills"
             register={{ ...register('skills') }}
@@ -99,7 +107,7 @@ const CareerForm = () => {
           />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.others)}>
-          <FormLabel w={'9rem'}>기타 설명</FormLabel>
+          <FormLabel>기타 설명</FormLabel>
           <FormTextInput
             flexGrow={1}
             id="others"
@@ -171,12 +179,7 @@ const DutyForm = ({
         <DeleteIcon />
       </ChakraButton>
       <FormControl>
-        <FormLabel
-          htmlFor="dutyTitle"
-          w={'9rem'}
-        >
-          주요업무
-        </FormLabel>
+        <FormLabel htmlFor="dutyTitle">주요업무</FormLabel>
         <FormTextInput
           id="dutyTitle"
           register={{ ...register(`duties.${index}.title`) }}
@@ -184,12 +187,7 @@ const DutyForm = ({
         />
       </FormControl>
       <FormControl>
-        <FormLabel
-          htmlFor="dutyTerm"
-          w={'9rem'}
-        >
-          업무기간
-        </FormLabel>
+        <FormLabel htmlFor="dutyTerm">업무기간</FormLabel>
         <TermInput
           startDateName="startDate"
           endDateName="endDate"
@@ -199,12 +197,7 @@ const DutyForm = ({
         />
       </FormControl>
       <FormControl>
-        <FormLabel
-          htmlFor="descriptions"
-          w={'9rem'}
-        >
-          상세 내용
-        </FormLabel>
+        <FormLabel htmlFor="descriptions">상세 내용</FormLabel>
         {/*TODO 에디터로 대체 */}
         <FormTextInput
           id="descriptions"

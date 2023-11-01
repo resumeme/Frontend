@@ -45,7 +45,7 @@ const TermInput = ({
         />
       </FormControl>
       <Divider
-        w={'1rem'}
+        w={'2.5rem'}
         borderColor={'gray.400'}
       />
       <FormControl isInvalid={!!errors[endDateName]}>
