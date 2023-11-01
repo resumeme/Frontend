@@ -1,9 +1,8 @@
 import { DateString } from './dateString';
-import { Position } from './position';
 
 export default interface Career {
   companyName: string;
-  position: Position;
+  position: string;
   skills?: string[];
   duties?: Duty[];
   isCurrentlyEmployed: boolean;
@@ -25,7 +24,7 @@ export interface DefaultDuty extends Omit<Duty, 'startDate' | 'endDate'> {
 }
 
 export interface DefaultCareer extends Omit<Career, 'position' | 'duties' | 'careerStartDate'> {
-  position: '' | Position;
+  position: '';
   duties?: DefaultDuty[];
   careerStartDate: '' | DateString;
 }
