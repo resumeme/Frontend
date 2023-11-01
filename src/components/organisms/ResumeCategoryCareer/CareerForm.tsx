@@ -60,7 +60,10 @@ const CareerForm = () => {
             errors={errors}
           />
         </FormControl>
-        <HStack>
+        <HStack
+          alignSelf={'start'}
+          width={'100%'}
+        >
           <FormLabel w={'9rem'}>재직기간</FormLabel>
           <TermInput
             startDateName="careerStartDate"
