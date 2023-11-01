@@ -1,18 +1,8 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import {
-  FormControl,
-  FormLabel,
-  VStack,
-  Input,
-  FormErrorMessage,
-  HStack,
-  Text,
-  Divider,
-  Button as ChakraButton,
-  Checkbox,
-} from '@chakra-ui/react';
+import { VStack, HStack, Text, Divider, Button as ChakraButton, Checkbox } from '@chakra-ui/react';
 import React from 'react';
 import {
+  Control,
   FieldErrors,
   FieldValues,
   UseFieldArrayRemove,
@@ -22,6 +12,10 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
+import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { FormControl } from '~/components/molecules/FormControl';
+import { FormTextInput } from '~/components/molecules/FormTextInput';
+
 import { TermInput } from '~/components/molecules/TermInput';
 
 const CareerForm = () => {
@@ -57,87 +51,58 @@ const CareerForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      {/*FIXME 커스텀 Input, Label 컴포넌트 대체하기 */}
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.companyName)}>
-          <HStack>
-            <FormLabel w={'9rem'}>회사명</FormLabel>
-            <VStack
-              flexGrow={1}
-              alignItems={'start'}
-            >
-              <Input
-                id="companyName"
-                {...register('companyName', { required: '회사명을 입력하세요' })}
-              />
-              <FormErrorMessage>
-                {errors.companyName && errors.companyName.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
-          </HStack>
+          <FormLabel w={'9rem'}>회사명</FormLabel>
+          <FormTextInput
+            id="companyName"
+            register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
+            errors={errors}
+          />
         </FormControl>
-        <FormControl isInvalid={Boolean(errors.endDate)}>
-          <HStack>
-            <FormLabel w={'9rem'}>재직기간</FormLabel>
-            <TermInput
-              startDateName="careerStartDate"
-              endDateName="endDate"
-              isEndDateDisabled={isCurrentlyEmployed}
-              register={register}
-              errors={errors}
-            />
-            <Checkbox
-              id="isCurrentlyEmployed"
-              {...register('isCurrentlyEmployed')}
-            >
-              재직 중
-            </Checkbox>
-          </HStack>
-        </FormControl>
+        <HStack>
+          <FormLabel w={'9rem'}>재직기간</FormLabel>
+          <TermInput
+            startDateName="careerStartDate"
+            endDateName="endDate"
+            isEndDateDisabled={isCurrentlyEmployed}
+            register={register}
+            errors={errors}
+            control={control}
+            includeTime
+            isRequired={true}
+          />
+          <Checkbox
+            id="isCurrentlyEmployed"
+            {...register('isCurrentlyEmployed')}
+          >
+            재직 중
+          </Checkbox>
+        </HStack>
         <FormControl isInvalid={Boolean(errors.position)}>
-          <HStack>
-            <FormLabel w={'9rem'}>직무</FormLabel>
-            <VStack
-              flexGrow={1}
-              alignItems={'start'}
-            >
-              <Input
-                id="position"
-                {...register('position', { required: '직무를 입력하세요.' })}
-              />
-              <FormErrorMessage>
-                {errors.position && errors.position.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
-          </HStack>
+          <FormLabel w={'9rem'}>직무</FormLabel>
+          <FormTextInput
+            id="position"
+            register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
+            errors={errors}
+          />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.skills)}>
-          <HStack>
-            <FormLabel w={'9rem'}>사용 스택</FormLabel>
-            <VStack flexGrow={1}>
-              <Input
-                id="skills"
-                {...register('skills')}
-              />
-              <FormErrorMessage>
-                {errors.skills && errors.skills.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
-          </HStack>
+          <FormLabel w={'9rem'}>사용 스택</FormLabel>
+          <FormTextInput
+            id="skills"
+            register={{ ...register('skills') }}
+            errors={errors}
+          />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.others)}>
-          <HStack>
-            <FormLabel w={'9rem'}>기타 설명</FormLabel>
-            <VStack flexGrow={1}>
-              <Input
-                id="others"
-                {...register('others')}
-              />
-              <FormErrorMessage>
-                {errors.others && errors.others.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
-          </HStack>
+          <FormLabel w={'9rem'}>기타 설명</FormLabel>
+          <FormTextInput
+            flexGrow={1}
+            id="others"
+            register={{ ...register('others') }}
+            errors={errors}
+          />
         </FormControl>
         {fields?.map((field, index) => (
           <DutyForm
@@ -146,6 +111,7 @@ const CareerForm = () => {
             register={register}
             errors={errors}
             remove={remove}
+            control={control}
           />
         ))}
         <AddDutyButton
@@ -177,6 +143,7 @@ const DutyForm = ({
   index,
   errors,
   register,
+  control,
   remove,
 }: {
   key: string;
@@ -184,6 +151,7 @@ const DutyForm = ({
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<FieldValues>;
   remove: UseFieldArrayRemove;
+  control: Control;
 }) => {
   return (
     <React.Fragment key={key}>
@@ -200,59 +168,46 @@ const DutyForm = ({
         <DeleteIcon />
       </ChakraButton>
       <FormControl>
-        <HStack>
-          <FormLabel
-            htmlFor="dutyTitle"
-            w={'9rem'}
-          >
-            주요업무
-          </FormLabel>
-          <VStack flexGrow={1}>
-            <Input
-              id="dutyTitle"
-              {...register(`duties.${index}.title`)}
-            />
-            <FormErrorMessage>
-              {errors.dutyTitle && errors.dutyTitle.message?.toString()}
-            </FormErrorMessage>
-          </VStack>
-        </HStack>
+        <FormLabel
+          htmlFor="dutyTitle"
+          w={'9rem'}
+        >
+          주요업무
+        </FormLabel>
+        <FormTextInput
+          id="dutyTitle"
+          register={{ ...register(`duties.${index}.title`) }}
+          errors={errors}
+        />
       </FormControl>
       <FormControl>
-        <HStack>
-          <FormLabel
-            htmlFor="dutyTerm"
-            w={'9rem'}
-          >
-            업무기간
-          </FormLabel>
-          <TermInput
-            startDateName="startDate"
-            endDateName="endDate"
-            register={register}
-            errors={errors}
-          />
-        </HStack>
+        <FormLabel
+          htmlFor="dutyTerm"
+          w={'9rem'}
+        >
+          업무기간
+        </FormLabel>
+        <TermInput
+          startDateName="startDate"
+          endDateName="endDate"
+          register={register}
+          errors={errors}
+          control={control}
+        />
       </FormControl>
       <FormControl>
-        <HStack>
-          <FormLabel
-            htmlFor="descriptions"
-            w={'9rem'}
-          >
-            상세 내용
-          </FormLabel>
-          <VStack flexGrow={1}>
-            {/*TODO 에디터로 대체 */}
-            <Input
-              id="descriptions"
-              {...register(`duties.${index}.description`)}
-            />
-            <FormErrorMessage>
-              {errors.descriptions && errors.descriptions.message?.toString()}
-            </FormErrorMessage>
-          </VStack>
-        </HStack>
+        <FormLabel
+          htmlFor="descriptions"
+          w={'9rem'}
+        >
+          상세 내용
+        </FormLabel>
+        {/*TODO 에디터로 대체 */}
+        <FormTextInput
+          id="descriptions"
+          register={{ ...register(`duties.${index}.description`) }}
+          errors={errors}
+        />
       </FormControl>
     </React.Fragment>
   );
