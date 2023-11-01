@@ -1,4 +1,6 @@
-import { Container, Flex, Image, Heading, Text } from '@chakra-ui/react';
+import { Box, Container, Flex, Image, Heading, Text, Highlight } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
 
 const HEADER_HEIGHT = 65;
 
@@ -8,11 +10,15 @@ const IMAGE = {
   SIZE: '200px',
 };
 
-// NOTE 나중에 contants로 뺄 수 있다면 뺄 것
 const TEXT_CONTENTS = {
   HEADING: 'ERROR ヾ( •́д•̀ ;)ﾉ',
   DESCRIBE: '요청하신 페이지를 찾을 수 없습니다.',
-  CODE: '404 Not Found',
+  CODE: '__404_ Not_Found__',
+};
+
+const BUTTON_CONTENT = {
+  TEXT: '돌아가기',
+  HREF: '/',
 };
 
 const NotFoundPage = () => {
@@ -24,7 +30,6 @@ const NotFoundPage = () => {
         align="center"
         justify="center"
         h={pageHeight}
-        userSelect="none"
       >
         <Container
           maxW="550px"
@@ -41,24 +46,53 @@ const NotFoundPage = () => {
               alt={IMAGE.ALT}
               boxSize={IMAGE.SIZE}
               pointerEvents="none"
+              userSelect="none"
             />
             <Flex
               direction="column"
               align="center"
+              gap={3}
             >
               <Heading
-                fontSize="xl"
+                fontSize="3xl"
+                fontWeight={'black'}
                 mb="3"
               >
                 {TEXT_CONTENTS.HEADING}
               </Heading>
-              <Text fontSize="sm">{TEXT_CONTENTS.DESCRIBE}</Text>
+
+              <Text fontSize="md">
+                <Highlight
+                  query={TEXT_CONTENTS.DESCRIBE}
+                  styles={{ px: '3', py: '1', rounded: 'full', bg: 'green.100', color: 'gray.700' }}
+                >
+                  {TEXT_CONTENTS.DESCRIBE}
+                </Highlight>
+              </Text>
+
               <Text
-                fontSize="sm"
+                fontSize="lg"
+                fontWeight={'light'}
                 color="gray.500"
+                mt={'20px'}
               >
                 {TEXT_CONTENTS.CODE}
               </Text>
+              <Box
+                w={'full'}
+                mt={'30px'}
+              >
+                <Link to={BUTTON_CONTENT.HREF}>
+                  <Button
+                    variant={'cancel'}
+                    color={'gray.600'}
+                    fontWeight={'semiBold'}
+                    _hover={{ bg: 'gray.300' }}
+                  >
+                    {BUTTON_CONTENT.TEXT}
+                  </Button>
+                </Link>
+              </Box>
             </Flex>
           </Flex>
         </Container>
