@@ -99,21 +99,18 @@ const CareerForm = () => {
             errors={errors}
           />
         </FormControl>
-        <FormControl isInvalid={Boolean(errors.skills)}>
+        <FormControl>
           <FormLabel>사용 스택</FormLabel>
           <FormTextInput
             id="skills"
             register={{ ...register('skills') }}
-            errors={errors}
           />
         </FormControl>
-        <FormControl isInvalid={Boolean(errors.others)}>
+        <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput
-            flexGrow={1}
             id="others"
             register={{ ...register('others') }}
-            errors={errors}
           />
         </FormControl>
         {fields?.map((field, index) => (
@@ -184,7 +181,6 @@ const DutyForm = ({
         <FormTextInput
           id="dutyTitle"
           register={{ ...register(`duties.${index}.title`) }}
-          errors={errors}
         />
       </FormControl>
       <FormControl>
@@ -203,7 +199,6 @@ const DutyForm = ({
         <FormTextInput
           id="descriptions"
           register={{ ...register(`duties.${index}.description`) }}
-          errors={errors}
         />
       </FormControl>
     </React.Fragment>

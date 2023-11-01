@@ -4,7 +4,7 @@ import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 type FormTextInputProps = {
   id: string;
   register: UseFormRegisterReturn;
-  errors: FieldErrors;
+  errors?: FieldErrors;
 } & Omit<InputProps, 'type'>;
 
 const FormTextInput = ({ id, register, errors, ...props }: FormTextInputProps) => {
@@ -18,7 +18,7 @@ const FormTextInput = ({ id, register, errors, ...props }: FormTextInputProps) =
         {...props}
         {...register}
       />
-      {errors[id]?.message && <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>}
+      {errors && <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>}
     </Flex>
   );
 };

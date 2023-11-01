@@ -20,7 +20,6 @@ const ResumeCategoryCareer = () => {
    * 저장한 값을 불러와서 map으로 돌린다
    * FIXME useState를 zustand store에서 불러오도록 수정하기
    */
-  // const [careerItems, setCareerItems] = useState<object[]>([]);
   const { storageValue: careerItems, setValue } = useStorage<DefaultCareer[]>({
     key: CAREER_ITEMS_KEY,
     initialValue: [],
