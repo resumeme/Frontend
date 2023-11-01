@@ -80,7 +80,6 @@ const CareerForm = () => {
             register={register}
             errors={errors}
             control={control}
-            includeTime
             isRequired={true}
           />
           <Checkbox
@@ -186,8 +185,8 @@ const DutyForm = ({
       <FormControl>
         <FormLabel htmlFor="dutyTerm">업무기간</FormLabel>
         <TermInput
-          startDateName="startDate"
-          endDateName="endDate"
+          startDateName={`duties.${index}.startDate`}
+          endDateName={`duties.${index}.endDate`}
           register={register}
           errors={errors}
           control={control}
