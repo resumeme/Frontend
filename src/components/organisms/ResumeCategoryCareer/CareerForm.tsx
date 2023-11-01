@@ -22,6 +22,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
+import { TermInput } from '~/components/molecules/TermInput';
 
 const CareerForm = () => {
   const {
@@ -75,46 +76,16 @@ const CareerForm = () => {
             </VStack>
           </HStack>
         </FormControl>
-        <FormControl isInvalid={Boolean(errors.term)}>
+        <FormControl isInvalid={Boolean(errors.endDate)}>
           <HStack>
             <FormLabel w={'9rem'}>재직기간</FormLabel>
-            <VStack
-              flexGrow={1}
-              alignItems={'start'}
-            >
-              <Input
-                id="careerStartDate"
-                type="date"
-                {...register('careerStartDate', {
-                  required: '재직 시작일을 입력하세요.',
-                  valueAsDate: true,
-                })}
-              />
-              <FormErrorMessage>
-                {errors.careerStartDate && errors.careerStartDate.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
-            <Divider
-              w={'1rem'}
-              borderColor={'gray.400'}
+            <TermInput
+              startDateName="careerStartDate"
+              endDateName="endDate"
+              isEndDateDisabled={isCurrentlyEmployed}
+              register={register}
+              errors={errors}
             />
-            <VStack
-              flexGrow={1}
-              alignItems={'start'}
-            >
-              <Input
-                id="endDate"
-                type="date"
-                disabled={isCurrentlyEmployed}
-                {...register('endDate', {
-                  required: '재직 종료일을 입력하세요.',
-                  valueAsDate: true,
-                })}
-              />
-              <FormErrorMessage>
-                {errors.endDate && errors.endDate.message?.toString()}
-              </FormErrorMessage>
-            </VStack>
             <Checkbox
               id="isCurrentlyEmployed"
               {...register('isCurrentlyEmployed')}
@@ -255,15 +226,12 @@ const DutyForm = ({
           >
             업무기간
           </FormLabel>
-          <VStack flexGrow={1}>
-            <Input
-              id="dutyTerm"
-              {...register(`duties.${index}.term`)}
-            />
-            <FormErrorMessage>
-              {errors.dutyTerm && errors.dutyTerm.message?.toString()}
-            </FormErrorMessage>
-          </VStack>
+          <TermInput
+            startDateName="startDate"
+            endDateName="endDate"
+            register={register}
+            errors={errors}
+          />
         </HStack>
       </FormControl>
       <FormControl>
