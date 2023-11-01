@@ -18,7 +18,6 @@ export default meta;
 
 export const DefaultFormTextInput = () => {
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
@@ -62,7 +61,6 @@ export const DefaultFormTextInput = () => {
               <FormTextInput
                 errors={errors}
                 w={'25rem'}
-                control={control}
                 register={{
                   ...register('title', {
                     ...FORM_RESUME_TEXT_INPUT_SCHEMA['title'].errorTypes,

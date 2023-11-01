@@ -1,10 +1,9 @@
 import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { Control, FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
 type FormTextInputProps = {
   id: string;
   register: UseFormRegisterReturn;
-  control: Control;
   errors: FieldErrors;
 } & Omit<InputProps, 'type'>;
 
