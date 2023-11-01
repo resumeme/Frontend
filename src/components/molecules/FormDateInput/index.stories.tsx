@@ -18,7 +18,6 @@ export default meta;
 
 export const DefaultFormDateInput = () => {
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
@@ -61,14 +60,13 @@ export const DefaultFormDateInput = () => {
             )}
             <Flex direction={'column'}>
               <FormDateInput
+                name="endEventDate"
                 w={'16rem'}
-                control={control}
-                dateRegister={{
+                register={{
                   ...register('endEventDate', {
                     ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
                   }),
                 }}
-                id={'endEventDate'}
               />
             </Flex>
           </HStack>
@@ -89,7 +87,6 @@ export const DefaultFormDateInput = () => {
 
 export const TimeFormDateInput = () => {
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
@@ -134,18 +131,12 @@ export const TimeFormDateInput = () => {
               <FormDateInput
                 type="datetime-local"
                 w={'16rem'}
-                control={control}
-                dateRegister={{
+                register={{
                   ...register('endEventDate', {
                     ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
                   }),
                 }}
-                timeRegister={{
-                  ...register('endEventDateTime', {
-                    ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
-                  }),
-                }}
-                id={'endEventDate'}
+                name={'endEventDate'}
               />
             </Flex>
           </HStack>

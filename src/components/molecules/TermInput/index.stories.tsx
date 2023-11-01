@@ -18,6 +18,7 @@ export default meta;
 
 export const Default = () => {
   const {
+    control,
     register,
     formState: { errors },
   } = useForm();
@@ -27,12 +28,14 @@ export const Default = () => {
       endDateName="endDate"
       register={register}
       errors={errors}
+      control={control}
     />
   );
 };
 
 export const WithSubmit = () => {
   const {
+    control,
     register,
     formState: { errors },
   } = useForm();
@@ -45,6 +48,7 @@ export const WithSubmit = () => {
           isRequired={true}
           register={register}
           errors={errors}
+          control={control}
         />
         <Button
           type="submit"

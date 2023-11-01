@@ -18,7 +18,6 @@ export default meta;
 
 export const DefaultFormControl = () => {
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
@@ -61,13 +60,12 @@ export const DefaultFormControl = () => {
           <Flex direction={'column'}>
             <FormDateInput
               w={'16rem'}
-              control={control}
-              dateRegister={{
+              register={{
                 ...register('endEventDate', {
                   ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
                 }),
               }}
-              id={'endEventDate'}
+              name={'endEventDate'}
             />
           </Flex>
         </FormControl>
@@ -87,7 +85,6 @@ export const DefaultFormControl = () => {
 
 export const ColumnFormControl = () => {
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
@@ -131,13 +128,12 @@ export const ColumnFormControl = () => {
           <Flex direction={'column'}>
             <FormDateInput
               w={'16rem'}
-              control={control}
-              dateRegister={{
+              register={{
                 ...register('endEventDate', {
                   ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
                 }),
               }}
-              id={'endEventDate'}
+              name={'endEventDate'}
             />
           </Flex>
         </FormControl>
