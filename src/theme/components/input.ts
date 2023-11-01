@@ -6,15 +6,21 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 );
 
 const inputBaseStyle = definePartsStyle({
-  field: { _placeholder: { color: 'gray.400' } },
+  field: {
+    _placeholder: { color: 'gray.400' },
+    _invalid: { border: '0' },
+  },
 });
 const inputVariantOutline = definePartsStyle(() => {
   return {
     field: {
       _focusVisible: {
-        boxShadow: 0,
+        boxShadow: '0',
         borderColor: 'primary.900',
       },
+      border: '1px solid',
+      borderColor: 'gray.300',
+      h: '3.125rem',
     },
   };
 });

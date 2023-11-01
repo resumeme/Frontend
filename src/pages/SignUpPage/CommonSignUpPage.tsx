@@ -7,8 +7,6 @@ import { Text } from '@chakra-ui/react';
 import { Divider } from '@chakra-ui/react';
 import { Step, StepIndicator, Stepper, useSteps } from '@chakra-ui/stepper';
 import { useForm } from 'react-hook-form';
-import { FormInput } from '~/components/molecules/FormInput';
-import { FormInputSchema } from '~/types/formInput';
 
 const CommonSignUpPage = () => {
   const steps = [
@@ -21,7 +19,6 @@ const CommonSignUpPage = () => {
 
   const {
     handleSubmit,
-    register,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -33,34 +30,34 @@ const CommonSignUpPage = () => {
     });
   };
 
-  const formInputSchema: FormInputSchema = {
-    name: {
-      errorTypes: {
-        required: { message: '이름을 입력해 주세요.', value: true },
-        maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
-      },
-      label: '이름',
-      placeholder: '본명을 입력해주세요.',
-    },
-    nickName: {
-      label: '닉네임',
-      placeholder: '닉네임을 입력해주세요',
-      errorTypes: {
-        required: { message: '닉네임을 입력해 주세요.', value: true },
-        maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
-        minLength: { message: '2자리 이상 입력해 주세요.', value: 2 },
-      },
-    },
-    phoneNumber: {
-      label: '연락처',
-      placeholder: '"-"기호 없이 작성해주세요.',
-      errorTypes: {
-        required: { message: '연락처를 입력해주세요.', value: true },
-        maxLength: { message: '11자리 이하로 입력해주세요.', value: 11 },
-        minLength: { message: '9자리 이상 입력해주세요.', value: 9 },
-      },
-    },
-  };
+  // const formInputSchema: FormInputSchema = {
+  //   name: {
+  //     errorTypes: {
+  //       required: { message: '이름을 입력해 주세요.', value: true },
+  //       maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
+  //     },
+  //     label: '이름',
+  //     placeholder: '본명을 입력해주세요.',
+  //   },
+  //   nickName: {
+  //     label: '닉네임',
+  //     placeholder: '닉네임을 입력해주세요',
+  //     errorTypes: {
+  //       required: { message: '닉네임을 입력해 주세요.', value: true },
+  //       maxLength: { message: '10자리 이하로 입력해 주세요.', value: 10 },
+  //       minLength: { message: '2자리 이상 입력해 주세요.', value: 2 },
+  //     },
+  //   },
+  //   phoneNumber: {
+  //     label: '연락처',
+  //     placeholder: '"-"기호 없이 작성해주세요.',
+  //     errorTypes: {
+  //       required: { message: '연락처를 입력해주세요.', value: true },
+  //       maxLength: { message: '11자리 이하로 입력해주세요.', value: 11 },
+  //       minLength: { message: '9자리 이상 입력해주세요.', value: 9 },
+  //     },
+  //   },
+  // };
 
   return (
     <Container
@@ -100,7 +97,7 @@ const CommonSignUpPage = () => {
       </Box>
       <Stack>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {Object.keys(formInputSchema).map((key) => (
+          {/* {Object.keys(formInputSchema).map((key) => (
             <FormInput
               isRequired={'required' in formInputSchema[key].errorTypes}
               direction="column"
@@ -112,7 +109,7 @@ const CommonSignUpPage = () => {
               errors={errors}
               type={formInputSchema[key].type}
             />
-          ))}
+          ))} */}
           <FormControl isInvalid={!!errors.name}>
             <FormLabel>역할 선택 *</FormLabel>
             <HStack mx={'auto'}>
