@@ -5,8 +5,8 @@ import FormControl from './FormControl';
 import { FormDateInput } from '../FormDateInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormInputSchema } from '~/types/formInput';
+import { FormLabel } from '~/components/atoms/FormLabel';
 
 const meta = {
   title: 'Resumeme/Components/FormControl',
