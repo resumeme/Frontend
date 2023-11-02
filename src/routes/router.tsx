@@ -45,6 +45,7 @@ const router = createBrowserRouter([
       { path: 'sign-up/mentee', element: <MenteeSignUpPage /> },
       { path: 'sign-up/mentor', element: <MentorSignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
+      { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
 
       { path: 'admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
