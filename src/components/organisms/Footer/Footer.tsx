@@ -1,4 +1,5 @@
 import { Box, Divider, Flex, HStack, Text } from '@chakra-ui/react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const FOOTER_CONTENT = {
@@ -143,8 +144,8 @@ const Footer = () => {
                 {FOOTER_CONTENT.team.backend}
               </Text>
               {FOOTER_CONTENT.team.backendMembers.map((member, idx) => (
-                <>
-                  <Text key={member}>{member}</Text>
+                <Fragment key={member}>
+                  <Text>{member}</Text>
                   {idx !== FOOTER_CONTENT.team.backendMembers.length - 1 && (
                     <Divider
                       h={'0.75rem'}
@@ -153,7 +154,7 @@ const Footer = () => {
                       borderColor={'gray.300'}
                     />
                   )}
-                </>
+                </Fragment>
               ))}
             </HStack>
             <HStack spacing={'0.75rem'}>
@@ -164,8 +165,8 @@ const Footer = () => {
                 {FOOTER_CONTENT.team.frontend}
               </Text>
               {FOOTER_CONTENT.team.frontendMembers.map((member, idx) => (
-                <>
-                  <Text key={member}>{member}</Text>
+                <Fragment key={member}>
+                  <Text>{member}</Text>
                   {idx !== FOOTER_CONTENT.team.frontendMembers.length - 1 && (
                     <Divider
                       h={'0.75rem'}
@@ -174,7 +175,7 @@ const Footer = () => {
                       borderColor={'gray.300'}
                     />
                   )}
-                </>
+                </Fragment>
               ))}
             </HStack>
             <HStack
