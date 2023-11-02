@@ -6,9 +6,7 @@ import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
 import { EventListPage } from '~/pages/EventPages/EventListPage';
 import MainPage from '~/pages/MainPage/MainPage';
-import { MenteeMyPage } from '~/pages/MyPages/MenteeMyPage';
-import { MentorMyPage } from '~/pages/MyPages/MentorMyPage';
-import { WriteReviewPage } from '~/pages/MyPages/WriteReviewPage';
+import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import { MenteeEditProfilePage } from '~/pages/ProfilePages/MenteeEditProfilePage';
 import { MentorEditProfilePage } from '~/pages/ProfilePages/MentorEditProfilePage';
@@ -20,6 +18,7 @@ import SignInPage from '~/pages/SignInPage/SignInPage';
 import { CommonSignUpPage } from '~/pages/SignUpPages/CommonSignUpPage';
 import { MenteeSignUpPage } from '~/pages/SignUpPages/MenteeSignUpPage';
 import { MentorSignUpPage } from '~/pages/SignUpPages/MentorSignUpPage';
+import { WriteReviewPage } from '~/pages/WriteReviewPage';
 
 const router = createBrowserRouter([
   {
@@ -28,8 +27,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <MainPage /> },
-      { path: 'mypage/mentee', element: <MenteeMyPage /> },
-      { path: 'mypage/mentor', element: <MentorMyPage /> },
+      { path: 'mypage/:id', element: <MyPage /> },
       { path: 'user/edit-info/mentee', element: <MenteeEditProfilePage /> },
       { path: 'user/edit-info/mentor', element: <MentorEditProfilePage /> },
 
