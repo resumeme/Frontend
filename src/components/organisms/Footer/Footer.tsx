@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, HStack, Text } from '@chakra-ui/react';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { FOOTER_CONTENT } from './constants/footerData';
+import { FOOTER_CONTENT } from './Footer.const';
 
 const Footer = () => {
   return (
