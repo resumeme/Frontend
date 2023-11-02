@@ -23,6 +23,7 @@ const CommonSignUpPage = () => {
   } = useForm();
 
   const onSubmit = (values: { [key: string]: string }) => {
+    /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
