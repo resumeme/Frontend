@@ -14,6 +14,7 @@ import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
+import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
 import SignInPage from '~/pages/SignInPage/SignInPage';
 import { CommonSignUpPage } from '~/pages/SignUpPages/CommonSignUpPage';
 import { MenteeSignUpPage } from '~/pages/SignUpPages/MenteeSignUpPage';
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: 'sign-up/mentee', element: <MenteeSignUpPage /> },
       { path: 'sign-up/mentor', element: <MentorSignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
+      { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
 
       { path: 'admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
