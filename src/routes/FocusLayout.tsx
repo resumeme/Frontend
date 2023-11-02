@@ -5,17 +5,10 @@ const FocusLayout = () => {
   return (
     <Flex
       minH={'100vh'}
-      direction={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
     >
-      <Box
-        flexGrow={1}
-        mt={'66px'}
-        w={'100%'}
-        maxW={'992px'}
-        mx={'auto'}
-        py={'3rem'}
-        px={'12px'}
-      >
+      <Box maxW={'992px'}>
         <Outlet />
       </Box>
     </Flex>
