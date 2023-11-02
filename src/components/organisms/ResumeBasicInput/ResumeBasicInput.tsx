@@ -13,7 +13,6 @@ import LinkIconBox from './LinkIconBox';
 import TitleInput from '../../atoms/TitleInput/TitleInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-// import { FormTextInput } from '../../molecules/FormTextInput';
 
 const USER = {
   NAME: '이민희',
@@ -67,8 +66,11 @@ const ResumeBasicInput = () => {
                   </Text>
                   <Button size={'xs'}>+</Button>
                 </Flex>
-                <Box>
-                  <LinkIconBox />
+                <Box mb={3}>
+                  <LinkIconBox
+                    url="https://github.com/khakhid"
+                    variant="github"
+                  />
                 </Box>
                 <BorderBox p={5}>
                   <Flex
