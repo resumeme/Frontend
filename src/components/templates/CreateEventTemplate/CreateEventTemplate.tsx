@@ -1,6 +1,5 @@
-import { VStack, Input, Divider, FormErrorMessage, HStack, Flex, Text } from '@chakra-ui/react';
+import { HStack, Flex, Text } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { UseFormRegister, FieldValues, FieldErrors } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -9,68 +8,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
-
-//Todo: TermInputProps 부분은 컴포넌트가 추가되면 제거
-type TermInputProps = {
-  startDateName: string;
-  endDateName: string;
-  isEndDateDisabled?: boolean;
-  isRequired?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors<FieldValues>;
-  type?: 'date' | 'datetime-local';
-};
-
-const TermInput = ({
-  startDateName,
-  endDateName,
-  isEndDateDisabled = false,
-  isRequired = false,
-  register,
-  errors,
-  type,
-}: TermInputProps) => {
-  return (
-    <HStack flexGrow={1}>
-      <FormControl isInvalid={!!errors[startDateName]}>
-        <Input
-          id={startDateName}
-          type={type}
-          {...register(startDateName, {
-            required: isRequired ? '시작일을 입력하세요.' : false,
-            valueAsDate: true,
-          })}
-        />
-        <FormErrorMessage>
-          {errors.startDateName && errors.startDateName.message?.toString()}
-        </FormErrorMessage>
-      </FormControl>
-      <Divider
-        w={'1rem'}
-        borderColor={'gray.400'}
-      />
-      <FormControl isInvalid={!!errors[endDateName]}>
-        <VStack
-          flexGrow={1}
-          alignItems={'start'}
-        >
-          <Input
-            id={endDateName}
-            type={type}
-            disabled={isEndDateDisabled}
-            {...register(endDateName, {
-              required: isRequired ? '종료일을 입력하세요.' : false,
-              valueAsDate: true,
-            })}
-          />
-          <FormErrorMessage>
-            {errors.endDateName && errors.endDateName.message?.toString()}
-          </FormErrorMessage>
-        </VStack>
-      </FormControl>
-    </HStack>
-  );
-};
+import { TermInput } from '~/components/molecules/TermInput';
 
 const CreateEventTemplate = () => {
   const {
@@ -160,7 +98,8 @@ const CreateEventTemplate = () => {
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
               <TermInput
-                type="datetime-local"
+                control={control}
+                includeTime={true}
                 errors={errors}
                 register={register}
                 isRequired={true}
@@ -172,8 +111,7 @@ const CreateEventTemplate = () => {
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
                 name="endDate"
-                w={'100%'}
-                maxW={'386px'}
+                w={'47.6%'}
                 register={{ ...register('endDate', { required: true }) }}
               />
             </FormControl>
