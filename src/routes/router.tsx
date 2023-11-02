@@ -1,35 +1,32 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '~/App';
 import AdminPage from '~/pages/AdminPage/AdminPage';
-import ApplyEventPage from '~/pages/ApplyEventPage/ApplyEventPage';
-import CreateEventPage from '~/pages/EventPage/CreateEventPage';
-import EventDetailPage from '~/pages/EventPage/EventDetailPage';
-import EventListPage from '~/pages/EventPage/EventListPage';
+import { ApplyEventPage } from '~/pages/EventPages/ApplyEventPage';
+import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
+import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
+import { EventListPage } from '~/pages/EventPages/EventListPage';
 import MainPage from '~/pages/MainPage/MainPage';
-import MenteeMyPage from '~/pages/MyPage/MenteeMyPage';
-import MentorMyPage from '~/pages/MyPage/MentorMyPage';
-import WriteReviewPage from '~/pages/MyPage/WriteReviewPage';
+import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
-import MenteeEditProfilePage from '~/pages/ProfilePage/MenteeEditProfilePage';
-import MentorEditProfilePage from '~/pages/ProfilePage/MentorEditProfilePage';
-import CommentResumePage from '~/pages/ResumePage/CommentResumePage';
-import CreateResumePage from '~/pages/ResumePage/CreateResumePage';
-import EditResumePage from '~/pages/ResumePage/EditResumePage';
-import ResumeDetailPage from '~/pages/ResumePage/ResumeDetailPage';
+import { MenteeEditProfilePage } from '~/pages/ProfilePages/MenteeEditProfilePage';
+import { MentorEditProfilePage } from '~/pages/ProfilePages/MentorEditProfilePage';
+import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
+import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
+import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
+import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import SignInPage from '~/pages/SignInPage/SignInPage';
-import CommonSignUpPage from '~/pages/SignUpPage/CommonSignUpPage';
-import MenteeSignUpPage from '~/pages/SignUpPage/MenteeSignUpPage';
-import MentorSignUpPage from '~/pages/SignUpPage/MentorSignUpPage';
+import { CommonSignUpPage } from '~/pages/SignUpPages/CommonSignUpPage';
+import { MenteeSignUpPage } from '~/pages/SignUpPages/MenteeSignUpPage';
+import { MentorSignUpPage } from '~/pages/SignUpPages/MentorSignUpPage';
+import { WriteReviewPage } from '~/pages/WriteReviewPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <MainPage /> },
-      { path: 'mypage/mentee', element: <MenteeMyPage /> },
-      { path: 'mypage/mentor', element: <MentorMyPage /> },
+      { path: 'mypage/:id', element: <MyPage /> },
       { path: 'user/edit-info/mentee', element: <MenteeEditProfilePage /> },
       { path: 'user/edit-info/mentor', element: <MentorEditProfilePage /> },
 
@@ -50,6 +47,7 @@ const router = createBrowserRouter([
       { path: 'sign-in', element: <SignInPage /> },
 
       { path: 'admin', element: <AdminPage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ]);
