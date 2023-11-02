@@ -21,6 +21,8 @@ const OAuthRedirectPage = () => {
       return;
     }
     /**TODO - access, refresh 토큰 저장 */
+    navigate('/');
+    return;
   };
 
   const signInMutation = usePostOAuthSignIn('kakao', code, signInCallback);
