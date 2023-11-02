@@ -24,7 +24,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <MainPage /> },
       { path: 'mypage/:id', element: <MyPage /> },
@@ -48,6 +47,7 @@ const router = createBrowserRouter([
       { path: 'sign-in', element: <SignInPage /> },
 
       { path: 'admin', element: <AdminPage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ]);
