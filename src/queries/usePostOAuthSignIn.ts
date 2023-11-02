@@ -1,15 +1,20 @@
 import { useMutation } from '@tanstack/react-query';
 import postOAuthSignIn from '~/api/user/postOAuthSignIn';
 
-type SignInCallback = ({
+type SignIn = {
+  access: string;
+  refresh: string;
+};
+
+export type SignInCallback = ({
   cacheKey,
   access,
   refresh,
-}: {
-  cacheKey: string;
-  access: string;
-  refresh: string;
-}) => void;
+}: Partial<
+  {
+    cacheKey?: string;
+  } & SignIn
+>) => void;
 
 export const usePostOAuthSignIn = (
   loginProvider: string,
