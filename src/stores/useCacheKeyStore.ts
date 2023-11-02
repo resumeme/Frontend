@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import constants from '~/constants';
+import CONSTANTS from '~/constants';
 
 type CacheKeyState = {
   cacheKey: string;
@@ -14,7 +14,7 @@ export const useCacheKeyStore = create<CacheKeyState>()(
       setCacheKey: (cacheKey: string) => set({ cacheKey }),
     }),
     {
-      name: constants.signUpCacheKey,
+      name: CONSTANTS.SIGN_UP_CACHE_KEY,
       storage: createJSONStorage(() => sessionStorage),
     },
   ),
