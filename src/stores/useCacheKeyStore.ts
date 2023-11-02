@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import constants from '~/constants';
 
-export const useSignUpCacheKey = create(
+export const useCacheKeyStore = create(
   persist(
     (set) => ({
       cacheKey: '',
