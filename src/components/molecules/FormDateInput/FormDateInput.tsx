@@ -1,59 +1,37 @@
-import { Input, Select, InputProps, HStack } from '@chakra-ui/react';
-import { Control, Controller, UseFormRegisterReturn } from 'react-hook-form';
+import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
+import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
 
 type FormDateInputProps = {
-  dateRegister: UseFormRegisterReturn;
-  timeRegister?: UseFormRegisterReturn;
+  name: string;
   type?: 'date' | 'datetime-local';
-  control: Control;
+  register: UseFormRegisterReturn;
+  isDisabled?: boolean;
+  errors?: FieldErrors;
 } & Omit<InputProps, 'type'>;
 
 const FormDateInput = ({
-  control,
-  id,
+  name,
   type = 'date',
-  dateRegister,
-  timeRegister,
+  isDisabled = false,
+  register,
+  errors,
   ...props
 }: FormDateInputProps) => {
   return (
-    <HStack>
+    <Flex
+      w={'100%'}
+      direction={'column'}
+    >
       <Input
+        type={type}
+        disabled={isDisabled}
+        {...register}
         {...props}
-        type="date"
-        flexGrow={'1'}
-        {...dateRegister}
       />
-      {type === 'datetime-local' && (
-        <Controller
-          name={`${id}Time`}
-          control={control}
-          render={({ field }) => (
-            <Select
-              flexShrink={0}
-              {...timeRegister}
-              border="1px solid"
-              borderColor="gray.300"
-              w={'fit-content'}
-              placeholder="시간"
-              _placeholder={{ color: 'gray.400' }}
-              color={'gray.900'}
-              h={'3.125rem'}
-              {...field}
-            >
-              {[...Array(24).keys()].map((hour) => (
-                <option
-                  key={hour + 1}
-                  value={`${hour + 1}시`}
-                >
-                  {hour + 1}시
-                </option>
-              ))}
-            </Select>
-          )}
-        />
+      {errors && (
+        <FormErrorMessage>{errors[name] && errors[name]?.message?.toString()}</FormErrorMessage>
       )}
-    </HStack>
+    </Flex>
   );
 };
 

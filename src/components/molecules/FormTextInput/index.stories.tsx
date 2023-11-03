@@ -1,12 +1,11 @@
-import { Flex } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import FormTextInput from './FormTextInput';
 import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-import FormLabel from '~/components/atoms/FormLabel/FormLabel';
-import { FormInputSchema } from '~/types/formInput';
+import { FormLabel } from '~/components/atoms/FormLabel';
+import { CreatePostProps } from '~/services/eventService';
 
 const meta = {
   title: 'Resumeme/Components/FormTextInput',
@@ -21,9 +20,9 @@ export const DefaultFormTextInput = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<CreatePostProps>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -31,46 +30,24 @@ export const DefaultFormTextInput = () => {
     });
   };
 
-  const FORM_RESUME_TEXT_INPUT_SCHEMA: FormInputSchema = {
-    title: {
-      label: '제목',
-      placeholder: '제목을 입력하세요',
-      errorTypes: {
-        required: { value: true, message: '필수 입력값 입니다.' },
-      },
-    },
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
-        <FormControl
-          isInvalid={!!errors['title']}
-          key={'title'}
-        >
-          <Flex>
-            {FORM_RESUME_TEXT_INPUT_SCHEMA['title'].label && (
-              <FormLabel
-                htmlFor={'title'}
-                isRequired={'required' in FORM_RESUME_TEXT_INPUT_SCHEMA['title'].errorTypes}
-              >
-                {FORM_RESUME_TEXT_INPUT_SCHEMA['title'].label}
-              </FormLabel>
-            )}
-            <Flex direction={'column'}>
-              <FormTextInput
-                errors={errors}
-                w={'25rem'}
-                register={{
-                  ...register('title', {
-                    ...FORM_RESUME_TEXT_INPUT_SCHEMA['title'].errorTypes,
-                  }),
-                }}
-                id={'title'}
-                placeholder={FORM_RESUME_TEXT_INPUT_SCHEMA['title'].placeholder}
-              />
-            </Flex>
-          </Flex>
+        <FormControl isInvalid={!!errors.info?.title}>
+          <FormLabel
+            htmlFor={'info.title'}
+            isRequired={true}
+          >
+            이벤트 제목
+          </FormLabel>
+
+          <FormTextInput
+            w={'100%'}
+            id="info.title"
+            register={{ ...register('info.title', { required: true }) }}
+            error={errors.info?.title}
+            placeholder="이벤트 제목을 입력해주세요."
+          />
         </FormControl>
       </BorderBox>
       <Button
