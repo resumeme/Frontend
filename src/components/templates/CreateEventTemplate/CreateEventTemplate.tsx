@@ -134,11 +134,13 @@ const CreateEventTemplate = () => {
             </FormControl>
           </Flex>
         </BorderBox>
-        <Flex>
+        <Flex
+          justifyContent={'end'}
+          mt={'2.62rem'}
+          gap={'2.06rem'}
+        >
           <Button
-            ml={'auto'}
             size={'md'}
-            mt={'2.62rem'}
             isLoading={isSubmitting}
             type="button"
           >
@@ -146,8 +148,6 @@ const CreateEventTemplate = () => {
           </Button>
           <Button
             size={'md'}
-            ml={'2.06rem'}
-            mt={'2.62rem'}
             isLoading={isSubmitting}
             type="submit"
           >

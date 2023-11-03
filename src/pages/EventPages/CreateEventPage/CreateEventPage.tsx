@@ -1,5 +1,7 @@
+import { CreateEventTemplate } from '~/components/templates/CreateEventTemplate';
+
 const CreateEventPage = () => {
-  return <></>;
+  return <CreateEventTemplate />;
 };
 
 export default CreateEventPage;
