@@ -12,6 +12,7 @@ const Layout = () => {
     >
       <Box
         position={'fixed'}
+        zIndex={'sticky'}
         w={'full'}
         top={0}
         left={'50%'}

@@ -4,6 +4,7 @@ import IMAGE_404 from '~/assets/images/no-data.svg';
 import { Button } from '~/components/atoms/Button';
 
 const HEADER_HEIGHT = 65;
+const FOOTER_HEIGHT = 430;
 
 const IMAGE = {
   SRC: IMAGE_404,
@@ -23,7 +24,7 @@ const BUTTON_CONTENT = {
 };
 
 const NotFoundPage = () => {
-  const pageHeight = `calc(100vh - ${HEADER_HEIGHT}px)`;
+  const pageHeight = `calc(100vh - ${HEADER_HEIGHT + FOOTER_HEIGHT}px)`;
 
   return (
     <>
