@@ -2,6 +2,8 @@ import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Footer } from '~/components/organisms/Footer';
 import { Header } from '~/components/organisms/Header';
+import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
+import { ResumeCategoryCareer } from '~/components/organisms/ResumeCategoryCareer';
 
 const Layout = () => {
   return (
@@ -31,6 +33,10 @@ const Layout = () => {
         py={'3rem'}
         px={'12px'}
       >
+        <Box w={'960px'}>
+          <ResumeBasicInput />
+          <ResumeCategoryCareer />
+        </Box>
         <Outlet />
       </Box>
       <Box
