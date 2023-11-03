@@ -71,6 +71,8 @@ const ResumeBasicInput = () => {
                     url="https://github.com/khakhid"
                     variant="github"
                   />
+                  <LinkIconBox url="https://github.com/khakhid" />
+                  <LinkIconBox url="https://github.com/khakhid" />
                 </Box>
                 <BorderBox p={5}>
                   <Flex
@@ -104,9 +106,11 @@ const ResumeBasicInput = () => {
                 mb={3}
                 placeholder="보유한 기술 스택"
               />
+              {/* TODO MainTextarea 컴포넌트로 변경하기 */}
               <Textarea
                 mb={3}
                 borderColor={'gray.300'}
+                focusBorderColor="primary.900"
                 placeholder="자기소개 (**자 이내)"
               />
               <Flex justify={'flex-end'}>

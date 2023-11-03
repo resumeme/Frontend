@@ -7,7 +7,7 @@ type LinkIconBoxProps = {
   url?: string;
 };
 
-const LinkIconBox = ({ url, variant = 'github' }: LinkIconBoxProps) => {
+const LinkIconBox = ({ url, variant = 'default' }: LinkIconBoxProps) => {
   return (
     <Link href={url}>
       <Flex
