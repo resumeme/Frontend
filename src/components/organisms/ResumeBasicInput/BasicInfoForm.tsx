@@ -11,9 +11,12 @@ const BasicInfoForm = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((values) => {
-    /* TODO api 호출하여 저장하고, 성공 시 조회하여 화면에 렌더링하기 */
     console.log('values', values);
   });
+
+  /* TODO api 함수 작성하기 */
+  // const loadFormData = async () => {}
+  // const saveFormData = async () => {}
 
   return (
     <Box>
