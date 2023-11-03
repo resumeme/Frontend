@@ -1,4 +1,4 @@
-import { Input, InputProps, VStack, FormErrorMessage } from '@chakra-ui/react';
+import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
 import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
 
 type FormDateInputProps = {
@@ -18,7 +18,10 @@ const FormDateInput = ({
   ...props
 }: FormDateInputProps) => {
   return (
-    <VStack w={'100%'}>
+    <Flex
+      w={'100%'}
+      direction={'column'}
+    >
       <Input
         type={type}
         disabled={isDisabled}
@@ -28,7 +31,7 @@ const FormDateInput = ({
       {errors && (
         <FormErrorMessage>{errors[name] && errors[name]?.message?.toString()}</FormErrorMessage>
       )}
-    </VStack>
+    </Flex>
   );
 };
 

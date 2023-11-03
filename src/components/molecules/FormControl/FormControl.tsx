@@ -10,7 +10,7 @@ type FormControlProps = {
 } & ChakraFormControlProps;
 
 const FormControl = ({
-  spacing = '0',
+  spacing = '1.63rem',
   direction = 'row',
   children,
   ...props

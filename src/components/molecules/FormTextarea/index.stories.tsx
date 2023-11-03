@@ -1,20 +1,20 @@
 import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
-import FormDateInput from './FormDateInput';
-import { FormControl } from '../FormControl';
+import FormTextarea from './FormTextarea';
+import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 
 const meta = {
-  title: 'Resumeme/Components/FormDateInput',
-  component: FormDateInput,
+  title: 'Resumeme/Components/FormTextarea',
+  component: FormTextarea,
   tags: ['autodocs'],
-} satisfies Meta<typeof FormDateInput>;
+} satisfies Meta<typeof FormTextarea>;
 
 export default meta;
 
-export const DefaultFormDateInput = () => {
+export const DefaultFormTextarea = () => {
   const {
     handleSubmit,
     register,
@@ -32,13 +32,21 @@ export const DefaultFormDateInput = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
-        <FormControl isInvalid={!!errors['endDate']}>
-          <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
-          <FormDateInput
-            name="endDate"
-            w={'100%'}
-            maxW={'386px'}
-            register={{ ...register('endDate', { required: true }) }}
+        <FormControl
+          spacing="1.63rem"
+          isInvalid={!!errors['content']}
+        >
+          <FormLabel
+            htmlFor={'content'}
+            isRequired={true}
+          >
+            내용
+          </FormLabel>
+          <FormTextarea
+            errors={errors}
+            id="content"
+            register={{ ...register('content', { required: true }) }}
+            placeholder="이벤트에 대한 상세 내용을 입력해주세요."
           />
         </FormControl>
       </BorderBox>

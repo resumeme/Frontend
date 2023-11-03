@@ -1,12 +1,10 @@
-import { Flex } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
-import { FormDateInput } from '../FormDateInput';
+import { FormTextInput } from '../FormTextInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-import FormLabel from '~/components/atoms/FormLabel/FormLabel';
-import { FormInputSchema } from '~/types/formInput';
+import { FormLabel } from '~/components/atoms/FormLabel';
 
 const meta = {
   title: 'Resumeme/Components/FormControl',
@@ -31,43 +29,24 @@ export const DefaultFormControl = () => {
     });
   };
 
-  const FORM_RESUME_DATE_INPUT_SCHEMA: FormInputSchema = {
-    endEventDate: {
-      type: 'date',
-      label: '첨삭 종료일',
-      placeholder: '',
-      errorTypes: {
-        required: true,
-      },
-    },
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
-        <FormControl
-          isInvalid={!!errors['endEventDate']}
-          key={'endEventDate'}
-        >
-          {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label && (
-            <FormLabel
-              htmlFor={'endEventDate'}
-              isRequired={'required' in FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes}
-            >
-              {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label}
-            </FormLabel>
-          )}
-          <Flex direction={'column'}>
-            <FormDateInput
-              w={'16rem'}
-              register={{
-                ...register('endEventDate', {
-                  ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
-                }),
-              }}
-              name={'endEventDate'}
-            />
-          </Flex>
+        <FormControl isInvalid={!!errors['title']}>
+          <FormLabel
+            htmlFor={'title'}
+            isRequired={true}
+          >
+            이벤트 제목
+          </FormLabel>
+
+          <FormTextInput
+            w={'100%'}
+            id="title"
+            register={{ ...register('title', { required: true }) }}
+            errors={errors}
+            placeholder="이벤트 제목을 입력해주세요."
+          />
         </FormControl>
       </BorderBox>
       <Button
@@ -98,44 +77,28 @@ export const ColumnFormControl = () => {
     });
   };
 
-  const FORM_RESUME_DATE_INPUT_SCHEMA: FormInputSchema = {
-    endEventDate: {
-      type: 'date',
-      label: '첨삭 종료일',
-      placeholder: '',
-      errorTypes: {
-        required: true,
-      },
-    },
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
         <FormControl
           direction="column"
-          isInvalid={!!errors['endEventDate']}
-          key={'endEventDate'}
+          spacing="0.5rem"
+          isInvalid={!!errors['title']}
         >
-          {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label && (
-            <FormLabel
-              htmlFor={'endEventDate'}
-              isRequired={'required' in FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes}
-            >
-              {FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].label}
-            </FormLabel>
-          )}
-          <Flex direction={'column'}>
-            <FormDateInput
-              w={'16rem'}
-              register={{
-                ...register('endEventDate', {
-                  ...FORM_RESUME_DATE_INPUT_SCHEMA['endEventDate'].errorTypes,
-                }),
-              }}
-              name={'endEventDate'}
-            />
-          </Flex>
+          <FormLabel
+            htmlFor={'title'}
+            isRequired={true}
+          >
+            이벤트 제목
+          </FormLabel>
+
+          <FormTextInput
+            w={'100%'}
+            id="title"
+            register={{ ...register('title', { required: true }) }}
+            errors={errors}
+            placeholder="이벤트 제목을 입력해주세요."
+          />
         </FormControl>
       </BorderBox>
       <Button
