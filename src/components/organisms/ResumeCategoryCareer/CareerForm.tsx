@@ -65,7 +65,7 @@ const CareerForm = () => {
           <FormTextInput
             id="companyName"
             register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
-            errors={errors}
+            error={errors.companyName}
           />
         </FormControl>
         <Flex
@@ -95,7 +95,7 @@ const CareerForm = () => {
           <FormTextInput
             id="position"
             register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
-            errors={errors}
+            error={errors.position}
           />
         </FormControl>
         <FormControl>

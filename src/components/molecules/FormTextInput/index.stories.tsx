@@ -1,10 +1,11 @@
 import type { Meta } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import FormTextInput from './FormTextInput';
 import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
+import { CreatePostProps } from '~/services/eventService';
 
 const meta = {
   title: 'Resumeme/Components/FormTextInput',
@@ -19,9 +20,9 @@ export const DefaultFormTextInput = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<CreatePostProps>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -32,9 +33,9 @@ export const DefaultFormTextInput = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
-        <FormControl isInvalid={!!errors['title']}>
+        <FormControl isInvalid={!!errors.info?.title}>
           <FormLabel
-            htmlFor={'title'}
+            htmlFor={'info.title'}
             isRequired={true}
           >
             이벤트 제목
@@ -42,9 +43,9 @@ export const DefaultFormTextInput = () => {
 
           <FormTextInput
             w={'100%'}
-            id="title"
-            register={{ ...register('title', { required: true }) }}
-            errors={errors}
+            id="info.title"
+            register={{ ...register('info.title', { required: true }) }}
+            error={errors.info?.title}
             placeholder="이벤트 제목을 입력해주세요."
           />
         </FormControl>

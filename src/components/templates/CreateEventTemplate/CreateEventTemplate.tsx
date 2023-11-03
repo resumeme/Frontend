@@ -12,7 +12,7 @@ import { TermInput } from '~/components/molecules/TermInput';
 import { CreatePostProps, useCreateEvent } from '~/services/eventService';
 
 const CreateEventTemplate = () => {
-  const { mutate: createEvent, isLoading } = useCreateEvent();
+  const { mutate: createEvent } = useCreateEvent();
 
   const {
     control,
