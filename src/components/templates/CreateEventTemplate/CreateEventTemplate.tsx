@@ -9,8 +9,11 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
+import { CreatePostProps, useCreateEvent } from '~/services/eventService';
 
 const CreateEventTemplate = () => {
+  const { mutate: createEvent, isLoading } = useCreateEvent();
+
   const {
     control,
     handleSubmit,
@@ -18,12 +21,13 @@ const CreateEventTemplate = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (values: { [key: string]: string }) => {
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
+    createEvent(values);
+    // return new Promise(() => {
+    //   setTimeout(() => {
+    //     alert(JSON.stringify(values, null, 2));
+    //   }, 3000);
+    // });
   };
 
   return (
