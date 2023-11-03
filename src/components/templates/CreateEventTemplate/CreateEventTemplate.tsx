@@ -1,5 +1,5 @@
 import { HStack, Flex, Text } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -9,22 +9,28 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
+import { CreatePostProps, useCreateEvent } from '~/services/eventService';
 
 const CreateEventTemplate = () => {
+  const { mutate: createEvent } = useCreateEvent();
+
   const {
     control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<CreatePostProps>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
+    createEvent(values);
+    // return new Promise(() => {
+    //   setTimeout(() => {
+    //     alert(JSON.stringify(values, null, 2));
+    //   }, 3000);
+    // });
   };
+
+  //목업 데이터 생성
 
   return (
     <>
@@ -42,9 +48,9 @@ const CreateEventTemplate = () => {
             direction={'column'}
             gap={'1.25rem'}
           >
-            <FormControl isInvalid={!!errors['title']}>
+            <FormControl isInvalid={!!errors.info?.title}>
               <FormLabel
-                htmlFor={'title'}
+                htmlFor={'info.title'}
                 isRequired={true}
               >
                 이벤트 제목
@@ -52,30 +58,30 @@ const CreateEventTemplate = () => {
 
               <FormTextInput
                 w={'100%'}
-                id="title"
-                register={{ ...register('title', { required: true }) }}
-                errors={errors}
+                id="info.title"
+                register={{ ...register('info.title', { required: true }) }}
+                error={errors.info?.title}
                 placeholder="이벤트 제목을 입력해주세요."
               />
             </FormControl>
-            <FormControl isInvalid={!!errors['maximumAttendee']}>
+            <FormControl isInvalid={!!errors.info?.maximumAttendee}>
               <FormLabel
-                htmlFor={'maximumAttendee'}
+                htmlFor={'info.maximumAttendee'}
                 isRequired={true}
               >
                 인원 수
               </FormLabel>
               <FormTextInput
-                id="maximumAttendee"
+                id="info.maximumAttendee"
                 register={{
-                  ...register('maximumAttendee', {
+                  ...register('info.maximumAttendee', {
                     required: true,
                     max: { value: 10, message: '10이하로 입력해 주세요.' },
                     min: { value: 2, message: '2이상 입력해 주세요.' },
                     pattern: { value: /^(?:[2-9]|10)$/, message: '숫자를 입력해 주세요.' },
                   }),
                 }}
-                errors={errors}
+                error={errors.info?.maximumAttendee}
                 placeholder="신청 받을 인원 수(2~10)를 입력해주세요."
               />
             </FormControl>
@@ -83,12 +89,7 @@ const CreateEventTemplate = () => {
               spacing="1.63rem"
               isInvalid={!!errors['positions']}
             >
-              <FormLabel
-                htmlFor={'positions'}
-                isRequired={true}
-              >
-                직무
-              </FormLabel>
+              <FormLabel isRequired={true}>직무</FormLabel>
               <LabelCheckboxGroup
                 control={control}
                 name="positions"
@@ -97,38 +98,38 @@ const CreateEventTemplate = () => {
             </FormControl>
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput
+              <TermInput<CreatePostProps>
                 control={control}
                 includeTime={true}
                 errors={errors}
                 register={register}
                 isRequired={true}
-                endDateName="closeDateTime"
-                startDateName="openDateTime"
+                endDateName="time.closeDateTime"
+                startDateName="time.openDateTime"
               />
             </HStack>
-            <FormControl isInvalid={!!errors['endDate']}>
+            <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
-                name="endDate"
+                name={'time.endDate'}
                 w={'47.6%'}
-                register={{ ...register('endDate', { required: true }) }}
+                register={{ ...register('time.endDate', { required: true }) }}
               />
             </FormControl>
             <FormControl
               spacing="1.63rem"
-              isInvalid={!!errors['content']}
+              isInvalid={!!errors.info?.content}
             >
               <FormLabel
-                htmlFor={'content'}
+                htmlFor={'info.content'}
                 isRequired={true}
               >
                 내용
               </FormLabel>
               <FormTextarea
                 errors={errors}
-                id="content"
-                register={{ ...register('content', { required: true }) }}
+                id="info.content"
+                register={{ ...register('info.content', { required: true }) }}
                 placeholder="이벤트에 대한 상세 내용을 입력해주세요."
               />
             </FormControl>

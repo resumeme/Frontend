@@ -1,10 +1,11 @@
 import type { Meta } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import FormControl from './FormControl';
 import { FormTextInput } from '../FormTextInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
+import { CreatePostProps } from '~/services/eventService';
 
 const meta = {
   title: 'Resumeme/Components/FormControl',
@@ -19,9 +20,9 @@ export const DefaultFormControl = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<CreatePostProps>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -32,9 +33,9 @@ export const DefaultFormControl = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
-        <FormControl isInvalid={!!errors['title']}>
+        <FormControl isInvalid={!!errors.info?.title}>
           <FormLabel
-            htmlFor={'title'}
+            htmlFor={'info.title'}
             isRequired={true}
           >
             이벤트 제목
@@ -42,9 +43,9 @@ export const DefaultFormControl = () => {
 
           <FormTextInput
             w={'100%'}
-            id="title"
-            register={{ ...register('title', { required: true }) }}
-            errors={errors}
+            id="info.title"
+            register={{ ...register('info.title', { required: true }) }}
+            error={errors.info?.title}
             placeholder="이벤트 제목을 입력해주세요."
           />
         </FormControl>
@@ -67,9 +68,9 @@ export const ColumnFormControl = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<CreatePostProps>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
+  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -82,11 +83,10 @@ export const ColumnFormControl = () => {
       <BorderBox>
         <FormControl
           direction="column"
-          spacing="0.5rem"
-          isInvalid={!!errors['title']}
+          isInvalid={!!errors.info?.title}
         >
           <FormLabel
-            htmlFor={'title'}
+            htmlFor={'info.title'}
             isRequired={true}
           >
             이벤트 제목
@@ -94,9 +94,9 @@ export const ColumnFormControl = () => {
 
           <FormTextInput
             w={'100%'}
-            id="title"
-            register={{ ...register('title', { required: true }) }}
-            errors={errors}
+            id="info.title"
+            register={{ ...register('info.title', { required: true }) }}
+            error={errors.info?.title}
             placeholder="이벤트 제목을 입력해주세요."
           />
         </FormControl>
