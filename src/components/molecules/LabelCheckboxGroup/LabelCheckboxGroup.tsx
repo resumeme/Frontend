@@ -1,14 +1,14 @@
 import { CheckboxGroup, CheckboxGroupProps, Stack } from '@chakra-ui/react';
-import { Controller, Control } from 'react-hook-form';
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
 
-export type LabelCheckboxGroupProps = CheckboxGroupProps & {
+export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps & {
   options?: Array<{ label: string; value: string }>;
   variant?: 'role' | 'domain' | 'default';
   spacing?: string;
-  name: string;
+  name: Path<T>;
   required?: boolean;
-  control: Control;
+  control: Control<T>;
 };
 
 const role = [
@@ -28,7 +28,7 @@ const domain = [
   { label: '포털/콘텐츠/메신저', value: 'portal' },
 ];
 
-const LabelCheckboxGroup = ({
+const LabelCheckboxGroup = <T extends FieldValues>({
   options,
   variant = 'default',
   spacing = '12px',
@@ -36,7 +36,7 @@ const LabelCheckboxGroup = ({
   control,
   required = true,
   ...props
-}: LabelCheckboxGroupProps) => {
+}: LabelCheckboxGroupProps<T>) => {
   let selectedOptions = options;
 
   if (variant != 'default') {

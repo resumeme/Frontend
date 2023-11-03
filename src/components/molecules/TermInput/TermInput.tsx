@@ -1,20 +1,27 @@
 import { Divider, HStack, FormControl } from '@chakra-ui/react';
-import { UseFormRegister, FieldValues, FieldErrors, Control, useWatch } from 'react-hook-form';
+import {
+  UseFormRegister,
+  FieldValues,
+  FieldErrors,
+  Control,
+  useWatch,
+  Path,
+} from 'react-hook-form';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { getOneYearLater } from '~/utils/getOneYearLater';
 
-type TermInputProps = {
-  startDateName: string;
-  endDateName: string;
+type TermInputProps<T extends FieldValues> = {
+  startDateName: Path<T>;
+  endDateName: Path<T>;
   isEndDateDisabled?: boolean;
   isRequired?: boolean;
   includeTime?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors<FieldValues>;
-  control: Control;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  control: Control<T>;
 };
 
-const TermInput = ({
+const TermInput = <T extends FieldValues>({
   startDateName,
   endDateName,
   isEndDateDisabled = false,
@@ -23,9 +30,10 @@ const TermInput = ({
   register,
   errors,
   control,
-}: TermInputProps) => {
+}: TermInputProps<T>) => {
   /*TODO - isEndDateDisabled 상태 변화 시 리렌더링되도록 수정하기 */
   const startDate = useWatch({ name: startDateName, control });
+
   return (
     <HStack flexGrow={1}>
       <FormControl isInvalid={!!errors[startDateName]}>

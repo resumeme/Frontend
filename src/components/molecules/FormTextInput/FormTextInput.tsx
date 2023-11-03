@@ -1,13 +1,13 @@
 import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 type FormTextInputProps = {
   id: string;
   register: UseFormRegisterReturn;
-  errors?: FieldErrors;
+  error?: FieldError;
 } & Omit<InputProps, 'type'>;
 
-const FormTextInput = ({ id, register, errors, ...props }: FormTextInputProps) => {
+const FormTextInput = ({ id, register, error, ...props }: FormTextInputProps) => {
   return (
     <Flex
       direction={'column'}
@@ -18,7 +18,7 @@ const FormTextInput = ({ id, register, errors, ...props }: FormTextInputProps) =
         {...props}
         {...register}
       />
-      {errors && <FormErrorMessage>{errors[id]?.message as string}</FormErrorMessage>}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </Flex>
   );
 };
