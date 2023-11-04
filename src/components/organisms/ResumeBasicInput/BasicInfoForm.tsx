@@ -84,7 +84,7 @@ const BasicInfoForm = () => {
               }),
             }}
             errors={errors}
-            height="150px"
+            height="100px"
             width="full"
             placeholder="간략한 자기소개 (100자 이내)"
             resize="none"
