@@ -4,11 +4,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { usePostResumeBasicInfo } from '~/queries/usePostResumeBasicInfo';
 import { BasicInfo } from '~/types/userInfo';
 
 const BasicInfoForm = () => {
   const [skills, setSkills] = useState<string[]>([]);
 
+  const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
 
   const {
     setValue,
@@ -17,10 +19,16 @@ const BasicInfoForm = () => {
     formState: { errors },
   } = useForm<BasicInfo>();
 
+  const onSubmit: SubmitHandler<BasicInfo> = (data) => {
+    data.skillset = skills;
+    postResumeBasicInfo(data);
+    return new Promise(() => {
+      setTimeout(() => {
+        alert(JSON.stringify(data, null, 2));
+      }, 3000);
+    });
+  };
 
-  const onSubmit = handleSubmit((values) => {
-    console.log('values', values);
-  });
   const handleSkillsetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
