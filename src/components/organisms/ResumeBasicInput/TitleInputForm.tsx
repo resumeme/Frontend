@@ -1,9 +1,11 @@
 import { Box, FormControl } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import TitleInput from '~/components/atoms/TitleInput/TitleInput';
 
 const TitleInputForm = () => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -13,6 +15,16 @@ const TitleInputForm = () => {
     /* TODO api 요청으로 기본 정보 저장하기 */
     console.log('values', values);
   });
+
+  const resumeTitle = useWatch({ name: 'resumeTitle', control });
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      onSubmit();
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [resumeTitle]);
 
   return (
     <form onSubmit={onSubmit}>
