@@ -24,7 +24,7 @@ const TitleInputForm = () => {
     }, 500);
 
     return () => clearTimeout(debounceTimeout);
-  }, [resumeTitle]);
+  }, [resumeTitle, onSubmit]);
 
   return (
     <form onSubmit={onSubmit}>
