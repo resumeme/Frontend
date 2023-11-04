@@ -4,6 +4,7 @@ const variantOutline = defineStyle(() => {
   return {
     _placeholder: { color: 'gray.400' },
     _focusVisible: {
+      borderColor: 'primary.900',
       boxShadow: '0',
       _invalid: { borderColor: 'red', boxShadow: '0' },
     },
