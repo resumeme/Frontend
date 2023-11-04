@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Tag, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Tag, Tooltip } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
