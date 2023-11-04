@@ -36,18 +36,11 @@ const TermInput = <T extends FieldValues>({
   const startDate = useWatch({ name: startDateName, control });
 
   const getNestedErrors = (errors: FieldErrors<T>, path: string): FieldError | undefined => {
-    const parts = path.split('.');
-    let error: FieldErrors<T> | FieldError | undefined = errors;
-
-    for (const part of parts) {
-      if (typeof error === 'object' && error !== null && part in error) {
-        error = (error as FieldValues)[part];
-      } else {
-        return undefined;
+    return path.split('.').reduce((parsedError, path) => {
+      if (typeof parsedError === 'object' && parsedError !== null && path in parsedError) {
+        return (parsedError = (parsedError as FieldValues)[path]);
       }
-    }
-
-    return error as FieldError | undefined;
+    }, errors) as FieldError | undefined;
   };
 
   return (
