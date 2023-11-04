@@ -108,13 +108,15 @@ const ReferenceLinkForm = () => {
                 placeholder="URL 입력"
                 mb={1}
               />
-              <Button
-                mt={3}
-                type="submit"
-                size={'xs'}
-              >
-                저장
-              </Button>
+              <Flex justify="flex-end">
+                <Button
+                  mt={3}
+                  type="submit"
+                  size={'xs'}
+                >
+                  추가
+                </Button>
+              </Flex>
             </FormControl>
           </form>
         </Flex>
