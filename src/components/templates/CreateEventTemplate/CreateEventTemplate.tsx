@@ -1,5 +1,5 @@
 import { HStack, Flex, Text } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -9,19 +9,22 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
-import { CreatePostProps, useCreateEvent } from '~/services/eventService';
+import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
+import { CreateEvent } from '~/types/event';
 
 const CreateEventTemplate = () => {
-  const { mutate: createEvent } = useCreateEvent();
+  const { mutate: createEvent } = usePostCreateEvent();
 
   const {
     control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<CreatePostProps>();
+  } = useForm<CreateEvent>();
 
-  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
+  const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
+
+  const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     createEvent(values);
     // return new Promise(() => {
     //   setTimeout(() => {
@@ -98,7 +101,7 @@ const CreateEventTemplate = () => {
             </FormControl>
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput<CreatePostProps>
+              <TermInput<CreateEvent>
                 control={control}
                 includeTime={true}
                 errors={errors}
@@ -111,9 +114,17 @@ const CreateEventTemplate = () => {
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
-                name={'time.endDate'}
+                errors={errors.time?.endDate}
                 w={'47.6%'}
-                register={{ ...register('time.endDate', { required: true }) }}
+                register={{
+                  ...register('time.endDate', {
+                    required: true,
+                    min: {
+                      value: closeDateTime,
+                      message: '신청 기간 이후의 날짜를 입력해주세요.',
+                    },
+                  }),
+                }}
               />
             </FormControl>
             <FormControl

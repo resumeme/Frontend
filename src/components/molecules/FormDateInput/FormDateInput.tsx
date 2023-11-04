@@ -1,16 +1,14 @@
 import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
+import { UseFormRegisterReturn, FieldError } from 'react-hook-form';
 
 type FormDateInputProps = {
-  name: string;
   type?: 'date' | 'datetime-local';
   register: UseFormRegisterReturn;
   isDisabled?: boolean;
-  errors?: FieldErrors;
+  errors?: FieldError;
 } & Omit<InputProps, 'type'>;
 
 const FormDateInput = ({
-  name,
   type = 'date',
   isDisabled = false,
   register,
@@ -28,9 +26,7 @@ const FormDateInput = ({
         {...register}
         {...props}
       />
-      {errors && (
-        <FormErrorMessage>{errors[name] && errors[name]?.message?.toString()}</FormErrorMessage>
-      )}
+      {errors && <FormErrorMessage>{errors && (errors.message as string)}</FormErrorMessage>}
     </Flex>
   );
 };

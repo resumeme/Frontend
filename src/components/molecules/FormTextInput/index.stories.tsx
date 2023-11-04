@@ -5,7 +5,7 @@ import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
-import { CreatePostProps } from '~/services/eventService';
+import { CreateEvent } from '~/types/event';
 
 const meta = {
   title: 'Resumeme/Components/FormTextInput',
@@ -20,9 +20,9 @@ export const DefaultFormTextInput = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<CreatePostProps>();
+  } = useForm<CreateEvent>();
 
-  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
+  const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
