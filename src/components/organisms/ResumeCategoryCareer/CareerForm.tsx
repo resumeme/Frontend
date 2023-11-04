@@ -12,19 +12,21 @@ import React from 'react';
 import {
   Control,
   FieldErrors,
-  FieldValues,
   UseFieldArrayRemove,
   UseFormRegister,
   useFieldArray,
   useForm,
   useWatch,
 } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 
 import { TermInput } from '~/components/molecules/TermInput';
+import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
+import Career from '~/types/career';
 
 const CareerForm = () => {
   const {
@@ -32,7 +34,7 @@ const CareerForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<Career>();
 
   /**TODO remove 기능 추가하기 */
   const { fields, append, remove } = useFieldArray({
@@ -40,9 +42,16 @@ const CareerForm = () => {
     name: 'duties',
   });
 
-  const onSubmit = handleSubmit((values) => {
-    /**TODO api 호출해 저장하기 */
-    console.log('values', values);
+  const { id: resumeId } = useParams();
+  const { mutate } = usePostResumeCareer();
+  const navigate = useNavigate();
+  const onSubmit = handleSubmit((resumeCareer) => {
+    if (!resumeId) {
+      alert('존재하지 않는 이력서입니다.');
+      navigate(-1);
+      return;
+    }
+    mutate({ resumeId, resumeCareer });
   });
 
   const defaultDutyData = {
@@ -108,8 +117,8 @@ const CareerForm = () => {
         <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput
-            id="others"
-            register={{ ...register('others') }}
+            id="careerContent"
+            register={{ ...register('careerContent') }}
           />
         </FormControl>
         {fields?.map((field, index) => (
@@ -156,10 +165,10 @@ const DutyForm = ({
 }: {
   key: string;
   index: number;
-  errors: FieldErrors<FieldValues>;
-  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<Career>;
+  register: UseFormRegister<Career>;
   remove: UseFieldArrayRemove;
-  control: Control;
+  control: Control<Career>;
 }) => {
   return (
     <React.Fragment key={key}>
