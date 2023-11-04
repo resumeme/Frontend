@@ -1,5 +1,5 @@
 import { HStack, Flex, Text } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -20,6 +20,8 @@ const CreateEventTemplate = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm<CreatePostProps>();
+
+  const endDate = useWatch({ name: 'time.closeDateTime', control });
 
   const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
     createEvent(values);
@@ -111,9 +113,17 @@ const CreateEventTemplate = () => {
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
-                name={'time.endDate'}
+                errors={errors.time?.endDate}
                 w={'47.6%'}
-                register={{ ...register('time.endDate', { required: true }) }}
+                register={{
+                  ...register('time.endDate', {
+                    required: true,
+                    min: {
+                      value: endDate,
+                      message: '신청 기간 이후의 날짜를 입력해주세요.',
+                    },
+                  }),
+                }}
               />
             </FormControl>
             <FormControl

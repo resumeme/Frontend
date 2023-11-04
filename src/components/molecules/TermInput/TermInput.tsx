@@ -6,6 +6,7 @@ import {
   Control,
   useWatch,
   Path,
+  FieldError,
 } from 'react-hook-form';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { getOneYearLater } from '~/utils/getOneYearLater';
@@ -34,9 +35,24 @@ const TermInput = <T extends FieldValues>({
   /*TODO - isEndDateDisabled 상태 변화 시 리렌더링되도록 수정하기 */
   const startDate = useWatch({ name: startDateName, control });
 
+  const getNestedErrors = (errors: FieldErrors<T>, path: string): FieldError | undefined => {
+    const parts = path.split('.');
+    let error: FieldErrors<T> | FieldError | undefined = errors;
+
+    for (const part of parts) {
+      if (typeof error === 'object' && error !== null && part in error) {
+        error = (error as FieldValues)[part];
+      } else {
+        return undefined;
+      }
+    }
+
+    return error as FieldError | undefined;
+  };
+
   return (
     <HStack flexGrow={1}>
-      <FormControl isInvalid={!!errors[startDateName]}>
+      <FormControl isInvalid={!!getNestedErrors(errors, startDateName)}>
         <FormDateInput
           name={startDateName}
           type={includeTime ? 'datetime-local' : 'date'}
@@ -49,14 +65,14 @@ const TermInput = <T extends FieldValues>({
               },
             }),
           }}
-          errors={errors}
+          errors={getNestedErrors(errors, startDateName)}
         />
       </FormControl>
       <Divider
         w={'2.5rem'}
         borderColor={'gray.400'}
       />
-      <FormControl isInvalid={!!errors[endDateName]}>
+      <FormControl isInvalid={!!getNestedErrors(errors, endDateName)}>
         <FormDateInput
           name={endDateName}
           type={includeTime ? 'datetime-local' : 'date'}
@@ -67,7 +83,7 @@ const TermInput = <T extends FieldValues>({
               min: { value: startDate, message: '시작일 이후의 날짜를 입력해주세요.' },
             }),
           }}
-          errors={errors}
+          errors={getNestedErrors(errors, endDateName)}
         />
       </FormControl>
     </HStack>
