@@ -2,13 +2,23 @@ import { Box, Flex, FormControl, Radio, RadioGroup, Stack } from '@chakra-ui/rea
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import LinkIconBox from './LinkIconBox';
-import { LinkIconBoxProps } from './LinkIconBox';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 
+type LinkData = {
+  type?: 'default' | 'github' | 'blog';
+  url?: string;
+};
+
 const ReferenceLinkForm = () => {
-  const [linkData, setLinkData] = useState<LinkIconBoxProps[]>([]);
+  const [linkData, setLinkData] = useState<LinkData[]>([]);
+
+  const handleRemoveLink = (urlToRemove: string) => {
+    // urlToRemove와 일치하지 않는 링크만 남기고 나머지를 필터링합니다.
+    const updatedLinks = linkData.filter((link) => link.url !== urlToRemove);
+    setLinkData(updatedLinks);
+  };
 
   const {
     register,
@@ -33,14 +43,16 @@ const ReferenceLinkForm = () => {
   return (
     <>
       {/* TODO 링크 박스 추가되게 하기 -> 추후에는 api로 변경 */}
-      {linkData.map((data: LinkIconBoxProps, index) => (
+      {linkData.map((data: LinkData, index) => (
         <Box
           key={index}
           mb={3}
         >
           <LinkIconBox
+            key={index}
             url={data.url}
             type={data.type}
+            onRemove={handleRemoveLink}
           />
         </Box>
       ))}
