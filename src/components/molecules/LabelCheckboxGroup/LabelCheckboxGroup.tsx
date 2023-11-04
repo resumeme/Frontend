@@ -12,10 +12,10 @@ export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps 
 };
 
 const role = [
-  { label: '프론트엔드', value: 'frontend' },
-  { label: '서버/백엔드', value: 'backend' },
-  { label: '모바일', value: 'mobile' },
-  { label: '시스템/데브옵스', value: 'devops' },
+  { label: '프론트엔드', value: 'FRONT' },
+  { label: '서버/백엔드', value: 'BACK' },
+  { label: '모바일', value: 'MOBILE' },
+  { label: '시스템/데브옵스', value: 'DEVOPS' },
 ];
 
 const domain = [

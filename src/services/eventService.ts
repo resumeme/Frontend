@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { resumeMeAxios } from '~/api/axios';
+// import { resumeMeAxios } from '~/api/axios';
 
-export type CreatePostProps = {
+export type CreateEvent = {
   info: {
     title: string;
     content: string;
@@ -16,8 +16,9 @@ export type CreatePostProps = {
   positions: string[];
 };
 
-const createEvent = async (data: CreatePostProps) => {
-  return await resumeMeAxios.post('/api/v1/events', { ...data });
+const createEvent = async (data: CreateEvent) => {
+  data.time.now = new Date().toISOString().substring(0, 16);
+  data.time.endDate = new Date(data.time.endDate).toISOString().substring(0, 16);
 };
 
 export const useCreateEvent = () => {
