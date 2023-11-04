@@ -106,7 +106,7 @@ const BasicInfoForm = () => {
               >
                 {skills.map((skill) => (
                   <Tag
-                    bg={'gray.400'}
+                    bg={'primary.100'}
                     key={skill}
                   >
                     {skill}
@@ -131,7 +131,7 @@ const BasicInfoForm = () => {
           placeholder="자기소개 (100자 이내)"
           autoComplete="off"
           spellCheck="false"
-          mb={3}
+          my={3}
         />
         <Flex justify={'flex-end'}>
           <Button
