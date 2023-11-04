@@ -36,7 +36,6 @@ const CareerForm = () => {
     formState: { errors },
   } = useForm<Career>();
 
-  /**TODO remove 기능 추가하기 */
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'duties',
