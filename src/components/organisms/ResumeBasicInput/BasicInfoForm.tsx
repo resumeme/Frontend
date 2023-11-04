@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, HStack, Tag, Tooltip } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
@@ -100,11 +100,19 @@ const BasicInfoForm = () => {
               onChange={handleSkillsetChange}
             />
             {skills && (
-              <HStack>
+              <Flex
+                gap={'0.5rem'}
+                wrap={'wrap'}
+              >
                 {skills.map((skill) => (
-                  <Text key={skill}>{skill}</Text>
+                  <Tag
+                    bg={'gray.400'}
+                    key={skill}
+                  >
+                    {skill}
+                  </Tag>
                 ))}
-              </HStack>
+              </Flex>
             )}
           </Box>
         </Tooltip>
