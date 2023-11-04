@@ -9,7 +9,7 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
-import { CreatePostProps, useCreateEvent } from '~/services/eventService';
+import { CreateEvent, useCreateEvent } from '~/services/eventService';
 
 const CreateEventTemplate = () => {
   const { mutate: createEvent } = useCreateEvent();
@@ -19,11 +19,11 @@ const CreateEventTemplate = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<CreatePostProps>();
+  } = useForm<CreateEvent>();
 
   const endDate = useWatch({ name: 'time.closeDateTime', control });
 
-  const onSubmit: SubmitHandler<CreatePostProps> = (values) => {
+  const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     createEvent(values);
     // return new Promise(() => {
     //   setTimeout(() => {
@@ -100,7 +100,7 @@ const CreateEventTemplate = () => {
             </FormControl>
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput<CreatePostProps>
+              <TermInput<CreateEvent>
                 control={control}
                 includeTime={true}
                 errors={errors}
