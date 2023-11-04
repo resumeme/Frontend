@@ -1,30 +1,19 @@
-import { DateString } from './dateString';
-
-export default interface Career {
+type Career = {
   companyName: string;
   position: string;
   skills?: string[];
   duties?: Duty[];
   isCurrentlyEmployed: boolean;
-  careerStartDate: DateString;
-  endDate?: DateString;
+  careerStartDate: string;
+  endDate?: string;
   careerContent: string;
-}
+};
 
-export interface Duty {
+export default Career;
+
+type Duty = {
   title?: string;
   description?: string;
-  startDate?: DateString;
-  endDate?: DateString;
-}
-
-export interface DefaultDuty extends Omit<Duty, 'startDate' | 'endDate'> {
-  startDate?: '' | DateString;
-  endDate?: '' | DateString;
-}
-
-export interface DefaultCareer extends Omit<Career, 'position' | 'duties' | 'careerStartDate'> {
-  position: '';
-  duties?: DefaultDuty[];
-  careerStartDate: '' | DateString;
-}
+  startDate?: string;
+  endDate?: string;
+};

@@ -4,9 +4,9 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import { useStorage } from '~/hooks/useStorage';
-import { DefaultCareer } from '~/types/career';
+import Career from '~/types/career';
 
-const careerDefaultItem: DefaultCareer = {
+const careerDefaultItem: Career = {
   companyName: '',
   position: '',
   isCurrentlyEmployed: false,
@@ -20,7 +20,7 @@ const ResumeCategoryCareer = () => {
    * 저장한 값을 불러와서 map으로 돌린다
    * FIXME useState를 zustand store에서 불러오도록 수정하기
    */
-  const { storageValue: careerItems, setValue } = useStorage<DefaultCareer[]>({
+  const { storageValue: careerItems, setValue } = useStorage<Career[]>({
     key: CAREER_ITEMS_KEY,
     initialValue: [],
   });
