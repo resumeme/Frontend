@@ -9,10 +9,11 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
-import { CreateEvent, useCreateEvent } from '~/services/eventService';
+import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
+import { CreateEvent } from '~/types/event';
 
 const CreateEventTemplate = () => {
-  const { mutate: createEvent } = useCreateEvent();
+  const { mutate: createEvent } = usePostCreateEvent();
 
   const {
     control,
@@ -21,7 +22,7 @@ const CreateEventTemplate = () => {
     formState: { errors, isSubmitting },
   } = useForm<CreateEvent>();
 
-  const endDate = useWatch({ name: 'time.closeDateTime', control });
+  const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
 
   const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     createEvent(values);
@@ -119,7 +120,7 @@ const CreateEventTemplate = () => {
                   ...register('time.endDate', {
                     required: true,
                     min: {
-                      value: endDate,
+                      value: closeDateTime,
                       message: '신청 기간 이후의 날짜를 입력해주세요.',
                     },
                   }),
