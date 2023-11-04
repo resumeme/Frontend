@@ -1,5 +1,7 @@
+import { EditResumeTemplate } from '~/components/templates/EditResumeTemplate';
+
 const EditResumePage = () => {
-  return <></>;
+  return <EditResumeTemplate />;
 };
 
 export default EditResumePage;
