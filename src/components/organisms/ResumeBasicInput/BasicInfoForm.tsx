@@ -30,10 +30,14 @@ const BasicInfoForm = () => {
   };
 
   const handleSkillsetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const { value: skill } = event.target;
 
-    if (value.endsWith(',')) {
-      setSkills([...skills, value.slice(0, -1)]);
+    if (!skill.trim() || skill === ',') {
+      setValue('skillset', '');
+      return;
+    }
+    if (skill.length > 2 && skill.endsWith(',')) {
+      setSkills([...skills, skill.slice(0, -1)]);
       setValue('skillset', '');
     }
   };
