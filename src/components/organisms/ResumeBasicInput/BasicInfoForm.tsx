@@ -7,9 +7,11 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { BasicInfo } from '~/types/userInfo';
 
 const BasicInfoForm = () => {
+  const [skills, setSkills] = useState<string[]>([]);
 
 
   const {
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -19,6 +21,14 @@ const BasicInfoForm = () => {
   const onSubmit = handleSubmit((values) => {
     console.log('values', values);
   });
+  const handleSkillsetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    if (value.endsWith(',')) {
+      setSkills([...skills, value.slice(0, -1)]);
+      setValue('skillset', '');
+    }
+  };
 
   /* TODO api 함수 작성하기 */
   // const loadFormData = async () => {}
@@ -75,6 +85,7 @@ const BasicInfoForm = () => {
               autoComplete="off"
               spellCheck="false"
               placeholder="보유한 기술 스택"
+              onChange={handleSkillsetChange}
             />
             {skills && (
               <HStack>
