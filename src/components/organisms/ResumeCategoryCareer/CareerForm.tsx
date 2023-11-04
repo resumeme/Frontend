@@ -50,7 +50,12 @@ const CareerForm = () => {
       navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeCareer });
+    const skillsArr = resumeCareer.skills?.toString().split(/,+\s*/g);
+    const newResumeCareer = {
+      ...resumeCareer,
+      skills: skillsArr ?? [],
+    };
+    mutate({ resumeId, resumeCareer: newResumeCareer });
   });
 
   const defaultDutyData = {
