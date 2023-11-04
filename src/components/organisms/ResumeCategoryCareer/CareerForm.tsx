@@ -50,6 +50,7 @@ const CareerForm = () => {
       navigate(-1);
       return;
     }
+    /**TODO: 기술스택 배열로 만드는 util 함수로 대체하기 */
     const skillsArr = resumeCareer.skills?.toString().split(/,+\s*/g);
     const newResumeCareer = {
       ...resumeCareer,
