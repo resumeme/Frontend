@@ -17,8 +17,8 @@ const FormTextInput = ({ id, register, error, ...props }: FormTextInputProps) =>
     >
       <Input
         id={id}
-        {...props}
         {...register}
+        {...props}
       />
       {error && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
     </Flex>
