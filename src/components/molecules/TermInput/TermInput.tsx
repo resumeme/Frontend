@@ -35,17 +35,17 @@ const TermInput = <T extends FieldValues>({
   /*TODO - isEndDateDisabled 상태 변화 시 리렌더링되도록 수정하기 */
   const startDate = useWatch({ name: startDateName, control });
 
-  const getNestedErrors = (errors: FieldErrors<T>, path: string): FieldError | undefined => {
-    return path.split('.').reduce((parsedError, path) => {
-      if (typeof parsedError === 'object' && parsedError !== null && path in parsedError) {
-        return (parsedError = (parsedError as FieldValues)[path]);
+  const getNestedError = (errors: FieldErrors<T>, path: string): FieldError | undefined => {
+    return path.split('.').reduce((nestedError, path) => {
+      if (typeof nestedError === 'object' && nestedError !== null && path in nestedError) {
+        return (nestedError = (nestedError as FieldValues)[path]);
       }
     }, errors) as FieldError | undefined;
   };
 
   return (
     <HStack flexGrow={1}>
-      <FormControl isInvalid={!!getNestedErrors(errors, startDateName)}>
+      <FormControl isInvalid={!!getNestedError(errors, startDateName)}>
         <FormDateInput
           name={startDateName}
           type={includeTime ? 'datetime-local' : 'date'}
@@ -58,14 +58,14 @@ const TermInput = <T extends FieldValues>({
               },
             }),
           }}
-          errors={getNestedErrors(errors, startDateName)}
+          errors={getNestedError(errors, startDateName)}
         />
       </FormControl>
       <Divider
         w={'2.5rem'}
         borderColor={'gray.400'}
       />
-      <FormControl isInvalid={!!getNestedErrors(errors, endDateName)}>
+      <FormControl isInvalid={!!getNestedError(errors, endDateName)}>
         <FormDateInput
           name={endDateName}
           type={includeTime ? 'datetime-local' : 'date'}
@@ -76,7 +76,7 @@ const TermInput = <T extends FieldValues>({
               min: { value: startDate, message: '시작일 이후의 날짜를 입력해주세요.' },
             }),
           }}
-          errors={getNestedErrors(errors, endDateName)}
+          errors={getNestedError(errors, endDateName)}
         />
       </FormControl>
     </HStack>
