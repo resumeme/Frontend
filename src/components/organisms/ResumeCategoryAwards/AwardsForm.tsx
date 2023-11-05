@@ -60,12 +60,7 @@ const AwardsForm = () => {
               w={'60%'}
               isInvalid={Boolean(errors.acquisitionDate)}
             >
-              <AwardsFormLabel
-                flexShrink={0}
-                isRequired
-              >
-                취득 년월
-              </AwardsFormLabel>
+              <AwardsFormLabel>취득 년월</AwardsFormLabel>
               <FormDateInput
                 register={{
                   ...register('acquisitionDate'),
@@ -74,12 +69,7 @@ const AwardsForm = () => {
             </FormControl>
 
             <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
-              <AwardsFormLabel
-                flexShrink={0}
-                w={'fit-content'}
-              >
-                수여 기관
-              </AwardsFormLabel>
+              <AwardsFormLabel w={'fit-content'}>수여 기관</AwardsFormLabel>
               <FormTextInput
                 placeholder="수여 기관을 입력해주세요."
                 id="issuingAuthority"
@@ -90,7 +80,7 @@ const AwardsForm = () => {
             </FormControl>
           </Flex>
           <FormControl isInvalid={Boolean(errors.link)}>
-            <AwardsFormLabel flexShrink={0}>링크</AwardsFormLabel>
+            <AwardsFormLabel>링크</AwardsFormLabel>
             <FormTextInput
               placeholder="https://"
               id="link"

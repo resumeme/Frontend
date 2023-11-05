@@ -5,6 +5,7 @@ const AwardsFormLabel = ({ ...props }: FormLabelProps) => {
   return (
     <FormLabel
       w="8.625rem"
+      flexShrink={0}
       {...props}
     />
   );
