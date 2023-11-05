@@ -54,7 +54,7 @@ const CareerForm = () => {
     const skillsArr = resumeCareer.skills?.toString().split(/,+\s*/g);
     const newResumeCareer = {
       ...resumeCareer,
-      skills: skillsArr ?? [],
+      skills: skillsArr?.filter((skill) => skill !== ''),
     };
     mutate({ resumeId, resumeCareer: newResumeCareer });
   });
