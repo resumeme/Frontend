@@ -1,7 +1,5 @@
-import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
-
 const MainPage = () => {
-  return <ResumeBasicInput />;
+  return <></>;
 };
 
 export default MainPage;

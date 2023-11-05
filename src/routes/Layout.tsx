@@ -33,10 +33,6 @@ const Layout = () => {
         py={'3rem'}
         px={'12px'}
       >
-        <Box w={'960px'}>
-          <ResumeBasicInput />
-          <ResumeCategoryCareer />
-        </Box>
         <Outlet />
       </Box>
       <Box
