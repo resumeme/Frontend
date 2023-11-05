@@ -1,18 +1,11 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Input,
-  Text,
-  Textarea,
-  RadioGroup,
-  Radio,
-  Stack,
-} from '@chakra-ui/react';
-import LinkIconBox from './LinkIconBox';
-import TitleInput from '../../atoms/TitleInput/TitleInput';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import BasicInfoForm from './BasicInfoForm';
+import ReferenceLinkForm from './ReferenceLinkForm';
+import TitleInputForm from './TitleInputForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+
+/* TODO api 요청으로 데이터 받아오기 */
 
 const USER = {
   NAME: '이민희',
@@ -24,25 +17,10 @@ const ResumeBasicInput = () => {
       direction={'column'}
       align={'center'}
       gap={4}
-      width={'992px'}
+      width={'full'}
       id="resume-basic-input"
     >
-      {/* NOTE 이력서 제목 */}
-      <Box
-        w={'full'}
-        mb={10}
-        display={'flex'}
-        alignItems={'center'}
-      >
-        <TitleInput />
-        <Button
-          size={'xs'}
-          ml={5}
-        >
-          저장
-        </Button>
-      </Box>
-
+      <TitleInputForm />
       {/* NOTE 기본 정보 */}
       <Box w={'full'}>
         <Flex justifyContent={'space-between'}>
@@ -51,13 +29,14 @@ const ResumeBasicInput = () => {
               direction={'column'}
               gap={5}
             >
+              {/* TODO 유저 데이터 받아와서 이름 렌더링하기 */}
               <Heading>{USER.NAME}</Heading>
               <Box>
                 <Flex
                   justify={'space-between'}
                   mb={3}
                 >
-                  {/* TODO 민희님이 만들어놓은 컴포넌트 사용할 것 */}
+                  {/* NOTE 참고링크 헤더부분 */}
                   <Text
                     color={'gray.700'}
                     fontWeight={'semibold'}
@@ -66,53 +45,13 @@ const ResumeBasicInput = () => {
                   </Text>
                   <Button size={'xs'}>+</Button>
                 </Flex>
-                <Box mb={3}>
-                  <LinkIconBox
-                    url="https://github.com/khakhid"
-                    variant="github"
-                  />
-                </Box>
-                <BorderBox p={5}>
-                  <Flex
-                    direction="column"
-                    gap={4}
-                  >
-                    <RadioGroup defaultValue="etc">
-                      <Stack
-                        spacing={4}
-                        direction={'row'}
-                      >
-                        <Radio value="etc">기타</Radio>
-                        <Radio value="github">Github</Radio>
-                        <Radio value="blog">Blog</Radio>
-                      </Stack>
-                    </RadioGroup>
-                    <Input placeholder="URL 입력" />
-                    <Button size={'xs'}>저장</Button>
-                  </Flex>
-                </BorderBox>
+                <ReferenceLinkForm />
               </Box>
             </Flex>
           </Box>
           <BorderBox w={'400px'}>
-            <Box>
-              <Input
-                mb={3}
-                placeholder="희망 직무"
-              />
-              <Input
-                mb={3}
-                placeholder="보유한 기술 스택"
-              />
-              <Textarea
-                mb={3}
-                borderColor={'gray.300'}
-                placeholder="자기소개 (**자 이내)"
-              />
-              <Flex justify={'flex-end'}>
-                <Button size={'xs'}>저장</Button>
-              </Flex>
-            </Box>
+            {/* TODO 기본정보 입력 폼 추가하기 */}
+            <BasicInfoForm />
           </BorderBox>
         </Flex>
       </Box>

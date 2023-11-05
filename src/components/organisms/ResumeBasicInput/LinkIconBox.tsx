@@ -2,12 +2,12 @@ import { LinkIcon } from '@chakra-ui/icons';
 import { Box, Text, Link, Flex, Icon } from '@chakra-ui/react';
 import { DiGithubAlt } from 'react-icons/di';
 
-type LinkIconBoxProps = {
-  variant?: 'default' | 'github';
+export type LinkIconBoxProps = {
+  type?: 'default' | 'github' | 'blog';
   url?: string;
 };
 
-const LinkIconBox = ({ url, variant = 'github' }: LinkIconBoxProps) => {
+const LinkIconBox = ({ url, type = 'default' }: LinkIconBoxProps) => {
   return (
     <Link href={url}>
       <Flex
@@ -32,7 +32,7 @@ const LinkIconBox = ({ url, variant = 'github' }: LinkIconBoxProps) => {
             transitionTimingFunction: 'ease-in-out',
           }}
         >
-          {variant === 'default' ? (
+          {type === 'default' ? (
             <LinkIcon
               fontSize={'sm'}
               color={'gray.800'}
