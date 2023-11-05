@@ -39,8 +39,8 @@ const ReferenceLinkBox = ({ url, type = 'default' }: ReferenceLinkBoxProps) => {
       >
         <Box
           rounded={'full'}
-          w={'28px'}
-          h={'28px'}
+          w={'1.75rem'}
+          h={'1.75rem'}
           bg={'gray.100'}
           display={'flex'}
           border="1px solid"
@@ -62,10 +62,10 @@ const ReferenceLinkBox = ({ url, type = 'default' }: ReferenceLinkBoxProps) => {
           })}
         </Box>
         <Text
-          color="gray.700"
+          color={'gray.700'}
           fontSize={'sm'}
-          maxWidth="320px"
-          textOverflow="ellipsis"
+          maxWidth={'16rem'}
+          textOverflow={'ellipsis'}
           noOfLines={1}
         >
           {url}
