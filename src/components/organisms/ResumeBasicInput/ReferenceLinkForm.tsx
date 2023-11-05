@@ -27,13 +27,11 @@ const ReferenceLinkForm = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((values) => {
-    // 입력된 참고 링크 데이터 상태 추가
     setLinkData([...linkData, values]);
 
     /* TODO API 요청하는 부분 */
     console.log('values', values);
 
-    // 폼 리셋하기
     reset();
   });
 
@@ -41,7 +39,6 @@ const ReferenceLinkForm = () => {
 
   return (
     <>
-      {/* TODO 링크 박스 추가되게 하기 -> 추후에는 api로 변경 */}
       {linkData.map((data: LinkData, index) => (
         <Box
           key={index}
