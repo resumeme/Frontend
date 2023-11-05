@@ -8,14 +8,14 @@ type FormLabelProps = {
   isRequired?: boolean;
 } & ChakraFormLabelProps;
 
-const FormLabel = ({ children, isRequired = false, ...props }: FormLabelProps) => {
+const FormLabel = ({ w = '6.9375rem', children, isRequired = false, ...props }: FormLabelProps) => {
   return (
     <ChakraFormLabel
+      flexShrink={0}
       fontWeight={600}
       lineHeight={'normal'}
       fontSize={'1.125rem'}
-      w={'6.9375rem'}
-      minW={'6.9375rem'}
+      w={w}
       mx={0}
       mt={'0.87rem'}
       color={'gray.700'}
