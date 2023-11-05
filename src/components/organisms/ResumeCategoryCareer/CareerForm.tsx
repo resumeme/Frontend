@@ -21,11 +21,10 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
-import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+
 import { TermInput } from '~/components/molecules/TermInput';
-import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
 
@@ -45,16 +44,19 @@ const CareerForm = () => {
   const { id: resumeId } = useParams();
   const { mutate } = usePostResumeCareer();
   const navigate = useNavigate();
-  const [skills, handleArrayChange] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
       alert('존재하지 않는 이력서입니다.');
       navigate(-1);
       return;
     }
-    resumeCareer.skills = skills;
-    mutate({ resumeId, resumeCareer });
+    /**TODO: 기술스택 배열로 만드는 util 함수로 대체하기 */
+    const skillsArr = resumeCareer.skills?.toString().split(/,+\s*/g);
+    const newResumeCareer = {
+      ...resumeCareer,
+      skills: skillsArr ?? [],
+    };
+    mutate({ resumeId, resumeCareer: newResumeCareer });
   });
 
   const defaultDutyData = {
@@ -83,7 +85,6 @@ const CareerForm = () => {
         <Flex
           alignSelf={'start'}
           width={'100%'}
-          gap={'1.63rem'}
         >
           <FormLabel isRequired>재직기간</FormLabel>
           <TermInput
@@ -116,10 +117,8 @@ const CareerForm = () => {
           <FormTextInput
             id="skills"
             register={{ ...register('skills') }}
-            onKeyDown={handleArrayChange}
           />
         </FormControl>
-        <DynamicTags tagsArray={skills} />
         <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput
@@ -162,12 +161,14 @@ const CareerForm = () => {
 };
 
 const DutyForm = ({
+  key,
   index,
   errors,
   register,
   control,
   remove,
 }: {
+  key: string;
   index: number;
   errors: FieldErrors<Career>;
   register: UseFormRegister<Career>;
@@ -175,7 +176,7 @@ const DutyForm = ({
   control: Control<Career>;
 }) => {
   return (
-    <React.Fragment>
+    <React.Fragment key={key}>
       <Divider
         m={'1.5rem'}
         borderColor={'gray.300'}
@@ -188,41 +189,23 @@ const DutyForm = ({
       >
         <DeleteIcon />
       </ChakraButton>
-      <FormControl isInvalid={Boolean(errors.duties && errors.duties[index]?.title)}>
-        <FormLabel
-          htmlFor="dutyTitle"
-          isRequired
-        >
-          주요업무
-        </FormLabel>
+      <FormControl>
+        <FormLabel htmlFor="dutyTitle">주요업무</FormLabel>
         <FormTextInput
           id="dutyTitle"
-          register={{
-            ...register(`duties.${index}.title`, { required: '주요 업무를 입력해주세요.' }),
-          }}
-          error={errors.duties && errors.duties[index]?.title}
+          register={{ ...register(`duties.${index}.title`) }}
         />
       </FormControl>
-      <Flex
-        alignSelf={'start'}
-        width={'100%'}
-        gap={'1.63rem'}
-      >
-        <FormLabel
-          htmlFor="dutyTerm"
-          isRequired
-        >
-          업무기간
-        </FormLabel>
+      <FormControl>
+        <FormLabel htmlFor="dutyTerm">업무기간</FormLabel>
         <TermInput
           startDateName={`duties.${index}.startDate`}
           endDateName={`duties.${index}.endDate`}
           register={register}
           errors={errors}
           control={control}
-          isRequired
         />
-      </Flex>
+      </FormControl>
       <FormControl>
         <FormLabel htmlFor="descriptions">상세 내용</FormLabel>
         {/*TODO 에디터로 대체 */}
