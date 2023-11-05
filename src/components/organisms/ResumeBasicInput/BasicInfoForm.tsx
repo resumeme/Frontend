@@ -87,7 +87,7 @@ const BasicInfoForm = () => {
                 autoComplete="off"
                 spellCheck="false"
                 placeholder="보유한 기술 스택"
-                onChange={handleSkillsetChange}
+                onKeyDown={handleSkillsetChange}
                 error={errors.skillset}
               />
             </FormControl>
@@ -108,6 +108,7 @@ const BasicInfoForm = () => {
             )}
           </Box>
         </Tooltip>
+        {/* FIXME MainTextarea 컴포넌트로 변경하고 register 넣어주기 */}
         <FormTextarea
           id="introduce"
           errors={errors}
