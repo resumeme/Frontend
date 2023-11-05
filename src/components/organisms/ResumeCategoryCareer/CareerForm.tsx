@@ -23,7 +23,6 @@ import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
-
 import { TermInput } from '~/components/molecules/TermInput';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
@@ -85,6 +84,7 @@ const CareerForm = () => {
         <Flex
           alignSelf={'start'}
           width={'100%'}
+          gap={'1.63rem'}
         >
           <FormLabel isRequired>재직기간</FormLabel>
           <TermInput
@@ -189,14 +189,21 @@ const DutyForm = ({
       >
         <DeleteIcon />
       </ChakraButton>
-      <FormControl>
+      <FormControl isInvalid={Boolean(errors.duties && errors.duties[index]?.title)}>
         <FormLabel htmlFor="dutyTitle">주요업무</FormLabel>
         <FormTextInput
           id="dutyTitle"
-          register={{ ...register(`duties.${index}.title`) }}
+          register={{
+            ...register(`duties.${index}.title`, { required: '주요 업무를 입력해주세요.' }),
+          }}
+          error={errors.duties && errors.duties[index]?.title}
         />
       </FormControl>
-      <FormControl>
+      <Flex
+        alignSelf={'start'}
+        width={'100%'}
+        gap={'1.63rem'}
+      >
         <FormLabel htmlFor="dutyTerm">업무기간</FormLabel>
         <TermInput
           startDateName={`duties.${index}.startDate`}
@@ -204,8 +211,9 @@ const DutyForm = ({
           register={register}
           errors={errors}
           control={control}
+          isRequired
         />
-      </FormControl>
+      </Flex>
       <FormControl>
         <FormLabel htmlFor="descriptions">상세 내용</FormLabel>
         {/*TODO 에디터로 대체 */}
