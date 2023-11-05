@@ -11,6 +11,7 @@ type FormLabelProps = {
 const FormLabel = ({ w = '6.9375rem', children, isRequired = false, ...props }: FormLabelProps) => {
   return (
     <ChakraFormLabel
+      flexShrink={0}
       fontWeight={600}
       lineHeight={'normal'}
       fontSize={'1.125rem'}
