@@ -1,6 +1,7 @@
 import { BellIcon } from '@chakra-ui/icons';
 import { Box, Flex, Button, Stack, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { appPaths } from '~/config/paths';
 
 type NavItem = {
   label: string;
@@ -130,7 +131,7 @@ const Header = () => {
               bg: 'gray.200',
             }}
           >
-            {TEXT_CONTENTS.SIGN}
+            <Link to={appPaths.signIn}>{TEXT_CONTENTS.SIGN}</Link>
           </Button>
           <Button
             w={'30px'}
