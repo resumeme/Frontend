@@ -68,6 +68,7 @@ const ActivityForm = () => {
         <Flex
           alignSelf={'start'}
           width={'100%'}
+          gap={'1.63rem'}
         >
           <FormLabel isRequired>재직기간</FormLabel>
           <TermInput
