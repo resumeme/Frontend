@@ -53,14 +53,10 @@ const ActivityForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.activityName)}>
-          <FormLabel
-            placeholder="회사명을 입력하세요"
-            isRequired
-          >
-            회사명
-          </FormLabel>
+          <FormLabel isRequired>회사명</FormLabel>
           <FormTextInput
             id="activityName"
+            placeholder="회사명을 입력하세요"
             register={{ ...register('activityName', { required: '회사명을 입력하세요' }) }}
             error={errors.activityName}
           />
