@@ -161,14 +161,12 @@ const CareerForm = () => {
 };
 
 const DutyForm = ({
-  key,
   index,
   errors,
   register,
   control,
   remove,
 }: {
-  key: string;
   index: number;
   errors: FieldErrors<Career>;
   register: UseFormRegister<Career>;
@@ -176,7 +174,7 @@ const DutyForm = ({
   control: Control<Career>;
 }) => {
   return (
-    <React.Fragment key={key}>
+    <React.Fragment>
       <Divider
         m={'1.5rem'}
         borderColor={'gray.300'}
