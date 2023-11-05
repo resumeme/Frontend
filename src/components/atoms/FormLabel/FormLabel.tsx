@@ -4,7 +4,7 @@ import {
   FormLabelProps as ChakraFormLabelProps,
 } from '@chakra-ui/react';
 
-type FormLabelProps = {
+export type FormLabelProps = {
   isRequired?: boolean;
 } & ChakraFormLabelProps;
 
