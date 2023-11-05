@@ -48,14 +48,16 @@ const BasicInfoForm = () => {
           color={'gray.600'}
         >
           <Box>
-            <FormTextInput
-              id="position"
-              register={{ ...register('position') }}
-              placeholder="희망 직무"
-              autoComplete="off"
-              spellCheck="false"
-              mb={3}
-            />
+            <FormControl isInvalid={!!errors.position}>
+              <FormTextInput
+                id="position"
+                register={{ ...register('position') }}
+                placeholder="희망 직무"
+                autoComplete="off"
+                spellCheck="false"
+                mb={3}
+              />
+            </FormControl>
           </Box>
         </Tooltip>
         <Tooltip
@@ -70,22 +72,25 @@ const BasicInfoForm = () => {
           color={'gray.600'}
         >
           <Box>
-            <FormTextInput
-              id="skillset"
-              register={{
-                ...register('skillset', {
-                  pattern: {
-                    value: /^[a-zA-Z가-힣\s]*$/,
-                    message: '영어, 한글, 공백만 입력 가능합니다.',
-                  },
-                }),
-              }}
-              mb={3}
-              autoComplete="off"
-              spellCheck="false"
-              placeholder="보유한 기술 스택"
-              onChange={handleSkillsetChange}
-            />
+            <FormControl isInvalid={!!errors.skillset}>
+              <FormTextInput
+                id="skillset"
+                register={{
+                  ...register('skillset', {
+                    pattern: {
+                      value: /^[a-zA-Z가-힣\s]*$/,
+                      message: '영어, 한글, 공백만 입력 가능합니다.',
+                    },
+                  }),
+                }}
+                mb={3}
+                autoComplete="off"
+                spellCheck="false"
+                placeholder="보유한 기술 스택"
+                onChange={handleSkillsetChange}
+                error={errors.skillset}
+              />
+            </FormControl>
             {skills && (
               <Flex
                 gap={'0.5rem'}
@@ -103,7 +108,6 @@ const BasicInfoForm = () => {
             )}
           </Box>
         </Tooltip>
-        {/* FIXME MainTextarea 컴포넌트로 변경하고 register 넣어주기 */}
         <FormTextarea
           id="introduce"
           errors={errors}
