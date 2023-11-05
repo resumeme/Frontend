@@ -1,9 +1,12 @@
-import { ResumeCategoryCareer } from '~/components/organisms/ResumeCategoryCareer';
+import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
+import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
 
 const EditResumeTemplate = () => {
   return (
     <>
-      <ResumeCategoryCareer />
+      <ResumeCategory categoryType="업무경험">
+        <CareerForm />
+      </ResumeCategory>
     </>
   );
 };
