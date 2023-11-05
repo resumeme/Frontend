@@ -43,6 +43,7 @@ const AwardsForm = () => {
         >
           <FormControl isInvalid={Boolean(errors.certificationTitle)}>
             <FormLabel
+              htmlFor="certificationTitle"
               w={'8.625rem'}
               isRequired
             >
@@ -50,7 +51,7 @@ const AwardsForm = () => {
             </FormLabel>
             <FormTextInput
               placeholder="수상 및 자격증 정보를 입력해주세요. 예) 정보처리기사"
-              id="'projectName'"
+              id="certificationTitle"
               register={{
                 ...register('certificationTitle', { required: '필수 입력값입니다.' }),
               }}
@@ -74,7 +75,12 @@ const AwardsForm = () => {
             </FormControl>
 
             <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
-              <FormLabel w={'fit-content'}>수여 기관</FormLabel>
+              <FormLabel
+                htmlFor="issuingAuthority"
+                w={'fit-content'}
+              >
+                수여 기관
+              </FormLabel>
               <FormTextInput
                 placeholder="수여 기관을 입력해주세요."
                 id="issuingAuthority"
@@ -85,7 +91,12 @@ const AwardsForm = () => {
             </FormControl>
           </Flex>
           <FormControl isInvalid={Boolean(errors.link)}>
-            <FormLabel w={'8.625rem'}>링크</FormLabel>
+            <FormLabel
+              htmlFor="link"
+              w={'8.625rem'}
+            >
+              링크
+            </FormLabel>
             <FormTextInput
               placeholder="https://"
               id="link"
@@ -94,11 +105,16 @@ const AwardsForm = () => {
           </FormControl>
 
           <FormControl isInvalid={Boolean(errors.description)}>
-            <FormLabel w={'8.625rem'}>설명</FormLabel>
+            <FormLabel
+              htmlFor="description"
+              w={'8.625rem'}
+            >
+              설명
+            </FormLabel>
             <FormTextarea
               h={'16.625rem'}
               placeholder="내용을 입력해주세요."
-              id="projectContent"
+              id="description"
               register={{ ...register('description') }}
               errors={errors}
               autoComplete="off"
