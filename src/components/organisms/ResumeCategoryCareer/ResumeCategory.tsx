@@ -7,8 +7,9 @@ import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 type ResumeCategoryProps = {
   categoryType: string;
   children: React.ReactNode;
+  detailsComponent: React.ReactNode;
 };
-const ResumeCategory = ({ categoryType, children }: ResumeCategoryProps) => {
+const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCategoryProps) => {
   const [isShowForm, setIsShowForm] = useState(false);
   return (
     <div style={{ width: '960px', minHeight: '100px' }}>
@@ -22,6 +23,7 @@ const ResumeCategory = ({ categoryType, children }: ResumeCategoryProps) => {
         marginTop={'1.56rem'}
         spacing={'1rem'}
       >
+        {detailsComponent}
         {isShowForm && (
           <BorderBox
             key={uuidv4()}
