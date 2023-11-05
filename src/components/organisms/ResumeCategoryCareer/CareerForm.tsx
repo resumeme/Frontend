@@ -190,7 +190,12 @@ const DutyForm = ({
         <DeleteIcon />
       </ChakraButton>
       <FormControl isInvalid={Boolean(errors.duties && errors.duties[index]?.title)}>
-        <FormLabel htmlFor="dutyTitle">주요업무</FormLabel>
+        <FormLabel
+          htmlFor="dutyTitle"
+          isRequired
+        >
+          주요업무
+        </FormLabel>
         <FormTextInput
           id="dutyTitle"
           register={{
@@ -204,7 +209,12 @@ const DutyForm = ({
         width={'100%'}
         gap={'1.63rem'}
       >
-        <FormLabel htmlFor="dutyTerm">업무기간</FormLabel>
+        <FormLabel
+          htmlFor="dutyTerm"
+          isRequired
+        >
+          업무기간
+        </FormLabel>
         <TermInput
           startDateName={`duties.${index}.startDate`}
           endDateName={`duties.${index}.endDate`}
