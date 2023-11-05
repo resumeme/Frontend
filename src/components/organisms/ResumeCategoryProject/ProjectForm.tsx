@@ -2,7 +2,7 @@ import { HStack, Flex, Select } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
