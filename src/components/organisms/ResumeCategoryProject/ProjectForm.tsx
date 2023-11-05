@@ -161,7 +161,14 @@ const ProjectForm = () => {
             <FormTextInput
               placeholder="URL 입력"
               id="projectUrl"
-              register={{ ...register('projectUrl') }}
+              register={{
+                ...register('projectUrl', {
+                  pattern: {
+                    value: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
+                    message: '올바른 URL 형식이 아닙니다',
+                  },
+                }),
+              }}
             />
           </FormControl>
           <HStack
