@@ -15,6 +15,8 @@ export const usePostResumeCareer = () => {
       queryClient.setQueryData([TARGET_QUERY_KEY], (old: Career[]) => [...old, newCareer]);
       return { previousCareers };
     },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     onError: (err, newCareer, context) => {
       queryClient.setQueryData([TARGET_QUERY_KEY], context?.previousCareers);
     },
