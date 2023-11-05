@@ -2,11 +2,11 @@ import { HStack, Flex } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
-import AwardsFormLabel from '~/components/organisms/ResumeCategoryAwards/AwardsFormLabel';
 import { AwardsForm } from '~/types/awards';
 
 const AwardsForm = () => {
@@ -42,7 +42,12 @@ const AwardsForm = () => {
           gap={'1.25rem'}
         >
           <FormControl isInvalid={Boolean(errors.certificationTitle)}>
-            <AwardsFormLabel isRequired>수상/취득 내용</AwardsFormLabel>
+            <FormLabel
+              w={'8.625rem'}
+              isRequired
+            >
+              수상/취득 내용
+            </FormLabel>
             <FormTextInput
               placeholder="수상 및 자격증 정보를 입력해주세요. 예) 정보처리기사"
               id="'projectName'"
@@ -60,7 +65,7 @@ const AwardsForm = () => {
               w={'60%'}
               isInvalid={Boolean(errors.acquisitionDate)}
             >
-              <AwardsFormLabel>취득 년월</AwardsFormLabel>
+              <FormLabel w={'8.625rem'}>취득 년월</FormLabel>
               <FormDateInput
                 register={{
                   ...register('acquisitionDate'),
@@ -69,7 +74,7 @@ const AwardsForm = () => {
             </FormControl>
 
             <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
-              <AwardsFormLabel w={'fit-content'}>수여 기관</AwardsFormLabel>
+              <FormLabel w={'fit-content'}>수여 기관</FormLabel>
               <FormTextInput
                 placeholder="수여 기관을 입력해주세요."
                 id="issuingAuthority"
@@ -80,7 +85,7 @@ const AwardsForm = () => {
             </FormControl>
           </Flex>
           <FormControl isInvalid={Boolean(errors.link)}>
-            <AwardsFormLabel>링크</AwardsFormLabel>
+            <FormLabel w={'8.625rem'}>링크</FormLabel>
             <FormTextInput
               placeholder="https://"
               id="link"
@@ -89,13 +94,16 @@ const AwardsForm = () => {
           </FormControl>
 
           <FormControl isInvalid={Boolean(errors.description)}>
-            <AwardsFormLabel>설명</AwardsFormLabel>
+            <FormLabel w={'8.625rem'}>설명</FormLabel>
             <FormTextarea
               h={'16.625rem'}
               placeholder="내용을 입력해주세요."
               id="projectContent"
               register={{ ...register('description') }}
               errors={errors}
+              autoComplete="off"
+              spellCheck="false"
+              resize="none"
             />
           </FormControl>
           <HStack
