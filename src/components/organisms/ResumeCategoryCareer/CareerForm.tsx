@@ -21,9 +21,11 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { TermInput } from '~/components/molecules/TermInput';
+import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
 
@@ -43,19 +45,16 @@ const CareerForm = () => {
   const { id: resumeId } = useParams();
   const { mutate } = usePostResumeCareer();
   const navigate = useNavigate();
+  const [skills, handleArrayChange] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
+      /**TODO - 토스트 대체! */
       alert('존재하지 않는 이력서입니다.');
       navigate(-1);
       return;
     }
-    /**TODO: 기술스택 배열로 만드는 util 함수로 대체하기 */
-    const skillsArr = resumeCareer.skills?.toString().split(/,+\s*/g);
-    const newResumeCareer = {
-      ...resumeCareer,
-      skills: skillsArr?.filter((skill) => skill !== ''),
-    };
-    mutate({ resumeId, resumeCareer: newResumeCareer });
+    resumeCareer.skills = skills;
+    mutate({ resumeId, resumeCareer });
   });
 
   const defaultDutyData = {
@@ -117,8 +116,10 @@ const CareerForm = () => {
           <FormTextInput
             id="skills"
             register={{ ...register('skills') }}
+            onKeyDown={handleArrayChange}
           />
         </FormControl>
+        <DynamicTags tagsArray={skills} />
         <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput
