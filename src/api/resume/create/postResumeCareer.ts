@@ -3,9 +3,7 @@ import { resumeMeAxios } from '~/api/axios';
 import Career from '~/types/career';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 
-type postResumeCareer = { resumeId: string; resumeCareer: Career };
-
-export const postResumeCareer = async ({ resumeId, resumeCareer }: postResumeCareer) => {
+export const postResumeCareer = async (resumeId: string, resumeCareer: Career) => {
   try {
     const { data } = await resumeMeAxios.post(`/v1/resume/${resumeId}/careers`, resumeCareer, {
       headers: {

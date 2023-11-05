@@ -17,8 +17,8 @@ export const useStringToArray = (): [
     if (!skill.trim() || skill === ',') {
       event.currentTarget.value = '';
     }
-    if (skill.length > 2 && key === 'Enter') {
-      setSkills([...array, skill]);
+    if ((skill.length > 2 && skill.endsWith(',')) || key === 'Enter') {
+      setSkills([...array, skill.slice(0, -1)]);
       event.currentTarget.value = '';
     }
   };
