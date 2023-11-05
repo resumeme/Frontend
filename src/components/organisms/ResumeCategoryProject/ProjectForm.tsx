@@ -1,4 +1,4 @@
-import { HStack, Flex, Select } from '@chakra-ui/react';
+import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -6,10 +6,12 @@ import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
-
+import { useStringToArray } from '~/hooks/useStringToArray';
 import { ProjectForm } from '~/types/project';
 
 const ProjectForm = () => {
+  const [skills, handleSkills] = useStringToArray();
+
   const {
     watch,
     register,
@@ -111,7 +113,6 @@ const ProjectForm = () => {
               </Select>
             </FormControl>
             <FormControl>
-              {/* //Todo: 기술 스택 입력 하는걸로 교체하기 */}
               <FormLabel w={'fit-content'}>팀 구성원</FormLabel>
               <FormTextInput
                 isDisabled={!watch('isTeam')}
@@ -121,11 +122,29 @@ const ProjectForm = () => {
             </FormControl>
           </Flex>
           <FormControl w={'59%'}>
-            <FormLabel>사용 스택</FormLabel>
-            <FormTextInput
-              id="skills"
-              register={{ ...register('skills') }}
-            />
+            <FormLabel flexShrink={0}>사용 스택</FormLabel>
+            <Flex
+              direction={'column'}
+              gap={'0.5rem'}
+              w={'full'}
+            >
+              <FormTextInput
+                id="skills"
+                register={{ ...register('skills') }}
+                onKeyDown={handleSkills}
+              />
+              <HStack wrap={'wrap'}>
+                {skills &&
+                  skills.map((skill) => (
+                    <Tag
+                      bg={'primary.100'}
+                      key={skill}
+                    >
+                      {skill}
+                    </Tag>
+                  ))}
+              </HStack>
+            </Flex>
           </FormControl>
           <FormControl>
             <FormLabel>상세 내용</FormLabel>
