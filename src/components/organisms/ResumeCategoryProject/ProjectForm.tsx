@@ -78,7 +78,7 @@ const ProjectForm = () => {
             w={'full'}
             gap={'3rem'}
           >
-            <FormControl>
+            <FormControl w={'60%'}>
               <FormLabel flexShrink={0}>팀 구성</FormLabel>
               {/* //select로 교체하기 */}
               <Select
