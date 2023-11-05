@@ -118,21 +118,23 @@ const Header = () => {
           direction={'row'}
           spacing={2}
         >
-          <Button
-            w={'144px'}
-            h={'40px'}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'primary.900'}
-            bg={'transparent'}
-            border={'1px'}
-            borderColor={'gray.300'}
-            _hover={{
-              bg: 'gray.200',
-            }}
-          >
-            <Link to={appPaths.signIn}>{TEXT_CONTENTS.SIGN}</Link>
-          </Button>
+          <Link to={appPaths.signIn}>
+            <Button
+              w={'144px'}
+              h={'40px'}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'primary.900'}
+              bg={'transparent'}
+              border={'1px'}
+              borderColor={'gray.300'}
+              _hover={{
+                bg: 'gray.200',
+              }}
+            >
+              {TEXT_CONTENTS.SIGN}
+            </Button>
+          </Link>
           <Button
             w={'30px'}
             h={'40px'}
