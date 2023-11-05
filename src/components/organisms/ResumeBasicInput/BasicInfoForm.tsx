@@ -1,27 +1,25 @@
 import { Box, Flex, Tag, Tooltip } from '@chakra-ui/react';
-import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
+import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeBasicInfo } from '~/queries/usePostResumeBasicInfo';
-import { BasicInfo } from '~/types/userInfo';
+import { BasicInfo, BasicInfoForm } from '~/types/userInfo';
 
 const BasicInfoForm = () => {
-  const [skills, setSkills] = useState<string[]>([]);
-
   const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
 
   const {
-    setValue,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<BasicInfo>();
+  } = useForm<BasicInfoForm>();
 
-  const onSubmit: SubmitHandler<BasicInfo> = (data) => {
+  const onSubmit: SubmitHandler<BasicInfoForm> = (data) => {
     data.skillset = skills;
-    postResumeBasicInfo(data);
+    postResumeBasicInfo(data as BasicInfo);
     return new Promise(() => {
       setTimeout(() => {
         alert(JSON.stringify(data, null, 2));
@@ -29,18 +27,7 @@ const BasicInfoForm = () => {
     });
   };
 
-  const handleSkillsetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: skill } = event.target;
-
-    if (!skill.trim() || skill === ',') {
-      setValue('skillset', '');
-      return;
-    }
-    if (skill.length > 2 && skill.endsWith(',')) {
-      setSkills([...skills, skill.slice(0, -1)]);
-      setValue('skillset', '');
-    }
-  };
+  const [skills, handleSkillsetChange] = useStringToArray();
 
   /* TODO api 함수 작성하기 */
   // const loadFormData = async () => {}
