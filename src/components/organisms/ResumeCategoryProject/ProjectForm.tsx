@@ -18,17 +18,7 @@ const ProjectForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectForm>({
-    defaultValues: {
-      projectName: '프로젝트',
-      productionYear: 2023,
-      isTeam: '팀',
-      teamMembers: 'member1, member2, member3',
-      skills: ['java', 'Spring'],
-      projectContent: 'content',
-      projectUrl: 'https://resumeme.kro.kr',
-    },
-  });
+  } = useForm<ProjectForm>();
 
   const onSubmit: SubmitHandler<ProjectForm> = (values) => {
     /**TODO api 호출해 저장하기 */
@@ -51,10 +41,16 @@ const ProjectForm = () => {
             gap={'3rem'}
           >
             <FormControl isInvalid={Boolean(errors.projectName)}>
-              <FormLabel isRequired>프로젝트명</FormLabel>
+              <FormLabel
+                htmlFor="projectName"
+                isRequired
+              >
+                프로젝트명
+              </FormLabel>
               <FormTextInput
-                id="'projectName'"
-                register={{ ...register('projectName', { required: '회사명을 입력하세요' }) }}
+                placeholder="프로젝트"
+                id="projectName"
+                register={{ ...register('projectName', { required: '프로젝트명을 입력하세요' }) }}
                 error={errors.projectName}
               />
             </FormControl>
@@ -67,7 +63,7 @@ const ProjectForm = () => {
                 w={'fit-content'}
                 isRequired
               >
-                직무
+                제작 년도
               </FormLabel>
               <Select
                 borderColor={'gray.300'}
@@ -114,8 +110,14 @@ const ProjectForm = () => {
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel w={'fit-content'}>팀 구성원</FormLabel>
+              <FormLabel
+                htmlFor="teamMembers"
+                w={'fit-content'}
+              >
+                팀 구성원
+              </FormLabel>
               <FormTextInput
+                placeholder="관우, 장비"
                 isDisabled={!watch('isTeam')}
                 id="teamMembers"
                 register={{ ...register('teamMembers') }}
@@ -123,13 +125,19 @@ const ProjectForm = () => {
             </FormControl>
           </Flex>
           <FormControl w={'59%'}>
-            <FormLabel flexShrink={0}>사용 스택</FormLabel>
+            <FormLabel
+              htmlFor="skills"
+              flexShrink={0}
+            >
+              사용 스택
+            </FormLabel>
             <Flex
               direction={'column'}
               gap={'0.5rem'}
               w={'full'}
             >
               <FormTextInput
+                placeholder="Java Enter"
                 id="skills"
                 register={{ ...register('skills') }}
                 onKeyDown={handleSkills}
@@ -148,7 +156,7 @@ const ProjectForm = () => {
             </Flex>
           </FormControl>
           <FormControl>
-            <FormLabel>상세 내용</FormLabel>
+            <FormLabel htmlFor="projectContent">상세 내용</FormLabel>
             <FormTextarea
               placeholder="프로젝트에 대한 내용을 입력해주세요."
               id="projectContent"
@@ -157,7 +165,7 @@ const ProjectForm = () => {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>저장소 링크</FormLabel>
+            <FormLabel htmlFor="projectUrl">저장소 링크</FormLabel>
             <FormTextInput
               placeholder="URL 입력"
               id="projectUrl"
