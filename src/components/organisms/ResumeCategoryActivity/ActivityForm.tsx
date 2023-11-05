@@ -53,10 +53,15 @@ const ActivityForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.activityName)}>
-          <FormLabel isRequired>회사명</FormLabel>
+          <FormLabel
+            placeholder="회사명을 입력하세요"
+            isRequired
+          >
+            회사명
+          </FormLabel>
           <FormTextInput
             id="activityName"
-            register={{ ...register('activityName', { required: '활동명을 입력하세요' }) }}
+            register={{ ...register('activityName', { required: '회사명을 입력하세요' }) }}
             error={errors.activityName}
           />
         </FormControl>
@@ -92,6 +97,7 @@ const ActivityForm = () => {
           <FormLabel>링크</FormLabel>
           <FormTextInput
             id="link"
+            placeholder="https://"
             register={{
               ...register('link', {
                 pattern: {
