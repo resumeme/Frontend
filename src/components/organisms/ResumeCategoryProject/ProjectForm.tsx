@@ -60,18 +60,33 @@ const ProjectForm = () => {
               isInvalid={Boolean(errors.productionYear)}
             >
               <FormLabel
+                flexShrink={0}
                 w={'fit-content'}
                 isRequired
               >
                 직무
               </FormLabel>
-              <FormTextInput
-                id="productionYear"
-                register={{
-                  ...register('productionYear', { required: '제작 년도를 입력해주세요.' }),
-                }}
-                error={errors.productionYear}
-              />
+              <Select
+                borderColor={'gray.300'}
+                maxH={'3.125rem'}
+                h={'3.125rem'}
+                {...register('productionYear', {
+                  required: '제작 년도를 선택해주세요.',
+                })}
+              >
+                {Array.from({ length: 24 }, (_, index) => {
+                  const year = 2023 - index;
+                  return (
+                    <option
+                      key={year}
+                      value={year}
+                      selected={year === 2023}
+                    >
+                      {year}
+                    </option>
+                  );
+                })}
+              </Select>
             </FormControl>
           </Flex>
           <Flex
@@ -80,7 +95,6 @@ const ProjectForm = () => {
           >
             <FormControl w={'60%'}>
               <FormLabel flexShrink={0}>팀 구성</FormLabel>
-              {/* //select로 교체하기 */}
               <Select
                 borderColor={'gray.300'}
                 maxH={'3.125rem'}
