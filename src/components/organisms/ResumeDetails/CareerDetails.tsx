@@ -1,13 +1,7 @@
-import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { BorderBox } from '~/components/atoms/BorderBox';
-import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import Career from '~/types/career';
 
-const CareerDetails = () => {
-  const { id: resumeId } = useParams() as { id: string };
-
-  const { data } = useGetResumeCareer({ resumeId });
+const CareerDetails = ({ data }: { data: Career[] }) => {
   if (!data) {
     return;
   }
@@ -15,9 +9,9 @@ const CareerDetails = () => {
     <>
       {data?.map((company: Career) => {
         return (
-          <BorderBox key={uuidv4()}>
+          <div key={uuidv4()}>
             <div>{company.companyName}</div>
-          </BorderBox>
+          </div>
         );
       })}
     </>
