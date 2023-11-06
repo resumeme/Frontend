@@ -1,7 +1,6 @@
 import { HStack, Flex } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
@@ -20,16 +19,7 @@ const AwardForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Award>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   certificationTitle: '인증서',
-    //   acquisitionDate: '2023-10-01',
-    //   issuingAuthority: '발급기관',
-    //   link: 'https://resumeme.kro.kr',
-    //   description: '설명',
-    // },
-  });
+  } = useForm<Award>();
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
     if (!resumeId) {
@@ -42,114 +32,112 @@ const AwardForm = () => {
   };
 
   return (
-    <BorderBox>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Flex
+        direction={'column'}
+        gap={'1.25rem'}
+      >
+        <FormControl isInvalid={Boolean(errors.certificationTitle)}>
+          <FormLabel
+            htmlFor="certificationTitle"
+            w={'8.625rem'}
+            isRequired
+          >
+            수상/취득 내용
+          </FormLabel>
+          <FormTextInput
+            placeholder="수상 및 자격증 정보를 입력해주세요. 예) 정보처리기사"
+            id="certificationTitle"
+            register={{
+              ...register('certificationTitle', { required: '필수 입력값입니다.' }),
+            }}
+            error={errors.certificationTitle}
+          />
+        </FormControl>
         <Flex
-          direction={'column'}
-          gap={'1.25rem'}
+          w={'full'}
+          gap={'3rem'}
         >
-          <FormControl isInvalid={Boolean(errors.certificationTitle)}>
-            <FormLabel
-              htmlFor="certificationTitle"
-              w={'8.625rem'}
-              isRequired
-            >
-              수상/취득 내용
-            </FormLabel>
-            <FormTextInput
-              placeholder="수상 및 자격증 정보를 입력해주세요. 예) 정보처리기사"
-              id="certificationTitle"
+          <FormControl
+            w={'60%'}
+            isInvalid={Boolean(errors.acquisitionDate)}
+          >
+            <FormLabel w={'8.625rem'}>취득 년월</FormLabel>
+            <FormDateInput
               register={{
-                ...register('certificationTitle', { required: '필수 입력값입니다.' }),
+                ...register('acquisitionDate'),
               }}
-              error={errors.certificationTitle}
             />
           </FormControl>
-          <Flex
-            w={'full'}
-            gap={'3rem'}
-          >
-            <FormControl
-              w={'60%'}
-              isInvalid={Boolean(errors.acquisitionDate)}
-            >
-              <FormLabel w={'8.625rem'}>취득 년월</FormLabel>
-              <FormDateInput
-                register={{
-                  ...register('acquisitionDate'),
-                }}
-              />
-            </FormControl>
 
-            <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
-              <FormLabel
-                htmlFor="issuingAuthority"
-                w={'fit-content'}
-              >
-                수여 기관
-              </FormLabel>
-              <FormTextInput
-                placeholder="수여 기관을 입력해주세요."
-                id="issuingAuthority"
-                register={{
-                  ...register('issuingAuthority'),
-                }}
-              />
-            </FormControl>
-          </Flex>
-          <FormControl isInvalid={Boolean(errors.link)}>
+          <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
             <FormLabel
-              htmlFor="link"
-              w={'8.625rem'}
+              htmlFor="issuingAuthority"
+              w={'fit-content'}
             >
-              링크
+              수여 기관
             </FormLabel>
             <FormTextInput
-              placeholder="https://"
-              id="link"
-              register={{ ...register('link') }}
+              placeholder="수여 기관을 입력해주세요."
+              id="issuingAuthority"
+              register={{
+                ...register('issuingAuthority'),
+              }}
             />
           </FormControl>
-
-          <FormControl isInvalid={Boolean(errors.description)}>
-            <FormLabel
-              htmlFor="description"
-              w={'8.625rem'}
-            >
-              설명
-            </FormLabel>
-            <FormTextarea
-              h={'16.625rem'}
-              placeholder="내용을 입력해주세요."
-              id="description"
-              register={{ ...register('description') }}
-              errors={errors}
-              autoComplete="off"
-              spellCheck="false"
-              resize="none"
-            />
-          </FormControl>
-          <HStack
-            justifyContent={'center'}
-            w={'full'}
-            spacing={'1.5rem'}
-          >
-            <Button
-              size={'sm'}
-              type="submit"
-            >
-              저장
-            </Button>
-            <Button
-              size={'sm'}
-              variant={'cancel'}
-            >
-              취소
-            </Button>
-          </HStack>
         </Flex>
-      </form>
-    </BorderBox>
+        <FormControl isInvalid={Boolean(errors.link)}>
+          <FormLabel
+            htmlFor="link"
+            w={'8.625rem'}
+          >
+            링크
+          </FormLabel>
+          <FormTextInput
+            placeholder="https://"
+            id="link"
+            register={{ ...register('link') }}
+          />
+        </FormControl>
+
+        <FormControl isInvalid={Boolean(errors.description)}>
+          <FormLabel
+            htmlFor="description"
+            w={'8.625rem'}
+          >
+            설명
+          </FormLabel>
+          <FormTextarea
+            h={'16.625rem'}
+            placeholder="내용을 입력해주세요."
+            id="description"
+            register={{ ...register('description') }}
+            errors={errors}
+            autoComplete="off"
+            spellCheck="false"
+            resize="none"
+          />
+        </FormControl>
+        <HStack
+          justifyContent={'center'}
+          w={'full'}
+          spacing={'1.5rem'}
+        >
+          <Button
+            size={'sm'}
+            type="submit"
+          >
+            저장
+          </Button>
+          <Button
+            size={'sm'}
+            variant={'cancel'}
+          >
+            취소
+          </Button>
+        </HStack>
+      </Flex>
+    </form>
   );
 };
 
