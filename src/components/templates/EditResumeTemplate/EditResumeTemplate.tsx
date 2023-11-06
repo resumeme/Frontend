@@ -1,11 +1,14 @@
 import { useParams } from 'react-router-dom';
-import AwardForm from '~/components/organisms/ResumeCategoryAwards/AwardForm';
+import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
-import { CareerDetails, TraningDetails } from '~/components/organisms/ResumeDetails';
-import ProjectDetails from '~/components/organisms/ResumeDetails/ProjectDetails';
+import {
+  CareerDetails,
+  TraningDetails,
+  ProjectDetails,
+} from '~/components/organisms/ResumeDetails';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
