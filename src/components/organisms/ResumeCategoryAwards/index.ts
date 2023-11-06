@@ -1,3 +1,3 @@
-import AwardsForm from './AwardsForm';
+import AwardForm from './AwardForm';
 
-export { AwardsForm };
+export { AwardForm };

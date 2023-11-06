@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import AwardForm from '~/components/organisms/ResumeCategoryAwards/AwardForm';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
@@ -23,6 +24,12 @@ const EditResumeTemplate = () => {
         detailsComponent={<TraningDetails data={trainingsData} />}
       >
         <TrainingForm />
+      </ResumeCategory>
+      <ResumeCategory
+        categoryType="수상 및 경력"
+        detailsComponent={<></>}
+      >
+        <AwardForm />
       </ResumeCategory>
     </>
   );
