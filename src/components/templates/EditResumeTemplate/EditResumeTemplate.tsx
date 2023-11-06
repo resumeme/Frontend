@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
@@ -35,7 +35,11 @@ const EditResumeTemplate = () => {
   const { data: awardData } = useGetResumeAward({ resumeId });
   return (
     <>
-      <Box width="960px">
+      <Flex
+        width="960px"
+        direction="column"
+        gap="5rem"
+      >
         <ResumeBasicInput />
         <ResumeCategory
           categoryType="업무경험"
@@ -73,7 +77,7 @@ const EditResumeTemplate = () => {
         >
           <ActivityForm />
         </ResumeCategory>
-      </Box>
+      </Flex>
     </>
   );
 };
