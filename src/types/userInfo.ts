@@ -1,6 +1,6 @@
 export type BasicInfo = {
   position: string;
-  skillset: string[];
+  skills: string[];
   introduce: string;
 };
 
