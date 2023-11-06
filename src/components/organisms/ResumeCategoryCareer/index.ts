@@ -1,1 +1,1 @@
-export { default as ResumeCategoryCareer } from './ResumeCategoryCareer';
+export { default as ResumeCategory } from './ResumeCategory';
