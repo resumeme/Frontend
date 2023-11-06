@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import AwardsForm from './AwardsForm';
+import AwardsForm from './AwardForm';
 
 const meta = {
   title: 'Resumeme/Components/AwardsForm',

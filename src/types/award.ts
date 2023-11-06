@@ -1,4 +1,4 @@
-type AwardsForm = {
+type Award = {
   certificationTitle: string;
   acquisitionDate: string;
   issuingAuthority: string;
@@ -6,4 +6,4 @@ type AwardsForm = {
   description: string;
 };
 
-export type { AwardsForm };
+export type { Award };
