@@ -1,4 +1,5 @@
 import { VStack } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -12,7 +13,11 @@ type ResumeCategoryProps = {
 const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCategoryProps) => {
   const [isShowForm, setIsShowForm] = useState(false);
   return (
-    <div style={{ width: '960px', minHeight: '100px' }}>
+    <Box
+      width="960px"
+      minH="6.25rem"
+      marginBottom="5rem"
+    >
       <CategoryAddHeader
         categoryTitle={categoryType}
         onAddItem={() => {
@@ -34,7 +39,7 @@ const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCate
           </BorderBox>
         )}
       </VStack>
-    </div>
+    </Box>
   );
 };
 
