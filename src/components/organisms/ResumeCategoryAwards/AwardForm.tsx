@@ -1,7 +1,6 @@
 import { HStack, Flex } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
@@ -20,16 +19,7 @@ const AwardForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Award>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   certificationTitle: '인증서',
-    //   acquisitionDate: '2023-10-01',
-    //   issuingAuthority: '발급기관',
-    //   link: 'https://resumeme.kro.kr',
-    //   description: '설명',
-    // },
-  });
+  } = useForm<Award>();
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
     if (!resumeId) {
