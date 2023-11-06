@@ -14,13 +14,11 @@ const ResumeBasicInput = () => {
   return (
     <Flex
       direction={'column'}
-      align={'center'}
       gap={4}
       width={'full'}
       id="resume-basic-input"
     >
       <TitleInputForm />
-      {/* NOTE 기본 정보 */}
       <Box w={'full'}>
         <Flex justifyContent={'space-between'}>
           <Box w={'400px'}>
@@ -28,14 +26,13 @@ const ResumeBasicInput = () => {
               direction={'column'}
               gap={5}
             >
-              {/* TODO 유저 데이터 받아와서 이름 렌더링하기 */}
+              {/* FIXME 유저 데이터 받아와서 이름 렌더링하기 */}
               <Heading>{USER.NAME}</Heading>
               <Box>
                 <Flex
                   justify={'space-between'}
                   my={3}
                 >
-                  {/* NOTE 참고링크 헤더부분 */}
                   <Text
                     color={'gray.700'}
                     fontSize="lg"
@@ -52,7 +49,6 @@ const ResumeBasicInput = () => {
             w={'400px'}
             height={'fit-content'}
           >
-            {/* TODO 기본정보 입력 폼 추가하기 */}
             <BasicInfoForm />
           </BorderBox>
         </Flex>

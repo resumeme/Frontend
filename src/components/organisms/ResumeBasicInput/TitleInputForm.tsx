@@ -1,4 +1,4 @@
-import { Box, FormControl } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import TitleInput from '~/components/atoms/TitleInput/TitleInput';
 
@@ -15,29 +15,24 @@ const TitleInputForm = () => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
-      {/* NOTE 이력서 제목 */}
-      <Box
-        w={'992px'}
-        mb={10}
-        display={'flex'}
-        alignItems={'center'}
-      >
-        <FormControl>
-          <TitleInput
-            id="resumeTitle"
-            register={{
-              ...register('resumeTitle'),
-            }}
-            error={errors.resumeTitle}
-            fontWeight={'semibold'}
-            fontSize={'3xl'}
-            autoComplete="off"
-            spellCheck="false"
-          />
-        </FormControl>
-      </Box>
-    </form>
+    <Box
+      w={'full'}
+      mb={10}
+    >
+      <form onSubmit={onSubmit}>
+        <TitleInput
+          id="resumeTitle"
+          register={{
+            ...register('resumeTitle'),
+          }}
+          error={errors.resumeTitle}
+          fontWeight={'semibold'}
+          fontSize={'3xl'}
+          autoComplete="off"
+          spellCheck="false"
+        />
+      </form>
+    </Box>
   );
 };
 
