@@ -1,5 +1,4 @@
 import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
