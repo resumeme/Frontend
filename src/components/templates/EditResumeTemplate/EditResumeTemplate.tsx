@@ -12,9 +12,9 @@ import {
   LanguageDetails,
   ProjectDetails,
   AwardDetails,
-  // ActivityDetails,
+  ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
-// import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
+import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
@@ -27,7 +27,9 @@ const EditResumeTemplate = () => {
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
-  // const { data: activitiesData } = useGetResumeActivities({ resumeId }); /*TODO - api 서버 오류 해결 후 주석 풀 것 */
+  const { data: activitiesData } = useGetResumeActivities({
+    resumeId,
+  });
   const { data: awardData } = useGetResumeAward({ resumeId });
   return (
     <>
@@ -63,8 +65,7 @@ const EditResumeTemplate = () => {
       </ResumeCategory>
       <ResumeCategory
         categoryType="활동"
-        /*TODO - api 서버 오류 해결 후 ActivityDetails로 대체 */
-        detailsComponent={<></>}
+        detailsComponent={<ActivityDetails data={activitiesData} />}
       >
         <ActivityForm />
       </ResumeCategory>
