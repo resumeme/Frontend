@@ -113,13 +113,19 @@ const CareerForm = () => {
         </FormControl>
         <FormControl>
           <FormLabel>사용 스택</FormLabel>
-          <FormTextInput
-            id="skills"
-            register={{ ...register('skills') }}
-            onKeyDown={handleArrayChange}
-          />
+          <Flex
+            gap={2}
+            direction={'column'}
+            w={'full'}
+          >
+            <FormTextInput
+              id="skills"
+              register={{ ...register('skills') }}
+              onKeyDown={handleArrayChange}
+            />
+            {skills.length > 0 && <DynamicTags tagsArray={skills} />}
+          </Flex>
         </FormControl>
-        {skills.length > 0 && <DynamicTags tagsArray={skills} />}
         <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput

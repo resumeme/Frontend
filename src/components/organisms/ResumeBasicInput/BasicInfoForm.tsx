@@ -77,30 +77,29 @@ const BasicInfoForm = () => {
         >
           <Box>
             <FormControl isInvalid={!!errors.skillset}>
-              <FormTextInput
-                id="skillset"
-                register={{
-                  ...register('skillset', {
-                    pattern: {
-                      value: /^[a-zA-Z가-힣\s]*$/,
-                      message: '영어, 한글, 공백만 입력 가능합니다.',
-                    },
-                  }),
-                }}
-                autoComplete="off"
-                spellCheck="false"
-                placeholder="보유한 기술 스택"
-                onKeyDown={handleSkillsetChange}
-                error={errors.skillset}
-              />
-              {skills.length > 0 && (
-                <DynamicTags
-                  tagsArray={skills}
-                  flexProps={{
-                    my: 3,
+              <Flex
+                gap={2}
+                direction={'column'}
+                w={'full'}
+              >
+                <FormTextInput
+                  id="skillset"
+                  register={{
+                    ...register('skillset', {
+                      pattern: {
+                        value: /^[a-zA-Z가-힣\s]*$/,
+                        message: '영어, 한글, 공백만 입력 가능합니다.',
+                      },
+                    }),
                   }}
+                  autoComplete="off"
+                  spellCheck="false"
+                  placeholder="보유한 기술 스택"
+                  onKeyDown={handleSkillsetChange}
+                  error={errors.skillset}
                 />
-              )}
+                {skills.length > 0 && <DynamicTags tagsArray={skills} />}
+              </Flex>
             </FormControl>
           </Box>
         </Tooltip>
