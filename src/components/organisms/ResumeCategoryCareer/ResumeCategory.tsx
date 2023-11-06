@@ -7,7 +7,7 @@ import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 type ResumeCategoryProps = {
   categoryType: string;
   children: React.ReactNode;
-  detailsComponent: React.ReactNode;
+  detailsComponent?: React.ReactNode /**FIXME - get 요청 서버 오류 해결 후 optional 제거 */;
 };
 const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCategoryProps) => {
   const [isShowForm, setIsShowForm] = useState(false);
