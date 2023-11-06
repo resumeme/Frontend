@@ -22,7 +22,11 @@ const ProjectForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Project>();
+  } = useForm<Project>({
+    defaultValues: {
+      isTeam: true,
+    },
+  });
 
   const onSubmit: SubmitHandler<Project> = (resumeProject) => {
     if (!resumeId) {
@@ -100,14 +104,13 @@ const ProjectForm = () => {
           <FormControl w={'60%'}>
             <FormLabel flexShrink={0}>팀 구성</FormLabel>
             <Select
-              defaultValue={'팀'}
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
               {...register('isTeam')}
             >
-              <option value="팀">팀</option>
-              <option value="">개인</option>
+              <option value="true">팀</option>
+              <option value="false">개인</option>
             </Select>
           </FormControl>
           <FormControl>
