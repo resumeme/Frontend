@@ -1,5 +1,6 @@
 import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
@@ -7,25 +8,30 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { ProjectForm } from '~/types/project';
+import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
+import { Project } from '~/types/project';
 
 const ProjectForm = () => {
   const [skills, handleSkills] = useStringToArray();
+
+  const { id: resumeId } = useParams();
+  const { mutate: postResumeProject } = usePostResumeProject();
 
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectForm>();
+  } = useForm<Project>();
 
-  const onSubmit: SubmitHandler<ProjectForm> = (values) => {
-    /**TODO api 호출해 저장하기 */
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+  const onSubmit: SubmitHandler<Project> = (resumeProject) => {
+    if (!resumeId) {
+      return;
+    }
+    resumeProject.skills = skills;
+    resumeProject.isTeam = Boolean(resumeProject.isTeam);
+
+    postResumeProject({ resumeId: '4', resumeProject });
   };
 
   return (
@@ -64,11 +70,13 @@ const ProjectForm = () => {
               제작 년도
             </FormLabel>
             <Select
+              defaultValue={2023}
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
               {...register('productionYear', {
                 required: '제작 년도를 선택해주세요.',
+                valueAsNumber: true,
               })}
             >
               {Array.from({ length: 24 }, (_, index) => {
@@ -77,7 +85,6 @@ const ProjectForm = () => {
                   <option
                     key={year}
                     value={year}
-                    selected={year === 2023}
                   >
                     {year}
                   </option>
@@ -93,17 +100,13 @@ const ProjectForm = () => {
           <FormControl w={'60%'}>
             <FormLabel flexShrink={0}>팀 구성</FormLabel>
             <Select
+              defaultValue={'팀'}
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
               {...register('isTeam')}
             >
-              <option
-                selected
-                value="팀"
-              >
-                팀
-              </option>
+              <option value="팀">팀</option>
               <option value="">개인</option>
             </Select>
           </FormControl>
@@ -162,10 +165,11 @@ const ProjectForm = () => {
             errors={errors}
           />
         </FormControl>
-        <FormControl>
+        <FormControl isInvalid={Boolean(errors.projectUrl)}>
           <FormLabel htmlFor="projectUrl">저장소 링크</FormLabel>
           <FormTextInput
             placeholder="URL 입력"
+            error={errors.projectUrl}
             id="projectUrl"
             register={{
               ...register('projectUrl', {
