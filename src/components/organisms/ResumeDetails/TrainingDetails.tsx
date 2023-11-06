@@ -8,22 +8,33 @@ const TraningDetails = ({ data }: { data: Training[] }) => {
   }
   return (
     <>
-      {data?.map((training: Training) => {
-        return (
-          <BorderBox
-            key={uuidv4()}
-            w={'100%'}
-          >
-            <div>{training.organization}</div>
-            <div>{training.major}</div>
-            <div>{training.degree}</div>
-            <div>{training.admissionDate}</div>
-            <div>{training.graduationDate}</div>
-            <div>{`${training.gpa} / ${training.maxGpa}`}</div>
-            <div>{training.explanation}</div>
-          </BorderBox>
-        );
-      })}
+      {data?.map(
+        ({
+          organization,
+          major,
+          degree,
+          admissionDate,
+          graduationDate,
+          gpa,
+          maxGpa,
+          explanation,
+        }: Training) => {
+          return (
+            <BorderBox
+              key={uuidv4()}
+              w={'100%'}
+            >
+              <div>{organization}</div>
+              <div>{major}</div>
+              <div>{degree}</div>
+              <div>{admissionDate}</div>
+              <div>{graduationDate}</div>
+              <div>{`${gpa} / ${maxGpa}`}</div>
+              <div>{explanation}</div>
+            </BorderBox>
+          );
+        },
+      )}
     </>
   );
 };
