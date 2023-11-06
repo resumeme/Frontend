@@ -23,7 +23,7 @@ const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCate
         marginTop={'1.56rem'}
         spacing={'1rem'}
       >
-        <BorderBox w={'100%'}>{detailsComponent}</BorderBox>
+        {detailsComponent}
         {isShowForm && (
           <BorderBox
             key={uuidv4()}
