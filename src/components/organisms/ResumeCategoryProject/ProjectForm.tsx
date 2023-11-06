@@ -31,7 +31,7 @@ const ProjectForm = () => {
     resumeProject.skills = skills;
     resumeProject.isTeam = Boolean(resumeProject.isTeam);
 
-    postResumeProject({ resumeId: '4', resumeProject });
+    postResumeProject({ resumeId, resumeProject });
   };
 
   return (
