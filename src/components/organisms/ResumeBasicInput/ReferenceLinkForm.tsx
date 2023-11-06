@@ -1,14 +1,23 @@
 import { Box, Flex, FormControl, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import LinkIconBox from './LinkIconBox';
-import { LinkIconBoxProps } from './LinkIconBox';
+import LinkItem from './LinkItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 
+type LinkData = {
+  type?: 'default' | 'github' | 'blog';
+  url?: string;
+};
+
 const ReferenceLinkForm = () => {
-  const [linkData, setLinkData] = useState<LinkIconBoxProps[]>([]);
+  const [linkData, setLinkData] = useState<LinkData[]>([]);
+
+  const handleRemoveLink = (urlToRemove: string) => {
+    const updatedLinks = linkData.filter((link) => link.url !== urlToRemove);
+    setLinkData(updatedLinks);
+  };
 
   const {
     register,
@@ -18,13 +27,11 @@ const ReferenceLinkForm = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((values) => {
-    // 입력된 참고 링크 데이터 상태 추가
     setLinkData([...linkData, values]);
 
     /* TODO API 요청하는 부분 */
     console.log('values', values);
 
-    // 폼 리셋하기
     reset();
   });
 
@@ -32,15 +39,16 @@ const ReferenceLinkForm = () => {
 
   return (
     <>
-      {/* TODO 링크 박스 추가되게 하기 -> 추후에는 api로 변경 */}
-      {linkData.map((data: LinkIconBoxProps, index) => (
+      {linkData.map((data: LinkData, index) => (
         <Box
           key={index}
           mb={3}
         >
-          <LinkIconBox
+          <LinkItem
+            key={index}
             url={data.url}
             type={data.type}
+            onRemove={handleRemoveLink}
           />
         </Box>
       ))}
@@ -96,13 +104,15 @@ const ReferenceLinkForm = () => {
                 placeholder="URL 입력"
                 mb={1}
               />
-              <Button
-                mt={3}
-                type="submit"
-                size={'xs'}
-              >
-                저장
-              </Button>
+              <Flex justify="flex-end">
+                <Button
+                  mt={3}
+                  type="submit"
+                  size={'xs'}
+                >
+                  추가
+                </Button>
+              </Flex>
             </FormControl>
           </form>
         </Flex>

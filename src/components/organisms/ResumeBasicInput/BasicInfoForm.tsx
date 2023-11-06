@@ -1,6 +1,7 @@
-import { Box, Flex, Tag, Tooltip } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
+import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
@@ -12,6 +13,7 @@ const BasicInfoForm = () => {
   const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -28,6 +30,8 @@ const BasicInfoForm = () => {
   };
 
   const [skills, handleSkillsetChange] = useStringToArray();
+  const introduceValue = useWatch({ name: 'introduce', control });
+  const introduceValueLength = introduceValue ? introduceValue.length : 0;
 
   /* TODO api 함수 작성하기 */
   // const loadFormData = async () => {}
@@ -63,7 +67,7 @@ const BasicInfoForm = () => {
         <Tooltip
           hasArrow
           placement="right"
-          label={`쉼표 "," 로 구분할 수 있어요!`}
+          label={`엔터 키(Enter)로 구분할 수 있어요!`}
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
@@ -83,7 +87,6 @@ const BasicInfoForm = () => {
                     },
                   }),
                 }}
-                mb={3}
                 autoComplete="off"
                 spellCheck="false"
                 placeholder="보유한 기술 스택"
@@ -91,41 +94,57 @@ const BasicInfoForm = () => {
                 error={errors.skillset}
               />
             </FormControl>
-            {skills && (
-              <Flex
-                gap={'0.5rem'}
-                wrap={'wrap'}
-              >
-                {skills.map((skill) => (
-                  <Tag
-                    bg={'primary.100'}
-                    key={skill}
-                  >
-                    {skill}
-                  </Tag>
-                ))}
-              </Flex>
-            )}
+            <DynamicTags
+              tagsArray={skills}
+              flexProps={{
+                my: 3,
+              }}
+            />
           </Box>
         </Tooltip>
-        {/* FIXME MainTextarea 컴포넌트로 변경하고 register 넣어주기 */}
-        <FormTextarea
-          id="introduce"
-          errors={errors}
-          register={{
-            ...register('introduce', {
-              maxLength: { value: 100, message: '100자 이내로 입력해주세요.' },
-            }),
-          }}
-          h="190px"
-          width={'full'}
-          resize={'none'}
-          placeholder="자기소개 (100자 이내)"
-          autoComplete="off"
-          spellCheck="false"
-          my={3}
-        />
-        <Flex justify={'flex-end'}>
+        <FormControl isInvalid={Boolean(errors.introduce)}>
+          <FormTextarea
+            id="introduce"
+            name="introduce"
+            register={{
+              ...register('introduce', {
+                required: false,
+                maxLength: {
+                  value: 100,
+                  message: `100자 이내로 입력해주세요. (${introduceValueLength}자)`,
+                },
+              }),
+            }}
+            errors={errors}
+            height="100px"
+            width="full"
+            placeholder="간략한 자기소개 (100자 이내)"
+            resize="none"
+            autoComplete="off"
+            spellCheck="false"
+          />
+        </FormControl>
+        {introduceValue && (
+          <Box
+            textAlign={'right'}
+            display={introduceValueLength <= 100 ? 'block' : 'none'}
+            pr={2}
+            m={0}
+            zIndex="docked"
+          >
+            <Text
+              as="span"
+              fontSize="xs"
+              color={introduceValueLength <= 100 ? 'gray.800' : 'red'}
+            >
+              {introduceValueLength}/100
+            </Text>
+          </Box>
+        )}
+        <Flex
+          justify={'flex-end'}
+          mt={3}
+        >
           <Button
             type="submit"
             size="xs"

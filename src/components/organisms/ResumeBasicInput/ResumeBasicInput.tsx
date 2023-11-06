@@ -3,7 +3,6 @@ import BasicInfoForm from './BasicInfoForm';
 import ReferenceLinkForm from './ReferenceLinkForm';
 import TitleInputForm from './TitleInputForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import { Button } from '~/components/atoms/Button';
 
 /* TODO api 요청으로 데이터 받아오기 */
 
@@ -34,22 +33,25 @@ const ResumeBasicInput = () => {
               <Box>
                 <Flex
                   justify={'space-between'}
-                  mb={3}
+                  my={3}
                 >
                   {/* NOTE 참고링크 헤더부분 */}
                   <Text
                     color={'gray.700'}
-                    fontWeight={'semibold'}
+                    fontSize="lg"
+                    fontWeight={'bold'}
                   >
                     참고 링크
                   </Text>
-                  <Button size={'xs'}>+</Button>
                 </Flex>
                 <ReferenceLinkForm />
               </Box>
             </Flex>
           </Box>
-          <BorderBox w={'400px'}>
+          <BorderBox
+            w={'400px'}
+            height={'fit-content'}
+          >
             {/* TODO 기본정보 입력 폼 추가하기 */}
             <BasicInfoForm />
           </BorderBox>
