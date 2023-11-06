@@ -1,9 +1,74 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Tooltip } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 import { useNavigate, useParams } from 'react-router-dom';
 import TitleInput from '~/components/atoms/TitleInput/TitleInput';
 import { renderIcon } from '~/components/molecules/ReferenceLinkBox';
 import { usePatchResumeTitle } from '~/queries/resume/create/usePatchResumeTitle';
+
+const StateTooltip = (state: 'success' | 'error') => {
+  const STATE_STYLE = {
+    success: {
+      icon: HiCheck,
+      color: 'primary.900',
+      message: '저장되었어요 :)',
+    },
+    error: {
+      icon: HiXCircle,
+      color: 'red.600',
+      message: '저장에 실패했어요 :(',
+    },
+  };
+
+  const stateIcon = renderIcon(STATE_STYLE[state].icon, 'xl', {
+    color: STATE_STYLE[state].color,
+  });
+
+  return (
+    <Tooltip
+      shouldWrapChildren
+      hasArrow
+      // defaultIsOpen
+      placement="top-end"
+      label={STATE_STYLE[state].message}
+      aria-label="tooltip"
+      borderRadius={'xl'}
+      fontSize={'sm'}
+      px={3}
+      bg={STATE_STYLE[state].color}
+      color={'gray.100'}
+      display={'flex'}
+      justifyContent={'center'}
+      alignItems={'center'}
+    >
+      {stateIcon}
+    </Tooltip>
+  );
+};
+
+// const ErrorTooltip = () => {
+//   const errorIcon = renderIcon(HiXCircle, 'xl', {
+//     color: 'red.600',
+//   });
+
+//   return (
+//     <Tooltip
+//       shouldWrapChildren
+//       hasArrow
+//       // defaultIsOpen
+//       placement="top-end"
+//       label={`저장에 실패했습니다!`}
+//       aria-label="tooltip"
+//       borderRadius={'xl'}
+//       fontSize={'sm'}
+//       px={3}
+//       bg={'red.600'}
+//       color={'gray.100'}
+//     >
+//       {errorIcon}
+//     </Tooltip>
+//   );
+// };
 
 const TitleInputForm = () => {
   const { id: resumeId } = useParams();
@@ -31,6 +96,7 @@ const TitleInputForm = () => {
 
   const renderMutationState = () => {
     if (isPending) {
+      console.log('pending');
       return (
         <Spinner
           thickness="2px"
@@ -42,16 +108,12 @@ const TitleInputForm = () => {
       );
     }
     if (isError) {
-      const errorIcon = renderIcon(HiXCircle, 'xl', {
-        color: 'red.600',
-      });
-      return errorIcon;
+      console.log('error');
+      return StateTooltip('error');
     }
     if (isSuccess) {
-      const successIcon = renderIcon(HiCheck, 'xl', {
-        color: 'primary.900',
-      });
-      return successIcon;
+      console.log('success');
+      return StateTooltip('success');
     }
     return null;
   };
