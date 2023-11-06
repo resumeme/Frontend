@@ -1,12 +1,25 @@
 import { useParams } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
-import AwardForm from '~/components/organisms/ResumeCategoryAwards/AwardForm';
+import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
+import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
+import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
-import { CareerDetails, TraningDetails } from '~/components/organisms/ResumeDetails';
+import {
+  CareerDetails,
+  TraningDetails,
+  LanguageDetails,
+  ProjectDetails,
+  AwardDetails,
+  // ActivityDetails,
+} from '~/components/organisms/ResumeDetails';
+// import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
+import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
+import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
+import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 
@@ -14,6 +27,10 @@ const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
+  const { data: languageData } = useGetResumeLanguage({ resumeId });
+  const { data: projectData } = useGetResumeProject({ resumeId });
+  // const { data: activitiesData } = useGetResumeActivities({ resumeId }); /*TODO - api 서버 오류 해결 후 주석 풀 것 */
+  const { data: awardData } = useGetResumeAward({ resumeId });
   return (
     <>
       <Box width={'960px'}>
@@ -26,15 +43,21 @@ const EditResumeTemplate = () => {
         </ResumeCategory>
         <ResumeCategory
           categoryType="프로젝트"
-          detailsComponent={<></>}
+          detailsComponent={<ProjectDetails data={projectData} />}
         >
           <ProjectForm />
         </ResumeCategory>
         <ResumeCategory
           categoryType="수상 및 경력"
-          detailsComponent={<></>}
+          detailsComponent={<AwardDetails data={awardData} />}
         >
           <AwardForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="외국어"
+          detailsComponent={<LanguageDetails data={languageData} />}
+        >
+          <LanguageForm />
         </ResumeCategory>
         <ResumeCategory
           categoryType="교육"
@@ -43,6 +66,13 @@ const EditResumeTemplate = () => {
           <TrainingForm />
         </ResumeCategory>
       </Box>
+      <ResumeCategory
+        categoryType="활동"
+        /*TODO - api 서버 오류 해결 후 ActivityDetails로 대체 */
+        detailsComponent={<></>}
+      >
+        <ActivityForm />
+      </ResumeCategory>
     </>
   );
 };
