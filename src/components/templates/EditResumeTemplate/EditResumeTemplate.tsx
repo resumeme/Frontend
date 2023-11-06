@@ -1,16 +1,21 @@
 import { useParams } from 'react-router-dom';
-import AwardForm from '~/components/organisms/ResumeCategoryAwards/AwardForm';
+import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
 import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
+import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   CareerDetails,
   TraningDetails,
   LanguageDetails,
+  ProjectDetails,
 } from '~/components/organisms/ResumeDetails';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
+} from '~/components/organisms/ResumeDetails';
+import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
+import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 
 const EditResumeTemplate = () => {
@@ -18,6 +23,7 @@ const EditResumeTemplate = () => {
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
+  const { data: projectData } = useGetResumeProject({ resumeId });
   return (
     <>
       <ResumeCategory
@@ -27,10 +33,10 @@ const EditResumeTemplate = () => {
         <CareerForm />
       </ResumeCategory>
       <ResumeCategory
-        categoryType="교육"
-        detailsComponent={<TraningDetails data={trainingsData} />}
+        categoryType="프로젝트"
+        detailsComponent={<ProjectDetails data={projectData} />}
       >
-        <TrainingForm />
+        <ProjectForm />
       </ResumeCategory>
       <ResumeCategory
         categoryType="수상 및 경력"
@@ -43,6 +49,12 @@ const EditResumeTemplate = () => {
         detailsComponent={<LanguageDetails data={languageData} />}
       >
         <LanguageForm />
+      </ResumeCategory>
+      <ResumeCategory
+        categoryType="교육"
+        detailsComponent={<TraningDetails data={trainingsData} />}
+      >
+        <TrainingForm />
       </ResumeCategory>
     </>
   );
