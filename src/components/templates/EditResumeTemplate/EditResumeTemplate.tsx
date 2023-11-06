@@ -11,10 +11,10 @@ import {
   TraningDetails,
   LanguageDetails,
   ProjectDetails,
+  AwardDetails,
   // ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
 // import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
-import AwardDetails from '~/components/organisms/ResumeDetails/AwardDetails';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
