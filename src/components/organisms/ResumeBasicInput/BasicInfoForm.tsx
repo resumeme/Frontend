@@ -29,7 +29,7 @@ const BasicInfoForm = () => {
     });
   };
 
-  const [skills, handleSkillsetChange] = useStringToArray();
+  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
 
@@ -98,7 +98,12 @@ const BasicInfoForm = () => {
                   onKeyDown={handleSkillsetChange}
                   error={errors.skillset}
                 />
-                {skills.length > 0 && <DynamicTags tagsArray={skills} />}
+                {skills.length > 0 && (
+                  <DynamicTags
+                    tagsArray={skills}
+                    handleItemDelete={handleItemDelete}
+                  />
+                )}
               </Flex>
             </FormControl>
           </Box>

@@ -45,7 +45,7 @@ const CareerForm = () => {
   const { id: resumeId } = useParams();
   const { mutate } = usePostResumeCareer();
   const navigate = useNavigate();
-  const [skills, handleArrayChange] = useStringToArray();
+  const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
       /**TODO - 토스트 대체! */
@@ -123,7 +123,12 @@ const CareerForm = () => {
               register={{ ...register('skills') }}
               onKeyDown={handleArrayChange}
             />
-            {skills.length > 0 && <DynamicTags tagsArray={skills} />}
+            {skills.length > 0 && (
+              <DynamicTags
+                tagsArray={skills}
+                handleItemDelete={handleItemDelete}
+              />
+            )}
           </Flex>
         </FormControl>
         <FormControl>
