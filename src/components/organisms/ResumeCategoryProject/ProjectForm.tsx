@@ -1,5 +1,6 @@
 import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
@@ -7,25 +8,30 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { ProjectForm } from '~/types/project';
+import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
+import { Project } from '~/types/project';
 
 const ProjectForm = () => {
   const [skills, handleSkills] = useStringToArray();
+
+  const { id: resumeId } = useParams();
+  const { mutate: postResumeProject } = usePostResumeProject();
 
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectForm>();
+  } = useForm<Project>();
 
-  const onSubmit: SubmitHandler<ProjectForm> = (values) => {
-    /**TODO api 호출해 저장하기 */
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+  const onSubmit: SubmitHandler<Project> = (resumeProject) => {
+    if (!resumeId) {
+      return;
+    }
+    resumeProject.skills = skills;
+    resumeProject.isTeam = Boolean(resumeProject.isTeam);
+
+    postResumeProject({ resumeId: '4', resumeProject });
   };
 
   return (
