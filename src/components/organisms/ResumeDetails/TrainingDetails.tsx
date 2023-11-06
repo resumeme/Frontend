@@ -15,6 +15,12 @@ const TraningDetails = ({ data }: { data: Training[] }) => {
             w={'100%'}
           >
             <div>{training.organization}</div>
+            <div>{training.major}</div>
+            <div>{training.degree}</div>
+            <div>{training.admissionDate}</div>
+            <div>{training.graduationDate}</div>
+            <div>{`${training.gpa} / ${training.maxGpa}`}</div>
+            <div>{training.explanation}</div>
           </BorderBox>
         );
       })}
