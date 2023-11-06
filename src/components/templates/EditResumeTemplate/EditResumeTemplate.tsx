@@ -25,6 +25,12 @@ const EditResumeTemplate = () => {
       >
         <TrainingForm />
       </ResumeCategory>
+      <ResumeCategory
+        categoryType="수상 및 경력"
+        detailsComponent={<TraningDetails data={trainingsData} />}
+      >
+        <AwardForm />
+      </ResumeCategory>
     </>
   );
 };
