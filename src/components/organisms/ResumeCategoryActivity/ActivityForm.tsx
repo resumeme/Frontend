@@ -1,6 +1,7 @@
 import { VStack, HStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
@@ -8,6 +9,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 
 import { TermInput } from '~/components/molecules/TermInput';
+import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { Activity } from '~/types/activity';
 
 const ActivityForm = () => {
@@ -32,13 +34,17 @@ const ActivityForm = () => {
     // },
   });
 
-  const onSubmit: SubmitHandler<Activity> = (values) => {
-    /**TODO api 호출해 저장하기 */
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+  const { id: resumeId } = useParams();
+  const { mutate } = usePostResumeActivity();
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
+    if (!resumeId) {
+      /**TODO - 토스트 대체! */
+      alert('존재하지 않는 이력서입니다.');
+      navigate(-1);
+      return;
+    }
+    mutate({ resumeId, resumeActivity });
   };
 
   const inProgress = watch('inProgress');
@@ -53,11 +59,11 @@ const ActivityForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.activityName)}>
-          <FormLabel isRequired>회사명</FormLabel>
+          <FormLabel isRequired>활동명</FormLabel>
           <FormTextInput
             id="activityName"
-            placeholder="회사명을 입력하세요"
-            register={{ ...register('activityName', { required: '회사명을 입력하세요' }) }}
+            placeholder="활동명을 입력하세요"
+            register={{ ...register('activityName', { required: '활동명을 입력하세요' }) }}
             error={errors.activityName}
           />
         </FormControl>
@@ -66,7 +72,7 @@ const ActivityForm = () => {
           width={'100%'}
           gap={'1.63rem'}
         >
-          <FormLabel isRequired>재직기간</FormLabel>
+          <FormLabel isRequired>활동 기간</FormLabel>
           <TermInput
             startDateName="startDate"
             endDateName="endDate"

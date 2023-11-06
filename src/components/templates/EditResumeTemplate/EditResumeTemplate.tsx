@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
@@ -10,11 +11,11 @@ import {
   TraningDetails,
   LanguageDetails,
   ProjectDetails,
+  // ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+// import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
-} from '~/components/organisms/ResumeDetails';
-import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 
@@ -24,6 +25,7 @@ const EditResumeTemplate = () => {
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
+  // const { data: activitiesData } = useGetResumeActivities({ resumeId }); /*TODO - api 서버 오류 해결 후 주석 풀 것 */
   return (
     <>
       <ResumeCategory
@@ -55,6 +57,13 @@ const EditResumeTemplate = () => {
         detailsComponent={<TraningDetails data={trainingsData} />}
       >
         <TrainingForm />
+      </ResumeCategory>
+      <ResumeCategory
+        categoryType="활동"
+        /*TODO - api 서버 오류 해결 후 ActivityDetails로 대체 */
+        detailsComponent={<></>}
+      >
+        <ActivityForm />
       </ResumeCategory>
     </>
   );
