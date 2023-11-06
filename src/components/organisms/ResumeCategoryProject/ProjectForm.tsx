@@ -25,8 +25,7 @@ const ProjectForm = () => {
     formState: { errors },
   } = useForm<Project>({
     defaultValues: {
-      isTeam: true, // 초기값 설정
-      // ...
+      isTeam: true,
     },
   });
 
