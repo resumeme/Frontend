@@ -14,6 +14,8 @@ import {
   // ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
 // import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
+import AwardDetails from '~/components/organisms/ResumeDetails/AwardDetails';
+import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
@@ -26,6 +28,7 @@ const EditResumeTemplate = () => {
   const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
   // const { data: activitiesData } = useGetResumeActivities({ resumeId }); /*TODO - api 서버 오류 해결 후 주석 풀 것 */
+  const { data: awardData } = useGetResumeAward({ resumeId });
   return (
     <>
       <ResumeCategory
@@ -42,7 +45,7 @@ const EditResumeTemplate = () => {
       </ResumeCategory>
       <ResumeCategory
         categoryType="수상 및 경력"
-        detailsComponent={<></>}
+        detailsComponent={<AwardDetails data={awardData} />}
       >
         <AwardForm />
       </ResumeCategory>
