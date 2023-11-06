@@ -3,8 +3,8 @@ import { ReactNode } from 'react';
 import { FieldError, FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
 type TitleInputProps = {
-  id: string;
-  register: UseFormRegisterReturn;
+  id?: string;
+  register?: UseFormRegisterReturn;
   error?: FieldError | FieldErrors;
   children?: ReactNode;
 } & Omit<InputProps, 'type'>;
