@@ -27,7 +27,7 @@ const EditResumeTemplate = () => {
       </ResumeCategory>
       <ResumeCategory
         categoryType="수상 및 경력"
-        detailsComponent={<TraningDetails data={trainingsData} />}
+        detailsComponent={<></>}
       >
         <AwardForm />
       </ResumeCategory>
