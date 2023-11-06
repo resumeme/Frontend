@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
@@ -21,7 +22,6 @@ import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer'
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
-import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };

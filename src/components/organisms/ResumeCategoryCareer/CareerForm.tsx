@@ -33,6 +33,7 @@ const CareerForm = () => {
   const {
     control,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<Career>();
@@ -98,7 +99,13 @@ const CareerForm = () => {
           <Checkbox
             id="isCurrentlyEmployed"
             ml={'1rem'}
-            {...register('isCurrentlyEmployed')}
+            {...register('isCurrentlyEmployed', {
+              onChange: (event) => {
+                if (event.target.checked) {
+                  setValue('endDate', '');
+                }
+              },
+            })}
           >
             재직 중
           </Checkbox>
