@@ -70,11 +70,13 @@ const ProjectForm = () => {
               제작 년도
             </FormLabel>
             <Select
+              defaultValue={2023}
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
               {...register('productionYear', {
                 required: '제작 년도를 선택해주세요.',
+                valueAsNumber: true,
               })}
             >
               {Array.from({ length: 24 }, (_, index) => {
@@ -83,7 +85,6 @@ const ProjectForm = () => {
                   <option
                     key={year}
                     value={year}
-                    selected={year === 2023}
                   >
                     {year}
                   </option>
@@ -99,17 +100,13 @@ const ProjectForm = () => {
           <FormControl w={'60%'}>
             <FormLabel flexShrink={0}>팀 구성</FormLabel>
             <Select
+              defaultValue={'팀'}
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
               {...register('isTeam')}
             >
-              <option
-                selected
-                value="팀"
-              >
-                팀
-              </option>
+              <option value="팀">팀</option>
               <option value="">개인</option>
             </Select>
           </FormControl>
@@ -168,10 +165,11 @@ const ProjectForm = () => {
             errors={errors}
           />
         </FormControl>
-        <FormControl>
+        <FormControl isInvalid={Boolean(errors.projectUrl)}>
           <FormLabel htmlFor="projectUrl">저장소 링크</FormLabel>
           <FormTextInput
             placeholder="URL 입력"
+            error={errors.projectUrl}
             id="projectUrl"
             register={{
               ...register('projectUrl', {
