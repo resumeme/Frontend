@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
-import { Input, Button, Avatar } from '~/theme/components';
+import { Input, Button, Avatar, Textarea } from '~/theme/components';
 
 const theme = extendTheme({
   breakpoints: {
@@ -79,7 +79,7 @@ const theme = extendTheme({
     '8xl': '6rem',
     '9xl': '8rem',
   },
-  components: { Input, Button, Avatar },
+  components: { Input, Button, Avatar, Textarea },
 });
 
 export default theme;

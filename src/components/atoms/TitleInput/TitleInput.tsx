@@ -16,6 +16,7 @@ const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps
     <Flex
       direction={'column'}
       flexGrow={1}
+      width={'full'}
     >
       <Input
         id={id}

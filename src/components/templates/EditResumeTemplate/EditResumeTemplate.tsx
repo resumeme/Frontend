@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
@@ -20,6 +21,7 @@ import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer'
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
+import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -33,42 +35,49 @@ const EditResumeTemplate = () => {
   const { data: awardData } = useGetResumeAward({ resumeId });
   return (
     <>
-      <ResumeCategory
-        categoryType="업무경험"
-        detailsComponent={<CareerDetails data={careersData} />}
+      <Flex
+        width="960px"
+        direction="column"
+        gap="5rem"
       >
-        <CareerForm />
-      </ResumeCategory>
-      <ResumeCategory
-        categoryType="프로젝트"
-        detailsComponent={<ProjectDetails data={projectData} />}
-      >
-        <ProjectForm />
-      </ResumeCategory>
-      <ResumeCategory
-        categoryType="수상 및 경력"
-        detailsComponent={<AwardDetails data={awardData} />}
-      >
-        <AwardForm />
-      </ResumeCategory>
-      <ResumeCategory
-        categoryType="외국어"
-        detailsComponent={<LanguageDetails data={languageData} />}
-      >
-        <LanguageForm />
-      </ResumeCategory>
-      <ResumeCategory
-        categoryType="교육"
-        detailsComponent={<TraningDetails data={trainingsData} />}
-      >
-        <TrainingForm />
-      </ResumeCategory>
-      <ResumeCategory
-        categoryType="활동"
-        detailsComponent={<ActivityDetails data={activitiesData} />}
-      >
-        <ActivityForm />
-      </ResumeCategory>
+        <ResumeBasicInput />
+        <ResumeCategory
+          categoryType="업무경험"
+          detailsComponent={<CareerDetails data={careersData} />}
+        >
+          <CareerForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="프로젝트"
+          detailsComponent={<ProjectDetails data={projectData} />}
+        >
+          <ProjectForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="수상 및 경력"
+          detailsComponent={<AwardDetails data={awardData} />}
+        >
+          <AwardForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="외국어"
+          detailsComponent={<LanguageDetails data={languageData} />}
+        >
+          <LanguageForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="교육"
+          detailsComponent={<TraningDetails data={trainingsData} />}
+        >
+          <TrainingForm />
+        </ResumeCategory>
+        <ResumeCategory
+          categoryType="활동"
+          detailsComponent={<ActivityDetails data={activitiesData} />}
+        >
+          <ActivityForm />
+        </ResumeCategory>
+      </Flex>
     </>
   );
 };
