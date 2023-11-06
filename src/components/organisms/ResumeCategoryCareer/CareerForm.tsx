@@ -119,7 +119,7 @@ const CareerForm = () => {
             onKeyDown={handleArrayChange}
           />
         </FormControl>
-        <DynamicTags tagsArray={skills} />
+        {skills.length > 0 && <DynamicTags tagsArray={skills} />}
         <FormControl>
           <FormLabel>기타 설명</FormLabel>
           <FormTextInput
