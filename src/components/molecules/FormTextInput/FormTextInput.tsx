@@ -5,7 +5,7 @@ type FormTextInputProps = {
   id: string;
   register: UseFormRegisterReturn;
   error?: Partial<FieldError>;
-} & Omit<InputProps, 'type'>;
+} & InputProps;
 
 const FormTextInput = ({ id, register, error, ...props }: FormTextInputProps) => {
   return (
