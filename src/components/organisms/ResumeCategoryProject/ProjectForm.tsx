@@ -1,4 +1,5 @@
 import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,6 +19,7 @@ const ProjectForm = () => {
   const { mutate: postResumeProject } = usePostResumeProject();
 
   const {
+    setValue,
     watch,
     register,
     handleSubmit,
@@ -33,6 +35,10 @@ const ProjectForm = () => {
 
     postResumeProject({ resumeId, resumeProject });
   };
+
+  useEffect(() => {
+    setValue('isTeam', '팀');
+  }, [setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,11 +106,13 @@ const ProjectForm = () => {
           <FormControl w={'60%'}>
             <FormLabel flexShrink={0}>팀 구성</FormLabel>
             <Select
-              defaultValue={'팀'}
+              defaultValue="팀"
               borderColor={'gray.300'}
               maxH={'3.125rem'}
               h={'3.125rem'}
-              {...register('isTeam')}
+              {...register('isTeam', {
+                setValueAs: (v) => v === '팀',
+              })}
             >
               <option value="팀">팀</option>
               <option value="">개인</option>
