@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import AwardForm from '~/components/organisms/ResumeCategoryAwards/AwardForm';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
