@@ -2,12 +2,17 @@ import { useParams } from 'react-router-dom';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
 import ResumeCategory from '~/components/organisms/ResumeCategoryCareer/ResumeCategory';
+import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   CareerDetails,
   TraningDetails,
+  LanguageDetails,
   ProjectDetails,
+} from '~/components/organisms/ResumeDetails';
+import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
+import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 } from '~/components/organisms/ResumeDetails';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
@@ -17,6 +22,7 @@ const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
+  const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
   return (
     <>
@@ -37,6 +43,12 @@ const EditResumeTemplate = () => {
         detailsComponent={<></>}
       >
         <AwardForm />
+      </ResumeCategory>
+      <ResumeCategory
+        categoryType="외국어"
+        detailsComponent={<LanguageDetails data={languageData} />}
+      >
+        <LanguageForm />
       </ResumeCategory>
       <ResumeCategory
         categoryType="교육"
