@@ -65,14 +65,13 @@ const EditResumeTemplate = () => {
         >
           <TrainingForm />
         </ResumeCategory>
+        <ResumeCategory
+          categoryType="활동"
+          detailsComponent={<></>}
+        >
+          <ActivityForm />
+        </ResumeCategory>
       </Box>
-      <ResumeCategory
-        categoryType="활동"
-        /*TODO - api 서버 오류 해결 후 ActivityDetails로 대체 */
-        detailsComponent={<></>}
-      >
-        <ActivityForm />
-      </ResumeCategory>
     </>
   );
 };
