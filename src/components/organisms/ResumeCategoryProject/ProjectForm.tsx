@@ -188,7 +188,7 @@ const ProjectForm = ({ setIsShowForm }: ProjectFormProps) => {
         </FormControl>
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>

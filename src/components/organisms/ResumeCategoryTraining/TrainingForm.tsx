@@ -198,7 +198,7 @@ const TrainingForm = ({ setIsShowForm }: TrainingFormProps) => {
         </FormControl>
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>

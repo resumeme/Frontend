@@ -121,7 +121,7 @@ const AwardForm = ({ setIsShowForm }: AwardFormProps) => {
         </FormControl>
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>

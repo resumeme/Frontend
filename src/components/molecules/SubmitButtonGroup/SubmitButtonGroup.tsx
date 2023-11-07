@@ -4,13 +4,13 @@ import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 
 type SubmitButtonGroupProps = {
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
-  isDirty: boolean;
+  showConfirm: boolean;
 };
 
-const SubmitButtonGroup = ({ setIsShow, isDirty }: SubmitButtonGroupProps) => {
+const SubmitButtonGroup = ({ setIsShow, showConfirm }: SubmitButtonGroupProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleCancelClick = async () => {
-    if (isDirty) onOpen();
+    if (showConfirm) onOpen();
     else setIsShow(false);
   };
   return (

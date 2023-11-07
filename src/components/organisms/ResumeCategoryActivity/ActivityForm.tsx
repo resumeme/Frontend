@@ -131,7 +131,7 @@ const ActivityForm = ({ setIsShowForm }: ActivityFormProps) => {
         </FormControl>
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>

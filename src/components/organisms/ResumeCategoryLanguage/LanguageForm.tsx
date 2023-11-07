@@ -68,7 +68,7 @@ const LanguageForm = ({ setIsShowForm }: LanguageFormProps) => {
         </HStack>
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>

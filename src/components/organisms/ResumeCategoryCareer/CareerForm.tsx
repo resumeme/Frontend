@@ -158,7 +158,7 @@ const CareerForm = ({ setIsShowForm }: CareerFormProps) => {
         />
         <SubmitButtonGroup
           setIsShow={setIsShowForm}
-          isDirty={isDirty}
+          showConfirm={isDirty}
         />
       </VStack>
     </form>
