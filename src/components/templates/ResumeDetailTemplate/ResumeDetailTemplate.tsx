@@ -43,7 +43,13 @@ const ResumeDetailTemplate = () => {
       gap={6}
     >
       <Box mx={'1rem'}>
-        <Text>이력서 제목</Text>
+        <Text
+          fontSize={'2xl'}
+          fontWeight={'bold'}
+          color={'gray.800'}
+        >
+          이력서 제목
+        </Text>
       </Box>
       <BorderBox
         hasShadow
