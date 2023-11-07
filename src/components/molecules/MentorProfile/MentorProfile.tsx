@@ -37,14 +37,14 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
           </Heading>
         </Flex>
         <Flex
-          minH={'14rem'}
+          minH={'12.44rem'}
           direction={'column'}
           justifyContent={'space-between'}
         >
           <BorderBox>
             <Text
-              overflow={'auto'}
-              maxH={'9rem'}
+              noOfLines={6}
+              overflow={'hidden'}
               color={'gray.700'}
             >
               {introduce}
@@ -53,6 +53,7 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
           <Flex
             w={'100%'}
             justifyContent={'space-between'}
+            mt={'1.56rem'}
           >
             <Text
               as={'span'}
