@@ -60,7 +60,7 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
               as={'span'}
               color={'gray.800'}
             >
-              {event.info.currentApplicantCount}/{event.info.maximumAttendee}
+              {event.info.currentApplicantCount}/{event.info.maximumCount}
             </Text>
           </Flex>
         </Flex>

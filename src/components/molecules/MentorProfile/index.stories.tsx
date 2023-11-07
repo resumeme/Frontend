@@ -24,31 +24,25 @@ export const Default = () => {
     },
     event: {
       info: {
-        title: 'title',
-        content: 'content',
-        maximumAttendee: 3,
+        title: 'title_b21dc40438ed',
+        content: 'dlfjgrp',
+        maximumCount: 0,
+        currentApplicantCount: 0,
+        positions: ['FRONT'] as Position[],
+        timeInfo: {
+          openDateTime: '2023-11-07 17:48:51',
+          closeDateTime: '2023-11-07 17:48:51',
+          endDate: '2023-11-07 17:48:51',
+        },
       },
-      time: {
-        openDateTime: '2023-10-23T12:00:00',
-        closeDateTime: '2023-10-24T12:00:00',
-        endDate: '2023-10-30T23:00:00',
-      },
-      positions: ['FRONT', 'BACK'],
       resumes: [
         {
-          resumeId: 1,
-          menteeName: '백둥둥',
-          resumeTitle: 'title',
-          progressStatus: 'APPLY',
-        },
-        {
-          resumeId: 4,
-          menteeName: '백둥둥2',
-          resumeTitle: 'title',
-          progressStatus: 'APPLY',
+          resumeId: 0,
+          menteeName: 'menteeName_a5382713f0d2',
+          resumeTitle: 'resumeTitle_3f57dbe0891f',
+          progressStatus: 'progressStatus_ad4597f425d4',
         },
       ],
-      applicantCount: 3,
     },
   };
   return (
