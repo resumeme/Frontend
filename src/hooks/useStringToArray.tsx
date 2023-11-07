@@ -3,6 +3,7 @@ import { useState } from 'react';
 export const useStringToArray = (): [
   string[],
   (event: React.KeyboardEvent<HTMLInputElement>) => void,
+  (targetIndex: number) => void,
 ] => {
   const [array, setSkills] = useState<string[]>([]);
 
@@ -17,11 +18,17 @@ export const useStringToArray = (): [
     if (!skill.trim() || skill === ',') {
       event.currentTarget.value = '';
     }
-    if (skill.length > 2 && key === 'Enter') {
+    if (skill.length > 1 && key === 'Enter') {
       setSkills([...array, skill]);
       event.currentTarget.value = '';
     }
   };
 
-  return [array, handleArrayChange];
+  const handleItemDelete = (targetIndex: number) => {
+    const newArray = [...array];
+    newArray.splice(targetIndex, 1);
+    setSkills(newArray);
+  };
+
+  return [array, handleArrayChange, handleItemDelete];
 };

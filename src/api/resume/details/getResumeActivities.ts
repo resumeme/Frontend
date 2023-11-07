@@ -9,7 +9,7 @@ export const getResumeActivities = async ({ resumeId }: GetResumeActivities) => 
     const { data } = await resumeMeAxios.get(`/v1/resume/${resumeId}/activities`, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-        access: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+        Authorization: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
       },
     });
     return data;

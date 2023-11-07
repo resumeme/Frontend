@@ -10,7 +10,7 @@ export const patchResumeBasicInfo = async ({ resumeId, resumeBasicInfo }: patchR
     const { data } = await resumeMeAxios.patch(`/v1/resumes/${resumeId}`, resumeBasicInfo, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-        access: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+        Authorization: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
       },
     });
     return data;
