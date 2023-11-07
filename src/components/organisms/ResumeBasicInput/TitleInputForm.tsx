@@ -1,5 +1,4 @@
 import { Box, Flex, Spinner, Tooltip } from '@chakra-ui/react';
-import { IconType } from 'react-icons';
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 import { useNavigate, useParams } from 'react-router-dom';
 import TitleInput from '~/components/atoms/TitleInput/TitleInput';
@@ -28,7 +27,6 @@ const StateTooltip = (state: 'success' | 'error') => {
     <Tooltip
       shouldWrapChildren
       hasArrow
-      // defaultIsOpen
       placement="top-end"
       label={STATE_STYLE[state].message}
       aria-label="tooltip"
@@ -45,30 +43,6 @@ const StateTooltip = (state: 'success' | 'error') => {
     </Tooltip>
   );
 };
-
-// const ErrorTooltip = () => {
-//   const errorIcon = renderIcon(HiXCircle, 'xl', {
-//     color: 'red.600',
-//   });
-
-//   return (
-//     <Tooltip
-//       shouldWrapChildren
-//       hasArrow
-//       // defaultIsOpen
-//       placement="top-end"
-//       label={`저장에 실패했습니다!`}
-//       aria-label="tooltip"
-//       borderRadius={'xl'}
-//       fontSize={'sm'}
-//       px={3}
-//       bg={'red.600'}
-//       color={'gray.100'}
-//     >
-//       {errorIcon}
-//     </Tooltip>
-//   );
-// };
 
 const TitleInputForm = () => {
   const { id: resumeId } = useParams();
@@ -91,12 +65,12 @@ const TitleInputForm = () => {
     debounceTimeout = setTimeout(() => {
       const resumeTitle = e.target.value;
       mutate({ resumeId, resumeTitle });
-    }, 500);
+    }, 1000);
   };
 
   const renderMutationState = () => {
     if (isPending) {
-      console.log('pending');
+      /* TODO pending 상태일 때, Spinner가 돌아가는 최소 시간을 보장하는 로직을 추가해보자 */
       return (
         <Spinner
           thickness="2px"
@@ -108,11 +82,9 @@ const TitleInputForm = () => {
       );
     }
     if (isError) {
-      console.log('error');
       return StateTooltip('error');
     }
     if (isSuccess) {
-      console.log('success');
       return StateTooltip('success');
     }
     return null;
