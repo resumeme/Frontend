@@ -9,6 +9,6 @@ const meta = {
 
 export default meta;
 
-export const Default = () => {
+export const KakaoSignInButton = () => {
   return <OAuthSignInButton oAuthPlatform="kakao" />;
 };
