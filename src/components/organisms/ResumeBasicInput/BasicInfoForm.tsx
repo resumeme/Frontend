@@ -29,7 +29,7 @@ const BasicInfoForm = () => {
     });
   };
 
-  const [skills, handleSkillsetChange] = useStringToArray();
+  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
 
@@ -38,8 +38,11 @@ const BasicInfoForm = () => {
   // const saveFormData = async () => {}
 
   return (
-    <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Flex
+        gap={3}
+        direction={'column'}
+      >
         <Tooltip
           hasArrow
           placement="right"
@@ -47,7 +50,6 @@ const BasicInfoForm = () => {
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
-          px={3}
           bg={'gray.300'}
           color={'gray.600'}
         >
@@ -59,7 +61,6 @@ const BasicInfoForm = () => {
                 placeholder="희망 직무"
                 autoComplete="off"
                 spellCheck="false"
-                mb={3}
               />
             </FormControl>
           </Box>
@@ -71,76 +72,83 @@ const BasicInfoForm = () => {
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
-          px={3}
           bg={'gray.300'}
           color={'gray.600'}
         >
           <Box>
             <FormControl isInvalid={!!errors.skillset}>
-              <FormTextInput
-                id="skillset"
-                register={{
-                  ...register('skillset', {
-                    pattern: {
-                      value: /^[a-zA-Z가-힣\s]*$/,
-                      message: '영어, 한글, 공백만 입력 가능합니다.',
-                    },
-                  }),
-                }}
-                autoComplete="off"
-                spellCheck="false"
-                placeholder="보유한 기술 스택"
-                onKeyDown={handleSkillsetChange}
-                error={errors.skillset}
-              />
+              <Flex
+                gap={2}
+                direction={'column'}
+                w={'full'}
+              >
+                <FormTextInput
+                  id="skillset"
+                  register={{
+                    ...register('skillset', {
+                      pattern: {
+                        value: /^[a-zA-Z가-힣\s]*$/,
+                        message: '영어, 한글, 공백만 입력 가능합니다.',
+                      },
+                    }),
+                  }}
+                  autoComplete="off"
+                  spellCheck="false"
+                  placeholder="보유한 기술 스택"
+                  onKeyDown={handleSkillsetChange}
+                  error={errors.skillset}
+                />
+                {skills.length > 0 && (
+                  <DynamicTags
+                    tagsArray={skills}
+                    handleItemDelete={handleItemDelete}
+                  />
+                )}
+              </Flex>
             </FormControl>
-            <DynamicTags
-              tagsArray={skills}
-              flexProps={{
-                my: 3,
-              }}
-            />
           </Box>
         </Tooltip>
-        <FormControl isInvalid={Boolean(errors.introduce)}>
-          <FormTextarea
-            id="introduce"
-            name="introduce"
-            register={{
-              ...register('introduce', {
-                required: false,
-                maxLength: {
-                  value: 100,
-                  message: `100자 이내로 입력해주세요. (${introduceValueLength}자)`,
-                },
-              }),
-            }}
-            errors={errors}
-            height="100px"
-            width="full"
-            placeholder="간략한 자기소개 (100자 이내)"
-            resize="none"
-            autoComplete="off"
-            spellCheck="false"
-          />
-        </FormControl>
-        {introduceValue && (
-          <Box
-            textAlign={'right'}
-            display={introduceValueLength <= 100 ? 'block' : 'none'}
-            pr={2}
-            m={0}
-            zIndex="docked"
-          >
-            <Text
-              as="span"
-              fontSize="xs"
-              color={introduceValueLength <= 100 ? 'gray.800' : 'red'}
+        <Box>
+          <FormControl isInvalid={Boolean(errors.introduce)}>
+            <FormTextarea
+              id="introduce"
+              name="introduce"
+              register={{
+                ...register('introduce', {
+                  required: false,
+                  maxLength: {
+                    value: 100,
+                    message: `100자 이내로 입력해주세요. (${introduceValueLength}자)`,
+                  },
+                }),
+              }}
+              errors={errors}
+              height="100px"
+              width="full"
+              placeholder="간략한 자기소개 (100자 이내)"
+              resize="none"
+              autoComplete="off"
+              spellCheck="false"
+            />
+          </FormControl>
+          {introduceValue && (
+            <Box
+              textAlign={'right'}
+              display={introduceValueLength <= 100 ? 'block' : 'none'}
+              pr={2}
+              m={0}
+              zIndex="docked"
             >
-              {introduceValueLength}/100
-            </Text>
-          </Box>
-        )}
+              <Text
+                as="span"
+                fontSize="xs"
+                color={introduceValueLength <= 100 ? 'gray.800' : 'red'}
+              >
+                {introduceValueLength}/100
+              </Text>
+            </Box>
+          )}
+        </Box>
         <Flex
           justify={'flex-end'}
           mt={3}
@@ -152,8 +160,8 @@ const BasicInfoForm = () => {
             저장
           </Button>
         </Flex>
-      </form>
-    </Box>
+      </Flex>
+    </form>
   );
 };
 
