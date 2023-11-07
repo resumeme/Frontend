@@ -30,7 +30,7 @@ const SignInTemplate = () => {
         <Logo />
         <Text
           color={'gray.900'}
-          fontSize={'xl'}
+          fontSize={'1.125rem'}
           fontWeight={'semibold'}
         >
           {TEXT.welcomeMessage}
