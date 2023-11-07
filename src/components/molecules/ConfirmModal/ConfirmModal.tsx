@@ -5,8 +5,8 @@ import {
   AlertDialogFooter,
   AlertDialogOverlay,
 } from '@chakra-ui/react';
-import { Button as ChakraButton } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { Button } from '~/components/atoms/Button';
 
 type ConfirmModalProps = {
   message: string;
@@ -24,22 +24,25 @@ const ConfirmModal = ({ message, isOpen, onClose, proceed }: ConfirmModalProps) 
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent>
+        <AlertDialogContent py={4}>
           <AlertDialogBody>{message}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <ChakraButton
+            <Button
               ref={cancelRef}
               onClick={onClose}
+              size={'xs'}
+              variant={'cancel'}
             >
               취소
-            </ChakraButton>
-            <ChakraButton
+            </Button>
+            <Button
               onClick={() => proceed(true)}
               ml={3}
+              size={'xs'}
             >
               확인
-            </ChakraButton>
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
