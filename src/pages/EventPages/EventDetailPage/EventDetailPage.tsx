@@ -33,7 +33,10 @@ const EventDetailPage = () => {
   const { data: mentor } = useGetMentorDetail({ mentorId: '1' });
 
   return (
-    <Flex gap={'2rem'}>
+    <Flex
+      px={'0.56rem'}
+      gap={'2rem'}
+    >
       <MentorProfile
         mentor={mentor}
         event={DUMMY_DATA.event}
