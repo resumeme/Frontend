@@ -16,6 +16,7 @@ const RadioCard = ({ children, borderBoxStyle, ...props }: RadioCardProps) => {
     <Box as={'label'}>
       <input {...inputProps} />
       <BorderBox
+        h={'full'}
         {...radioProps}
         {...borderBoxStyle}
         _checked={{
