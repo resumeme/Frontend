@@ -16,9 +16,7 @@ import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
 import SignInPage from '~/pages/SignInPage/SignInPage';
-import { CommonSignUpPage } from '~/pages/SignUpPages/CommonSignUpPage';
-import { MenteeSignUpPage } from '~/pages/SignUpPages/MenteeSignUpPage';
-import { MentorSignUpPage } from '~/pages/SignUpPages/MentorSignUpPage';
+import { SignUpPage } from '~/pages/SignUpPage';
 import { WriteReviewPage } from '~/pages/WriteReviewPage';
 
 const router = createBrowserRouter([
@@ -42,9 +40,7 @@ const router = createBrowserRouter([
       { path: 'event/view/:id', element: <EventDetailPage /> },
       { path: 'event/apply', element: <ApplyEventPage /> },
 
-      { path: 'sign-up/common', element: <CommonSignUpPage /> },
-      { path: 'sign-up/mentee', element: <MenteeSignUpPage /> },
-      { path: 'sign-up/mentor', element: <MentorSignUpPage /> },
+      { path: 'sign-up', element: <SignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
       { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
 
