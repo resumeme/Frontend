@@ -33,8 +33,9 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
           <Heading fontSize={'1.5rem'}>{event.info.title}</Heading>
           {eventStatus && (
             <Label
+              fontSize={'0.875rem'}
               bg={'primary.900'}
-              alignSelf={'center'}
+              textAlign={'center'}
             >
               모집 중
             </Label>
