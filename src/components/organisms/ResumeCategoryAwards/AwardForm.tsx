@@ -1,16 +1,20 @@
-import { HStack, Flex } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
 
-const AwardForm = () => {
+type AwardFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AwardForm = ({ setIsShowForm }: AwardFormProps) => {
   const { id: resumeId } = useParams();
   const { mutate: postResumeAward } = usePostResumeAward();
   const navigate = useNavigate();
@@ -18,7 +22,7 @@ const AwardForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Award>();
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
@@ -33,10 +37,7 @@ const AwardForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex
-        direction={'column'}
-        gap={'1.25rem'}
-      >
+      <VStack spacing={'1.25rem'}>
         <FormControl isInvalid={Boolean(errors.certificationTitle)}>
           <FormLabel
             htmlFor="certificationTitle"
@@ -118,25 +119,11 @@ const AwardForm = () => {
             resize="none"
           />
         </FormControl>
-        <HStack
-          justifyContent={'center'}
-          w={'full'}
-          spacing={'1.5rem'}
-        >
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
-      </Flex>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
+      </VStack>
     </form>
   );
 };

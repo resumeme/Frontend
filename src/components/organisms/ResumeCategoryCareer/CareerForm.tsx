@@ -21,7 +21,7 @@ import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
 
-export type CareerFormProps = {
+type CareerFormProps = {
   setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

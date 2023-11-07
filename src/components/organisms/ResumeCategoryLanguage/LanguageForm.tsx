@@ -1,18 +1,22 @@
 import { VStack, HStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
 import { Language } from '~/types/language';
 
-const LanguageForm = () => {
+type LanguageFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const LanguageForm = ({ setIsShowForm }: LanguageFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Language>();
 
   const { id: resumeId } = useParams();
@@ -62,21 +66,10 @@ const LanguageForm = () => {
             />
           </FormControl>
         </HStack>
-        {/**FIXME - 컴포넌트 따로 빼는 거 어떨지.. */}
-        <HStack mt={'2rem'}>
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
       </VStack>
     </form>
   );

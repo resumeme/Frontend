@@ -1,21 +1,25 @@
-import { HStack, Flex } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
 import { Training } from '~/types/training';
 
-const TrainingForm = () => {
+type TrainingFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const TrainingForm = ({ setIsShowForm }: TrainingFormProps) => {
   const {
     watch,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Training>({
     //Todo: useQuery 관련 작업 예상
     // defaultValues: {
@@ -45,10 +49,7 @@ const TrainingForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex
-        direction={'column'}
-        gap={'1.25rem'}
-      >
+      <VStack spacing={'1.25rem'}>
         <Flex gap={'2rem'}>
           <FormControl isInvalid={Boolean(errors.organization)}>
             <FormLabel
@@ -195,25 +196,11 @@ const TrainingForm = () => {
             errors={errors}
           />
         </FormControl>
-        <HStack
-          justifyContent={'center'}
-          w={'full'}
-          spacing={'1.5rem'}
-        >
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
-      </Flex>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
+      </VStack>
     </form>
   );
 };

@@ -1,18 +1,22 @@
-import { VStack, HStack, Checkbox, Flex } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 
 import { TermInput } from '~/components/molecules/TermInput';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { Activity } from '~/types/activity';
 
-const ActivityForm = () => {
+type ActivityFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ActivityForm = ({ setIsShowForm }: ActivityFormProps) => {
   const URL_PATTERN = /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/;
 
   const {
@@ -21,7 +25,7 @@ const ActivityForm = () => {
     watch,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Activity>({
     //Todo: useQuery 관련 작업 예상
     // defaultValues: {
@@ -125,20 +129,10 @@ const ActivityForm = () => {
             errors={errors}
           />
         </FormControl>
-        <HStack>
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
       </VStack>
     </form>
   );

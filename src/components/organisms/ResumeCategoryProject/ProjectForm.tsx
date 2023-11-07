@@ -1,17 +1,21 @@
-import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
+import { HStack, Flex, Select, Tag, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
 import { Project } from '~/types/project';
 
-const ProjectForm = () => {
+type ProjectFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ProjectForm = ({ setIsShowForm }: ProjectFormProps) => {
   const [skills, handleSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
@@ -21,7 +25,7 @@ const ProjectForm = () => {
     watch,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Project>({
     defaultValues: {
       isTeam: true,
@@ -40,10 +44,7 @@ const ProjectForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex
-        direction={'column'}
-        gap={'1.25rem'}
-      >
+      <VStack spacing={'1.25rem'}>
         <Flex
           w={'full'}
           gap={'3rem'}
@@ -128,7 +129,7 @@ const ProjectForm = () => {
             />
           </FormControl>
         </Flex>
-        <FormControl w={'59%'}>
+        <FormControl>
           <FormLabel
             htmlFor="skills"
             flexShrink={0}
@@ -140,8 +141,9 @@ const ProjectForm = () => {
             gap={'0.5rem'}
             w={'full'}
           >
+            {/**TODO - 툴팁 */}
             <FormTextInput
-              placeholder="Java Enter"
+              placeholder="엔터 키로 구분할 수 있습니다."
               id="skills"
               register={{ ...register('skills') }}
               onKeyDown={handleSkills}
@@ -184,25 +186,11 @@ const ProjectForm = () => {
             }}
           />
         </FormControl>
-        <HStack
-          justifyContent={'center'}
-          w={'full'}
-          spacing={'1.5rem'}
-        >
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
-      </Flex>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
+      </VStack>
     </form>
   );
 };
