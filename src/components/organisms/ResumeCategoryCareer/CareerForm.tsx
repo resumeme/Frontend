@@ -1,13 +1,5 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import {
-  VStack,
-  HStack,
-  Text,
-  Divider,
-  Button as ChakraButton,
-  Checkbox,
-  Flex,
-} from '@chakra-ui/react';
+import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
 import React from 'react';
 import {
   Control,
@@ -19,23 +11,27 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
 
-const CareerForm = () => {
+export type CareerFormProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const CareerForm = ({ setIsShowForm }: CareerFormProps) => {
   const {
     control,
     register,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<Career>();
 
   const { fields, append, remove } = useFieldArray({
@@ -160,20 +156,10 @@ const CareerForm = () => {
             append(defaultDutyData);
           }}
         />
-        <HStack>
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
+        <SubmitButtonGroup
+          setIsShow={setIsShowForm}
+          isDirty={isDirty}
+        />
       </VStack>
     </form>
   );

@@ -12,7 +12,7 @@ type ResumeCategoryProps = {
 };
 
 type ChlidProps = {
-  setIsShowForm?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCategoryProps) => {
