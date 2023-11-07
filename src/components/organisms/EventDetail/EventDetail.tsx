@@ -26,7 +26,7 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
         w={'full'}
       >
         <Flex
-          pl={'1rem'}
+          p={'1rem'}
           w={'full'}
           justifyContent={'space-between'}
         >
