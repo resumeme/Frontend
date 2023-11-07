@@ -1,6 +1,10 @@
 const CONSTANTS = {
   SIGN_UP_CACHE_KEY: 'sign-up-cache-key',
   RESUME_DEFAULT_TITLE: '새 이력서',
+  ROLE_MENTEE: 'ROLE_MENTEE',
+  ROLE_MENTOR: 'ROLE_MENTOR',
+  ROLE_PENDING: 'ROLE_PENDING',
+  PHONE_NUMBER_REGEX: /^010\d{8}$/g,
 };
 
 export default CONSTANTS;
