@@ -15,7 +15,7 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
     return date.slice(0, 10).replace(/-/g, '.');
   };
 
-  const eventStaus =
+  const eventStatus =
     event.info.maximumCount === event.info.currentApplicantCount ||
     new Date().toISOString() > event.info.timeInfo.closeDateTime;
 
@@ -31,7 +31,7 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
           justifyContent={'space-between'}
         >
           <Heading fontSize={'1.5rem'}>{event.info.title}</Heading>
-          {eventStaus && (
+          {eventStatus && (
             <Label
               bg={'primary.900'}
               alignSelf={'center'}
