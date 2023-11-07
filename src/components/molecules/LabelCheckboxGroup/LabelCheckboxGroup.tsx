@@ -48,10 +48,11 @@ const LabelCheckboxGroup = <T extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field }) => (
+        render={({ field: { onChange, value } }) => (
           <CheckboxGroup
             {...props}
-            {...field}
+            onChange={onChange}
+            value={value}
           >
             <Stack
               spacing={spacing}

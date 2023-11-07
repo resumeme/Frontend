@@ -12,7 +12,7 @@ export const postCreateResume = async () => {
       },
       {
         headers: {
-          access: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+          Authorization: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
         },
       },
     );
