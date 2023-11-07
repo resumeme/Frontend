@@ -1,17 +1,7 @@
 import MentorProfile from '~/components/molecules/MentorProfile/MentorProfile';
-import { Position } from '~/types/position';
+import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const DUMMY_DATA = {
-  mentor: {
-    imageUrl: 'image.png',
-    nickname: 'nickname',
-    role: 'ROLE_PENDING',
-    experiencedPositions: ['FRONT', 'BACK'] as Position[],
-    careerContent: '안녕하세요 멘토가 되고싶어요.',
-    careerYear: 3,
-    introduce:
-      '안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자! 안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!',
-  },
   event: {
     info: {
       title: 'title',
@@ -43,9 +33,11 @@ const DUMMY_DATA = {
 };
 
 const EventDetailPage = () => {
+  const { data: mentor } = useGetMentorDetail({ mentorId: '1' });
+
   return (
     <MentorProfile
-      mentor={DUMMY_DATA.mentor}
+      mentor={mentor}
       event={DUMMY_DATA.event}
     />
   );
