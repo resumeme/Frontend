@@ -16,7 +16,7 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
   };
 
   const eventStaus =
-    event.info.maximumAttendee === event.info.currentApplicantCount ||
+    event.info.maximumCount === event.info.currentApplicantCount ||
     new Date().toISOString() > event.info.timeInfo.closeDateTime;
 
   return (

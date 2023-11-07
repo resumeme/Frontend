@@ -30,7 +30,7 @@ type ReadEvent = {
   info: {
     title: string;
     content: string;
-    maximumAttendee: number;
+    maximumCount: number;
     currentApplicantCount: number;
     positions: Position[];
     timeInfo: Omit<EventTime, 'now'>;
