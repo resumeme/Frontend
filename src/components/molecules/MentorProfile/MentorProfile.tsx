@@ -12,10 +12,6 @@ type MentorProfileProps = {
 
 const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
   const { nickname, introduce, imageUrl } = mentor;
-  const {
-    applicantCount,
-    info: { maximumAttendee },
-  } = event;
 
   return (
     <Box maxW="14.25rem">
@@ -65,7 +61,7 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
               as={'span'}
               color={'gray.800'}
             >
-              {applicantCount}/{maximumAttendee}
+              {event.info.currentApplicantCount}/{event.info.maximumAttendee}
             </Text>
           </Flex>
         </Flex>
