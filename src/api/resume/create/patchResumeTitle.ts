@@ -6,12 +6,18 @@ type patchResumeTitle = { resumeId: string; resumeTitle: string };
 
 export const patchResumeTitle = async ({ resumeId, resumeTitle }: patchResumeTitle) => {
   try {
-    const { data } = await resumeMeAxios.patch(`v1/resume/${resumeId}/title`, resumeTitle, {
-      headers: {
-        /* FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-        access: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+    const { data } = await resumeMeAxios.patch(
+      `v1/resumes/${resumeId}/title`,
+      {
+        title: resumeTitle,
       },
-    });
+      {
+        headers: {
+          /* FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
+          access: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+        },
+      },
+    );
     return data;
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
