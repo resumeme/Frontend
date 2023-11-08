@@ -1,9 +1,9 @@
-import { HStack, Flex, Select, Tag } from '@chakra-ui/react';
+import { HStack, Flex, Select } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
+import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
@@ -12,7 +12,7 @@ import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProje
 import { Project } from '~/types/project';
 
 const ProjectForm = () => {
-  const [skills, handleSkills] = useStringToArray();
+  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
   const { mutate: postResumeProject } = usePostResumeProject();
@@ -146,17 +146,10 @@ const ProjectForm = () => {
               register={{ ...register('skills') }}
               onKeyDown={handleSkills}
             />
-            <HStack wrap={'wrap'}>
-              {skills &&
-                skills.map((skill) => (
-                  <Tag
-                    bg={'primary.100'}
-                    key={uuidv4()}
-                  >
-                    {skill}
-                  </Tag>
-                ))}
-            </HStack>
+            <DynamicTags
+              handleItemDelete={handleDeleteSkills}
+              tagsArray={skills}
+            />
           </Flex>
         </FormControl>
         <FormControl>
