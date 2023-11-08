@@ -7,7 +7,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeBasicInfo } from '~/queries/usePostResumeBasicInfo';
-import { BasicInfo } from '~/types/userInfo';
+import { BasicInfo } from '~/types/basicInfo';
 
 const BasicInfoForm = () => {
   const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
