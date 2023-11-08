@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { CareerDetails } from '~/components/organisms/ResumeDetails';
+import { CareerDetails, ProjectDetails } from '~/components/organisms/ResumeDetails';
 
 const DUMMY_DATA = {
   userInfo: {
@@ -91,6 +91,33 @@ const CAREER_DUMMY_DATA = [
     careerStartDate: '2000-00-00',
     endDate: '2000-00-01',
     careerContent: '어쩌구 저쩌구',
+  },
+];
+
+const PROJECT_DUMMY_DATA = [
+  {
+    projectName: '이력,써',
+    productionYear: 2023,
+    isTeam: true,
+    teamMembers: '6명(프론트엔드 3명, 백엔드 3명)',
+    skills: ['TypeScript', 'React.js', 'Chakra-UI', 'Tanstack-Qeury', 'React-Hook-Form'],
+    projectContent: '와우 지금 만들고 있는거에요 ㅋ 이력서 첨삭 서비스입니다. 2달 걸림',
+    projectUrl: 'https://abcd.efg',
+  },
+  {
+    projectName: 'TMI Homers',
+    productionYear: 2023,
+    isTeam: true,
+    teamMembers: '5명(프론트엔드 5명)',
+    skills: ['TypeScript', 'React.js', 'TailwindCSS', 'Tanstack-Qeury', 'React-Hook-Form'],
+    projectContent: '와우 지지난달에 만든거에요 1달걸림 ㅋ ',
+    projectUrl: 'https://abcd.efg',
+  },
+  {
+    projectName: '테스트 프로젝트1',
+    productionYear: 2021,
+    isTeam: false,
+    projectUrl: 'https://hijk.com',
   },
 ];
 
@@ -240,7 +267,7 @@ const ResumeDetailTemplate = () => {
             {/* NOTE LowerPart - 하단부 - 업무경험 UI */}
             <Flex
               direction={'column'}
-              gap={1}
+              gap={'4rem'}
             >
               <Box>
                 <Text
@@ -257,6 +284,23 @@ const ResumeDetailTemplate = () => {
                   gap={10}
                 >
                   <CareerDetails data={CAREER_DUMMY_DATA} />
+                </BorderBox>
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  프로젝트
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  p={7}
+                  gap={10}
+                >
+                  <ProjectDetails data={PROJECT_DUMMY_DATA} />
                 </BorderBox>
               </Box>
             </Flex>
