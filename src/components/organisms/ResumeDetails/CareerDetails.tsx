@@ -1,4 +1,5 @@
 import { Box, Text, Flex, Divider, Heading } from '@chakra-ui/react';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '~/components/atoms/Label';
 import Career from '~/types/career';
@@ -24,7 +25,7 @@ const CareerDetails = ({ data }: { data: Career[] }) => {
           i,
         ) => {
           return (
-            <>
+            <React.Fragment key={uuidv4()}>
               {i > 0 && (
                 <Divider
                   key={i}
@@ -141,7 +142,7 @@ const CareerDetails = ({ data }: { data: Career[] }) => {
                   ))}
                 </Flex>
               </Flex>
-            </>
+            </React.Fragment>
           );
         },
       )}
