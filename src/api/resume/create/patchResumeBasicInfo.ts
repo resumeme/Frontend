@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
-import { BasicInfo } from '~/types/userInfo';
+import { BasicInfo } from '~/types/basicInfo';
 
 type patchResumeBasicInfo = { resumeId: string; resumeBasicInfo: BasicInfo };
 

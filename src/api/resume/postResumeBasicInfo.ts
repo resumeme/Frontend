@@ -1,5 +1,5 @@
 import { resumeMeAxios } from '~/api/axios';
-import { BasicInfo } from '~/types/userInfo';
+import { BasicInfo } from '~/types/basicInfo';
 
 const postResumeBasicInfo = async (data: BasicInfo) => {
   //Todo: endpoint나오면 변경
