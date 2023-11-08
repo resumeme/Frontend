@@ -3,10 +3,10 @@ type Training = {
   major: string;
   degree: string;
   admissionDate: string;
-  graduationDate: string;
-  gpa: number;
-  maxGpa: number;
-  explanation: string;
+  graduationDate?: string;
+  gpa?: number;
+  maxGpa?: number;
+  explanation?: string;
 };
 
 export type { Training };
