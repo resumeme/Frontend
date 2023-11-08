@@ -125,6 +125,13 @@ const ResumeDetailTemplate = () => {
                 >
                   {DUMMY_DATA.basicInfo.position}
                 </Label>
+                <Flex
+                  gap={4}
+                  align={'center'}
+                >
+                  <PhoneIcon />
+                  <Text>{DUMMY_DATA.userInfo.phoneNumber}</Text>
+                </Flex>
               </Flex>
               <Flex
                 direction={'column'}
@@ -148,20 +155,13 @@ const ResumeDetailTemplate = () => {
               direction={'column'}
               align={'flex-end'}
               gap={10}
+              mt={'3%'}
               flex={1}
             >
               <Flex
-                gap={4}
-                justify={'center'}
-                align={'center'}
-              >
-                <PhoneIcon />
-                <Text>{DUMMY_DATA.userInfo.phoneNumber}</Text>
-              </Flex>
-
-              <Flex
                 direction={'column'}
-                gap={2}
+                align={'flex-end'}
+                gap={3}
               >
                 <Text
                   fontSize={'lg'}
@@ -173,6 +173,7 @@ const ResumeDetailTemplate = () => {
                 <Flex
                   gap={2}
                   pl={1}
+                  justify={'flex-end'}
                   flexWrap={'wrap'}
                 >
                   {DUMMY_DATA.basicInfo.skills?.map((skill, i) => (
