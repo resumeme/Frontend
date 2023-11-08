@@ -1,4 +1,5 @@
 import { Box, useRadio } from '@chakra-ui/react';
+import { forwardRef } from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { BorderBoxProps } from '~/components/atoms/BorderBox/BorderBox';
 
@@ -7,7 +8,7 @@ type RadioCardProps = {
   borderBoxStyle?: BorderBoxProps;
 };
 
-const RadioCard = ({ children, borderBoxStyle, ...props }: RadioCardProps) => {
+const RadioCard = forwardRef(({ children, borderBoxStyle, ...props }: RadioCardProps) => {
   const { getInputProps, getRadioProps } = useRadio(props);
   const inputProps = getInputProps();
   const radioProps = getRadioProps();
@@ -21,12 +22,14 @@ const RadioCard = ({ children, borderBoxStyle, ...props }: RadioCardProps) => {
         {...borderBoxStyle}
         _checked={{
           borderColor: 'primary.900',
+          color: 'primary.900',
         }}
+        cursor={'pointer'}
       >
         {children}
       </BorderBox>
     </Box>
   );
-};
+});
 
 export default RadioCard;

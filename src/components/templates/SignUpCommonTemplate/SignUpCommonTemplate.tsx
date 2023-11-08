@@ -18,13 +18,9 @@ const SignUpCommonTemplate = () => {
     formState: { errors, isSubmitting },
   } = useForm<SignUpCommon<Role>>();
 
-  const onSubmit = (values: { [key: string]: string }) => {
+  const onSubmit = (values: SignUpCommon<Role>) => {
     /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-      }, 3000);
-    });
+    console.log(values);
   };
 
   const ROLE_ASSETS = {
