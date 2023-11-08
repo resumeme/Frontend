@@ -3,39 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-
-/* NOTE
-  전체 콘텐츠의 가로 길이 960px
-  보더박스의 가로 길이 960px => 쉐도우 때문에 조금 줄여야 할 듯?
-  보더박스 내부 콘텐츠의 가로 길이 872 (mx=44px)
- */
-
-/* TODO
-  1. 상단부
-  - 이름 텍스트
-  - 희망직무 태그
-  - 기술스택 레이블, 태그
-  - 전화번호?????
-  - 참고 링크 박스
-  - 자기소개
-
-  2. 업무경험
-  - 업무 경험 개별
-    - 주요 업무
-  3. 프로젝트
-  - 프로젝트 개별 반복
-  4. 교육
-  - 교육 개별 반복
-  5. 수상 및 경력
-  6. 외국어
-  7. 활동
-  8. 추가 커스텀 블록
-
-
-  추가 기능?
-  - 표시 순서를 바꿀 수 있게 할 수 있는가?
-    - 상태가 필요하고, 서버 데이터도 순서를 바꿔 보여줄 수 있는 플래그가 필요함
-*/
+import { CareerDetails } from '~/components/organisms/ResumeDetails';
 
 const DUMMY_DATA = {
   userInfo: {
@@ -63,6 +31,68 @@ const DUMMY_DATA = {
     },
   ],
 };
+
+const CAREER_DUMMY_DATA = [
+  {
+    companyName: '아몬드빼빼로',
+    position: '주니어 프론트엔드 개발자',
+    isCurrentlyEmployed: true,
+    skills: ['TypeScript', 'React.js', 'Git', 'Github', 'ChakraUI', 'react-hook-form', 'vite'],
+    duties: [
+      {
+        title: '중요한 업무업무',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+      {
+        title:
+          '이력서 상세 페이지 UI 개발 근데 이게 엄청 길어지면 어떡꼐 해야데이엄? 더 길게 한다 더 길게',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+      {
+        title: '주요 업무 (ex. 프로그래머스 데브코스 수강 페이지 신설)',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+    ],
+    careerStartDate: '2000-00-00',
+    endDate: '2000-00-01',
+    careerContent: '어쩌구 저쩌구',
+  },
+  {
+    companyName: '아몬드빼빼로',
+    position: '주니어 프론트엔드 개발자',
+    isCurrentlyEmployed: true,
+    skills: ['TypeScript', 'React.js', 'Git', 'Github', 'ChakraUI', 'react-hook-form', 'vite'],
+    duties: [
+      {
+        title: '중요한 업무업무',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+      {
+        title: '이력서 상세 페이지 UI 개발 근데 이게 엄청 길어지면 어떡꼐 할려궁?',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+      {
+        title: '주요 업무 (ex. 프로그래머스 데브코스 수강 페이지 신설)',
+        description: '중요한 업무를 했다 와 힘들었따',
+        startDate: '2000-00-00',
+        endDate: '2000-00-01',
+      },
+    ],
+    careerStartDate: '2000-00-00',
+    endDate: '2000-00-01',
+    careerContent: '어쩌구 저쩌구',
+  },
+];
 
 const ResumeDetailTemplate = () => {
   return (
@@ -202,26 +232,34 @@ const ResumeDetailTemplate = () => {
               <Text>{DUMMY_DATA.basicInfo.introduce}</Text>
             </BorderBox>
           </Flex>
-          <Box
-            width={'100%'}
-            m={'auto'}
-            borderBottom={'1px'}
-            borderBottomColor={'gray.300'}
-          />
           {/* NOTE LowerPart - 하단부 UI */}
-          <Flex direction={'column'}>
+          <Flex
+            direction={'column'}
+            gap={10}
+          >
             {/* NOTE LowerPart - 하단부 - 업무경험 UI */}
-            <Box>
+            <Flex
+              direction={'column'}
+              gap={1}
+            >
               <Box>
-                <Text>업무경험</Text>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  업무경험
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  p={7}
+                  gap={10}
+                >
+                  <CareerDetails data={CAREER_DUMMY_DATA} />
+                </BorderBox>
               </Box>
-              <BorderBox p={10}>
-                <Flex>
-                  <Box width={'25%'}>기간 및 날짜 데이터</Box>
-                  <Box>데이터 내용 (세부 구조 구체화)</Box>
-                </Flex>
-              </BorderBox>
-            </Box>
+            </Flex>
           </Flex>
         </Flex>
       </BorderBox>
