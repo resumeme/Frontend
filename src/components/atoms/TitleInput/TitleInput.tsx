@@ -7,7 +7,7 @@ type TitleInputProps = {
   register?: UseFormRegisterReturn;
   error?: FieldError;
   children?: ReactNode;
-} & Omit<InputProps, 'type'>;
+} & InputProps;
 
 const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps) => {
   return (
