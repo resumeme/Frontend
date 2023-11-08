@@ -1,4 +1,4 @@
-import { Image, Text, Flex, VStack, Box, Divider } from '@chakra-ui/react';
+import { Image, Text, Flex, VStack, Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -65,16 +65,15 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
       w={'31.25rem'}
       py={'3rem'}
     >
+      <SignUpHeader
+        mainMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.MAIN}
+        subMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.SUB}
+      />
       <Flex
         gap={'2.25rem'}
         direction="column"
         alignItems={'center'}
       >
-        <SignUpHeader
-          mainMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.MAIN}
-          subMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.SUB}
-        />
-        <Divider borderColor={'gray.300'} />
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack
             w={'21.875rem'}
