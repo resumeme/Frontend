@@ -5,7 +5,7 @@ import { AiFillGithub } from 'react-icons/ai';
 import { RiNotionFill } from 'react-icons/ri';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { OAuthSignInButton } from '~/components/molecules/OAuthSignInButton';
-import { environments } from '~/config/environments';
+import CONSTANTS from '~/constants';
 
 const TEXT = {
   welcomeMessage: '이력, 써에 가입하고 피드백을 받아보세요.',
@@ -16,9 +16,8 @@ const TEXT = {
 };
 
 const SignInTemplate = () => {
-  const kakaoSignInUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${environments.kakaoRestApiKeyEnv()}&redirect_uri=${environments.kakaoRedirectUriEnv()}&response_type=code`;
   const handleKakaoClick = () => {
-    window.location.href = kakaoSignInUrl;
+    window.location.href = CONSTANTS.KAKAO_SIGNIN_URL;
   };
 
   return (
