@@ -1,13 +1,13 @@
 import { Box, Container, Flex, Image, Heading, Text, Highlight } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import IMAGE_404 from '~/assets/images/no-data.svg';
 import { Button } from '~/components/atoms/Button';
+import { assets } from '~/config/assets';
 
 const HEADER_HEIGHT = 65;
 const FOOTER_HEIGHT = 430;
 
 const IMAGE = {
-  SRC: IMAGE_404,
+  SRC: assets.noDataSvg,
   ALT: 'error',
   SIZE: '200px',
 };
