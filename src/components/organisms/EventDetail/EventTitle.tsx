@@ -14,15 +14,13 @@ const EventTitle = ({ title, eventStatus }: EventTitle) => {
       justifyContent={'space-between'}
     >
       <Heading fontSize={'1.5rem'}>{title}</Heading>
-      {eventStatus && (
-        <Label
-          fontSize={'0.875rem'}
-          bg={'primary.900'}
-          textAlign={'center'}
-        >
-          모집 중
-        </Label>
-      )}
+      <Label
+        fontSize={'0.875rem'}
+        bg={eventStatus ? 'primary.900' : 'gray.500'}
+        textAlign={'center'}
+      >
+        {eventStatus ? '모집 중' : '모집 마감'}
+      </Label>
     </Flex>
   );
 };
