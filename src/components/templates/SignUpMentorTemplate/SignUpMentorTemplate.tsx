@@ -140,7 +140,7 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 register={{
                   ...register('careerContent', { required: '경력사항을 작성해주세요.' }),
                 }}
-                errors={errors}
+                error={errors.careerContent}
                 h={'7.2rem'}
               />
             </FormControl>
@@ -150,7 +150,7 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                 id="introduce"
                 register={{ ...register('introduce') }}
-                errors={errors}
+                error={errors.introduce}
                 h={'3rem'}
               />
             </FormControl>
