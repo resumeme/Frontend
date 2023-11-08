@@ -70,9 +70,11 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
             spacing={'1.8rem'}
           >
             <FormControl {...FORM_STYLE.control}>
-              <FormLabel {...FORM_STYLE.label}>
+              <FormLabel
+                {...FORM_STYLE.label}
+                subText={CONSTANTS.LABEL_MULTI_SELECTABLE}
+              >
                 관심 직무
-                <MultiSelectText />
               </FormLabel>
               <LabelCheckboxGroup
                 name="interestedPositions"
@@ -81,9 +83,11 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
               />
             </FormControl>
             <FormControl {...FORM_STYLE.control}>
-              <FormLabel {...FORM_STYLE.label}>
+              <FormLabel
+                {...FORM_STYLE.label}
+                subText={CONSTANTS.LABEL_MULTI_SELECTABLE}
+              >
                 관심 도메인
-                <MultiSelectText />
               </FormLabel>
               <LabelCheckboxGroup
                 name="interestedFields"
@@ -97,7 +101,7 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
                 placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                 id="introduce"
                 register={{ ...register('introduce') }}
-                errors={errors}
+                error={errors.introduce}
                 h={'7.2rem'}
               />
             </FormControl>
@@ -124,14 +128,3 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
 };
 
 export default SignUpMenteeTemplate;
-
-const MultiSelectText = () => {
-  return (
-    <Text
-      color={'gray.500'}
-      fontWeight={'light'}
-    >
-      (여러 개 선택 가능)
-    </Text>
-  );
-};

@@ -1,5 +1,5 @@
-import { CheckboxGroup, CheckboxGroupProps, Stack } from '@chakra-ui/react';
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
+import { CheckboxGroup, CheckboxGroupProps, Flex, FormErrorMessage, Stack } from '@chakra-ui/react';
+import { Controller, Control, FieldValues, Path, FieldError } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
 
 export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps & {
@@ -9,6 +9,8 @@ export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps 
   name: Path<T>;
   required?: boolean;
   control: Control<T>;
+  error?: Partial<FieldError>;
+  errorMessage?: string;
 };
 
 const role = [
@@ -34,7 +36,9 @@ const LabelCheckboxGroup = <T extends FieldValues>({
   spacing = '12px',
   name,
   control,
+  error,
   required = true,
+  errorMessage = '선택해주세요.',
   ...props
 }: LabelCheckboxGroupProps<T>) => {
   let selectedOptions = options;
@@ -44,7 +48,7 @@ const LabelCheckboxGroup = <T extends FieldValues>({
   }
 
   return (
-    <>
+    <Flex direction={'column'}>
       <Controller
         name={name}
         control={control}
@@ -71,9 +75,10 @@ const LabelCheckboxGroup = <T extends FieldValues>({
             </Stack>
           </CheckboxGroup>
         )}
-        rules={{ required }}
+        rules={{ required: required ? errorMessage : false }}
       />
-    </>
+      {error && <FormErrorMessage alignSelf={'start'}>{error.message}</FormErrorMessage>}
+    </Flex>
   );
 };
 
