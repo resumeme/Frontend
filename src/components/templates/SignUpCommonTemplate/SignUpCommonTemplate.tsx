@@ -9,18 +9,22 @@ import { RadioCardGroup } from '~/components/organisms/RadioCardGroup';
 import { RadioOption } from '~/components/organisms/RadioCardGroup/RadioCardGroup';
 import { assets } from '~/config/assets';
 import CONSTANTS from '~/constants';
-import { Role, SignUpCommon } from '~/types/signUp';
+import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
-const SignUpCommonTemplate = () => {
+type SignUpCommonTemplateProps = {
+  onNext: (values: SignUpCommon<SignUpRole>) => void;
+};
+
+const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpCommon<Role>>();
+  } = useForm<SignUpCommon<SignUpRole>>();
 
-  const onSubmit = (values: SignUpCommon<Role>) => {
+  const onSubmit = (values: SignUpCommon<SignUpRole>) => {
     /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
-    console.log(values);
+    onNext(values);
   };
 
   const ROLE_ASSETS = {
@@ -38,7 +42,7 @@ const SignUpCommonTemplate = () => {
     },
   } as const;
 
-  const ROLE_OPTIONS: RadioOption<Role>[] = [
+  const ROLE_OPTIONS: RadioOption<SignUpRole>[] = [
     {
       value: ROLE_ASSETS.mentee.value,
       children: <RoleButton {...ROLE_ASSETS.mentee} />,
