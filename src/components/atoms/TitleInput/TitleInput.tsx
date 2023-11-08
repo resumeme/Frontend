@@ -2,9 +2,9 @@ import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { FieldError, FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
-type TitleInputProps = InputProps & {
-  id: string;
-  register: UseFormRegisterReturn;
+type TitleInputProps = {
+  id?: string;
+  register?: UseFormRegisterReturn;
   error?: FieldError | FieldErrors;
   children?: ReactNode;
 } & Omit<InputProps, 'type'>;
@@ -29,7 +29,7 @@ const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps
         borderColor={'gray.300'}
         placeholder="이력서 제목"
         _placeholder={{ color: 'gray.400', fontWeight: 'semibold' }}
-        fontSize={'32px'}
+        fontSize={'2rem'}
         px={2}
         {...register}
         {...props}
