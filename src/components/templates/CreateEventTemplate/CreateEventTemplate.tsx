@@ -114,7 +114,7 @@ const CreateEventTemplate = () => {
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
-                errors={errors.time?.endDate}
+                error={errors.time?.endDate}
                 w={'47.6%'}
                 register={{
                   ...register('time.endDate', {
@@ -138,7 +138,7 @@ const CreateEventTemplate = () => {
                 내용
               </FormLabel>
               <FormTextarea
-                errors={errors}
+                error={errors.info?.content}
                 id="info.content"
                 register={{ ...register('info.content', { required: true }) }}
                 placeholder="이벤트에 대한 상세 내용을 입력해주세요."

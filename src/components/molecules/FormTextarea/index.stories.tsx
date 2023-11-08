@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 import FormTextarea from './FormTextarea';
 import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -43,7 +43,7 @@ export const DefaultFormTextarea = () => {
             내용
           </FormLabel>
           <FormTextarea
-            errors={errors}
+            error={errors['content'] as FieldError}
             id="content"
             register={{ ...register('content', { required: true }) }}
             placeholder="이벤트에 대한 상세 내용을 입력해주세요."
