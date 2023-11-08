@@ -7,7 +7,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeBasicInfo } from '~/queries/usePostResumeBasicInfo';
-import { BasicInfo, BasicInfoForm } from '~/types/userInfo';
+import { BasicInfo } from '~/types/basicInfo';
 
 const BasicInfoForm = () => {
   const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
@@ -17,10 +17,10 @@ const BasicInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<BasicInfoForm>();
+  } = useForm<BasicInfo>();
 
-  const onSubmit: SubmitHandler<BasicInfoForm> = (data) => {
-    data.skillset = skills;
+  const onSubmit: SubmitHandler<BasicInfo> = (data) => {
+    data.skills = skills;
     postResumeBasicInfo(data as BasicInfo);
     return new Promise(() => {
       setTimeout(() => {
@@ -76,7 +76,7 @@ const BasicInfoForm = () => {
           color={'gray.600'}
         >
           <Box>
-            <FormControl isInvalid={!!errors.skillset}>
+            <FormControl isInvalid={!!errors.skills}>
               <Flex
                 gap={2}
                 direction={'column'}
@@ -85,7 +85,7 @@ const BasicInfoForm = () => {
                 <FormTextInput
                   id="skillset"
                   register={{
-                    ...register('skillset', {
+                    ...register('skills', {
                       pattern: {
                         value: /^[a-zA-Z가-힣\s]*$/,
                         message: '영어, 한글, 공백만 입력 가능합니다.',
@@ -96,7 +96,7 @@ const BasicInfoForm = () => {
                   spellCheck="false"
                   placeholder="보유한 기술 스택"
                   onKeyDown={handleSkillsetChange}
-                  error={errors.skillset}
+                  error={errors.skills}
                 />
                 {skills.length > 0 && (
                   <DynamicTags

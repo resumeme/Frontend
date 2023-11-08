@@ -1,7 +1,9 @@
+import { Position } from './position';
+
 type CreateEvent = {
   info: EventInfo;
   time: EventTime;
-  positions: string[];
+  positions: Position[];
 };
 
 type EventInfo = {
@@ -25,9 +27,15 @@ type EventResume = {
 };
 
 type ReadEvent = {
+  info: {
+    title: string;
+    content: string;
+    maximumCount: number;
+    currentApplicantCount: number;
+    positions: Position[];
+    timeInfo: Omit<EventTime, 'now'>;
+  };
   resumes: EventResume[];
-  applicantCount: number;
-  time: Omit<EventTime, 'now'>;
-} & Omit<CreateEvent, 'time'>;
+};
 
 export type { CreateEvent, ReadEvent };

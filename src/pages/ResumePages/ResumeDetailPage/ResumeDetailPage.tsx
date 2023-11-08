@@ -1,5 +1,7 @@
+import { ResumeDetailTemplate } from '~/components/templates/ResumeDetailTemplate';
+
 const ResumeDetailPage = () => {
-  return <></>;
+  return <ResumeDetailTemplate />;
 };
 
 export default ResumeDetailPage;
