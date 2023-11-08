@@ -28,7 +28,6 @@ const SignInTemplate = () => {
       <VStack spacing={'2.2rem'}>
         <Logo />
         <Text
-          color={'gray.900'}
           fontSize={'1.125rem'}
           fontWeight={'semibold'}
         >
