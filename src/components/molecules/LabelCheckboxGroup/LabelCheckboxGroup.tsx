@@ -77,7 +77,7 @@ const LabelCheckboxGroup = <T extends FieldValues>({
         )}
         rules={{ required: required ? errorMessage : false }}
       />
-      {error && <FormErrorMessage alignSelf={'start'}>{error.message as string}</FormErrorMessage>}
+      {error && <FormErrorMessage alignSelf={'start'}>{error.message}</FormErrorMessage>}
     </Flex>
   );
 };
