@@ -12,7 +12,11 @@ import { SignUpMentee } from '~/types/signUp';
 
 type FilteredSignUpMentee = Omit<SignUpMentee, 'requiredInfo'>;
 
-const SignUpMenteeTemplate = () => {
+type SignUpMenteeTemplateProps = {
+  onNext: (values?: FilteredSignUpMentee) => void;
+};
+
+const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
   const {
     register,
     control,
@@ -27,7 +31,11 @@ const SignUpMenteeTemplate = () => {
   });
 
   const onSubmit = (values: FilteredSignUpMentee) => {
-    console.log(values);
+    onNext(values);
+  };
+
+  const handleDelayClick = () => {
+    onNext();
   };
 
   const FORM_STYLE = {
@@ -94,7 +102,12 @@ const SignUpMenteeTemplate = () => {
               />
             </FormControl>
             <VStack w={'full'}>
-              <Button variant={'cancel'}>나중에 작성하기</Button>
+              <Button
+                onClick={handleDelayClick}
+                variant={'cancel'}
+              >
+                나중에 작성하기
+              </Button>
               <Button
                 type="submit"
                 isDisabled={!isDirty}
