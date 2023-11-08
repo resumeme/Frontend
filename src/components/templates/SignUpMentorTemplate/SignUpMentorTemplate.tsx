@@ -185,7 +185,11 @@ const CareerContentModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
       onClose={onClose}
       size={'lg'}
     >
-      여기에 경력 사항에 대한 예시가 작성됩니다.
+      <Text whiteSpace={'pre-line'}>
+        {`현) ▵▵▵ 시니어 풀스택 개발자 재직 중
+        전) ◻◻◻ 프론트엔드 개발자 5년 근무
+        전) ⎔⎔⎔ 인턴 프론트엔드 개발자 2년 근무`}
+      </Text>
     </Modal>
   );
 };
