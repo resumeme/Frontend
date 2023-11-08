@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
-import MentorProfile from '~/components/molecules/MentorProfile/MentorProfile';
-import EventDetail from '~/components/organisms/EventDetail/EventDetail';
+import { MentorProfile } from '~/components/molecules/MentorProfile';
+import { EventDetail } from '~/components/organisms/EventDetail';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 import { Position } from '~/types/position';
 
