@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-type BorderBoxProps = BoxProps & {
+export type BorderBoxProps = BoxProps & {
   children?: ReactNode;
   hasShadow?: boolean;
 };
