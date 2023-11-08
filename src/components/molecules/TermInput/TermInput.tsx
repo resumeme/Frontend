@@ -58,7 +58,7 @@ const TermInput = <T extends FieldValues>({
               },
             }),
           }}
-          errors={getNestedError(errors, startDateName)}
+          error={getNestedError(errors, startDateName)}
         />
       </FormControl>
       <Divider
@@ -76,7 +76,7 @@ const TermInput = <T extends FieldValues>({
               min: { value: startDate, message: '시작일 이후의 날짜를 입력해주세요.' },
             }),
           }}
-          errors={getNestedError(errors, endDateName)}
+          error={getNestedError(errors, endDateName)}
         />
       </FormControl>
     </HStack>

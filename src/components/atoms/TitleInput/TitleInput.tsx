@@ -1,17 +1,15 @@
 import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-import { FieldError, FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 type TitleInputProps = {
   id?: string;
   register?: UseFormRegisterReturn;
-  error?: FieldError | FieldErrors;
+  error?: FieldError;
   children?: ReactNode;
 } & Omit<InputProps, 'type'>;
 
 const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps) => {
-  const errorMessage = error && 'message' in error ? (error.message as string) : '';
-
   return (
     <Flex
       direction={'column'}
@@ -36,7 +34,7 @@ const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps
       >
         {children}
       </Input>
-      {error && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </Flex>
   );
 };

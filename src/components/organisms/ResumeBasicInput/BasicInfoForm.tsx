@@ -122,7 +122,7 @@ const BasicInfoForm = () => {
                   },
                 }),
               }}
-              errors={errors}
+              error={errors.introduce}
               height="100px"
               width="full"
               placeholder="간략한 자기소개 (100자 이내)"

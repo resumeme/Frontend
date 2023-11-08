@@ -125,7 +125,7 @@ const TrainingForm = () => {
                   },
                 }),
               }}
-              errors={errors.admissionDate}
+              error={errors.admissionDate}
             />
           </FormControl>
           <FormControl isInvalid={Boolean(errors.graduationDate)}>
@@ -137,7 +137,7 @@ const TrainingForm = () => {
                   min: { value: watch('admissionDate'), message: '유효한 날짜를 입력해 주세요.' },
                 }),
               }}
-              errors={errors.graduationDate}
+              error={errors.graduationDate}
             />
           </FormControl>
         </Flex>
@@ -192,7 +192,7 @@ const TrainingForm = () => {
             placeholder="내용을 입력해주세요."
             id="projectContent"
             register={{ ...register('explanation') }}
-            errors={errors}
+            error={errors.explanation}
           />
         </FormControl>
         <HStack

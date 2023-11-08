@@ -158,7 +158,7 @@ const ProjectForm = () => {
             placeholder="프로젝트에 대한 내용을 입력해주세요."
             id="projectContent"
             register={{ ...register('projectContent') }}
-            errors={errors}
+            error={errors.projectContent}
           />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.projectUrl)}>
