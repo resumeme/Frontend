@@ -5,6 +5,7 @@ import { useGetEventDetail } from '~/queries/event/details/useGetEventDetail';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const EventDetailPage = () => {
+  //Todo: 이벤트 리스트가 완성되면 "1" 지우기
   const { data: mentor } = useGetMentorDetail({ mentorId: '1' });
   const { data: event } = useGetEventDetail({ eventId: '1' });
 
