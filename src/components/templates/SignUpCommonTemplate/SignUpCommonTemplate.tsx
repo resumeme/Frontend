@@ -74,6 +74,10 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
         direction="column"
         alignItems={'center'}
       >
+        <SignUpHeader
+          mainMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.MAIN}
+          subMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.SUB}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack
             w={'21.875rem'}
