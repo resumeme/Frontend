@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
+import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { SignUpRole, SignUpMentee, SignUpMentor, SignUpCommon } from '~/types/signUp';
@@ -26,6 +27,7 @@ const SignUpPage = () => {
       {/**TODO - onNext에 각각 menteeData, mentorData를 바디로 api 호출 (commonData 삽입해서) */}
       {step === 'ROLE_PENDING' && <SignUpMentorTemplate />}
       {step === 'ROLE_MENTEE' && <SignUpMenteeTemplate />}
+      {step === 'COMPLETE' && <SignUpCompleteTemplate />}
     </>
   );
 };
