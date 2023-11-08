@@ -101,7 +101,7 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
                 placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                 id="introduce"
                 register={{ ...register('introduce') }}
-                errors={errors}
+                error={errors.introduce}
                 h={'7.2rem'}
               />
             </FormControl>
