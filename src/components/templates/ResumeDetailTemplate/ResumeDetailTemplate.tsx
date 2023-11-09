@@ -6,6 +6,7 @@ import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import {
   ActivityDetails,
+  AwardDetails,
   CareerDetails,
   LanguageDetails,
   ProjectDetails,
@@ -209,6 +210,23 @@ const ResumeDetailTemplate = () => {
                   gap={10}
                 >
                   <TrainingDetails data={data.training} />
+                </BorderBox>
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  수상 및 자격증
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  p={7}
+                  gap={10}
+                >
+                  <AwardDetails data={data.award} />
                 </BorderBox>
               </Box>
               <Box>
