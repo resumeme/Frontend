@@ -27,7 +27,7 @@ const LanguageDetails = ({ data }: { data: Language[] }) => {
                 borderColor={'gray.300'}
               />
             )}
-            <Flex key={uuidv4()}>
+            <Flex>
               <Flex flex={1}>
                 <Label
                   bg={'gray.300'}

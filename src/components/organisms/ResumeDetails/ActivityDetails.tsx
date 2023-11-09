@@ -22,7 +22,7 @@ const ActivityDetails = ({ data }: { data: Activity[] }) => {
                   borderColor={'gray.300'}
                 />
               )}
-              <Flex key={uuidv4()}>
+              <Flex>
                 <Flex flex={1}>
                   <Flex direction={'column'}>
                     <Flex

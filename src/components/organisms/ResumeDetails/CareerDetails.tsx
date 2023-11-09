@@ -33,9 +33,8 @@ const CareerDetails = ({ data }: { data: Career[] }) => {
                   borderColor={'gray.300'}
                 />
               )}
-              <Flex key={uuidv4()}>
+              <Flex>
                 <Flex flex={1}>
-                  {/* NOTE 기간 및 날짜 데이터 */}
                   <Flex direction={'column'}>
                     <Flex
                       justify={'start'}
@@ -63,8 +62,6 @@ const CareerDetails = ({ data }: { data: Career[] }) => {
                     </Flex>
                   </Flex>
                 </Flex>
-
-                {/* NOTE 데이터 내용 */}
                 <Flex
                   mt={'1%'}
                   flex={2}
