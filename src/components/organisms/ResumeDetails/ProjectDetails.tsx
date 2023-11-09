@@ -22,13 +22,13 @@ const ProjectDetails = ({ data }: { data: Project[] }) => {
             teamMembers,
             skills,
           }: Project,
-          i,
+          index,
         ) => {
           return (
             <React.Fragment key={uuidv4()}>
-              {i > 0 && (
+              {index > 0 && (
                 <Divider
-                  key={i}
+                  key={index}
                   my={'3rem'}
                   borderColor={'gray.300'}
                 />
@@ -83,15 +83,15 @@ const ProjectDetails = ({ data }: { data: Project[] }) => {
                         </Label>
                       )}
                     </Flex>
-                    {isTeam !== null && isTeam !== undefined && (
+                    {isTeam && (
                       <Text
                         fontWeight={'semibold'}
                         color={'gray.800'}
                       >
-                        {isTeam ? teamMembers : '개인 프로젝트'}
+                        {teamMembers}
                       </Text>
                     )}
-                    {skills !== null && skills !== undefined && (
+                    {skills && (
                       <Flex
                         pt={2}
                         gap={2}
@@ -112,10 +112,8 @@ const ProjectDetails = ({ data }: { data: Project[] }) => {
                         ))}
                       </Flex>
                     )}
-                    {projectContent !== null && projectContent !== undefined && (
-                      <Text mt={5}>{projectContent}</Text>
-                    )}
-                    {projectUrl !== null && projectUrl !== undefined && (
+                    {projectContent && <Text mt={5}>{projectContent}</Text>}
+                    {projectUrl && (
                       <Flex
                         mt={5}
                         gap={3}
