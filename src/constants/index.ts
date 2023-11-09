@@ -8,6 +8,11 @@ const CONSTANTS = {
   ROLE_PENDING: 'ROLE_PENDING',
   PHONE_NUMBER_REGEX: /^010\d{8}$/g,
   KAKAO_SIGNIN_URL: `https://kauth.kakao.com/oauth/authorize?client_id=${environments.kakaoRestApiKeyEnv()}&redirect_uri=${environments.kakaoRedirectUriEnv()}&response_type=code`,
+  SIGNUP_HEADER_MESSAGE: {
+    MAIN: '이력, 써에 오신 것을 환영합니다!',
+    SUB: '간단한 개인 정보를 입력하고 바로 시작하세요.',
+  },
+  LABEL_MULTI_SELECTABLE: '(여러 개 선택 가능)',
 };
 
 export default CONSTANTS;

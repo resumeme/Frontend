@@ -1,11 +1,11 @@
 type Project = {
   projectName: string;
   productionYear: number;
-  isTeam: boolean;
-  teamMembers: string;
-  skills: string[];
-  projectContent: string;
-  projectUrl: string;
+  isTeam?: boolean;
+  teamMembers?: string;
+  skills?: string[];
+  projectContent?: string;
+  projectUrl?: string;
 };
 
 type ProjectForm = {

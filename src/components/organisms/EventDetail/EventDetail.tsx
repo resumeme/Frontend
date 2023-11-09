@@ -14,8 +14,8 @@ type EventDetailProps = {
 
 const EventDetail = ({ mentor, event }: EventDetailProps) => {
   const eventStatus =
-    event.info.maximumCount === event.info.currentApplicantCount ||
-    new Date().toISOString() > event.info.timeInfo.closeDateTime;
+    event.info.maximumCount > event.info.currentApplicantCount ||
+    new Date().toISOString() < event.info.timeInfo.closeDateTime;
 
   return (
     <Box w={'full'}>

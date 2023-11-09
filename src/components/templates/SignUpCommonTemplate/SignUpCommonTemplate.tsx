@@ -1,4 +1,4 @@
-import { Image, Text, Divider, Flex, VStack, Box } from '@chakra-ui/react';
+import { Image, Text, Flex, VStack, Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -7,20 +7,25 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { RadioCardGroup } from '~/components/organisms/RadioCardGroup';
 import { RadioOption } from '~/components/organisms/RadioCardGroup/RadioCardGroup';
+import { SignUpHeader } from '~/components/organisms/SignUpHeader';
 import { assets } from '~/config/assets';
 import CONSTANTS from '~/constants';
-import { Role, SignUpCommon } from '~/types/signUp';
+import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
-const SignUpCommonTemplate = () => {
+type SignUpCommonTemplateProps = {
+  onNext: (values: SignUpCommon<SignUpRole>) => void;
+};
+
+const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpCommon<Role>>();
+  } = useForm<SignUpCommon<SignUpRole>>();
 
-  const onSubmit = (values: SignUpCommon<Role>) => {
+  const onSubmit = (values: SignUpCommon<SignUpRole>) => {
     /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
-    console.log(values);
+    onNext(values);
   };
 
   const ROLE_ASSETS = {
@@ -38,7 +43,7 @@ const SignUpCommonTemplate = () => {
     },
   } as const;
 
-  const ROLE_OPTIONS: RadioOption<Role>[] = [
+  const ROLE_OPTIONS: RadioOption<SignUpRole>[] = [
     {
       value: ROLE_ASSETS.mentee.value,
       children: <RoleButton {...ROLE_ASSETS.mentee} />,
@@ -60,27 +65,15 @@ const SignUpCommonTemplate = () => {
       w={'31.25rem'}
       py={'3rem'}
     >
+      <SignUpHeader
+        mainMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.MAIN}
+        subMessage={CONSTANTS.SIGNUP_HEADER_MESSAGE.SUB}
+      />
       <Flex
         gap={'2.25rem'}
         direction="column"
         alignItems={'center'}
       >
-        <Flex
-          gap={'0.5rem'}
-          direction={'column'}
-          alignSelf={'start'}
-          pl={'2rem'}
-        >
-          <Text
-            color={'gray.900'}
-            fontSize={'1.25rem'}
-            fontWeight={'semibold'}
-          >
-            이력,써에 오신 것을 환영합니다!
-          </Text>
-          <Text>간단한 개인 정보를 입력하고 바로 시작하세요.</Text>
-        </Flex>
-        <Divider borderColor={'gray.300'} />
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack
             w={'21.875rem'}

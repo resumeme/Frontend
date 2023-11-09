@@ -3,7 +3,11 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { CareerDetails, ProjectDetails } from '~/components/organisms/ResumeDetails';
+import {
+  CareerDetails,
+  ProjectDetails,
+  TrainingDetails,
+} from '~/components/organisms/ResumeDetails';
 
 const DUMMY_DATA = {
   userInfo: {
