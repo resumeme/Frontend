@@ -200,6 +200,23 @@ const ResumeDetailTemplate = () => {
                   color={'gray.800'}
                   mb={5}
                 >
+                  교육
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  p={7}
+                  gap={10}
+                >
+                  <TrainingDetails data={data.training} />
+                </BorderBox>
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
                   활동
                 </Text>
                 <BorderBox
