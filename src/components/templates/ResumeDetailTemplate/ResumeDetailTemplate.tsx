@@ -9,6 +9,7 @@ import {
   CareerDetails,
   LanguageDetails,
   ProjectDetails,
+  TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
 
 const ResumeDetailTemplate = () => {
@@ -240,7 +241,6 @@ const ResumeDetailTemplate = () => {
                   w={'100%'}
                   px={7}
                   py={10}
-                  gap={10}
                 >
                   <LanguageDetails data={data.language} />
                 </BorderBox>
