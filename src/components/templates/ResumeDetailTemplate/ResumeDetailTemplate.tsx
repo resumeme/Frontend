@@ -7,6 +7,7 @@ import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import {
   ActivityDetails,
   CareerDetails,
+  LanguageDetails,
   ProjectDetails,
 } from '~/components/organisms/ResumeDetails';
 
@@ -169,8 +170,8 @@ const ResumeDetailTemplate = () => {
                 </Text>
                 <BorderBox
                   w={'100%'}
-                  p={7}
-                  gap={10}
+                  px={7}
+                  py={10}
                 >
                   <CareerDetails data={data.career} />
                 </BorderBox>
@@ -186,8 +187,8 @@ const ResumeDetailTemplate = () => {
                 </Text>
                 <BorderBox
                   w={'100%'}
-                  p={7}
-                  gap={10}
+                  px={7}
+                  py={10}
                 >
                   <ProjectDetails data={data.project} />
                 </BorderBox>
@@ -203,10 +204,28 @@ const ResumeDetailTemplate = () => {
                 </Text>
                 <BorderBox
                   w={'100%'}
-                  p={7}
-                  gap={10}
+                  px={7}
+                  py={10}
                 >
                   <ActivityDetails data={data.activity} />
+                </BorderBox>
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  외국어
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  px={7}
+                  py={10}
+                  gap={10}
+                >
+                  <LanguageDetails data={data.language} />
                 </BorderBox>
               </Box>
             </Flex>
