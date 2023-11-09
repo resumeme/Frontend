@@ -219,7 +219,7 @@ const ResumeDetailTemplate = () => {
                   color={'gray.800'}
                   mb={5}
                 >
-                  수상 및 자격증
+                  수상 및 자격
                 </Text>
                 <BorderBox
                   w={'100%'}
