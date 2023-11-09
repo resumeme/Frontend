@@ -3,7 +3,11 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { CareerDetails, ProjectDetails } from '~/components/organisms/ResumeDetails';
+import {
+  CareerDetails,
+  ProjectDetails,
+  TrainingDetails,
+} from '~/components/organisms/ResumeDetails';
 
 const DUMMY_DATA = {
   userInfo: {
@@ -118,6 +122,25 @@ const PROJECT_DUMMY_DATA = [
     productionYear: 2021,
     isTeam: false,
     projectUrl: 'https://hijk.com',
+  },
+];
+
+const TRAINING_DUMMY_DATA = [
+  {
+    organization: '그쪽대학교',
+    major: '컴퓨터공학',
+    degree: '학사',
+    admissionDate: '2000-00-00',
+    graduationDate: '2000-00-00',
+    gpa: 4.5,
+    maxGpa: 4.5,
+    explanation: '너는 나를 존중해야 한다. 나는 그쪽대를 수석으로 입학하였으며...[더보기]',
+  },
+  {
+    organization: '그쪽대학원',
+    major: '컴퓨터공학',
+    degree: '홍박사',
+    admissionDate: '2000-00-00',
   },
 ];
 
@@ -301,6 +324,23 @@ const ResumeDetailTemplate = () => {
                   gap={10}
                 >
                   <ProjectDetails data={PROJECT_DUMMY_DATA} />
+                </BorderBox>
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  교육
+                </Text>
+                <BorderBox
+                  w={'100%'}
+                  p={7}
+                  gap={10}
+                >
+                  <TrainingDetails data={TRAINING_DUMMY_DATA} />
                 </BorderBox>
               </Box>
             </Flex>
