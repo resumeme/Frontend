@@ -177,18 +177,18 @@ export const data = {
   language: [
     {
       language: '영어',
-      examName: '토익',
-      scoreOrGrade: '100점',
+      examName: 'TOEIC',
+      scoreOrGrade: '900점',
     },
     {
-      language: '영국어',
-      examName: '영국 토익',
-      scoreOrGrade: '100점',
+      language: '중국어',
+      examName: 'HSK',
+      scoreOrGrade: '4급',
     },
     {
-      language: '미국어',
-      examName: '미국 토익',
-      scoreOrGrade: '100점',
+      language: '일본어',
+      examName: 'JLPT',
+      scoreOrGrade: 'N1',
     },
   ],
 };
