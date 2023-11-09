@@ -122,6 +122,7 @@ const ProjectDetails = ({ data }: { data: Project[] }) => {
                         <Icon as={HiLink} />
                         <Link
                           isExternal
+                          href={projectUrl}
                           fontSize={'sm'}
                           color={'primary.900'}
                         >
