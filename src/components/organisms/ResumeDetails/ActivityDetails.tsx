@@ -24,7 +24,6 @@ const ActivityDetails = ({ data }: { data: Activity[] }) => {
               )}
               <Flex key={uuidv4()}>
                 <Flex flex={1}>
-                  {/* NOTE 기간 및 날짜 데이터 */}
                   <Flex direction={'column'}>
                     <Flex
                       justify={'start'}
