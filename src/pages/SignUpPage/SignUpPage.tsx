@@ -3,8 +3,7 @@ import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplat
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
-import { usePostOAuthMenteeSignUp } from '~/queries/usePostOAuthMenteeSignUp';
-import { usePostOAuthMentorSignUp } from '~/queries/usePostOAuthMentorSignUp';
+import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
@@ -13,10 +12,7 @@ export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE'
 const SignUpPage = () => {
   const [step, setStep] = useState<Step>('COMMON');
   const [commonData, setCommonData] = useState<SignUpCommon>();
-  const { mutate: signUpMenteeMutate, isSuccess: isSignUpMenteeSuccess } =
-    usePostOAuthMenteeSignUp();
-  const { mutate: signUpMentorMutate, isSuccess: isSignUpMentorSuccess } =
-    usePostOAuthMentorSignUp();
+  const { mutate: signUpMutate } = usePostOAuthSignUp();
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
   return (
@@ -33,13 +29,19 @@ const SignUpPage = () => {
         <SignUpMentorTemplate
           onNext={(data) => {
             if (commonData && data) {
-              signUpMentorMutate({ ...data, requiredInfo: commonData, cacheKey });
+              signUpMutate(
+                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+                {
+                  onSuccess: ({ accessToken, refreshToken }) => {
+                    resetCacheKey();
+                    setStep('MENTOR_COMPLETE');
+                    /**TODO - Authorization, refresh 토큰 저장 */
+                    console.log('AccessToken: ', accessToken);
+                    console.log('RefreshToken: ', refreshToken);
+                  },
+                },
+              );
             }
-            if (isSignUpMentorSuccess) {
-              resetCacheKey();
-              setStep('MENTOR_COMPLETE');
-            }
-            return;
           }}
         />
       )}
@@ -47,11 +49,18 @@ const SignUpPage = () => {
         <SignUpMenteeTemplate
           onNext={(data) => {
             if (commonData && data) {
-              signUpMenteeMutate({ ...data, requiredInfo: commonData, cacheKey });
-            }
-            if (isSignUpMenteeSuccess) {
-              resetCacheKey();
-              setStep('MENTEE_COMPLETE');
+              signUpMutate(
+                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+                {
+                  onSuccess: ({ accessToken, refreshToken }) => {
+                    resetCacheKey();
+                    setStep('MENTEE_COMPLETE');
+                    /**TODO - Authorization, refresh 토큰 저장 */
+                    console.log('AccessToken: ', accessToken);
+                    console.log('RefreshToken: ', refreshToken);
+                  },
+                },
+              );
             }
           }}
         />
