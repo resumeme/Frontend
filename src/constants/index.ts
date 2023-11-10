@@ -2,6 +2,9 @@ import { environments } from '~/config/environments';
 
 const CONSTANTS = {
   SIGN_UP_CACHE_KEY: 'sign-up-cache-key',
+  CACHE_KEY_HEADER: 'cachekey',
+  ACCESS_TOKEN_HEADER: 'authorization',
+  REFRESH_TOKEN_HEADER: 'refresh-token',
   RESUME_DEFAULT_TITLE: '새 이력서',
   ROLE_MENTEE: 'ROLE_MENTEE',
   ROLE_MENTOR: 'ROLE_MENTOR',

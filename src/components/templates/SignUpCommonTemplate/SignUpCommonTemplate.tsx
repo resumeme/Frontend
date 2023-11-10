@@ -13,7 +13,7 @@ import CONSTANTS from '~/constants';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
 type SignUpCommonTemplateProps = {
-  onNext: (values: SignUpCommon<SignUpRole>) => void;
+  onNext: (values: SignUpCommon) => void;
 };
 
 const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
@@ -21,9 +21,9 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpCommon<SignUpRole>>();
+  } = useForm<SignUpCommon>();
 
-  const onSubmit = (values: SignUpCommon<SignUpRole>) => {
+  const onSubmit = (values: SignUpCommon) => {
     /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
     onNext(values);
   };

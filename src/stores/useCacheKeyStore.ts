@@ -5,6 +5,7 @@ import CONSTANTS from '~/constants';
 type CacheKeyState = {
   cacheKey: string;
   setCacheKey: (cacheKey: string) => void;
+  resetCacheKey: () => void;
 };
 
 export const useCacheKeyStore = create<CacheKeyState>()(
@@ -12,6 +13,7 @@ export const useCacheKeyStore = create<CacheKeyState>()(
     (set) => ({
       cacheKey: '',
       setCacheKey: (cacheKey: string) => set({ cacheKey }),
+      resetCacheKey: () => set({ cacheKey: '' }),
     }),
     {
       name: CONSTANTS.SIGN_UP_CACHE_KEY,

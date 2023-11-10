@@ -1,6 +1,8 @@
 import { CheckboxGroup, CheckboxGroupProps, Flex, FormErrorMessage, Stack } from '@chakra-ui/react';
 import { Controller, Control, FieldValues, Path, FieldError } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
+import { Fields } from '~/types/fields';
+import { Position } from '~/types/position';
 
 export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps & {
   options?: Array<{ label: string; value: string }>;
@@ -13,21 +15,23 @@ export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps 
   errorMessage?: string;
 };
 
-const role = [
+const role: { label: string; value: Position }[] = [
   { label: '프론트엔드', value: 'FRONT' },
-  { label: '서버/백엔드', value: 'BACK' },
-  { label: '모바일', value: 'MOBILE' },
-  { label: '시스템/데브옵스', value: 'DEVOPS' },
+  { label: '백엔드', value: 'BACK' },
+  { label: '안드로이드/iOS', value: 'MOBILE' },
+  { label: '데브옵스', value: 'DEVOPS' },
+  { label: '인공지능/머신러닝', value: 'ML_AI' },
 ];
 
-const domain = [
-  { label: '광고', value: 'advertisement' },
-  { label: 'e커머스', value: 'e-commerce' },
-  { label: '금융/핀테크', value: 'fintech' },
-  { label: '커뮤니티/SNS', value: 'sns' },
-  { label: '게임', value: 'game' },
-  { label: '솔루션/유틸리티', value: 'solution' },
-  { label: '포털/콘텐츠/메신저', value: 'portal' },
+const domain: { label: string; value: Fields }[] = [
+  { label: '광고', value: 'AD' },
+  { label: '미디어', value: 'MEDIA' },
+  { label: '커뮤니티/SNS', value: 'SNS' },
+  { label: 'e커머스', value: 'COMMERCE' },
+  { label: '솔루션/유틸리티', value: 'SOLUTION' },
+  { label: '게임', value: 'GAME' },
+  { label: '금융/핀테크', value: 'FINANCE' },
+  { label: '제조', value: 'MANUFACTURE' },
 ];
 
 const LabelCheckboxGroup = <T extends FieldValues>({
