@@ -3,7 +3,7 @@ import { Position } from './position';
 
 export type SignUpMentor = {
   cacheKey: string;
-  requiredInfo: SignUpCommon<'ROLE_PENDING'>;
+  requiredInfo: SignUpCommon;
   experiencedPositions: Position[];
   careerContent: string;
   careerYear: number;
@@ -12,17 +12,17 @@ export type SignUpMentor = {
 
 export type SignUpMentee = {
   cacheKey: string;
-  requiredInfo: SignUpCommon<'ROLE_MENTEE'>;
+  requiredInfo: SignUpCommon;
   interestedPositions?: Position[];
   interestedFields?: Fields[];
   introduce?: string;
 };
 
-export type SignUpCommon<T extends Exclude<Role, 'ROLE_MENTOR'>> = {
+export type SignUpCommon = {
   nickname: string;
   realName: string;
   phoneNumber: string;
-  role: T;
+  role: SignUpRole;
 };
 
 /**
