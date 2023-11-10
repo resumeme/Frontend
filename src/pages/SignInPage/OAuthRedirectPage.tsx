@@ -23,7 +23,8 @@ const OAuthRedirectPage = () => {
     }
     // 기존 사용자가 로그인한 경우
     /**TODO - Authorization, refresh 토큰 저장 */
-    console.log(accessToken, refreshToken);
+    console.log('AccessToken: ', accessToken);
+    console.log('RefreshToken: ', refreshToken);
     navigate('/');
     return;
   };
