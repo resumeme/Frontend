@@ -6,6 +6,7 @@ import { SignUpMentorCompleteTemplate } from '~/components/templates/SignUpMento
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { usePostOAuthMenteeSignUp } from '~/queries/usePostOAuthMenteeSignUp';
 import { usePostOAuthMentorSignUp } from '~/queries/usePostOAuthMentorSignUp';
+import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
 export type Step = 'COMMON' | SignUpRole | 'MENTEE_COMPLETE' | 'MENTOR_COMPLETE';
@@ -17,6 +18,8 @@ const SignUpPage = () => {
     usePostOAuthMenteeSignUp();
   const { mutate: signUpMentorMutate, isSuccess: isSignUpMentorSuccess } =
     usePostOAuthMentorSignUp();
+  const cacheKey = useCacheKeyStore((state) => state.cacheKey);
+  const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
   return (
     <>
       {step === 'COMMON' && (
@@ -31,9 +34,10 @@ const SignUpPage = () => {
         <SignUpMentorTemplate
           onNext={(data) => {
             if (commonData && data) {
-              signUpMentorMutate({ ...data, requiredInfo: commonData });
+              signUpMentorMutate({ ...data, requiredInfo: commonData, cacheKey });
             }
             if (isSignUpMentorSuccess) {
+              resetCacheKey();
               setStep('MENTOR_COMPLETE');
             }
             return;
@@ -44,9 +48,10 @@ const SignUpPage = () => {
         <SignUpMenteeTemplate
           onNext={(data) => {
             if (commonData && data) {
-              signUpMenteeMutate({ ...data, requiredInfo: commonData });
+              signUpMenteeMutate({ ...data, requiredInfo: commonData, cacheKey });
             }
             if (isSignUpMenteeSuccess) {
+              resetCacheKey();
               setStep('MENTEE_COMPLETE');
             }
           }}
