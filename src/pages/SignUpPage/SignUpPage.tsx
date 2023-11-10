@@ -15,6 +15,16 @@ const SignUpPage = () => {
   const { mutate: signUpMutate } = usePostOAuthSignUp();
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
+
+  const signUpSuccessCallback = (accessToken: string, refreshToken: string, role: SignUpRole) => {
+    const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+    resetCacheKey();
+    setStep(nextStep);
+    /**TODO - Authorization, refresh 토큰 저장 */
+    console.log('AccessToken: ', accessToken);
+    console.log('RefreshToken: ', refreshToken);
+  };
+
   return (
     <>
       {step === 'COMMON' && (
@@ -32,13 +42,8 @@ const SignUpPage = () => {
               signUpMutate(
                 { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
                 {
-                  onSuccess: ({ accessToken, refreshToken }) => {
-                    resetCacheKey();
-                    setStep('MENTOR_COMPLETE');
-                    /**TODO - Authorization, refresh 토큰 저장 */
-                    console.log('AccessToken: ', accessToken);
-                    console.log('RefreshToken: ', refreshToken);
-                  },
+                  onSuccess: ({ accessToken, refreshToken }) =>
+                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
                 },
               );
             }
@@ -52,13 +57,8 @@ const SignUpPage = () => {
               signUpMutate(
                 { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
                 {
-                  onSuccess: ({ accessToken, refreshToken }) => {
-                    resetCacheKey();
-                    setStep('MENTEE_COMPLETE');
-                    /**TODO - Authorization, refresh 토큰 저장 */
-                    console.log('AccessToken: ', accessToken);
-                    console.log('RefreshToken: ', refreshToken);
-                  },
+                  onSuccess: ({ accessToken, refreshToken }) =>
+                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
                 },
               );
             }
