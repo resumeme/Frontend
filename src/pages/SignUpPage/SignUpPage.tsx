@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
 import { SignUpMenteeCompleteTemplate } from '~/components/templates/SignUpMenteeCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
+import { SignUpMentorCompleteTemplate } from '~/components/templates/SignUpMentorCompleteTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { SignUpRole, SignUpMentee, SignUpMentor, SignUpCommon } from '~/types/signUp';
 
@@ -46,6 +47,7 @@ const SignUpPage = () => {
         />
       )}
       {step === 'MENTEE_COMPLETE' && <SignUpMenteeCompleteTemplate />}
+      {step === 'MENTEE_COMPLETE' && <SignUpMentorCompleteTemplate />}
     </>
   );
 };
