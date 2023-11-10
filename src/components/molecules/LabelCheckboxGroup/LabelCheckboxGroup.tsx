@@ -21,13 +21,14 @@ const role = [
 ];
 
 const domain = [
-  { label: '광고', value: 'advertisement' },
-  { label: 'e커머스', value: 'e-commerce' },
-  { label: '금융/핀테크', value: 'fintech' },
-  { label: '커뮤니티/SNS', value: 'sns' },
-  { label: '게임', value: 'game' },
-  { label: '솔루션/유틸리티', value: 'solution' },
-  { label: '포털/콘텐츠/메신저', value: 'portal' },
+  { label: '광고', value: 'AD' },
+  { label: '미디어', value: 'MEDIA' },
+  { label: '커뮤니티/SNS', value: 'SNS' },
+  { label: 'e커머스', value: 'COMMERCE' },
+  { label: '솔루션/유틸리티', value: 'SOLUTION' },
+  { label: '게임', value: 'GAME' },
+  { label: '금융/핀테크', value: 'FINANCE' },
+  { label: '제조', value: 'MANUFACTURE' },
 ];
 
 const LabelCheckboxGroup = <T extends FieldValues>({
