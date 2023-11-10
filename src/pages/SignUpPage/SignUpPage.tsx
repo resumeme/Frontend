@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
-import { SignUpMenteeCompleteTemplate } from '~/components/templates/SignUpMenteeCompleteTemplate';
+import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
-import { SignUpMentorCompleteTemplate } from '~/components/templates/SignUpMentorCompleteTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { usePostOAuthMenteeSignUp } from '~/queries/usePostOAuthMenteeSignUp';
 import { usePostOAuthMentorSignUp } from '~/queries/usePostOAuthMentorSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
-export type Step = 'COMMON' | SignUpRole | 'MENTEE_COMPLETE' | 'MENTOR_COMPLETE';
+export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
 const SignUpPage = () => {
   const [step, setStep] = useState<Step>('COMMON');
@@ -57,8 +56,8 @@ const SignUpPage = () => {
           }}
         />
       )}
-      {step === 'MENTEE_COMPLETE' && <SignUpMenteeCompleteTemplate />}
-      {step === 'MENTOR_COMPLETE' && <SignUpMentorCompleteTemplate />}
+      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="ROLE_PENDING" />}
+      {step === 'MENTEE_COMPLETE' && <SignUpCompleteTemplate role="ROLE_MENTEE" />}
     </>
   );
 };
