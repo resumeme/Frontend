@@ -1,4 +1,5 @@
 import { Spinner } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
@@ -8,10 +9,20 @@ const OAuthRedirectPage = () => {
   const [params] = useSearchParams();
   const code = params.get('code');
   const navigate = useNavigate();
+  const toast = useToast();
 
-  if (!code) {
-    throw new Error('소셜 로그인 중 에러가 발생했습니다. 코드를 읽어올 수 없습니다.');
-  }
+  useEffect(() => {
+    if (!code) {
+      toast({
+        title: '소셜 서비스의 인가 코드를 읽어올 수 없습니다.',
+        description: '로그인을 다시 시도해주세요.',
+        status: 'error',
+        duration: 9000,
+      });
+      navigate('/sign-in');
+      return;
+    }
+  }, [code, navigate, toast]);
 
   type SignInCallback = { cacheKey?: string; accessToken?: string; refreshToken?: string };
   const setCacheKey = useCacheKeyStore((state) => state.setCacheKey);
@@ -33,15 +44,17 @@ const OAuthRedirectPage = () => {
   const signInMutation = usePostOAuthSignIn();
 
   useEffect(() => {
-    signInMutation.mutate(
-      { loginProvider: 'kakao', code },
-      {
-        onSuccess: ({ cacheKey, accessToken, refreshToken }) => {
-          signInCallback({ cacheKey, accessToken, refreshToken });
+    if (code) {
+      signInMutation.mutate(
+        { loginProvider: 'kakao', code },
+        {
+          onSuccess: ({ cacheKey, accessToken, refreshToken }) => {
+            signInCallback({ cacheKey, accessToken, refreshToken });
+          },
         },
-      },
-    );
-  }, []);
+      );
+    }
+  }, [code]);
 
   return (
     <Spinner
