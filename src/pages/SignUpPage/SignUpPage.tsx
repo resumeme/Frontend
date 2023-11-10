@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
-import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
+import { SignUpMenteeCompleteTemplate } from '~/components/templates/SignUpMenteeCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { SignUpRole, SignUpMentee, SignUpMentor, SignUpCommon } from '~/types/signUp';
 
-export type Step = 'COMMON' | SignUpRole | 'COMPLETE';
+export type Step = 'COMMON' | SignUpRole | 'MENTEE_COMPLETE' | 'MENTOR_COMPLETE';
 
 const SignUpPage = () => {
   const [step, setStep] = useState<Step>('COMMON');
@@ -28,7 +28,7 @@ const SignUpPage = () => {
       {step === 'ROLE_PENDING' && (
         <SignUpMentorTemplate
           onNext={(data) => {
-            setStep('COMPLETE');
+            setStep('MENTOR_COMPLETE');
             if (data) {
               setMentorData(data);
             }
@@ -38,14 +38,14 @@ const SignUpPage = () => {
       {step === 'ROLE_MENTEE' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
-            setStep('COMPLETE');
+            setStep('MENTEE_COMPLETE');
             if (data) {
               setMenteeData(data);
             }
           }}
         />
       )}
-      {step === 'COMPLETE' && <SignUpCompleteTemplate />}
+      {step === 'MENTEE_COMPLETE' && <SignUpMenteeCompleteTemplate />}
     </>
   );
 };
