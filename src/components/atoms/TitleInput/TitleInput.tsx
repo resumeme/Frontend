@@ -1,17 +1,15 @@
 import { Input, InputProps, FormErrorMessage, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-import { FieldError, FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-type TitleInputProps = InputProps & {
-  id: string;
-  register: UseFormRegisterReturn;
-  error?: FieldError | FieldErrors;
+type TitleInputProps = {
+  id?: string;
+  register?: UseFormRegisterReturn;
+  error?: FieldError;
   children?: ReactNode;
-} & Omit<InputProps, 'type'>;
+} & InputProps;
 
 const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps) => {
-  const errorMessage = error && 'message' in error ? (error.message as string) : '';
-
   return (
     <Flex
       direction={'column'}
@@ -29,14 +27,14 @@ const TitleInput = ({ id, register, error, children, ...props }: TitleInputProps
         borderColor={'gray.300'}
         placeholder="이력서 제목"
         _placeholder={{ color: 'gray.400', fontWeight: 'semibold' }}
-        fontSize={'32px'}
+        fontSize={'2rem'}
         px={2}
         {...register}
         {...props}
       >
         {children}
       </Input>
-      {error && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </Flex>
   );
 };

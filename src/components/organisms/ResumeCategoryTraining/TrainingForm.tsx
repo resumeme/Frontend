@@ -126,7 +126,7 @@ const TrainingForm = ({ setIsShowForm }: TrainingFormProps) => {
                   },
                 }),
               }}
-              errors={errors.admissionDate}
+              error={errors.admissionDate}
             />
           </FormControl>
           <FormControl isInvalid={Boolean(errors.graduationDate)}>
@@ -138,7 +138,7 @@ const TrainingForm = ({ setIsShowForm }: TrainingFormProps) => {
                   min: { value: watch('admissionDate'), message: '유효한 날짜를 입력해 주세요.' },
                 }),
               }}
-              errors={errors.graduationDate}
+              error={errors.graduationDate}
             />
           </FormControl>
         </Flex>
@@ -193,7 +193,7 @@ const TrainingForm = ({ setIsShowForm }: TrainingFormProps) => {
             placeholder="내용을 입력해주세요."
             id="projectContent"
             register={{ ...register('explanation') }}
-            errors={errors}
+            error={errors.explanation}
           />
         </FormControl>
         <SubmitButtonGroup

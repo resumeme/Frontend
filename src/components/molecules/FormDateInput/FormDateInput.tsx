@@ -5,14 +5,14 @@ type FormDateInputProps = {
   type?: 'date' | 'datetime-local';
   register: UseFormRegisterReturn;
   isDisabled?: boolean;
-  errors?: FieldError;
+  error?: FieldError;
 } & Omit<InputProps, 'type'>;
 
 const FormDateInput = ({
   type = 'date',
   isDisabled = false,
   register,
-  errors,
+  error,
   ...props
 }: FormDateInputProps) => {
   return (
@@ -26,7 +26,7 @@ const FormDateInput = ({
         {...register}
         {...props}
       />
-      {errors && <FormErrorMessage>{errors && (errors.message as string)}</FormErrorMessage>}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </Flex>
   );
 };

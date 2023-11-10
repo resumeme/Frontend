@@ -1,8 +1,8 @@
-import { HStack, Flex, Select, Tag, VStack } from '@chakra-ui/react';
+import { Flex, Select, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { FormLabel } from '~/components/atoms/FormLabel';
+import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
@@ -16,7 +16,7 @@ type ProjectFormProps = {
 };
 
 const ProjectForm = ({ setIsShowForm }: ProjectFormProps) => {
-  const [skills, handleSkills] = useStringToArray();
+  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
   const { mutate: postResumeProject } = usePostResumeProject();
@@ -148,17 +148,10 @@ const ProjectForm = ({ setIsShowForm }: ProjectFormProps) => {
               register={{ ...register('skills') }}
               onKeyDown={handleSkills}
             />
-            <HStack wrap={'wrap'}>
-              {skills &&
-                skills.map((skill) => (
-                  <Tag
-                    bg={'primary.100'}
-                    key={uuidv4()}
-                  >
-                    {skill}
-                  </Tag>
-                ))}
-            </HStack>
+            <DynamicTags
+              handleItemDelete={handleDeleteSkills}
+              tagsArray={skills}
+            />
           </Flex>
         </FormControl>
         <FormControl>
@@ -167,7 +160,7 @@ const ProjectForm = ({ setIsShowForm }: ProjectFormProps) => {
             placeholder="프로젝트에 대한 내용을 입력해주세요."
             id="projectContent"
             register={{ ...register('projectContent') }}
-            errors={errors}
+            error={errors.projectContent}
           />
         </FormControl>
         <FormControl isInvalid={Boolean(errors.projectUrl)}>

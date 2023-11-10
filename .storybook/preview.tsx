@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import theme from '../src/theme';
 
@@ -15,7 +17,18 @@ const preview: Preview = {
       theme,
     },
   },
-  decorators: [withRouter],
+  decorators: [
+    withRouter,
+    (Story) => {
+      const queryClient = new QueryClient();
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+        </QueryClientProvider>
+      );
+    },
+  ],
 };
 
 export default preview;

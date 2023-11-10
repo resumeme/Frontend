@@ -3,8 +3,8 @@ type Activity = {
   startDate: string;
   endDate: string;
   inProgress: boolean;
-  link: string;
-  description: string;
+  link?: string;
+  description?: string;
 };
 
 export type { Activity };

@@ -10,7 +10,7 @@ import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   CareerDetails,
-  TraningDetails,
+  TrainingDetails,
   LanguageDetails,
   ProjectDetails,
   AwardDetails,
@@ -54,7 +54,7 @@ const EditResumeTemplate = () => {
           <ProjectForm />
         </ResumeCategory>
         <ResumeCategory
-          categoryType="수상 및 경력"
+          categoryType="수상 및 자격"
           detailsComponent={<AwardDetails data={awardData} />}
         >
           <AwardForm />
@@ -67,7 +67,7 @@ const EditResumeTemplate = () => {
         </ResumeCategory>
         <ResumeCategory
           categoryType="교육"
-          detailsComponent={<TraningDetails data={trainingsData} />}
+          detailsComponent={<TrainingDetails data={trainingsData} />}
         >
           <TrainingForm />
         </ResumeCategory>
