@@ -1,3 +1,4 @@
+import { Spinner } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
@@ -42,7 +43,13 @@ const OAuthRedirectPage = () => {
     );
   }, []);
 
-  return <></>;
+  return (
+    <Spinner
+      color="primary.900"
+      thickness="4px"
+      size={'xl'}
+    />
+  );
 };
 
 export default OAuthRedirectPage;
