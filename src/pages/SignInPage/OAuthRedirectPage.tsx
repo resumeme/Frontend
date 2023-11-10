@@ -34,7 +34,7 @@ const OAuthRedirectPage = () => {
     return;
   };
 
-  const signInMutation = usePostOAuthSignIn();
+  const { mutate: signInMutate } = usePostOAuthSignIn();
 
   useEffect(() => {
     if (!code) {
@@ -47,7 +47,7 @@ const OAuthRedirectPage = () => {
       navigate(appPaths.signIn);
       return;
     }
-    signInMutation.mutate(
+    signInMutate(
       { loginProvider: 'kakao', code },
       {
         onSuccess: ({ cacheKey, accessToken, refreshToken }) => {
