@@ -2,6 +2,7 @@ import { Spinner } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { appPaths } from '~/config/paths';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 
@@ -24,7 +25,12 @@ const OAuthRedirectPage = () => {
     /**TODO - Authorization, refresh 토큰 저장 */
     console.log('AccessToken: ', accessToken);
     console.log('RefreshToken: ', refreshToken);
-    navigate('/');
+    toast({
+      title: '로그인 성공',
+      status: 'success',
+      duration: 3000,
+    });
+    navigate(appPaths.main);
     return;
   };
 
@@ -38,7 +44,7 @@ const OAuthRedirectPage = () => {
         status: 'error',
         duration: 9000,
       });
-      navigate('/sign-in');
+      navigate(appPaths.signIn);
       return;
     }
     signInMutation.mutate(
