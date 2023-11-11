@@ -23,8 +23,6 @@ const getUser = async (): Promise<User | null> => {
 };
 
 const useUser = () => {
-  const queryClient = useQueryClient();
-
   const { data: user, refetch } = useSuspenseQuery({
     queryKey: userKeys.user,
     queryFn: getUser,
@@ -38,8 +36,8 @@ const useUser = () => {
   };
 
   const clearUser = () => {
-    queryClient.setQueryData(userKeys.user, null);
     deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+    refetch();
   };
 
   return { user, clearUser, initialUser };
