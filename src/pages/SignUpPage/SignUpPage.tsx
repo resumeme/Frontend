@@ -3,17 +3,28 @@ import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplat
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
-import { SignUpRole, SignUpMentee, SignUpMentor, SignUpCommon } from '~/types/signUp';
+import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
+import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
+import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
-export type Step = 'COMMON' | SignUpRole | 'COMPLETE';
+export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
 const SignUpPage = () => {
   const [step, setStep] = useState<Step>('COMMON');
-  const [commonData, setCommonData] = useState<SignUpCommon<SignUpRole>>();
-  const [menteeData, setMenteeData] = useState<Omit<SignUpMentee, 'requiredInfo'>>();
-  const [mentorData, setMentorData] = useState<Omit<SignUpMentor, 'requiredInfo'>>();
-  /*FIXME - 사용하지 않는 변수 lint에러 방지용 로그 .. 삭제 필요! */
-  console.log(commonData, menteeData, setMenteeData, mentorData, setMentorData);
+  const [commonData, setCommonData] = useState<SignUpCommon>();
+  const { mutate: signUpMutate } = usePostOAuthSignUp();
+  const cacheKey = useCacheKeyStore((state) => state.cacheKey);
+  const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
+
+  const signUpSuccessCallback = (accessToken: string, refreshToken: string, role: SignUpRole) => {
+    const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+    resetCacheKey();
+    setStep(nextStep);
+    /**TODO - Authorization, refresh 토큰 저장 */
+    console.log('AccessToken: ', accessToken);
+    console.log('RefreshToken: ', refreshToken);
+  };
+
   return (
     <>
       {step === 'COMMON' && (
@@ -24,13 +35,17 @@ const SignUpPage = () => {
           }}
         />
       )}
-      {/**TODO - onNext에 각각 menteeData, mentorData를 바디로 api 호출 (commonData 삽입해서) */}
       {step === 'ROLE_PENDING' && (
         <SignUpMentorTemplate
           onNext={(data) => {
-            setStep('COMPLETE');
-            if (data) {
-              setMentorData(data);
+            if (commonData && data) {
+              signUpMutate(
+                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+                {
+                  onSuccess: ({ accessToken, refreshToken }) =>
+                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
+                },
+              );
             }
           }}
         />
@@ -38,14 +53,20 @@ const SignUpPage = () => {
       {step === 'ROLE_MENTEE' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
-            setStep('COMPLETE');
-            if (data) {
-              setMenteeData(data);
+            if (commonData && data) {
+              signUpMutate(
+                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+                {
+                  onSuccess: ({ accessToken, refreshToken }) =>
+                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
+                },
+              );
             }
           }}
         />
       )}
-      {step === 'COMPLETE' && <SignUpCompleteTemplate />}
+      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="ROLE_PENDING" />}
+      {step === 'MENTEE_COMPLETE' && <SignUpCompleteTemplate role="ROLE_MENTEE" />}
     </>
   );
 };
