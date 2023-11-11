@@ -1,18 +1,18 @@
-import { VStack, HStack } from '@chakra-ui/react';
+import { VStack, HStack, Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
 import { Language } from '~/types/language';
 
-type LanguageFormProps = {
-  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const LanguageForm = ({ setIsShowForm }: LanguageFormProps) => {
+const LanguageForm = () => {
   const {
     register,
     handleSubmit,
@@ -32,46 +32,60 @@ const LanguageForm = ({ setIsShowForm }: LanguageFormProps) => {
     mutate({ resumeId, resumeLanguage });
   };
 
+  const { isOpen, onClose, showForm, setShowForm, handleCancel } = useHandleFormState(isDirty);
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <VStack spacing={'1.25rem'}>
-        <FormControl isInvalid={Boolean(errors.language)}>
-          <FormLabel isRequired>언어</FormLabel>
-          <FormTextInput
-            id="language"
-            register={{ ...register('language', { required: '언어를 입력하세요' }) }}
-            error={errors.language}
-          />
-        </FormControl>
-        <HStack
-          alignSelf={'stretch'}
-          spacing={'3rem'}
-        >
-          <FormControl isInvalid={Boolean(errors.examName)}>
-            <FormLabel isRequired>시험명</FormLabel>
-            <FormTextInput
-              id="examName"
-              register={{ ...register('examName', { required: '시험명을 입력하세요.' }) }}
-              error={errors.examName}
-            />
-          </FormControl>
-          <FormControl isInvalid={Boolean(errors.scoreOrGrade)}>
-            <FormLabel isRequired>점수 및 등급</FormLabel>
-            <FormTextInput
-              id="scoreOrGrade"
-              register={{
-                ...register('scoreOrGrade', { required: '점수 및 등급을 입력해주세요' }),
-              }}
-              error={errors.scoreOrGrade}
-            />
-          </FormControl>
-        </HStack>
-        <SubmitButtonGroup
-          setIsShow={setIsShowForm}
-          showConfirm={isDirty}
-        />
-      </VStack>
-    </form>
+    <Box>
+      <CategoryAddHeader
+        categoryTitle="외국어"
+        onAddItem={() => setShowForm(true)}
+      />
+      {showForm && (
+        <BorderBox variant={'wide'}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <VStack spacing={'1.25rem'}>
+              <FormControl isInvalid={Boolean(errors.language)}>
+                <FormLabel isRequired>언어</FormLabel>
+                <FormTextInput
+                  id="language"
+                  register={{ ...register('language', { required: '언어를 입력하세요' }) }}
+                  error={errors.language}
+                />
+              </FormControl>
+              <HStack
+                alignSelf={'stretch'}
+                spacing={'3rem'}
+              >
+                <FormControl isInvalid={Boolean(errors.examName)}>
+                  <FormLabel isRequired>시험명</FormLabel>
+                  <FormTextInput
+                    id="examName"
+                    register={{ ...register('examName', { required: '시험명을 입력하세요.' }) }}
+                    error={errors.examName}
+                  />
+                </FormControl>
+                <FormControl isInvalid={Boolean(errors.scoreOrGrade)}>
+                  <FormLabel isRequired>점수 및 등급</FormLabel>
+                  <FormTextInput
+                    id="scoreOrGrade"
+                    register={{
+                      ...register('scoreOrGrade', { required: '점수 및 등급을 입력해주세요' }),
+                    }}
+                    error={errors.scoreOrGrade}
+                  />
+                </FormControl>
+              </HStack>
+              <ConfirmModal
+                isOpen={isOpen}
+                onClose={onClose}
+                message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
+                proceed={() => setShowForm(false)}
+              />
+              <SubmitButtonGroup onCancel={handleCancel} />
+            </VStack>
+          </form>
+        </BorderBox>
+      )}
+    </Box>
   );
 };
 

@@ -12,7 +12,7 @@ type ConfirmModalProps = {
   message: string;
   isOpen: boolean;
   onClose: () => void;
-  proceed: (arg: boolean) => void;
+  proceed: () => void;
 };
 
 const ConfirmModal = ({ message, isOpen, onClose, proceed }: ConfirmModalProps) => {
@@ -37,7 +37,7 @@ const ConfirmModal = ({ message, isOpen, onClose, proceed }: ConfirmModalProps) 
               취소
             </Button>
             <Button
-              onClick={() => proceed(true)}
+              onClick={proceed}
               ml={3}
               size={'xs'}
             >
