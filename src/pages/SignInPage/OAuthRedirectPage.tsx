@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
+import useUser from '~/hooks/useUser';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { setCookie } from '~/utils/cookie';
@@ -13,9 +14,12 @@ const OAuthRedirectPage = () => {
   const code = params.get('code');
   const navigate = useNavigate();
   const toast = useToast();
+  const { initialUser } = useUser();
 
   type SignInCallback = { cacheKey?: string; accessToken?: string; refreshToken?: string };
+
   const setCacheKey = useCacheKeyStore((state) => state.setCacheKey);
+
   const signInCallback = ({ cacheKey, accessToken, refreshToken }: SignInCallback) => {
     // 새로운 사용자가 로그인한 경우
     if (cacheKey) {
@@ -27,7 +31,7 @@ const OAuthRedirectPage = () => {
     /**TODO - Authorization, refresh 토큰 저장 */
 
     if (accessToken && refreshToken) {
-      setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, accessToken, 30);
+      initialUser(accessToken);
       setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
     }
     toast({
