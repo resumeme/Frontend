@@ -1,12 +1,24 @@
 import axios from 'axios';
 import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
+import CONSTANTS from '~/constants';
+import { getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
   baseURL: environments.baseUrlEnv(),
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+resumeMeAxios.interceptors.request.use((config) => {
+  const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+
+  if (accessToken) {
+    config.headers[CONSTANTS.ACCESS_TOKEN_HEADER] = `Bearer ${accessToken}`;
+  }
+
+  return config;
 });
 
 resumeMeAxios.interceptors.response.use(
