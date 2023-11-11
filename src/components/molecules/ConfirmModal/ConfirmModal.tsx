@@ -37,7 +37,10 @@ const ConfirmModal = ({ message, isOpen, onClose, proceed }: ConfirmModalProps) 
               취소
             </Button>
             <Button
-              onClick={proceed}
+              onClick={() => {
+                proceed();
+                onClose();
+              }}
               ml={3}
               size={'xs'}
             >

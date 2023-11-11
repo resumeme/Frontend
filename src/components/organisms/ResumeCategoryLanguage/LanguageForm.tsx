@@ -17,6 +17,7 @@ const LanguageForm = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty },
+    reset,
   } = useForm<Language>();
 
   const { id: resumeId } = useParams();
@@ -32,7 +33,8 @@ const LanguageForm = () => {
     mutate({ resumeId, resumeLanguage });
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel } = useHandleFormState(isDirty);
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
   return (
     <Box>
       <CategoryAddHeader
@@ -78,7 +80,7 @@ const LanguageForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={() => setShowForm(false)}
+                proceed={handleDeleteForm}
               />
               <SubmitButtonGroup onCancel={handleCancel} />
             </VStack>

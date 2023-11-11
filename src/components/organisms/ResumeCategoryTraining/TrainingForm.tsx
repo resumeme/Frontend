@@ -20,6 +20,7 @@ const TrainingForm = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty },
+    reset,
   } = useForm<Training>({
     //Todo: useQuery 관련 작업 예상
     // defaultValues: {
@@ -47,7 +48,8 @@ const TrainingForm = () => {
     mutate({ resumeId, resumeTraining });
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel } = useHandleFormState(isDirty);
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
   return (
     <Box>
       <CategoryAddHeader
@@ -211,7 +213,7 @@ const TrainingForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={() => setShowForm(false)}
+                proceed={handleDeleteForm}
               />
               <SubmitButtonGroup onCancel={handleCancel} />
             </VStack>

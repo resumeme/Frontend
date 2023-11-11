@@ -23,6 +23,7 @@ const AwardForm = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty },
+    reset,
   } = useForm<Award>();
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
@@ -35,7 +36,8 @@ const AwardForm = () => {
     postResumeAward({ resumeId, resumeAward });
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel } = useHandleFormState(isDirty);
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
   return (
     <Box>
       <CategoryAddHeader
@@ -131,7 +133,7 @@ const AwardForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={() => setShowForm(false)}
+                proceed={handleDeleteForm}
               />
               <SubmitButtonGroup onCancel={handleCancel} />
             </VStack>
