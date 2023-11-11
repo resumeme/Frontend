@@ -10,5 +10,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <SubmitButtonGroup />;
+  return <SubmitButtonGroup onCancel={() => {}} />;
 };
