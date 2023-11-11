@@ -1,4 +1,4 @@
-import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { User } from '~/types/user';
