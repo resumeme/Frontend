@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
@@ -21,9 +22,11 @@ import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer'
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
+import Career from '~/types/career';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
+
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
@@ -42,7 +45,16 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        <CareerDetails data={careersData} />
+        <BorderBox variant={'wide'}>
+          {careersData?.map((data: Career, index: number) => {
+            return (
+              <CareerDetails
+                key={index}
+                data={data}
+              />
+            );
+          })}
+        </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
