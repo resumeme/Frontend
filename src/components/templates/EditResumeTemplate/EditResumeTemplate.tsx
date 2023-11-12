@@ -22,7 +22,12 @@ import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer'
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
+import { Activity } from '~/types/activity';
+import { Award } from '~/types/award';
 import Career from '~/types/career';
+import { Language } from '~/types/language';
+import { Project } from '~/types/project';
+import { Training } from '~/types/training';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -46,40 +51,73 @@ const EditResumeTemplate = () => {
       <CategoryContainer>
         <CareerForm />
         <BorderBox variant={'wide'}>
-          {careersData?.map((data: Career, index: number) => {
-            return (
-              <CareerDetails
-                key={index}
-                data={data}
-              />
-            );
-          })}
+          {careersData?.map((data: Career, index: number) => (
+            <CareerDetails
+              key={index}
+              data={data}
+            />
+          ))}
         </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
         <ProjectForm />
-        <ProjectDetails data={projectData} />
+        <BorderBox variant={'wide'}>
+          {projectData?.map((data: Project, index: number) => (
+            <ProjectDetails
+              key={index}
+              data={data}
+            />
+          ))}
+        </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
         <AwardForm />
-        <AwardDetails data={awardData} />
+        <BorderBox variant={'wide'}>
+          {awardData?.map((data: Award, index: number) => (
+            <AwardDetails
+              key={index}
+              data={data}
+            />
+          ))}
+        </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
         <LanguageForm />
-        <LanguageDetails data={languageData} />
+        <BorderBox variant={'wide'}>
+          {languageData?.map((data: Language, index: number) => (
+            <LanguageDetails
+              key={index}
+              data={data}
+            />
+          ))}
+        </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
         <TrainingForm />
-        <TrainingDetails data={trainingsData} />
+        <BorderBox variant={'wide'}>
+          {trainingsData?.map((data: Training, index: number) => (
+            <TrainingDetails
+              key={index}
+              data={data}
+            />
+          ))}
+        </BorderBox>
       </CategoryContainer>
 
       <CategoryContainer>
         <ActivityForm />
-        <ActivityDetails data={activitiesData} />
+        <BorderBox variant={'wide'}>
+          {activitiesData?.map((data: Activity, index: number) => (
+            <ActivityDetails
+              key={index}
+              data={data}
+            />
+          ))}
+        </BorderBox>
       </CategoryContainer>
     </Flex>
   );
