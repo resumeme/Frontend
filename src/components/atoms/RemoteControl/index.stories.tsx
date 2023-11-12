@@ -13,7 +13,7 @@ export default meta;
 export const Default = () => {
   return (
     <Box
-      minH={'200vh'}
+      minH={'110vh'}
       bgGradient="linear(to-b, teal.500, blue.500)"
     >
       <RemoteControl>스크롤해보세요. 리모컨의 위치는 고정입니다.</RemoteControl>
