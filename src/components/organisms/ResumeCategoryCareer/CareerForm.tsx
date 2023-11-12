@@ -1,12 +1,12 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
   VStack,
-  HStack,
   Text,
   Divider,
   Button as ChakraButton,
   Checkbox,
   Flex,
+  Box,
 } from '@chakra-ui/react';
 import React from 'react';
 import {
@@ -19,12 +19,16 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
+import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
+import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
@@ -35,7 +39,8 @@ const CareerForm = () => {
     register,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
+    reset,
   } = useForm<Career>();
 
   const { fields, append, remove } = useFieldArray({
@@ -70,112 +75,117 @@ const CareerForm = () => {
     name: 'isCurrentlyEmployed',
   });
 
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
   return (
-    <form onSubmit={onSubmit}>
-      <VStack spacing={'1.25rem'}>
-        <FormControl isInvalid={Boolean(errors.companyName)}>
-          <FormLabel isRequired>회사명</FormLabel>
-          <FormTextInput
-            id="companyName"
-            register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
-            error={errors.companyName}
-          />
-        </FormControl>
-        <Flex
-          alignSelf={'start'}
-          width={'100%'}
-          gap={'1.63rem'}
-        >
-          <FormLabel isRequired>재직기간</FormLabel>
-          <TermInput
-            startDateName="careerStartDate"
-            endDateName="endDate"
-            isEndDateDisabled={isCurrentlyEmployed}
-            register={register}
-            errors={errors}
-            control={control}
-            isRequired={true}
-          />
-          <Checkbox
-            id="isCurrentlyEmployed"
-            ml={'1rem'}
-            {...register('isCurrentlyEmployed', {
-              onChange: (event) => {
-                if (event.target.checked) {
-                  setValue('endDate', '');
-                }
-              },
-            })}
-          >
-            재직 중
-          </Checkbox>
-        </Flex>
-        <FormControl isInvalid={Boolean(errors.position)}>
-          <FormLabel isRequired>직무</FormLabel>
-          <FormTextInput
-            id="position"
-            register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
-            error={errors.position}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>사용 스택</FormLabel>
-          <Flex
-            gap={2}
-            direction={'column'}
-            w={'full'}
-          >
-            <FormTextInput
-              id="skills"
-              register={{ ...register('skills') }}
-              onKeyDown={handleArrayChange}
-            />
-            {skills.length > 0 && (
-              <DynamicTags
-                tagsArray={skills}
-                handleItemDelete={handleItemDelete}
+    <Box>
+      <CategoryAddHeader
+        categoryTitle="업무경험"
+        onAddItem={() => setShowForm(true)}
+      />
+      {showForm && (
+        <BorderBox variant={'wide'}>
+          <form onSubmit={onSubmit}>
+            <VStack spacing={'1.25rem'}>
+              <FormControl isInvalid={Boolean(errors.companyName)}>
+                <FormLabel isRequired>회사명</FormLabel>
+                <FormTextInput
+                  id="companyName"
+                  register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
+                  error={errors.companyName}
+                />
+              </FormControl>
+              <Flex
+                alignSelf={'start'}
+                width={'100%'}
+                gap={'1.63rem'}
+              >
+                <FormLabel isRequired>재직기간</FormLabel>
+                <TermInput
+                  startDateName="careerStartDate"
+                  endDateName="endDate"
+                  isEndDateDisabled={isCurrentlyEmployed}
+                  register={register}
+                  errors={errors}
+                  control={control}
+                  isRequired={true}
+                />
+                <Checkbox
+                  id="isCurrentlyEmployed"
+                  ml={'1rem'}
+                  {...register('isCurrentlyEmployed', {
+                    onChange: (event) => {
+                      if (event.target.checked) {
+                        setValue('endDate', '');
+                      }
+                    },
+                  })}
+                >
+                  재직 중
+                </Checkbox>
+              </Flex>
+              <FormControl isInvalid={Boolean(errors.position)}>
+                <FormLabel isRequired>직무</FormLabel>
+                <FormTextInput
+                  id="position"
+                  register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
+                  error={errors.position}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>사용 스택</FormLabel>
+                <Flex
+                  gap={2}
+                  direction={'column'}
+                  w={'full'}
+                >
+                  <FormTextInput
+                    id="skills"
+                    register={{ ...register('skills') }}
+                    onKeyDown={handleArrayChange}
+                  />
+                  {skills.length > 0 && (
+                    <DynamicTags
+                      tagsArray={skills}
+                      handleItemDelete={handleItemDelete}
+                    />
+                  )}
+                </Flex>
+              </FormControl>
+              <FormControl>
+                <FormLabel>기타 설명</FormLabel>
+                <FormTextInput
+                  id="careerContent"
+                  register={{ ...register('careerContent') }}
+                />
+              </FormControl>
+              {fields?.map((field, index) => (
+                <DutyForm
+                  key={field.id}
+                  index={index}
+                  register={register}
+                  errors={errors}
+                  remove={remove}
+                  control={control}
+                />
+              ))}
+              <AddDutyButton
+                onClick={() => {
+                  append(defaultDutyData);
+                }}
               />
-            )}
-          </Flex>
-        </FormControl>
-        <FormControl>
-          <FormLabel>기타 설명</FormLabel>
-          <FormTextInput
-            id="careerContent"
-            register={{ ...register('careerContent') }}
-          />
-        </FormControl>
-        {fields?.map((field, index) => (
-          <DutyForm
-            key={field.id}
-            index={index}
-            register={register}
-            errors={errors}
-            remove={remove}
-            control={control}
-          />
-        ))}
-        <AddDutyButton
-          onClick={() => {
-            append(defaultDutyData);
-          }}
-        />
-        <HStack>
-          <Button
-            size={'sm'}
-            type="submit"
-          >
-            저장
-          </Button>
-          <Button
-            size={'sm'}
-            variant={'cancel'}
-          >
-            취소
-          </Button>
-        </HStack>
-      </VStack>
-    </form>
+              <ConfirmModal
+                isOpen={isOpen}
+                onClose={onClose}
+                message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
+                proceed={handleDeleteForm}
+              />
+              <SubmitButtonGroup onCancel={handleCancel} />
+            </VStack>
+          </form>
+        </BorderBox>
+      )}
+    </Box>
   );
 };
 

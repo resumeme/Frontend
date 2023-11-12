@@ -1,4 +1,5 @@
 import { Box, VStack } from '@chakra-ui/react';
+import React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -9,6 +10,11 @@ type ResumeCategoryProps = {
   children: React.ReactNode;
   detailsComponent?: React.ReactNode /**FIXME - get 요청 서버 오류 해결 후 optional 제거 */;
 };
+
+type ChlidProps = {
+  setIsShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCategoryProps) => {
   const [isShowForm, setIsShowForm] = useState(false);
   return (
@@ -31,7 +37,11 @@ const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCate
               w={'100%'}
               p={'2rem'}
             >
-              {children}
+              {React.Children.map(children, (child) =>
+                React.cloneElement(child as React.ReactElement<ChlidProps>, {
+                  setIsShowForm: setIsShowForm,
+                }),
+              )}
             </BorderBox>
           )}
         </VStack>

@@ -1,4 +1,5 @@
 import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
+import { forwardRef } from 'react';
 
 type ButtonProps = ChakraButtonProps & {
   variant?: 'default' | 'cancel';
@@ -6,16 +7,20 @@ type ButtonProps = ChakraButtonProps & {
   children: string;
 };
 
-const Button = ({ size = 'full', variant = 'default', children, ...props }: ButtonProps) => {
-  return (
-    <ChakraButton
-      variant={variant}
-      size={size}
-      {...props}
-    >
-      {children}
-    </ChakraButton>
-  );
-};
+const Button = forwardRef(
+  ({ size = 'full', variant = 'default', children, ...props }: ButtonProps) => {
+    return (
+      <ChakraButton
+        variant={variant}
+        size={size}
+        {...props}
+      >
+        {children}
+      </ChakraButton>
+    );
+  },
+);
+
+Button.displayName = 'Button';
 
 export default Button;
