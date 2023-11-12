@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -51,7 +51,10 @@ const TrainingForm = () => {
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="교육"
         onAddItem={() => setShowForm(true)}
@@ -220,7 +223,7 @@ const TrainingForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

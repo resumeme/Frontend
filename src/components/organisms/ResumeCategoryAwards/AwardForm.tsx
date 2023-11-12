@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -39,7 +39,10 @@ const AwardForm = () => {
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="수상 및 자격증"
         onAddItem={() => setShowForm(true)}
@@ -140,7 +143,7 @@ const AwardForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

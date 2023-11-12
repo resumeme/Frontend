@@ -31,7 +31,6 @@ import { Training } from '~/types/training';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
-
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });

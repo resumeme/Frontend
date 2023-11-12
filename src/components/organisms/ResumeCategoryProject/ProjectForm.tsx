@@ -1,4 +1,4 @@
-import { Box, Flex, Select, VStack } from '@chakra-ui/react';
+import { Flex, Select, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -46,7 +46,10 @@ const ProjectForm = () => {
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box w={'full'}>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="프로젝트"
         onAddItem={() => setShowForm(true)}
@@ -202,7 +205,7 @@ const ProjectForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

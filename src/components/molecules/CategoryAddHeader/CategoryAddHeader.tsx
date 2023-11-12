@@ -8,10 +8,7 @@ type CategoryAddHeaderProps = {
 
 const CategoryAddHeader = ({ categoryTitle, onAddItem }: CategoryAddHeaderProps) => {
   return (
-    <Flex
-      justifyContent={'space-between'}
-      mb={'1rem'}
-    >
+    <Flex justifyContent={'space-between'}>
       <Text
         fontSize={'2xl'}
         fontWeight={'semibold'}
