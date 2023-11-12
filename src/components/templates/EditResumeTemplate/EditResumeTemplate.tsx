@@ -50,74 +50,86 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        <BorderBox variant={'wide'}>
-          {careersData?.map((data: Career, index: number) => (
-            <CareerDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {careersData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {careersData.map((data: Career, index: number) => (
+              <CareerDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
 
       <CategoryContainer>
         <ProjectForm />
-        <BorderBox variant={'wide'}>
-          {projectData?.map((data: Project, index: number) => (
-            <ProjectDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {projectData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {projectData.map((data: Project, index: number) => (
+              <ProjectDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
 
       <CategoryContainer>
         <AwardForm />
-        <BorderBox variant={'wide'}>
-          {awardData?.map((data: Award, index: number) => (
-            <AwardDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {awardData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {awardData.map((data: Award, index: number) => (
+              <AwardDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
 
       <CategoryContainer>
         <LanguageForm />
-        <BorderBox variant={'wide'}>
-          {languageData?.map((data: Language, index: number) => (
-            <LanguageDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {languageData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {languageData.map((data: Language, index: number) => (
+              <LanguageDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
 
       <CategoryContainer>
         <TrainingForm />
-        <BorderBox variant={'wide'}>
-          {trainingsData?.map((data: Training, index: number) => (
-            <TrainingDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {trainingsData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {trainingsData.map((data: Training, index: number) => (
+              <TrainingDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
 
       <CategoryContainer>
         <ActivityForm />
-        <BorderBox variant={'wide'}>
-          {activitiesData?.map((data: Activity, index: number) => (
-            <ActivityDetails
-              key={index}
-              data={data}
-            />
-          ))}
-        </BorderBox>
+        {activitiesData?.length > 0 && (
+          <BorderBox variant={'wide'}>
+            {activitiesData.map((data: Activity, index: number) => (
+              <ActivityDetails
+                key={index}
+                data={data}
+              />
+            ))}
+          </BorderBox>
+        )}
       </CategoryContainer>
     </Flex>
   );
