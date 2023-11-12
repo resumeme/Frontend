@@ -70,9 +70,9 @@ const CareerForm = () => {
     endDate: '',
   };
 
-  const isCurrentlyEmployed = useWatch({
+  const currentlyEmployed = useWatch({
     control,
-    name: 'isCurrentlyEmployed',
+    name: 'currentlyEmployed',
   });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -104,16 +104,16 @@ const CareerForm = () => {
                 <TermInput
                   startDateName="careerStartDate"
                   endDateName="endDate"
-                  isEndDateDisabled={isCurrentlyEmployed}
+                  isEndDateDisabled={currentlyEmployed}
                   register={register}
                   errors={errors}
                   control={control}
                   isRequired={true}
                 />
                 <Checkbox
-                  id="isCurrentlyEmployed"
+                  id="currentlyEmployed"
                   ml={'1rem'}
-                  {...register('isCurrentlyEmployed', {
+                  {...register('currentlyEmployed', {
                     onChange: (event) => {
                       if (event.target.checked) {
                         setValue('endDate', '');
