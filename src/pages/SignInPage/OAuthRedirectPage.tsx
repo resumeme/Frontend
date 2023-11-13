@@ -3,19 +3,21 @@ import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appPaths } from '~/config/paths';
-import CONSTANTS from '~/constants';
+import useUser from '~/hooks/useUser';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
-import { setCookie } from '~/utils/cookie';
 
 const OAuthRedirectPage = () => {
   const [params] = useSearchParams();
   const code = params.get('code');
   const navigate = useNavigate();
   const toast = useToast();
+  const { initialUser } = useUser();
 
   type SignInCallback = { cacheKey?: string; accessToken?: string; refreshToken?: string };
+
   const setCacheKey = useCacheKeyStore((state) => state.setCacheKey);
+
   const signInCallback = ({ cacheKey, accessToken, refreshToken }: SignInCallback) => {
     // 새로운 사용자가 로그인한 경우
     if (cacheKey) {
@@ -24,11 +26,8 @@ const OAuthRedirectPage = () => {
       return;
     }
     // 기존 사용자가 로그인한 경우
-    /**TODO - Authorization, refresh 토큰 저장 */
-
     if (accessToken && refreshToken) {
-      setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, accessToken, 30);
-      setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
+      initialUser(accessToken, refreshToken);
     }
     toast({
       title: '로그인 성공',
