@@ -3,12 +3,10 @@ import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplat
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
-import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
-import { setCookie } from '~/utils/cookie';
 
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
