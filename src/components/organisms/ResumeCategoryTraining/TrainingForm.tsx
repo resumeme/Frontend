@@ -66,7 +66,10 @@ const TrainingForm = () => {
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
-              <Flex gap={'2rem'}>
+              <Flex
+                gap={'2rem'}
+                alignSelf={'start'}
+              >
                 <FormControl isInvalid={Boolean(errors.organization)}>
                   <FormLabel
                     htmlFor="organization"
@@ -120,7 +123,10 @@ const TrainingForm = () => {
                   />
                 </FormControl>
               </Flex>
-              <Flex gap={'2rem'}>
+              <Flex
+                gap={'2rem'}
+                alignSelf={'start'}
+              >
                 <FormControl
                   w={'fit-content'}
                   isInvalid={Boolean(errors.admissionDate)}
@@ -161,7 +167,10 @@ const TrainingForm = () => {
                   />
                 </FormControl>
               </Flex>
-              <Flex gap={'3rem'}>
+              <Flex
+                gap={'3rem'}
+                alignSelf={'start'}
+              >
                 <FormControl
                   w={'fit-content'}
                   isInvalid={Boolean(errors.gpa)}
