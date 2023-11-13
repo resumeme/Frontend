@@ -1,4 +1,4 @@
-import { Flex, Select, VStack } from '@chakra-ui/react';
+import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -19,7 +19,8 @@ const ProjectForm = () => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
-  const { mutate: postResumeProject } = usePostResumeProject();
+  const { mutate: postResumeProject, isSuccess } = usePostResumeProject();
+  const toast = useToast();
 
   const {
     watch,
@@ -41,7 +42,12 @@ const ProjectForm = () => {
     resumeProject.isTeam = Boolean(resumeProject.isTeam);
 
     postResumeProject({ resumeId, resumeProject });
-    handleDeleteForm();
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

@@ -1,5 +1,13 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
+import {
+  VStack,
+  Text,
+  Divider,
+  Button as ChakraButton,
+  Checkbox,
+  Flex,
+  useToast,
+} from '@chakra-ui/react';
 import React from 'react';
 import {
   Control,
@@ -41,8 +49,9 @@ const CareerForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate: postCareerMutate } = usePostResumeCareer();
+  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer();
   const navigate = useNavigate();
+  const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
@@ -53,7 +62,12 @@ const CareerForm = () => {
     }
     resumeCareer.skills = skills;
     postCareerMutate({ resumeId, resumeCareer });
-    handleDeleteForm();
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   });
 
   const defaultDutyData = {

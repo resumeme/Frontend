@@ -1,4 +1,4 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { Flex, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -36,8 +36,9 @@ const TrainingForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate: postTrainingMutate } = usePostResumeTraining();
+  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();
   const navigate = useNavigate();
+  const toast = useToast();
   const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
     if (!resumeId) {
       /**TODO - 토스트 대체! */
@@ -46,7 +47,12 @@ const TrainingForm = () => {
       return;
     }
     postTrainingMutate({ resumeId, resumeTraining });
-    handleDeleteForm();
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

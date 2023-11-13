@@ -1,4 +1,4 @@
-import { VStack, HStack, Flex } from '@chakra-ui/react';
+import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -21,8 +21,9 @@ const LanguageForm = () => {
   } = useForm<Language>();
 
   const { id: resumeId } = useParams();
-  const { mutate: postLanguageMutate } = usePostResumeLanguage();
+  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage();
   const navigate = useNavigate();
+  const toast = useToast();
   const onSubmit = (resumeLanguage: Language) => {
     if (!resumeId) {
       /**TODO - 토스트 대체! */
@@ -31,7 +32,12 @@ const LanguageForm = () => {
       return;
     }
     postLanguageMutate({ resumeId, resumeLanguage });
-    handleDeleteForm();
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
