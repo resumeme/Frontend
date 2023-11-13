@@ -1,5 +1,13 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
+import {
+  VStack,
+  Text,
+  Divider,
+  Button as ChakraButton,
+  Checkbox,
+  Flex,
+  useToast,
+} from '@chakra-ui/react';
 import React from 'react';
 import {
   Control,
@@ -10,7 +18,7 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -41,18 +49,21 @@ const CareerForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeCareer();
-  const navigate = useNavigate();
+  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer();
+  const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
     resumeCareer.skills = skills;
-    mutate({ resumeId, resumeCareer });
+    postCareerMutate({ resumeId, resumeCareer });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   });
 
   const defaultDutyData = {
