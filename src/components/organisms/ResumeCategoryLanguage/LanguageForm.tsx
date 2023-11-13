@@ -1,6 +1,6 @@
 import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -22,13 +22,9 @@ const LanguageForm = () => {
 
   const { id: resumeId } = useParams();
   const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage();
-  const navigate = useNavigate();
   const toast = useToast();
   const onSubmit = (resumeLanguage: Language) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
     postLanguageMutate({ resumeId, resumeLanguage });

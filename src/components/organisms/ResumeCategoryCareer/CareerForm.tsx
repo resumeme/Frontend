@@ -18,7 +18,7 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -50,14 +50,10 @@ const CareerForm = () => {
 
   const { id: resumeId } = useParams();
   const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer();
-  const navigate = useNavigate();
   const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
     resumeCareer.skills = skills;

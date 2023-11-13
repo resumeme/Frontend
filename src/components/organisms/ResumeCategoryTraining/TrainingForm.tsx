@@ -1,6 +1,6 @@
 import { Flex, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -37,13 +37,9 @@ const TrainingForm = () => {
 
   const { id: resumeId } = useParams();
   const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();
-  const navigate = useNavigate();
   const toast = useToast();
   const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
     postTrainingMutate({ resumeId, resumeTraining });
