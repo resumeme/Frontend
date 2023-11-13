@@ -4,6 +4,7 @@ import { data } from './ResumeDetail.const';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
+import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
   ActivityDetails,
   AwardDetails,
@@ -170,13 +171,10 @@ const ResumeDetailTemplate = () => {
                 >
                   업무경험
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <CareerDetails data={data.career} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.career}
+                  DetailsComponent={CareerDetails}
+                />
               </Box>
               <Box>
                 <Text
@@ -187,13 +185,10 @@ const ResumeDetailTemplate = () => {
                 >
                   프로젝트
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <ProjectDetails data={data.project} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.project}
+                  DetailsComponent={ProjectDetails}
+                />
               </Box>
               <Box>
                 <Text
@@ -204,13 +199,10 @@ const ResumeDetailTemplate = () => {
                 >
                   교육
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  p={7}
-                  gap={10}
-                >
-                  <TrainingDetails data={data.training} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.training}
+                  DetailsComponent={TrainingDetails}
+                />
               </Box>
               <Box>
                 <Text
@@ -221,13 +213,10 @@ const ResumeDetailTemplate = () => {
                 >
                   수상 및 자격
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  p={7}
-                  gap={10}
-                >
-                  <AwardDetails data={data.award} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.award}
+                  DetailsComponent={AwardDetails}
+                />
               </Box>
               <Box>
                 <Text
@@ -238,13 +227,10 @@ const ResumeDetailTemplate = () => {
                 >
                   활동
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <ActivityDetails data={data.activity} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.activity}
+                  DetailsComponent={ActivityDetails}
+                />
               </Box>
               <Box>
                 <Text
@@ -255,13 +241,10 @@ const ResumeDetailTemplate = () => {
                 >
                   외국어
                 </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <LanguageDetails data={data.language} />
-                </BorderBox>
+                <ResumeCategoryDetails
+                  arrayData={data.language}
+                  DetailsComponent={LanguageDetails}
+                />
               </Box>
             </Flex>
           </Flex>
