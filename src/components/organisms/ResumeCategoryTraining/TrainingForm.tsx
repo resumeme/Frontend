@@ -1,4 +1,4 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -62,7 +62,10 @@ const TrainingForm = () => {
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              gap={'1.25rem'}
+              direction={'column'}
+            >
               <Flex gap={'2rem'}>
                 <FormControl isInvalid={Boolean(errors.organization)}>
                   <FormLabel
@@ -219,7 +222,7 @@ const TrainingForm = () => {
                 proceed={handleDeleteForm}
               />
               <SubmitButtonGroup onCancel={handleCancel} />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}
