@@ -26,8 +26,6 @@ const OAuthRedirectPage = () => {
       return;
     }
     // 기존 사용자가 로그인한 경우
-    /**TODO - Authorization, refresh 토큰 저장 */
-
     if (accessToken && refreshToken) {
       initialUser(accessToken, refreshToken);
     }
