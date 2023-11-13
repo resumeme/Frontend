@@ -3,9 +3,11 @@ import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplat
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
+import CONSTANTS from '~/constants';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
+import { setCookie } from '~/utils/cookie';
 
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
@@ -20,9 +22,8 @@ const SignUpPage = () => {
     const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
     resetCacheKey();
     setStep(nextStep);
-    /**TODO - Authorization, refresh 토큰 저장 */
-    console.log('AccessToken: ', accessToken);
-    console.log('RefreshToken: ', refreshToken);
+    setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, accessToken, 30);
+    setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
   };
 
   return (
