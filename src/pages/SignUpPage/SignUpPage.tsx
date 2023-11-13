@@ -55,30 +55,34 @@ const SignUpPage = () => {
       {step === 'ROLE_PENDING' && (
         <SignUpMentorTemplate
           onNext={(data) => {
-            if (commonData && data) {
-              signUpMutate(
-                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
-                {
-                  onSuccess: ({ accessToken, refreshToken }) =>
-                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
-                },
-              );
+            if (!commonData) {
+              setStep('COMMON');
+              return;
             }
+            signUpMutate(
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+              {
+                onSuccess: ({ accessToken, refreshToken }) =>
+                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
+              },
+            );
           }}
         />
       )}
       {step === 'ROLE_MENTEE' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
-            if (commonData && data) {
-              signUpMutate(
-                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
-                {
-                  onSuccess: ({ accessToken, refreshToken }) =>
-                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
-                },
-              );
+            if (!commonData) {
+              setStep('COMMON');
+              return;
             }
+            signUpMutate(
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+              {
+                onSuccess: ({ accessToken, refreshToken }) =>
+                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
+              },
+            );
           }}
         />
       )}
