@@ -31,7 +31,7 @@ export const data = {
     {
       companyName: '아몬드빼빼로',
       position: '주니어 프론트엔드 개발자',
-      isCurrentlyEmployed: true,
+      currentlyEmployed: true,
       skills: ['TypeScript', 'React.js', 'Git', 'Github', 'ChakraUI', 'react-hook-form', 'vite'],
       duties: [
         {
@@ -61,7 +61,7 @@ export const data = {
     {
       companyName: '아몬드빼빼로',
       position: '주니어 프론트엔드 개발자',
-      isCurrentlyEmployed: true,
+      currentlyEmployed: true,
       skills: ['TypeScript', 'React.js', 'Git', 'Github', 'ChakraUI', 'react-hook-form', 'vite'],
       duties: [
         {

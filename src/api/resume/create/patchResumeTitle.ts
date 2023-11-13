@@ -1,10 +1,14 @@
 import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
+import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
+import { getCookie } from '~/utils/cookie';
 
 type patchResumeTitle = { resumeId: string; resumeTitle: string };
 
 export const patchResumeTitle = async ({ resumeId, resumeTitle }: patchResumeTitle) => {
+  const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+
   try {
     const { data } = await resumeMeAxios.patch(
       `v1/resumes/${resumeId}/title`,
@@ -14,7 +18,7 @@ export const patchResumeTitle = async ({ resumeId, resumeTitle }: patchResumeTit
       {
         headers: {
           /* FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-          Authorization: import.meta.env.VITE_TEMP_MENTEE_TOKEN,
+          Authorization: accessToken,
         },
       },
     );

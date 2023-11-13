@@ -1,4 +1,4 @@
-import { VStack, HStack, Box } from '@chakra-ui/react';
+import { VStack, HStack, Flex } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -36,7 +36,10 @@ const LanguageForm = () => {
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="외국어"
         onAddItem={() => setShowForm(true)}
@@ -87,7 +90,7 @@ const LanguageForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

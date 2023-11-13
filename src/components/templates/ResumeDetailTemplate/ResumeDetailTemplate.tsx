@@ -5,6 +5,7 @@ import { data as mockData } from './ResumeDetail.const';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
+import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
   ActivityDetails,
   AwardDetails,
@@ -33,9 +34,9 @@ const ResumeDetailTemplate = () => {
     resumeId,
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
-  const { data: referenceLinksData } = useGetResumeReferenceLinks({ resumeId});
+  const { data: referenceLinksData } = useGetResumeReferenceLinks({ resumeId });
 
-  console.log('reflinks:', referenceLinksData)
+  console.log('reflinks:', referenceLinksData);
 
   return (
     /* 전체 레이아웃 */
@@ -184,120 +185,90 @@ const ResumeDetailTemplate = () => {
               direction={'column'}
               gap={'4rem'}
             >
-              {careersData && careersData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    업무경험
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    px={7}
-                    py={10}
-                  >
-                    <CareerDetails data={careersData} />
-                  </BorderBox>
-                </Box>
-              )}
-              {projectData && projectData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    프로젝트
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    px={7}
-                    py={10}
-                  >
-                    <ProjectDetails data={projectData} />
-                  </BorderBox>
-                </Box>
-              )}
-              {trainingsData && trainingsData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    교육
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    p={7}
-                    gap={10}
-                  >
-                    <TrainingDetails data={trainingsData} />
-                  </BorderBox>
-                </Box>,
-              )}
-              {awardData && awardData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    수상 및 자격
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    p={7}
-                    gap={10}
-                  >
-                    <AwardDetails data={awardData} />
-                  </BorderBox>
-                </Box>
-              )}
-              {activitiesData && activitiesData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    활동
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    px={7}
-                    py={10}
-                  >
-                    <ActivityDetails data={activitiesData} />
-                  </BorderBox>
-                </Box>
-              )}
-              {languageData && languageData.length > 0 && (
-                <Box>
-                  <Text
-                    fontSize={'2xl'}
-                    fontWeight={'bold'}
-                    color={'gray.800'}
-                    mb={5}
-                  >
-                    외국어
-                  </Text>
-                  <BorderBox
-                    w={'100%'}
-                    px={7}
-                    py={10}
-                  >
-                    <LanguageDetails data={languageData} />
-                  </BorderBox>
-                </Box>
-              )}
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  업무경험
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.career}
+                  DetailsComponent={CareerDetails}
+                />
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  프로젝트
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.project}
+                  DetailsComponent={ProjectDetails}
+                />
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  교육
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.training}
+                  DetailsComponent={TrainingDetails}
+                />
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  수상 및 자격
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.award}
+                  DetailsComponent={AwardDetails}
+                />
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  활동
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.activity}
+                  DetailsComponent={ActivityDetails}
+                />
+              </Box>
+              <Box>
+                <Text
+                  fontSize={'2xl'}
+                  fontWeight={'bold'}
+                  color={'gray.800'}
+                  mb={5}
+                >
+                  외국어
+                </Text>
+                <ResumeCategoryDetails
+                  arrayData={data.language}
+                  DetailsComponent={LanguageDetails}
+                />
+              </Box>
             </Flex>
           </Flex>
         </Flex>

@@ -3,6 +3,7 @@ import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplat
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
+import useUser from '~/hooks/useUser';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
@@ -15,14 +16,15 @@ const SignUpPage = () => {
   const { mutate: signUpMutate } = usePostOAuthSignUp();
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
+  const { initialUser } = useUser();
 
   const signUpSuccessCallback = (accessToken: string, refreshToken: string, role: SignUpRole) => {
     const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
     resetCacheKey();
     setStep(nextStep);
-    /**TODO - Authorization, refresh 토큰 저장 */
-    console.log('AccessToken: ', accessToken);
-    console.log('RefreshToken: ', refreshToken);
+    if (accessToken && refreshToken) {
+      initialUser(accessToken, refreshToken);
+    }
   };
 
   return (

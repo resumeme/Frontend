@@ -24,12 +24,13 @@ const role: { label: string; value: Position }[] = [
 ];
 
 const domain: { label: string; value: Fields }[] = [
-  { label: '광고', value: 'AD' },
+  //TODO: DB 수정 후 되돌려 놓기
+  // { label: '광고', value: 'AD' },
   { label: '미디어', value: 'MEDIA' },
-  { label: '커뮤니티/SNS', value: 'SNS' },
-  { label: 'e커머스', value: 'COMMERCE' },
-  { label: '솔루션/유틸리티', value: 'SOLUTION' },
-  { label: '게임', value: 'GAME' },
+  // { label: '커뮤니티/SNS', value: 'SNS' },
+  // { label: 'e커머스', value: 'COMMERCE' },
+  // { label: '솔루션/유틸리티', value: 'SOLUTION' },
+  // { label: '게임', value: 'GAME' },
   { label: '금융/핀테크', value: 'FINANCE' },
   { label: '제조', value: 'MANUFACTURE' },
 ];
