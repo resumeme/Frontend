@@ -3,7 +3,7 @@ import { GetResumeTraining, getResumeTraining } from '~/api/resume/details/getRe
 
 export const useGetResumeTraining = ({ resumeId }: GetResumeTraining) => {
   return useQuery({
-    queryKey: ['getResumeCareer'],
+    queryKey: ['getResumeTraining'],
     queryFn: () => getResumeTraining({ resumeId }),
     enabled: !!resumeId,
   });
