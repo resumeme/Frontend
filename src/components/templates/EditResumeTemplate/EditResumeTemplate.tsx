@@ -1,11 +1,11 @@
-import { Divider, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
+import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
@@ -23,12 +23,6 @@ import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer'
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
-import { Activity } from '~/types/activity';
-import { Award } from '~/types/award';
-import Career from '~/types/career';
-import { Language } from '~/types/language';
-import { Project } from '~/types/project';
-import { Training } from '~/types/training';
 
 const EditResumeTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -51,7 +45,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={careersData}
           DetailsComponent={CareerDetails}
         />
@@ -59,7 +53,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <ProjectForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
         />
@@ -67,7 +61,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <AwardForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={awardData}
           DetailsComponent={AwardDetails}
         />
@@ -75,7 +69,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <LanguageForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={languageData}
           DetailsComponent={LanguageDetails}
         />
@@ -83,7 +77,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <TrainingForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={trainingsData}
           DetailsComponent={TrainingDetails}
         />
@@ -91,7 +85,7 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <ActivityForm />
-        <CategoryDetails
+        <ResumeCategoryDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
         />
@@ -110,41 +104,5 @@ const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </Flex>
-  );
-};
-
-type Data = Career | Project | Award | Language | Training | Activity;
-
-type CategoryDetailsProps<T extends Data> = {
-  arrayData: T[];
-  DetailsComponent: React.ComponentType<ComponentProps<T>>;
-};
-
-type ComponentProps<T extends Data> = {
-  data: T;
-};
-
-const CategoryDetails = <T extends Data>({
-  arrayData,
-  DetailsComponent,
-}: CategoryDetailsProps<T>) => {
-  return (
-    <React.Fragment>
-      {arrayData?.length > 0 && (
-        <BorderBox variant={'wide'}>
-          {arrayData.map((data: T, index: number) => (
-            <React.Fragment key={index}>
-              <DetailsComponent data={data} />
-              {index !== arrayData.length - 1 && (
-                <Divider
-                  my={'3rem'}
-                  borderColor={'gray.300'}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </BorderBox>
-      )}
-    </React.Fragment>
   );
 };
