@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import Profile from '~/components/organisms/Profile/Profile';
+import { Profile } from '~/components/organisms/Profile';
 import useUser from '~/hooks/useUser';
 
 const MyPage = () => {
