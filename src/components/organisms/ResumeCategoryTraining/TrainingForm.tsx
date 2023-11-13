@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -36,7 +36,7 @@ const TrainingForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeTraining();
+  const { mutate: postTrainingMutate } = usePostResumeTraining();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
     if (!resumeId) {
@@ -45,7 +45,8 @@ const TrainingForm = () => {
       navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeTraining });
+    postTrainingMutate({ resumeId, resumeTraining });
+    handleDeleteForm();
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -62,11 +63,11 @@ const TrainingForm = () => {
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex
-              gap={'1.25rem'}
-              direction={'column'}
-            >
-              <Flex gap={'2rem'}>
+            <VStack spacing={'1.25rem'}>
+              <Flex
+                gap={'2rem'}
+                alignSelf={'start'}
+              >
                 <FormControl isInvalid={Boolean(errors.organization)}>
                   <FormLabel
                     htmlFor="organization"
@@ -120,7 +121,10 @@ const TrainingForm = () => {
                   />
                 </FormControl>
               </Flex>
-              <Flex gap={'2rem'}>
+              <Flex
+                gap={'2rem'}
+                alignSelf={'start'}
+              >
                 <FormControl
                   w={'fit-content'}
                   isInvalid={Boolean(errors.admissionDate)}
@@ -161,7 +165,10 @@ const TrainingForm = () => {
                   />
                 </FormControl>
               </Flex>
-              <Flex gap={'3rem'}>
+              <Flex
+                gap={'3rem'}
+                alignSelf={'start'}
+              >
                 <FormControl
                   w={'fit-content'}
                   isInvalid={Boolean(errors.gpa)}
@@ -222,7 +229,7 @@ const TrainingForm = () => {
                 proceed={handleDeleteForm}
               />
               <SubmitButtonGroup onCancel={handleCancel} />
-            </Flex>
+            </VStack>
           </form>
         </BorderBox>
       )}
