@@ -34,6 +34,7 @@ const AwardForm = () => {
       return;
     }
     postResumeAward({ resumeId, resumeAward });
+    handleDeleteForm();
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

@@ -36,7 +36,7 @@ const TrainingForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeTraining();
+  const { mutate: postTrainingMutate } = usePostResumeTraining();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
     if (!resumeId) {
@@ -45,7 +45,8 @@ const TrainingForm = () => {
       navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeTraining });
+    postTrainingMutate({ resumeId, resumeTraining });
+    handleDeleteForm();
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

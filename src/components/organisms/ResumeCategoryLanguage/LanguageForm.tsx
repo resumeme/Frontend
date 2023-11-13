@@ -21,7 +21,7 @@ const LanguageForm = () => {
   } = useForm<Language>();
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeLanguage();
+  const { mutate: postLanguageMutate } = usePostResumeLanguage();
   const navigate = useNavigate();
   const onSubmit = (resumeLanguage: Language) => {
     if (!resumeId) {
@@ -30,7 +30,8 @@ const LanguageForm = () => {
       navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeLanguage });
+    postLanguageMutate({ resumeId, resumeLanguage });
+    handleDeleteForm();
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

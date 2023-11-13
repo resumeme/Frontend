@@ -40,7 +40,7 @@ const ActivityForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeActivity();
+  const { mutate: postActivityMutate } = usePostResumeActivity();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
     if (!resumeId) {
@@ -49,7 +49,8 @@ const ActivityForm = () => {
       navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeActivity });
+    postActivityMutate({ resumeId, resumeActivity });
+    handleDeleteForm();
   };
 
   const inProgress = watch('inProgress');

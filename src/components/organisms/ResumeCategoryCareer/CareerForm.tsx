@@ -41,7 +41,7 @@ const CareerForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeCareer();
+  const { mutate: postCareerMutate } = usePostResumeCareer();
   const navigate = useNavigate();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
@@ -52,7 +52,8 @@ const CareerForm = () => {
       return;
     }
     resumeCareer.skills = skills;
-    mutate({ resumeId, resumeCareer });
+    postCareerMutate({ resumeId, resumeCareer });
+    handleDeleteForm();
   });
 
   const defaultDutyData = {

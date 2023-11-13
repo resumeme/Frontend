@@ -41,6 +41,7 @@ const ProjectForm = () => {
     resumeProject.isTeam = Boolean(resumeProject.isTeam);
 
     postResumeProject({ resumeId, resumeProject });
+    handleDeleteForm();
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
