@@ -1,7 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import ImageCard from './ImageCard';
 import UserDetail from './UserDetail';
-import UserNameHeader from './UserNameHeader';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { User } from '~/types/user';
 
@@ -25,7 +24,13 @@ const Profile = ({
 }: ProfileProps) => {
   return (
     <>
-      <UserNameHeader realName={realName} />
+      <Flex
+        fontSize={'1.75rem'}
+        color={'gray.800'}
+      >
+        <Heading fontWeight={700}>{realName}</Heading>
+        <Heading fontWeight={500}>님 안녕하세요.</Heading>
+      </Flex>
       <Heading
         mt={'1.25rem'}
         fontSize={'1.25rem'}
