@@ -1,6 +1,7 @@
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { data } from './ResumeDetail.const';
+import { useParams } from 'react-router-dom';
+import { data as mockData } from './ResumeDetail.const';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
@@ -12,8 +13,26 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import {
+  useGetResumeCareer,
+  useGetResumeTraining,
+  useGetResumeLanguage,
+  useGetResumeProject,
+  useGetResumeActivities,
+  useGetResumeAward,
+} from '~/queries/resume/details';
 
 const ResumeDetailTemplate = () => {
+  const { id: resumeId } = useParams() as { id: string };
+  const { data: careersData } = useGetResumeCareer({ resumeId });
+  const { data: trainingsData } = useGetResumeTraining({ resumeId });
+  const { data: languageData } = useGetResumeLanguage({ resumeId });
+  const { data: projectData } = useGetResumeProject({ resumeId });
+  const { data: activitiesData } = useGetResumeActivities({
+    resumeId,
+  });
+  const { data: awardData } = useGetResumeAward({ resumeId });
+
   return (
     /* 전체 레이아웃 */
     <Flex
@@ -28,7 +47,7 @@ const ResumeDetailTemplate = () => {
           fontWeight={'bold'}
           color={'gray.800'}
         >
-          {data.info.resume.resumeTitle}
+          {mockData.info.resume.resumeTitle}
         </Text>
       </Box>
       {/* NOTE UpperPart 시작 */}
@@ -63,7 +82,7 @@ const ResumeDetailTemplate = () => {
                   fontWeight={'bold'}
                   color={'gray.900'}
                 >
-                  {data.info.userInfo.name}
+                  {mockData.info.userInfo.name}
                 </Text>
                 <Label
                   width={'fit-content'}
@@ -72,14 +91,14 @@ const ResumeDetailTemplate = () => {
                   color={'gray.100'}
                   px={5}
                 >
-                  {data.info.basicInfo.position}
+                  {mockData.info.basicInfo.position}
                 </Label>
                 <Flex
                   gap={4}
                   align={'center'}
                 >
                   <PhoneIcon />
-                  <Text>{data.info.userInfo.phoneNumber}</Text>
+                  <Text>{mockData.info.userInfo.phoneNumber}</Text>
                 </Flex>
               </Flex>
               <Flex
@@ -89,7 +108,7 @@ const ResumeDetailTemplate = () => {
                 width={'100%'}
               >
                 {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                {data.info?.referenceLinks.map((link, i) => (
+                {mockData.info?.referenceLinks.map((link, i) => (
                   <ReferenceLinkBox
                     key={i}
                     type="github"
@@ -125,7 +144,7 @@ const ResumeDetailTemplate = () => {
                   justify={'flex-end'}
                   flexWrap={'wrap'}
                 >
-                  {data.info.basicInfo.skills?.map((skill, i) => (
+                  {mockData.info.basicInfo.skills?.map((skill, i) => (
                     <Label
                       key={i}
                       bg={'gray.300'}
@@ -148,7 +167,7 @@ const ResumeDetailTemplate = () => {
               fontSize={'sm'}
               fontWeight={'medium'}
             >
-              <Text>{data.info.basicInfo.introduce}</Text>
+              <Text>{mockData.info.basicInfo.introduce}</Text>
             </BorderBox>
           </Flex>
           {/* NOTE LowerPart - 하단부 UI */}
@@ -161,108 +180,120 @@ const ResumeDetailTemplate = () => {
               direction={'column'}
               gap={'4rem'}
             >
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  업무경험
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <CareerDetails data={data.career} />
-                </BorderBox>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  프로젝트
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <ProjectDetails data={data.project} />
-                </BorderBox>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  교육
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  p={7}
-                  gap={10}
-                >
-                  <TrainingDetails data={data.training} />
-                </BorderBox>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  수상 및 자격
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  p={7}
-                  gap={10}
-                >
-                  <AwardDetails data={data.award} />
-                </BorderBox>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  활동
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <ActivityDetails data={data.activity} />
-                </BorderBox>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  외국어
-                </Text>
-                <BorderBox
-                  w={'100%'}
-                  px={7}
-                  py={10}
-                >
-                  <LanguageDetails data={data.language} />
-                </BorderBox>
-              </Box>
+              {careersData && careersData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    업무경험
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    px={7}
+                    py={10}
+                  >
+                    <CareerDetails data={careersData} />
+                  </BorderBox>
+                </Box>
+              )}
+              {projectData && projectData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    프로젝트
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    px={7}
+                    py={10}
+                  >
+                    <ProjectDetails data={projectData} />
+                  </BorderBox>
+                </Box>
+              )}
+              {trainingsData && trainingsData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    교육
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    p={7}
+                    gap={10}
+                  >
+                    <TrainingDetails data={trainingsData} />
+                  </BorderBox>
+                </Box>,
+              )}
+              {awardData && awardData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    수상 및 자격
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    p={7}
+                    gap={10}
+                  >
+                    <AwardDetails data={awardData} />
+                  </BorderBox>
+                </Box>
+              )}
+              {activitiesData && activitiesData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    활동
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    px={7}
+                    py={10}
+                  >
+                    <ActivityDetails data={activitiesData} />
+                  </BorderBox>
+                </Box>
+              )}
+              {languageData && languageData.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    외국어
+                  </Text>
+                  <BorderBox
+                    w={'100%'}
+                    px={7}
+                    py={10}
+                  >
+                    <LanguageDetails data={languageData} />
+                  </BorderBox>
+                </Box>
+              )}
             </Flex>
           </Flex>
         </Flex>
