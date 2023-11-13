@@ -21,6 +21,7 @@ import {
   useGetResumeActivities,
   useGetResumeAward,
 } from '~/queries/resume/details';
+import { useGetResumeReferenceLinks } from '~/queries/resume/details/useGetResumeReferenceLinks';
 
 const ResumeDetailTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -32,6 +33,9 @@ const ResumeDetailTemplate = () => {
     resumeId,
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
+  const { data: referenceLinksData } = useGetResumeReferenceLinks({ resumeId});
+
+  console.log('reflinks:', referenceLinksData)
 
   return (
     /* 전체 레이아웃 */
@@ -108,10 +112,10 @@ const ResumeDetailTemplate = () => {
                 width={'100%'}
               >
                 {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                {mockData.info?.referenceLinks.map((link, i) => (
+                {referenceLinksData?.map((link, index) => (
                   <ReferenceLinkBox
-                    key={i}
-                    type="github"
+                    key={index}
+                    type={link.linkType}
                     url={link.url}
                   />
                 ))}
