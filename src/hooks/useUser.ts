@@ -30,8 +30,9 @@ const useUser = () => {
     gcTime: Infinity,
   });
 
-  const initialUser = async (accessToken: string) => {
+  const initialUser = async (accessToken: string, refreshToken: string) => {
     setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, accessToken);
+    setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
     refetch();
   };
 

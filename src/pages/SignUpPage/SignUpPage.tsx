@@ -24,8 +24,9 @@ const SignUpPage = () => {
     const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
     resetCacheKey();
     setStep(nextStep);
-    initialUser(accessToken);
-    setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
+    if (accessToken && refreshToken) {
+      initialUser(accessToken, refreshToken);
+    }
   };
 
   return (
