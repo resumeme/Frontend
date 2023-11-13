@@ -1,4 +1,5 @@
-import { Flex } from '@chakra-ui/react';
+import { Divider, Flex } from '@chakra-ui/react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
@@ -39,6 +40,7 @@ const EditResumeTemplate = () => {
     resumeId,
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
+
   return (
     <Flex
       width="960px"
@@ -49,86 +51,50 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        {careersData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {careersData.map((data: Career, index: number) => (
-              <CareerDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={careersData}
+          DetailsComponent={CareerDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <ProjectForm />
-        {projectData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {projectData.map((data: Project, index: number) => (
-              <ProjectDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={projectData}
+          DetailsComponent={ProjectDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <AwardForm />
-        {awardData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {awardData.map((data: Award, index: number) => (
-              <AwardDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={awardData}
+          DetailsComponent={AwardDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <LanguageForm />
-        {languageData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {languageData.map((data: Language, index: number) => (
-              <LanguageDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={languageData}
+          DetailsComponent={LanguageDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <TrainingForm />
-        {trainingsData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {trainingsData.map((data: Training, index: number) => (
-              <TrainingDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={trainingsData}
+          DetailsComponent={TrainingDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <ActivityForm />
-        {activitiesData?.length > 0 && (
-          <BorderBox variant={'wide'}>
-            {activitiesData.map((data: Activity, index: number) => (
-              <ActivityDetails
-                key={index}
-                data={data}
-              />
-            ))}
-          </BorderBox>
-        )}
+        <CategoryDetails
+          arrayData={activitiesData}
+          DetailsComponent={ActivityDetails}
+        />
       </CategoryContainer>
     </Flex>
   );
@@ -144,5 +110,41 @@ const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </Flex>
+  );
+};
+
+type Data = Career | Project | Award | Language | Training | Activity;
+
+type CategoryDetailsProps<T extends Data> = {
+  arrayData: T[];
+  DetailsComponent: React.ComponentType<ComponentProps<T>>;
+};
+
+type ComponentProps<T extends Data> = {
+  data: T;
+};
+
+const CategoryDetails = <T extends Data>({
+  arrayData,
+  DetailsComponent,
+}: CategoryDetailsProps<T>) => {
+  return (
+    <React.Fragment>
+      {arrayData?.length > 0 && (
+        <BorderBox variant={'wide'}>
+          {arrayData.map((data: T, index: number) => (
+            <React.Fragment key={index}>
+              <DetailsComponent data={data} />
+              {index !== arrayData.length - 1 && (
+                <Divider
+                  my={'3rem'}
+                  borderColor={'gray.300'}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </BorderBox>
+      )}
+    </React.Fragment>
   );
 };
