@@ -11,16 +11,16 @@ const SubmitButtonGroup = ({ onCancel }: SubmitButtonGroupProps) => {
       <HStack>
         <Button
           size={'sm'}
-          type="submit"
-        >
-          저장
-        </Button>
-        <Button
-          size={'sm'}
           variant={'cancel'}
           onClick={onCancel}
         >
           취소
+        </Button>
+        <Button
+          size={'sm'}
+          type="submit"
+        >
+          저장
         </Button>
       </HStack>
     </>

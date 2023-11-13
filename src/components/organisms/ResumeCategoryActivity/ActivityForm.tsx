@@ -1,7 +1,7 @@
-import { VStack, Checkbox, Flex } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -40,16 +40,19 @@ const ActivityForm = () => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeActivity();
-  const navigate = useNavigate();
+  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity();
+  const toast = useToast();
   const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeActivity });
+    postActivityMutate({ resumeId, resumeActivity });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const inProgress = watch('inProgress');
