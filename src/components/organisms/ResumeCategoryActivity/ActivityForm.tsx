@@ -1,4 +1,4 @@
-import { VStack, Checkbox, Flex, Box } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -63,7 +63,10 @@ const ActivityForm = () => {
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="활동"
         onAddItem={() => setShowForm(true)}
@@ -150,7 +153,7 @@ const ActivityForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

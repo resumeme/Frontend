@@ -3,7 +3,7 @@ type Career = {
   position: string;
   skills?: string[];
   duties?: Duty[];
-  isCurrentlyEmployed: boolean;
+  currentlyEmployed: boolean;
   careerStartDate: string;
   endDate?: string;
   careerContent: string;

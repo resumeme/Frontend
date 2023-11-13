@@ -1,13 +1,5 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import {
-  VStack,
-  Text,
-  Divider,
-  Button as ChakraButton,
-  Checkbox,
-  Flex,
-  Box,
-} from '@chakra-ui/react';
+import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
 import React from 'react';
 import {
   Control,
@@ -70,15 +62,18 @@ const CareerForm = () => {
     endDate: '',
   };
 
-  const isCurrentlyEmployed = useWatch({
+  const currentlyEmployed = useWatch({
     control,
-    name: 'isCurrentlyEmployed',
+    name: 'currentlyEmployed',
   });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
   return (
-    <Box>
+    <Flex
+      direction={'column'}
+      gap={'1rem'}
+    >
       <CategoryAddHeader
         categoryTitle="업무경험"
         onAddItem={() => setShowForm(true)}
@@ -104,16 +99,16 @@ const CareerForm = () => {
                 <TermInput
                   startDateName="careerStartDate"
                   endDateName="endDate"
-                  isEndDateDisabled={isCurrentlyEmployed}
+                  isEndDateDisabled={currentlyEmployed}
                   register={register}
                   errors={errors}
                   control={control}
                   isRequired={true}
                 />
                 <Checkbox
-                  id="isCurrentlyEmployed"
+                  id="currentlyEmployed"
                   ml={'1rem'}
-                  {...register('isCurrentlyEmployed', {
+                  {...register('currentlyEmployed', {
                     onChange: (event) => {
                       if (event.target.checked) {
                         setValue('endDate', '');
@@ -185,7 +180,7 @@ const CareerForm = () => {
           </form>
         </BorderBox>
       )}
-    </Box>
+    </Flex>
   );
 };
 

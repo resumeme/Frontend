@@ -1,9 +1,11 @@
 import { Flex } from '@chakra-ui/react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
+import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
@@ -32,6 +34,7 @@ const EditResumeTemplate = () => {
     resumeId,
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
+
   return (
     <Flex
       width="960px"
@@ -42,32 +45,50 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        <CareerDetails data={careersData} />
+        <ResumeCategoryDetails
+          arrayData={careersData}
+          DetailsComponent={CareerDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <ProjectForm />
-        <ProjectDetails data={projectData} />
+        <ResumeCategoryDetails
+          arrayData={projectData}
+          DetailsComponent={ProjectDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <AwardForm />
-        <AwardDetails data={awardData} />
+        <ResumeCategoryDetails
+          arrayData={awardData}
+          DetailsComponent={AwardDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <LanguageForm />
-        <LanguageDetails data={languageData} />
+        <ResumeCategoryDetails
+          arrayData={languageData}
+          DetailsComponent={LanguageDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <TrainingForm />
-        <TrainingDetails data={trainingsData} />
+        <ResumeCategoryDetails
+          arrayData={trainingsData}
+          DetailsComponent={TrainingDetails}
+        />
       </CategoryContainer>
 
       <CategoryContainer>
         <ActivityForm />
-        <ActivityDetails data={activitiesData} />
+        <ResumeCategoryDetails
+          arrayData={activitiesData}
+          DetailsComponent={ActivityDetails}
+        />
       </CategoryContainer>
     </Flex>
   );
