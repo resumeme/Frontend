@@ -3,12 +3,12 @@ import CONSTANTS from '~/constants';
 import { CreateEvent } from '~/types/event';
 import { getCookie } from '~/utils/cookie';
 
-const postCreateEvent = async (data: CreateEvent) => {
+const postCreateEvent = async (data: CreateEvent): Promise<{ id: number }> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
   data.time.now = new Date().toISOString().substring(0, 16);
   data.time.endDate = new Date(data.time.endDate).toISOString().substring(0, 16);
 
-  return await resumeMeAxios.post(
+  const { data: eventId } = await resumeMeAxios.post(
     '/v1/events',
     { ...data },
     {
@@ -17,5 +17,7 @@ const postCreateEvent = async (data: CreateEvent) => {
       },
     },
   );
+
+  return eventId;
 };
 export default postCreateEvent;
