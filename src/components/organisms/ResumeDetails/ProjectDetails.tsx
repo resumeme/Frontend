@@ -7,6 +7,7 @@ import { Project } from '~/types/project';
 
 const ProjectDetails = ({
   data: { projectName, productionYear, teamMembers, skills, projectContent, projectUrl, isTeam },
+  onEdit,
 }: DetailsComponentProps<Project>) => {
   /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
   const isCurrentUser = true;
@@ -112,7 +113,7 @@ const ProjectDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
+          onEdit={onEdit}
           onDelete={() => {}}
         />
       )}

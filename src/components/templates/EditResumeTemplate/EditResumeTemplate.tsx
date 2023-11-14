@@ -48,6 +48,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={careersData}
           DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
         />
       </CategoryContainer>
 
@@ -56,6 +57,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
+          FormComponent={ProjectForm}
         />
       </CategoryContainer>
 
@@ -64,6 +66,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={awardData}
           DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
         />
       </CategoryContainer>
 
@@ -72,6 +75,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={languageData}
           DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
         />
       </CategoryContainer>
 
@@ -80,6 +84,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={trainingsData}
           DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
         />
       </CategoryContainer>
 
@@ -88,6 +93,7 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
+          FormComponent={ActivityForm}
         />
       </CategoryContainer>
     </Flex>

@@ -1,5 +1,5 @@
 import { Box, Divider } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Activity } from '~/types/activity';
 import { Award } from '~/types/award';
@@ -13,25 +13,36 @@ type Data = Career | Project | Award | Language | Training | Activity;
 type CategoryDetailsProps<T extends Data> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
+  FormComponent: React.ComponentType;
 };
 
 export type DetailsComponentProps<T extends Data> = {
   data: T;
+  onEdit: () => void;
 };
 
 const ResumeCategoryDetails = <T extends Data>({
   arrayData,
   DetailsComponent,
+  FormComponent,
 }: CategoryDetailsProps<T>) => {
+  const [isEdit, setIsEdit] = useState(false);
   return (
     <React.Fragment>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
-              <Box position={'relative'}>
-                <DetailsComponent data={data} />
-              </Box>
+              {isEdit ? (
+                <FormComponent />
+              ) : (
+                <Box position={'relative'}>
+                  <DetailsComponent
+                    data={data}
+                    onEdit={() => setIsEdit(true)}
+                  />
+                </Box>
+              )}
               {index !== arrayData.length - 1 && (
                 <Divider
                   my={'3rem'}
