@@ -2,7 +2,7 @@ import { Flex, Text, Heading, Icon, Link } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
 import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
-import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Award } from '~/types/award';
 
 const AwardDetails = ({
@@ -68,7 +68,12 @@ const AwardDetails = ({
           )}
         </Flex>
       </Flex>
-      {isCurrentUser && <OptionsButton />}
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };
