@@ -1,7 +1,7 @@
-import { Spinner } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Spinner } from '~/components/atoms/Spinner';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostOAuthSignIn } from '~/queries/usePostOAuthSignIn';
@@ -61,13 +61,7 @@ const OAuthRedirectPage = () => {
     );
   }, []);
 
-  return (
-    <Spinner
-      color="primary.900"
-      thickness="4px"
-      size={'xl'}
-    />
-  );
+  return <Spinner />;
 };
 
 export default OAuthRedirectPage;
