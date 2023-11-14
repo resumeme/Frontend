@@ -38,7 +38,6 @@ const CreateEventTemplate = () => {
   return (
     <>
       <Text
-        mt={'3rem'}
         fontSize={'2xl'}
         fontWeight={600}
         color={'gray.900'}
@@ -46,7 +45,10 @@ const CreateEventTemplate = () => {
         첨삭 이벤트 생성
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <BorderBox>
+        <BorderBox
+          mt={'2rem'}
+          p={'1.88rem 2rem'}
+        >
           <Flex
             direction={'column'}
             gap={'1.25rem'}
