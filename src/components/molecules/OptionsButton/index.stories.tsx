@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import { OptionsButton } from '.';
+import { OptionsButton, EditDeleteOptionsButton } from '.';
 
 const meta = {
   title: 'Resumeme/Components/OptionsButton',
@@ -9,9 +9,9 @@ const meta = {
 
 export default meta;
 
-export const Default = () => {
+export const EditDelete = () => {
   return (
-    <OptionsButton
+    <EditDeleteOptionsButton
       onDelete={() => alert('deleted')}
       onEdit={() => alert('edited')}
     />
