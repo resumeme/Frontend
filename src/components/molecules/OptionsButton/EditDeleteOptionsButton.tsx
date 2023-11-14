@@ -10,7 +10,7 @@ const EditDeleteOptionsButton = ({
 }) => {
   const options: Option[] = [
     { text: '수정하기', onClick: onEdit },
-    { text: '수정하기', onClick: onDelete },
+    { text: '삭제하기', onClick: onDelete },
   ];
   return <OptionsButton options={options} />;
 };
