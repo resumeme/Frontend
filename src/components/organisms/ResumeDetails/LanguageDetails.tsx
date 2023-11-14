@@ -1,7 +1,7 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
 import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
-import { EditDeleteButtons } from '~/components/molecules/EditDeleteButtons';
+import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Language } from '~/types/language';
 
 /* TODO  
@@ -54,7 +54,7 @@ const LanguageDetails = ({
           <Text fontWeight={'regular'}>{scoreOrGrade}</Text>
         </Flex>
       </Flex>
-      {isCurrentUser && <EditDeleteButtons />}
+      {isCurrentUser && <OptionsButton />}
     </Flex>
   );
 };
