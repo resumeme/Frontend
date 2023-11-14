@@ -10,15 +10,13 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
-
 import { TermInput } from '~/components/molecules/TermInput';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { Activity } from '~/types/activity';
 
 const ActivityForm = () => {
-  const URL_PATTERN = /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/;
-
   const {
     setValue,
     control,
@@ -120,11 +118,11 @@ const ActivityForm = () => {
                 <FormLabel>링크</FormLabel>
                 <FormTextInput
                   id="link"
-                  placeholder="https://"
+                  placeholder="URL 입력"
                   register={{
                     ...register('link', {
                       pattern: {
-                        value: URL_PATTERN,
+                        value: CONSTANTS.URL_PATTERN,
                         message: '올바른 URL 형식이 아닙니다',
                       },
                     }),
