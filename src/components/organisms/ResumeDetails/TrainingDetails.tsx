@@ -1,7 +1,7 @@
 import { Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
-import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Training } from '~/types/training';
 
 const TraningDetails = ({
@@ -111,7 +111,12 @@ const TraningDetails = ({
           )}
         </Flex>
       </Flex>
-      {isCurrentUser && <OptionsButton />}
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };

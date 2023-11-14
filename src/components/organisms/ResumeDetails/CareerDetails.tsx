@@ -1,7 +1,7 @@
 import { Box, Text, Flex, Heading } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '~/components/atoms/Label';
-import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { DetailsComponentProps } from '~/components/organisms/ResumeCategoryDetails/ResumeCategoryDetails';
 import Career from '~/types/career';
 
@@ -125,7 +125,12 @@ const CareerDetails = ({
           </Box>
         ))}
       </Flex>
-      {isCurrentUser && <OptionsButton />}
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };
