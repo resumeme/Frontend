@@ -26,14 +26,7 @@ const CreateEventTemplate = () => {
 
   const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     createEvent(values);
-    // return new Promise(() => {
-    //   setTimeout(() => {
-    //     alert(JSON.stringify(values, null, 2));
-    //   }, 3000);
-    // });
   };
-
-  //목업 데이터 생성
 
   return (
     <>
