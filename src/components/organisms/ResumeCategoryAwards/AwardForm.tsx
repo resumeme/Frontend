@@ -116,7 +116,6 @@ const AwardForm = () => {
                   id="link"
                   register={{
                     ...register('link', {
-                      required: 'URL을 입력하세요',
                       pattern: {
                         value: CONSTANTS.URL_PATTERN,
                         message: '올바른 URL 형식이 아닙니다',
