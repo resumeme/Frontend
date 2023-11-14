@@ -1,7 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { EventResume, EventTime } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
 

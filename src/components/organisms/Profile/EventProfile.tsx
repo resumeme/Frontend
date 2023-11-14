@@ -1,5 +1,4 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
-import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EventItem from './EventItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
