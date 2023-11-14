@@ -1,8 +1,25 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { BorderBox } from '~/components/atoms/BorderBox';
+import { EventResume, EventTime } from '~/types/event';
+import { formatDate } from '~/utils/formatDate';
 
-const EventItem = () => {
+type EventItemProps = {
+  title: string;
+  maximumCount: number;
+  currentApplicantCount: number;
+  timeInfo: Omit<EventTime, 'now'>;
+  resumes: EventResume[];
+};
+
+const EventItem = ({
+  currentApplicantCount,
+  maximumCount,
+  resumes,
+  timeInfo,
+  title,
+}: EventItemProps) => {
   return (
     <BorderBox
       borderTop={0}
@@ -20,16 +37,16 @@ const EventItem = () => {
           fontWeight={600}
           color={'gray.800'}
         >
-          이벤트 제목
+          {title}
         </Text>
         <Flex direction={'column'}>
           <Flex gap={'1.5rem'}>
             <Text>첨삭 종료일</Text>
-            <Text>2023.12.25</Text>
+            <Text>{formatDate(timeInfo.endDate)}</Text>
           </Flex>
           <Flex justifyContent={'space-between'}>
             <Text>신청 인원</Text>
-            <Text>3 / 5</Text>
+            <Text>{`${currentApplicantCount} / ${maximumCount}`}</Text>
           </Flex>
         </Flex>
       </Flex>
@@ -40,9 +57,10 @@ const EventItem = () => {
         justifyContent={'space-between'}
       >
         <AccordionToggle text="신청이력서 3건">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum itaque veniam, ratione
-          illo eveniet maxime odio voluptates blanditiis culpa fugiat molestiae aliquid suscipit
-          explicabo hic tempore ipsa doloremque ab cupiditate!
+          {/* //TODO: 다른 이력서 정보로 진행 */}
+          {resumes.map((resume) => (
+            <Text key={uuidv4()}>{resume.resumeId}</Text>
+          ))}
         </AccordionToggle>
       </Flex>
     </BorderBox>
