@@ -9,12 +9,14 @@ type CategoryDetailsProps<T extends Categories> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   FormComponent: React.ComponentType<FormComponentProps<T>>;
+  isCurrentUser?: boolean;
 };
 
 const ResumeCategoryDetails = <T extends Categories>({
   arrayData,
   DetailsComponent,
   FormComponent,
+  isCurrentUser = false,
 }: CategoryDetailsProps<T>) => {
   const [isEdit, setIsEdit] = useState(false);
   return (
@@ -30,6 +32,7 @@ const ResumeCategoryDetails = <T extends Categories>({
                   <DetailsComponent
                     data={data}
                     onEdit={() => setIsEdit(true)}
+                    isCurrentUser={isCurrentUser}
                   />
                 </Box>
               )}
