@@ -2,8 +2,8 @@ import { Box, Text, Flex, Heading } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
-import { DetailsComponentProps } from '~/components/organisms/ResumeCategoryDetails/ResumeCategoryDetails';
 import Career from '~/types/career';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const CareerDetails = ({
   data: {

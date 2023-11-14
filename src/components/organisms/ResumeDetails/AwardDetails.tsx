@@ -1,9 +1,9 @@
 import { Flex, Text, Heading, Icon, Link } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Award } from '~/types/award';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const AwardDetails = ({
   data: { certificationTitle, acquisitionDate, issuingAuthority, link, description },

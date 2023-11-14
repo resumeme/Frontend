@@ -1,8 +1,8 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Language } from '~/types/language';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 /* TODO  
   기본으로 언어 카테고리 제시하기 (영어, 일본어, 중국어, 기타(입력받기))

@@ -1,7 +1,7 @@
 import { Divider, Flex, Heading, Text } from '@chakra-ui/react';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { Training } from '~/types/training';
 
 const TraningDetails = ({
