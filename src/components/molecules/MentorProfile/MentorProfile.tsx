@@ -36,6 +36,7 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
         </Heading>
       </Flex>
       <Flex
+        w={'100%'}
         minH={'12.44rem'}
         direction={'column'}
         justifyContent={'space-between'}
