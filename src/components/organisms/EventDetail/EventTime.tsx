@@ -48,7 +48,7 @@ const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
           as="span"
           color={'gray.900'}
         >
-          {replaceDate(endDate)}
+          {formatDate(endDate)}
         </Text>
       </HStack>
     </BorderBox>
