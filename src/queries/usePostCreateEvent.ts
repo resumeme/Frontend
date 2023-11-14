@@ -1,7 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import postCreateEvent from '~/api/event/postCreateEvent';
-// import { resumeMeAxios } from '~/api/axios';
 
 export const usePostCreateEvent = () => {
-  return useMutation({ mutationFn: postCreateEvent });
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: postCreateEvent,
+    onSuccess: ({ id }) => {
+      navigate(`/event/view/${id}`, { replace: true });
+    },
+  });
 };
