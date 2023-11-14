@@ -12,40 +12,49 @@ type EventProfile = {
 const EventProfile = ({ events }: EventProfile) => {
   return (
     <>
-      {events.map(({ info: { currentApplicantCount, maximumCount, timeInfo, title }, resumes }) => (
-        <React.Fragment key={uuidv4()}>
-          <Heading
-            fontSize={'1.25rem'}
+      <Heading
+        mt={'2.5rem'}
+        fontSize={'1.25rem'}
+        color={'gray.700'}
+        fontWeight={700}
+      >
+        진행중인 이벤트
+      </Heading>
+      <Flex
+        mt={'1.25rem'}
+        direction={'column'}
+      >
+        <BorderBox
+          borderBottomRadius={0}
+          p={'1.88rem 1.69rem'}
+        >
+          <Text
+            fontSize={'0.85rem'}
             color={'gray.700'}
-            fontWeight={700}
           >
-            진행중인 이벤트
-          </Heading>
-          <Flex
-            mt={'2.31rem'}
-            direction={'column'}
-          >
+            {`총 ${events.length}건`}
+          </Text>
+        </BorderBox>
+        {events.map(
+          ({ info: { currentApplicantCount, maximumCount, timeInfo, title }, resumes }, index) => (
             <BorderBox
-              borderBottomRadius={0}
-              p={'1.88rem 1.69rem'}
+              key={uuidv4()}
+              borderTop={0}
+              borderTopRadius={0}
+              borderRadius={index !== events.length - 1 ? 0 : undefined}
+              p={'2.75rem 1.69rem'}
             >
-              <Text
-                fontSize={'0.85rem'}
-                color={'gray.700'}
-              >
-                {`총 ${events.length}건`}
-              </Text>
+              <EventItem
+                currentApplicantCount={currentApplicantCount}
+                maximumCount={maximumCount}
+                resumes={resumes}
+                timeInfo={timeInfo}
+                title={title}
+              />
             </BorderBox>
-            <EventItem
-              currentApplicantCount={currentApplicantCount}
-              maximumCount={maximumCount}
-              resumes={resumes}
-              timeInfo={timeInfo}
-              title={title}
-            />
-          </Flex>
-        </React.Fragment>
-      ))}
+          ),
+        )}
+      </Flex>
     </>
   );
 };

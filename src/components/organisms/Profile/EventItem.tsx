@@ -21,11 +21,7 @@ const EventItem = ({
   title,
 }: EventItemProps) => {
   return (
-    <BorderBox
-      borderTop={0}
-      borderRadius={0}
-      p={'2.75rem 1.69rem'}
-    >
+    <>
       <Flex
         alignItems={'end'}
         fontSize={'0.875rem'}
@@ -63,7 +59,7 @@ const EventItem = ({
           ))}
         </AccordionToggle>
       </Flex>
-    </BorderBox>
+    </>
   );
 };
 
