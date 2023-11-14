@@ -13,7 +13,7 @@ const MyPage = () => {
       mx={'auto'}
     >
       {user && <Profile user={user} />}
-      <EventProfile />
+      {user?.role === 'mentor' && <EventProfile />}
     </Box>
   );
 };
