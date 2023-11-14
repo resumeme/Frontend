@@ -43,6 +43,7 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
       >
         <BorderBox>
           <Text
+            textAlign={'center'}
             noOfLines={6}
             overflow={'hidden'}
             color={'gray.700'}
