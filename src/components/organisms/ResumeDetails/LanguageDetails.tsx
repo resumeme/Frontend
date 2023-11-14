@@ -1,4 +1,5 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { Language } from '~/types/language';
 
@@ -8,7 +9,9 @@ import { Language } from '~/types/language';
   언어 카테고리별 색상 테마를 상수로 적용해서 각 라벨의 색상 지정해주기?
 */
 
-const LanguageDetails = ({ data: { language, examName, scoreOrGrade } }: { data: Language }) => {
+const LanguageDetails = ({
+  data: { language, examName, scoreOrGrade },
+}: DetailsComponentProps<Language>) => {
   return (
     <Flex>
       <Flex flex={1}>

@@ -1,13 +1,12 @@
 import { Flex, Text, Heading, Link, Icon } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { Activity } from '~/types/activity';
 
 const ActivityDetails = ({
   data: { activityName, startDate, endDate, inProgress, link, description },
-}: {
-  data: Activity;
-}) => {
+}: DetailsComponentProps<Activity>) => {
   return (
     <Flex>
       <Flex flex={1}>
