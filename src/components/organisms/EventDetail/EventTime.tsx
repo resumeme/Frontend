@@ -1,5 +1,6 @@
 import { Divider, HStack, Text } from '@chakra-ui/react';
 import { BorderBox } from '~/components/atoms/BorderBox';
+import { formatDate } from '~/utils/formatDate';
 
 type EventTime = {
   openDateTime: string;
@@ -8,10 +9,6 @@ type EventTime = {
 };
 
 const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
-  const replaceDate = (date: string) => {
-    return date.slice(0, 10).replace(/-/g, '.');
-  };
-
   return (
     <BorderBox
       borderRadius={'0.375rem'}
@@ -31,7 +28,7 @@ const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
           w={'42%'}
           as="span"
           color={'gray.900'}
-        >{`${replaceDate(openDateTime)} ~ ${replaceDate(closeDateTime)}`}</Text>
+        >{`${formatDate(openDateTime)} ~ ${formatDate(closeDateTime)}`}</Text>
         <Divider
           orientation="vertical"
           w={'0.625rem'}
