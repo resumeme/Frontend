@@ -15,8 +15,9 @@ import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { Activity } from '~/types/activity';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ActivityForm = () => {
+const ActivityForm = ({ defaultValues }: FormComponentProps<Activity>) => {
   const {
     setValue,
     control,
@@ -25,17 +26,7 @@ const ActivityForm = () => {
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Activity>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   activityName: '활동1',
-    //   startDate: '2023-11-05',
-    //   endDate: '2023-11-10',
-    //   inProgress: false,
-    //   link: 'https://resumeme.kro.kr',
-    //   description: '활동 설명',
-    // },
-  });
+  } = useForm<Activity>({ defaultValues });
 
   const { id: resumeId } = useParams();
   const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity();

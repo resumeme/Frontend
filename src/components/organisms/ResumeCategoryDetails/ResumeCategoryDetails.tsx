@@ -2,12 +2,13 @@ import { Box, Divider } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Categories } from '~/types/resume/categories';
 
 type CategoryDetailsProps<T extends Categories> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
-  FormComponent: React.ComponentType;
+  FormComponent: React.ComponentType<FormComponentProps<T>>;
 };
 
 const ResumeCategoryDetails = <T extends Categories>({
@@ -23,7 +24,7 @@ const ResumeCategoryDetails = <T extends Categories>({
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
               {isEdit ? (
-                <FormComponent />
+                <FormComponent defaultValues={data} />
               ) : (
                 <Box position={'relative'}>
                   <DetailsComponent

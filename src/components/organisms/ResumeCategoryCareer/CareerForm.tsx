@@ -32,8 +32,9 @@ import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import Career from '~/types/career';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const CareerForm = () => {
+const CareerForm = ({ defaultValues }: FormComponentProps<Career>) => {
   const {
     control,
     register,
@@ -41,7 +42,7 @@ const CareerForm = () => {
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Career>();
+  } = useForm<Career>({ defaultValues });
 
   const { fields, append, remove } = useFieldArray({
     control,

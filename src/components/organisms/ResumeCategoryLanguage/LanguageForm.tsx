@@ -11,14 +11,15 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
 import { Language } from '~/types/language';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const LanguageForm = () => {
+const LanguageForm = ({ defaultValues }: FormComponentProps<Language>) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Language>();
+  } = useForm<Language>({ defaultValues });
 
   const { id: resumeId } = useParams();
   const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage();

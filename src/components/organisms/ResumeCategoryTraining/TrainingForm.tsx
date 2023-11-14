@@ -12,28 +12,17 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
-const TrainingForm = () => {
+const TrainingForm = ({ defaultValues }: FormComponentProps<Training>) => {
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Training>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   organization: '데브대',
-    //   major: '컴퓨터공학과',
-    //   degree: '학사 학위',
-    //   admissionDate: '2018-03-01',
-    //   graduationDate: '2022-02-28',
-    //   gpa: 4.0,
-    //   maxGpa: 4.5,
-    //   explanation: '성적 우수',
-    // },
-  });
+  } = useForm<Training>({ defaultValues });
 
   const { id: resumeId } = useParams();
   const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();

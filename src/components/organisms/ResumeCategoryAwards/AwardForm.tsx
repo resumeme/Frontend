@@ -14,8 +14,9 @@ import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const AwardForm = () => {
+const AwardForm = ({ defaultValues }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams();
   const { mutate: postResumeAward, isSuccess } = usePostResumeAward();
   const toast = useToast();
@@ -25,7 +26,7 @@ const AwardForm = () => {
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Award>();
+  } = useForm<Award>({ defaultValues });
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
     if (!resumeId) {

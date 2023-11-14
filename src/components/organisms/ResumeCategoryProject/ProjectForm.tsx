@@ -15,8 +15,9 @@ import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
 import { Project } from '~/types/project';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ProjectForm = () => {
+const ProjectForm = ({ defaultValues }: FormComponentProps<Project>) => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
@@ -30,9 +31,7 @@ const ProjectForm = () => {
     formState: { errors, isDirty },
     reset,
   } = useForm<Project>({
-    defaultValues: {
-      isTeam: true,
-    },
+    defaultValues: defaultValues ?? { isTeam: true },
   });
 
   const onSubmit: SubmitHandler<Project> = (resumeProject) => {
