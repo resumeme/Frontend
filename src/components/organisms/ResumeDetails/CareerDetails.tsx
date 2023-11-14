@@ -1,6 +1,7 @@
 import { Box, Text, Flex, Heading } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '~/components/atoms/Label';
+import { DetailsComponentProps } from '~/components/organisms/ResumeCategoryDetails/ResumeCategoryDetails';
 import Career from '~/types/career';
 
 const CareerDetails = ({
@@ -14,9 +15,7 @@ const CareerDetails = ({
     careerContent,
     currentlyEmployed,
   },
-}: {
-  data: Career;
-}) => {
+}: DetailsComponentProps<Career>) => {
   return (
     <Flex>
       <Flex flex={1}>

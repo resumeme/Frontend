@@ -1,13 +1,12 @@
 import { Flex, Heading, Icon, Link, Text } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { Project } from '~/types/project';
 
 const ProjectDetails = ({
   data: { projectName, productionYear, teamMembers, skills, projectContent, projectUrl, isTeam },
-}: {
-  data: Project;
-}) => {
+}: DetailsComponentProps<Project>) => {
   return (
     <Flex>
       <Flex flex={1}>

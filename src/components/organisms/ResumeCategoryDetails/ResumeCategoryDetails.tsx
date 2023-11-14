@@ -12,10 +12,10 @@ type Data = Career | Project | Award | Language | Training | Activity;
 
 type CategoryDetailsProps<T extends Data> = {
   arrayData: T[];
-  DetailsComponent: React.ComponentType<ComponentProps<T>>;
+  DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
 };
 
-type ComponentProps<T extends Data> = {
+export type DetailsComponentProps<T extends Data> = {
   data: T;
 };
 

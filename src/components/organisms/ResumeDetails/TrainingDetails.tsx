@@ -1,12 +1,11 @@
 import { Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { Training } from '~/types/training';
 
 const TraningDetails = ({
   data: { organization, major, degree, admissionDate, graduationDate, gpa, maxGpa, explanation },
-}: {
-  data: Training;
-}) => {
+}: DetailsComponentProps<Training>) => {
   return (
     <Flex>
       <Flex flex={1}>
