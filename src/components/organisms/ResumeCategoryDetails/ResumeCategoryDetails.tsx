@@ -1,4 +1,4 @@
-import { Divider } from '@chakra-ui/react';
+import { Box, Divider } from '@chakra-ui/react';
 import React from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Activity } from '~/types/activity';
@@ -29,7 +29,9 @@ const ResumeCategoryDetails = <T extends Data>({
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
-              <DetailsComponent data={data} />
+              <Box position={'relative'}>
+                <DetailsComponent data={data} />
+              </Box>
               {index !== arrayData.length - 1 && (
                 <Divider
                   my={'3rem'}

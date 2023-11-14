@@ -3,11 +3,16 @@ import { HStack, IconButton } from '@chakra-ui/react';
 
 const EditDeleteButtons = () => {
   return (
-    <HStack>
+    <HStack
+      position={'absolute'}
+      right={0}
+      bottom={0}
+      spacing={0}
+    >
       <IconButton
         icon={<EditIcon />}
         color={'primary.900'}
-        w={'auto'}
+        w={'1rem'}
         aria-label="edit button"
       />
       <IconButton

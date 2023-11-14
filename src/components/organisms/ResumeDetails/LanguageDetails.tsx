@@ -1,6 +1,7 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
 import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
+import { EditDeleteButtons } from '~/components/molecules/EditDeleteButtons';
 import { Language } from '~/types/language';
 
 /* TODO  
@@ -12,6 +13,8 @@ import { Language } from '~/types/language';
 const LanguageDetails = ({
   data: { language, examName, scoreOrGrade },
 }: DetailsComponentProps<Language>) => {
+  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
+  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -51,6 +54,7 @@ const LanguageDetails = ({
           <Text fontWeight={'regular'}>{scoreOrGrade}</Text>
         </Flex>
       </Flex>
+      {isCurrentUser && <EditDeleteButtons />}
     </Flex>
   );
 };
