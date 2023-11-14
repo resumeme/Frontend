@@ -13,13 +13,13 @@ import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
 import { CreateEvent } from '~/types/event';
 
 const CreateEventTemplate = () => {
-  const { mutate: createEvent } = usePostCreateEvent();
+  const { mutate: createEvent, isPending } = usePostCreateEvent();
 
   const {
     control,
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<CreateEvent>();
 
   const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
@@ -153,14 +153,14 @@ const CreateEventTemplate = () => {
         >
           <Button
             size={'md'}
-            isLoading={isSubmitting}
+            isLoading={isPending}
             type="button"
           >
             미리보기
           </Button>
           <Button
             size={'md'}
-            isLoading={isSubmitting}
+            isLoading={isPending}
             type="submit"
           >
             등록하기
