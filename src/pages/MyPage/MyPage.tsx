@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Profile } from '~/components/organisms/Profile';
+import EventProfile from '~/components/organisms/Profile/EventProfile';
 import useUser from '~/hooks/useUser';
 
 const MyPage = () => {
@@ -12,6 +13,7 @@ const MyPage = () => {
       mx={'auto'}
     >
       {user && <Profile user={user} />}
+      <EventProfile />
     </Box>
   );
 };
