@@ -13,12 +13,6 @@ const getUser = async (): Promise<User | null> => {
 
   const { data } = await resumeMeAxios.get('/v1/user');
 
-  if (!data) {
-    deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
-
-    return null;
-  }
-
   return data;
 };
 
