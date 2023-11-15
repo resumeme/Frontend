@@ -2,7 +2,7 @@ const formatDate = (date: string) => {
   return date.slice(0, 10).replace(/-/g, '. ');
 };
 
-const formatKoreanDateWithMinutes = (date: string) => {
+const formatKoreanDateWithoutSeconds = (date: string) => {
   const [datePart, timePart] = date.split(' ');
   const [year, month, day] = datePart.split('-');
   const [hour, minute] = timePart.split(':');
@@ -30,4 +30,4 @@ const formatKoreanDate = (date: string) => {
   return `${formattedDate} ${formattedTime}`;
 };
 
-export { formatDate, formatKoreanDate, formatKoreanDateWithMinutes };
+export { formatDate, formatKoreanDate, formatKoreanDateWithoutSeconds };
