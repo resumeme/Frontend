@@ -1,6 +1,9 @@
 import { Flex, VStack, useToast } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeAward } from '~/api/resume/edit/patchResumeAward';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -16,9 +19,17 @@ import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const AwardForm = ({ defaultValues }: FormComponentProps<Award>) => {
+const AwardForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams();
-  const { mutate: postResumeAward, isSuccess } = usePostResumeAward();
+  const { mutate: postResumeAwardMutate, isSuccess: isPostSuccess } = usePostResumeAward();
+  const { mutate: patchResumeAwardMutate, isSuccess: isPatchSuccess } = useMutation({
+    mutationFn: patchResumeAward,
+  });
   const toast = useToast();
 
   const {
@@ -28,12 +39,16 @@ const AwardForm = ({ defaultValues }: FormComponentProps<Award>) => {
     reset,
   } = useForm<Award>({ defaultValues });
 
-  const onSubmit: SubmitHandler<Award> = (resumeAward) => {
+  const onSubmit: SubmitHandler<Award> = (body) => {
     if (!resumeId) {
       return;
     }
-    postResumeAward({ resumeId, resumeAward });
-    if (isSuccess) {
+    if (!isEdit) {
+      postResumeAwardMutate({ resumeId, resumeAward: body });
+    } else if (isEdit && blockId) {
+      patchResumeAwardMutate({ resumeId, blockId, body });
+    }
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
@@ -43,15 +58,24 @@ const AwardForm = ({ defaultValues }: FormComponentProps<Award>) => {
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="수상 및 자격증"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="수상 및 자격증"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -149,9 +173,17 @@ const AwardForm = ({ defaultValues }: FormComponentProps<Award>) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

@@ -30,6 +30,7 @@ const ResumeCategoryDetails = <T extends Categories>({
                   defaultValues={{ ...data, id: undefined }}
                   isEdit
                   blockId={data.id}
+                  quitEdit={() => setEditTargetIndex(null)}
                 />
               ) : (
                 <Box position={'relative'}>

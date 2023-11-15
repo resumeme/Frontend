@@ -4,4 +4,5 @@ export type FormComponentProps<T extends Categories> = {
   defaultValues?: T;
   isEdit?: boolean;
   blockId?: string;
+  quitEdit?: () => void;
 };

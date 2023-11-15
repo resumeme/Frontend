@@ -1,6 +1,9 @@
 import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeProject } from '~/api/resume/edit/patchResumeProject';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -17,11 +20,19 @@ import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProje
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ProjectForm = ({ defaultValues }: FormComponentProps<Project>) => {
+const ProjectForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Project>) => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const { id: resumeId } = useParams();
-  const { mutate: postResumeProject, isSuccess } = usePostResumeProject();
+  const { mutate: postResumeProjectMutate, isSuccess: isPostSuccess } = usePostResumeProject();
+  const { mutate: patchResumeProjectMutate, isSuccess: isPatchSuccess } = useMutation({
+    mutationFn: patchResumeProject,
+  });
   const toast = useToast();
 
   const {
@@ -34,15 +45,18 @@ const ProjectForm = ({ defaultValues }: FormComponentProps<Project>) => {
     defaultValues: defaultValues ?? { isTeam: true },
   });
 
-  const onSubmit: SubmitHandler<Project> = (resumeProject) => {
+  const onSubmit: SubmitHandler<Project> = (body) => {
     if (!resumeId) {
       return;
     }
-    resumeProject.skills = skills;
-    resumeProject.isTeam = Boolean(resumeProject.isTeam);
-
-    postResumeProject({ resumeId, resumeProject });
-    if (isSuccess) {
+    body.skills = skills;
+    body.isTeam = Boolean(body.isTeam);
+    if (!isEdit) {
+      postResumeProjectMutate({ resumeId, resumeProject: body });
+    } else if (isEdit && blockId) {
+      patchResumeProjectMutate({ resumeId, blockId, body });
+    }
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
@@ -52,15 +66,24 @@ const ProjectForm = ({ defaultValues }: FormComponentProps<Project>) => {
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="프로젝트"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="프로젝트"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -205,9 +228,17 @@ const ProjectForm = ({ defaultValues }: FormComponentProps<Project>) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

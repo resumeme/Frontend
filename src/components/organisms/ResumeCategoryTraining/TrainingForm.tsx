@@ -1,6 +1,8 @@
 import { Flex, VStack, useToast } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeTraining } from '~/api/resume/edit/patchResumeTraining';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -15,7 +17,12 @@ import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTrai
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
-const TrainingForm = ({ defaultValues }: FormComponentProps<Training>) => {
+const TrainingForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Training>) => {
   const {
     watch,
     register,
@@ -26,13 +33,21 @@ const TrainingForm = ({ defaultValues }: FormComponentProps<Training>) => {
 
   const { id: resumeId } = useParams();
   const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();
+  const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = useMutation({
+    mutationFn: patchResumeTraining,
+  });
+
   const toast = useToast();
-  const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
+  const onSubmit: SubmitHandler<Training> = (body) => {
     if (!resumeId) {
       return;
     }
-    postTrainingMutate({ resumeId, resumeTraining });
-    if (isSuccess) {
+    if (!isEdit) {
+      postTrainingMutate({ resumeId, resumeTraining: body });
+    } else if (isEdit && blockId) {
+      patchTrainingMutate({ resumeId, blockId, body });
+    }
+    if (isSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
@@ -47,10 +62,12 @@ const TrainingForm = ({ defaultValues }: FormComponentProps<Training>) => {
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="교육"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="교육"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -217,9 +234,17 @@ const TrainingForm = ({ defaultValues }: FormComponentProps<Training>) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

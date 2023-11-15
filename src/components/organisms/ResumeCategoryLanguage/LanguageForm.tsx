@@ -1,6 +1,9 @@
 import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeLanguage } from '~/api/resume/edit/patchResumeLanguage';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -13,7 +16,12 @@ import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLang
 import { Language } from '~/types/language';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const LanguageForm = ({ defaultValues }: FormComponentProps<Language>) => {
+const LanguageForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Language>) => {
   const {
     register,
     handleSubmit,
@@ -23,13 +31,20 @@ const LanguageForm = ({ defaultValues }: FormComponentProps<Language>) => {
 
   const { id: resumeId } = useParams();
   const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage();
+  const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = useMutation({
+    mutationFn: patchResumeLanguage,
+  });
   const toast = useToast();
-  const onSubmit = (resumeLanguage: Language) => {
+  const onSubmit: SubmitHandler<Language> = (body) => {
     if (!resumeId) {
       return;
     }
-    postLanguageMutate({ resumeId, resumeLanguage });
-    if (isSuccess) {
+    if (!isEdit) {
+      postLanguageMutate({ resumeId, resumeLanguage: body });
+    } else if (isEdit && blockId) {
+      patchResumeLanguageMutate({ resumeId, blockId, body });
+    }
+    if (isSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
@@ -39,15 +54,24 @@ const LanguageForm = ({ defaultValues }: FormComponentProps<Language>) => {
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="외국어"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="외국어"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,9 +111,17 @@ const LanguageForm = ({ defaultValues }: FormComponentProps<Language>) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

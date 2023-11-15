@@ -1,7 +1,9 @@
 import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeActivity } from '~/api/resume/edit/patchResumeActivity';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -17,7 +19,12 @@ import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActi
 import { Activity } from '~/types/activity';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ActivityForm = ({ defaultValues }: FormComponentProps<Activity>) => {
+const ActivityForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Activity>) => {
   const {
     setValue,
     control,
@@ -29,14 +36,21 @@ const ActivityForm = ({ defaultValues }: FormComponentProps<Activity>) => {
   } = useForm<Activity>({ defaultValues });
 
   const { id: resumeId } = useParams();
-  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity();
+  const { mutate: postActivityMutate, isSuccess: isPostSuccess } = usePostResumeActivity();
+  const { mutate: patchResumeActivityMutate, isSuccess: isPatchSuccess } = useMutation({
+    mutationFn: patchResumeActivity,
+  });
   const toast = useToast();
-  const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
+  const onSubmit: SubmitHandler<Activity> = (body) => {
     if (!resumeId) {
       return;
     }
-    postActivityMutate({ resumeId, resumeActivity });
-    if (isSuccess) {
+    if (!isEdit) {
+      postActivityMutate({ resumeId, resumeActivity: body });
+    } else if (isEdit && blockId) {
+      patchResumeActivityMutate({ resumeId, blockId, body });
+    }
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
@@ -54,15 +68,24 @@ const ActivityForm = ({ defaultValues }: FormComponentProps<Activity>) => {
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="활동"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="활동"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
         <BorderBox variant={'wide'}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,9 +161,17 @@ const ActivityForm = ({ defaultValues }: FormComponentProps<Activity>) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>
