@@ -18,7 +18,6 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
       >
         이력서 관리
       </Heading>
-      <BorderBox></BorderBox>
       <Heading
         mt={'2.5rem'}
         fontSize={'1.25rem'}
