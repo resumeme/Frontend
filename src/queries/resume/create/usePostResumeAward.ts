@@ -4,9 +4,9 @@ import { categoryKeys } from '../categoryKeys.const';
 import { postResumeAward } from '~/api/resume/create/postResumeAward';
 import { Award } from '~/types/award';
 
-export const usePostResumeAward = () => {
+export const usePostResumeAward = (resumeId: string) => {
   const queryClient = useQueryClient();
-  const TARGET_QUERY_KEY = categoryKeys.award;
+  const TARGET_QUERY_KEY = categoryKeys.award(resumeId);
   return useMutation({
     mutationKey: ['postAward'],
     mutationFn: postResumeAward,

@@ -4,7 +4,7 @@ import { GetResumeActivities, getResumeActivities } from '~/api/resume/details/g
 
 export const useGetResumeActivities = ({ resumeId }: GetResumeActivities) => {
   return useQuery({
-    queryKey: categoryKeys.activities,
+    queryKey: categoryKeys.activities(resumeId),
     queryFn: () => getResumeActivities({ resumeId }),
     enabled: !!resumeId,
   });

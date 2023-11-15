@@ -4,9 +4,9 @@ import { categoryKeys } from '../categoryKeys.const';
 import { postResumeLanguage } from '~/api/resume/create/postResumeLanguage';
 import { Language } from '~/types/language';
 
-export const usePostResumeLanguage = () => {
+export const usePostResumeLanguage = (resumeId: string) => {
   const queryClient = useQueryClient();
-  const TARGET_QUERY_KEY = categoryKeys.language;
+  const TARGET_QUERY_KEY = categoryKeys.language(resumeId);
   return useMutation({
     mutationKey: ['postLanguage'],
     mutationFn: postResumeLanguage,

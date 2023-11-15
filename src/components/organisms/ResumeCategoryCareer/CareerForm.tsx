@@ -48,8 +48,8 @@ const CareerForm = () => {
     name: 'duties',
   });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer(resumeId);
   const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {

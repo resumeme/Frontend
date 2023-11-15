@@ -1,8 +1,9 @@
 export const categoryKeys = {
-  activities: ['getActivities'] as const,
-  award: ['getAward'] as const,
-  career: ['getCareer'] as const,
-  language: ['getLanguage'] as const,
-  project: ['getProject'] as const,
-  training: ['getTraining'] as const,
+  all: ['category'] as const,
+  activities: (resumeId: string) => [...categoryKeys.all, 'getActivities', resumeId] as const,
+  award: (resumeId: string) => [...categoryKeys.all, 'getAward', resumeId] as const,
+  career: (resumeId: string) => [...categoryKeys.all, 'getCareer', resumeId] as const,
+  language: (resumeId: string) => [...categoryKeys.all, 'getLanguage', resumeId] as const,
+  project: (resumeId: string) => [...categoryKeys.all, 'getProject', resumeId] as const,
+  training: (resumeId: string) => [...categoryKeys.all, 'getTraining', resumeId] as const,
 };

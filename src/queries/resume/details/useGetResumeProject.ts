@@ -4,7 +4,7 @@ import { GetResumeProject, getResumeProject } from '~/api/resume/details/getResu
 
 export const useGetResumeProject = ({ resumeId }: GetResumeProject) => {
   return useQuery({
-    queryKey: categoryKeys.project,
+    queryKey: categoryKeys.project(resumeId),
     queryFn: () => getResumeProject({ resumeId }),
     enabled: !!resumeId,
   });

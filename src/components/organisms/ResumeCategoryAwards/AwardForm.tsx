@@ -16,8 +16,8 @@ import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
 
 const AwardForm = () => {
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeAward, isSuccess } = usePostResumeAward();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeAward, isSuccess } = usePostResumeAward(resumeId);
   const toast = useToast();
 
   const {

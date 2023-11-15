@@ -4,9 +4,9 @@ import { categoryKeys } from '../categoryKeys.const';
 import { postResumeTraining } from '~/api/resume/create/postResumeTraining';
 import { Activity } from '~/types/activity';
 
-export const usePostResumeTraining = () => {
+export const usePostResumeTraining = (resumeId: string) => {
   const queryClient = useQueryClient();
-  const TARGET_QUERY_KEY = categoryKeys.training;
+  const TARGET_QUERY_KEY = categoryKeys.training(resumeId);
   return useMutation({
     mutationKey: ['postCareer'],
     mutationFn: postResumeTraining,

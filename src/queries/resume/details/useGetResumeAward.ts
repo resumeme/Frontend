@@ -4,7 +4,7 @@ import { GetResumeAward, getResumeAward } from '~/api/resume/details/getResumeAw
 
 export const useGetResumeAward = ({ resumeId }: GetResumeAward) => {
   return useQuery({
-    queryKey: categoryKeys.award,
+    queryKey: categoryKeys.award(resumeId),
     queryFn: () => getResumeAward({ resumeId }),
     enabled: !!resumeId,
   });
