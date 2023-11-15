@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import ResumeList from './ResumeList';
-import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { EventResume, EventTime } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
 
@@ -85,11 +84,9 @@ const EventItem = ({
             <Spacer />
             <Text>{`신청 인원 ${currentApplicantCount} / ${maximumCount}`}</Text>
           </Flex>
-          <AccordionPanel
-            px={0}
-            // py={}
-          >
+          <AccordionPanel p={0}>
             <Flex
+              mt={'1rem'}
               direction={'column'}
               gap={'1.37rem'}
             >
