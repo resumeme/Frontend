@@ -1,5 +1,5 @@
 import { Box, Flex, Icon, Spacer, Text } from '@chakra-ui/react';
-import { VscNote } from 'react-icons/vsc';
+import { MdOutlineArticle } from 'react-icons/md';
 import { EventResume } from '~/types/event';
 
 type ResumeListProps = {
@@ -22,7 +22,7 @@ const ResumeList = ({ resume }: ResumeListProps) => {
         >
           <Icon
             color={'primary.900'}
-            as={VscNote}
+            as={MdOutlineArticle}
             w={'auto'}
           />
           <Text
