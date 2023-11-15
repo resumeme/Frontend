@@ -1,12 +1,15 @@
 import { Box, Flex, Text, Divider, Icon, Tooltip } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
-import { BorderBox } from '../../atoms/BorderBox';
+import { BorderBox } from '~/components/atoms/BorderBox';
+import { formatKoreanDateWithoutSeconds } from '~/utils/formatDate';
 import '@uiw/react-markdown-preview/markdown.css';
 
 type FeedbackViewProps = {
   content?: string;
-  lastEditDate?: string;
+  lastModifiedAt?: string;
+  commentId?: number;
+  componentId?: number;
 };
 
 const LABELS = {
@@ -18,8 +21,25 @@ const LABELS = {
 const FeedbackView = ({
   content = `## 테스트
 - **반갑습니다.**`,
-  lastEditDate = '2023-11-15 수요일',
+  lastModifiedAt = '2023-11-15 17:17:09',
+  commentId,
+  componentId,
 }: FeedbackViewProps) => {
+  const handleRemove = () => {
+    /* TODO 코멘트 삭제 API */
+    alert(`commentId: ${commentId}`);
+  };
+
+  const handleEdit = () => {
+    /* TODO 코멘트 수정 함수
+      - componentId, commentId로 FeedbackInput 컴포넌트 보여줌
+      - FeedbackView 컴포넌트 숨김
+    */
+    alert(`componentId: ${componentId}`);
+  };
+
+  const fomattedDate = formatKoreanDateWithoutSeconds(lastModifiedAt);
+
   return (
     <BorderBox p={0}>
       <Flex
@@ -36,7 +56,7 @@ const FeedbackView = ({
             fontSize={'sm'}
             fontWeight={'semibold'}
           >
-            {lastEditDate}에 작성된 피드백
+            {fomattedDate}에 작성된 피드백
           </Text>
         </Flex>
         <Flex
@@ -45,7 +65,7 @@ const FeedbackView = ({
         >
           <Box
             as="button"
-            onClick={() => alert('수정버튼 눌림')}
+            onClick={handleEdit}
           >
             <Tooltip
               label={LABELS.EDIT}
@@ -62,7 +82,7 @@ const FeedbackView = ({
           </Box>
           <Box
             as="button"
-            onClick={() => alert('삭제버튼 눌림')}
+            onClick={handleRemove}
           >
             <Tooltip
               label={LABELS.REMOVE}
@@ -101,7 +121,7 @@ const FeedbackView = ({
             fontWeight={'light'}
             color={'gray.500'}
           >
-            {lastEditDate}
+            {lastModifiedAt}
           </Text>
         </Flex>
       </Flex>
