@@ -40,7 +40,7 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
             borderTop={0}
             borderTopRadius={0}
             borderRadius={index !== resumes.length - 1 ? 0 : undefined}
-            p={'2.75rem 1.69rem'}
+            p={'1.75rem 1.5rem'}
           >
             <ResumeItem resume={resume} />
           </BorderBox>
