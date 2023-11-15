@@ -12,6 +12,14 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
   return (
     <>
       <Heading
+        fontSize={'1.75rem'}
+        color={'gray.800'}
+        fontWeight={700}
+      >
+        이력서 관리
+      </Heading>
+      <BorderBox></BorderBox>
+      <Heading
         mt={'2.5rem'}
         fontSize={'1.25rem'}
         color={'gray.700'}
