@@ -26,19 +26,11 @@ const CreateEventTemplate = () => {
 
   const onSubmit: SubmitHandler<CreateEvent> = (values) => {
     createEvent(values);
-    // return new Promise(() => {
-    //   setTimeout(() => {
-    //     alert(JSON.stringify(values, null, 2));
-    //   }, 3000);
-    // });
   };
-
-  //목업 데이터 생성
 
   return (
     <>
       <Text
-        mt={'3rem'}
         fontSize={'2xl'}
         fontWeight={600}
         color={'gray.900'}
@@ -46,7 +38,10 @@ const CreateEventTemplate = () => {
         첨삭 이벤트 생성
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <BorderBox>
+        <BorderBox
+          mt={'2rem'}
+          p={'1.88rem 2rem'}
+        >
           <Flex
             direction={'column'}
             gap={'1.25rem'}
