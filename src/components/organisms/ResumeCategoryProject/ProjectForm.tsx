@@ -28,8 +28,9 @@ const ProjectForm = ({
 }: FormComponentProps<Project>) => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeProjectMutate, isSuccess: isPostSuccess } = usePostResumeProject();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeProjectMutate, isSuccess: isPostSuccess } =
+    usePostResumeProject(resumeId);
   const { mutate: patchResumeProjectMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeProject,
   });

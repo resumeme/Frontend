@@ -31,8 +31,8 @@ const TrainingForm = ({
     reset,
   } = useForm<Training>({ defaultValues });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining(resumeId);
   const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeTraining,
   });

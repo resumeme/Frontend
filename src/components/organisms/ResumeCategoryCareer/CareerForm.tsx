@@ -56,8 +56,8 @@ const CareerForm = ({
     name: 'duties',
   });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postCareerMutate, isSuccess: isPostSuccess } = usePostResumeCareer();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postCareerMutate, isSuccess: isPostSuccess } = usePostResumeCareer(resumeId);
   const { mutate: patchCareerMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeCareer,
   });

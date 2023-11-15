@@ -25,8 +25,8 @@ const AwardForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Award>) => {
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeAwardMutate, isSuccess: isPostSuccess } = usePostResumeAward();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeAwardMutate, isSuccess: isPostSuccess } = usePostResumeAward(resumeId);
   const { mutate: patchResumeAwardMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeAward,
   });

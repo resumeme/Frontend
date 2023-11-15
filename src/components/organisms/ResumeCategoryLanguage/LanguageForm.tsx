@@ -29,8 +29,8 @@ const LanguageForm = ({
     reset,
   } = useForm<Language>({ defaultValues });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage(resumeId);
   const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeLanguage,
   });

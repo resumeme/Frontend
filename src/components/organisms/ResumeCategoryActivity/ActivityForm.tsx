@@ -35,8 +35,8 @@ const ActivityForm = ({
     reset,
   } = useForm<Activity>({ defaultValues });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postActivityMutate, isSuccess: isPostSuccess } = usePostResumeActivity();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postActivityMutate, isSuccess: isPostSuccess } = usePostResumeActivity(resumeId);
   const { mutate: patchResumeActivityMutate, isSuccess: isPatchSuccess } = useMutation({
     mutationFn: patchResumeActivity,
   });
