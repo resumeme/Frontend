@@ -32,7 +32,7 @@ const Profile = ({
         <Heading fontWeight={500}>님 안녕하세요.</Heading>
       </Flex>
       <Heading
-        mt={'1.25rem'}
+        mt={'2.5rem'}
         fontSize={'1.25rem'}
         color={'gray.700'}
         fontWeight={700}
