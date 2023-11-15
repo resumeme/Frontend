@@ -27,6 +27,7 @@ const MyPage = () => {
         menteeName: '백둥둥',
         resumeTitle: 'title',
         progressStatus: 'APPLY',
+        modifiedAt: '2023.06.23',
       },
       {
         resumeId: 4,
