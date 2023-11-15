@@ -11,5 +11,8 @@ export const usePostSignOut = () => {
     onSuccess: () => {
       clearUser();
     },
+    onError: () => {
+      alert('잠시 후 다시 시도해 주세요.');
+    },
   });
 };
