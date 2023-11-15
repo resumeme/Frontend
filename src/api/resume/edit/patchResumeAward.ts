@@ -1,11 +1,10 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
+import { PatchResumeCategory } from '~/types/api/patchResumeCategory';
 import { Award } from '~/types/award';
 import { getCookie } from '~/utils/cookie';
 
-type PatchResumeAward = { resumeId: string; blockId: string; body: Award };
-
-export const patchResumeAward = async ({ resumeId, blockId, body }: PatchResumeAward) => {
+export const patchResumeAward: PatchResumeCategory<Award> = async ({ resumeId, blockId, body }) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
   const { data } = await resumeMeAxios.patch(
     `/v1/resumes/${resumeId}/certifications/components/${blockId}`,
