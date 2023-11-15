@@ -1,5 +1,4 @@
 import { Flex, VStack, useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { patchResumeTraining } from '~/api/resume/edit/patchResumeTraining';
@@ -13,7 +12,9 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
@@ -33,9 +34,10 @@ const TrainingForm = ({
 
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining(resumeId);
-  const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeTraining,
-  });
+  const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeTraining,
+    categoryKeys.award(resumeId),
+  );
 
   const toast = useToast();
   const onSubmit: SubmitHandler<Training> = (body) => {

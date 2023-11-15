@@ -1,5 +1,4 @@
 import { Flex, VStack, useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,9 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import { Award } from '~/types/award';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -27,9 +28,10 @@ const AwardForm = ({
 }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postResumeAwardMutate, isSuccess: isPostSuccess } = usePostResumeAward(resumeId);
-  const { mutate: patchResumeAwardMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeAward,
-  });
+  const { mutate: patchResumeAwardMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeAward,
+    categoryKeys.award(resumeId),
+  );
   const toast = useToast();
 
   const {

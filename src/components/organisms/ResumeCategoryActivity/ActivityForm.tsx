@@ -1,5 +1,4 @@
 import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import { Activity } from '~/types/activity';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -37,9 +38,10 @@ const ActivityForm = ({
 
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postActivityMutate, isSuccess: isPostSuccess } = usePostResumeActivity(resumeId);
-  const { mutate: patchResumeActivityMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeActivity,
-  });
+  const { mutate: patchResumeActivityMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeActivity,
+    categoryKeys.activity(resumeId),
+  );
   const toast = useToast();
   const onSubmit: SubmitHandler<Activity> = (body) => {
     if (!resumeId) {

@@ -1,5 +1,4 @@
 import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -12,7 +11,9 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import { Language } from '~/types/language';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -31,9 +32,10 @@ const LanguageForm = ({
 
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage(resumeId);
-  const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeLanguage,
-  });
+  const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeLanguage,
+    categoryKeys.award(resumeId),
+  );
   const toast = useToast();
   const onSubmit: SubmitHandler<Language> = (body) => {
     if (!resumeId) {

@@ -1,5 +1,4 @@
 import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -16,7 +15,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -31,9 +32,10 @@ const ProjectForm = ({
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postResumeProjectMutate, isSuccess: isPostSuccess } =
     usePostResumeProject(resumeId);
-  const { mutate: patchResumeProjectMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeProject,
-  });
+  const { mutate: patchResumeProjectMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeProject,
+    categoryKeys.project(resumeId),
+  );
   const toast = useToast();
 
   const {

@@ -8,7 +8,6 @@ import {
   Flex,
   useToast,
 } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import {
   Control,
@@ -32,7 +31,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
+import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
 import Career from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -58,9 +59,10 @@ const CareerForm = ({
 
   const { id: resumeId } = useParams() as { id: string };
   const { mutate: postCareerMutate, isSuccess: isPostSuccess } = usePostResumeCareer(resumeId);
-  const { mutate: patchCareerMutate, isSuccess: isPatchSuccess } = useMutation({
-    mutationFn: patchResumeCareer,
-  });
+  const { mutate: patchCareerMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
+    patchResumeCareer,
+    categoryKeys.career(resumeId),
+  );
   const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((body) => {
