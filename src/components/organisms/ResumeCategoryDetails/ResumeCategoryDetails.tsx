@@ -27,7 +27,7 @@ const ResumeCategoryDetails = <T extends Categories>({
             <React.Fragment key={index}>
               {editTargetIndex === index ? (
                 <FormComponent
-                  defaultValues={data}
+                  defaultValues={{ ...data, id: undefined }}
                   isEdit
                   blockId={data.id}
                 />
