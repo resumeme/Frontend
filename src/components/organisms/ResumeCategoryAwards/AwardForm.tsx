@@ -10,6 +10,7 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
@@ -111,9 +112,17 @@ const AwardForm = () => {
                   링크
                 </FormLabel>
                 <FormTextInput
-                  placeholder="https://"
+                  placeholder="URL 입력"
                   id="link"
-                  register={{ ...register('link') }}
+                  register={{
+                    ...register('link', {
+                      pattern: {
+                        value: CONSTANTS.URL_PATTERN,
+                        message: '올바른 URL 형식이 아닙니다',
+                      },
+                    }),
+                  }}
+                  error={errors.link}
                 />
               </FormControl>
 

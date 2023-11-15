@@ -16,6 +16,7 @@ const CONSTANTS = {
     SUB: '간단한 개인 정보를 입력하고 바로 시작하세요.',
   },
   LABEL_MULTI_SELECTABLE: '(여러 개 선택 가능)',
+  URL_PATTERN: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
 };
 
 export default CONSTANTS;
