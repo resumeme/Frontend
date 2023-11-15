@@ -31,10 +31,11 @@ import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
+import { usePatchResumeCareer } from '~/queries/resume/edit/usePatchResumeCareer';
 import Career from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const CareerForm = ({ defaultValues }: FormComponentProps<Career>) => {
+const CareerForm = ({ defaultValues, isEdit = false, blockId }: FormComponentProps<Career>) => {
   const {
     control,
     register,
@@ -50,7 +51,8 @@ const CareerForm = ({ defaultValues }: FormComponentProps<Career>) => {
   });
 
   const { id: resumeId } = useParams();
-  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer();
+  const { mutate: postCareerMutate, isSuccess: isPostSuccess } = usePostResumeCareer();
+  const { mutate: patchCareerMutate, isSuccess: isPatchSuccess } = usePatchResumeCareer();
   const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
   const onSubmit = handleSubmit((resumeCareer) => {
@@ -58,8 +60,12 @@ const CareerForm = ({ defaultValues }: FormComponentProps<Career>) => {
       return;
     }
     resumeCareer.skills = skills;
-    postCareerMutate({ resumeId, resumeCareer });
-    if (isSuccess) {
+    if (!isEdit) {
+      postCareerMutate({ resumeId, resumeCareer });
+    } else if (isEdit && blockId) {
+      patchCareerMutate({ resumeId, blockId, body: resumeCareer });
+    }
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',

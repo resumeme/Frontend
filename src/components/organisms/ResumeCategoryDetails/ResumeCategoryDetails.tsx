@@ -18,20 +18,24 @@ const ResumeCategoryDetails = <T extends Categories>({
   FormComponent,
   isCurrentUser = false,
 }: CategoryDetailsProps<T>) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   return (
     <React.Fragment>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
-              {isEdit ? (
-                <FormComponent defaultValues={data} />
+              {editTargetIndex === index ? (
+                <FormComponent
+                  defaultValues={data}
+                  isEdit
+                  blockId={data.id}
+                />
               ) : (
                 <Box position={'relative'}>
                   <DetailsComponent
                     data={data}
-                    onEdit={() => setIsEdit(true)}
+                    onEdit={() => setEditTargetIndex(index)}
                     isCurrentUser={isCurrentUser}
                   />
                 </Box>
