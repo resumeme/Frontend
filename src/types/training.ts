@@ -1,4 +1,5 @@
 type Training = {
+  id?: string;
   organization: string;
   major: string;
   degree: string;

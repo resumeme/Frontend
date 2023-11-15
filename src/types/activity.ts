@@ -1,4 +1,5 @@
 type Activity = {
+  id?: string;
   activityName: string;
   startDate: string;
   endDate: string;
