@@ -10,6 +10,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
@@ -194,7 +195,7 @@ const ProjectForm = () => {
                   register={{
                     ...register('projectUrl', {
                       pattern: {
-                        value: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
+                        value: CONSTANTS.URL_PATTERN,
                         message: '올바른 URL 형식이 아닙니다',
                       },
                     }),

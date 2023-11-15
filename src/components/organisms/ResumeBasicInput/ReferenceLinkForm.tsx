@@ -5,6 +5,7 @@ import LinkItem from './LinkItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
+import CONSTANTS from '~/constants';
 
 type LinkData = {
   type?: 'default' | 'github' | 'blog';
@@ -34,8 +35,6 @@ const ReferenceLinkForm = () => {
 
     reset();
   });
-
-  const URL_PATTERN = /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/;
 
   return (
     <>
@@ -95,7 +94,7 @@ const ReferenceLinkForm = () => {
                   ...register('url', {
                     required: 'URL을 입력하세요',
                     pattern: {
-                      value: URL_PATTERN,
+                      value: CONSTANTS.URL_PATTERN,
                       message: '올바른 URL 형식이 아닙니다',
                     },
                   }),

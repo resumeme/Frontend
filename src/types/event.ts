@@ -38,4 +38,4 @@ type ReadEvent = {
   resumes: EventResume[];
 };
 
-export type { CreateEvent, ReadEvent };
+export type { CreateEvent, ReadEvent, EventResume, EventTime };

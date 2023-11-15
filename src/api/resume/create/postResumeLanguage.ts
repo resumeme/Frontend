@@ -12,7 +12,7 @@ export const postResumeLanguage = async ({ resumeId, resumeLanguage }: PostResum
 
   try {
     const { data } = await resumeMeAxios.post(
-      `/v1/resume/${resumeId}/foreign-languages`,
+      `/v1/resumes/${resumeId}/foreign-languages`,
       resumeLanguage,
       {
         headers: {
