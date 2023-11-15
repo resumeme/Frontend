@@ -14,7 +14,7 @@ export const postResumeLink = async ({ resumeId, referenceLink }: postResumeLink
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.post(`v1/resume/${resumeId}/${api주소}`, referenceLink, {
+    const { data } = await resumeMeAxios.post(`v1/resumes/${resumeId}/${api주소}`, referenceLink, {
       headers: {
         /* FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
