@@ -33,7 +33,7 @@ const TrainingForm = ({
   } = useForm<Training>({ defaultValues });
 
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining(resumeId);
+  const { mutate: postTrainingMutate, isSuccess: isPostSuccess } = usePostResumeTraining(resumeId);
   const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
     patchResumeTraining,
     categoryKeys.award(resumeId),
@@ -49,11 +49,14 @@ const TrainingForm = ({
     } else if (isEdit && blockId) {
       patchTrainingMutate({ resumeId, blockId, body });
     }
-    if (isSuccess || isPatchSuccess) {
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
       });
+    }
+    if (isPatchSuccess && quitEdit) {
+      quitEdit();
     }
   };
 

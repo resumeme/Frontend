@@ -31,7 +31,7 @@ const LanguageForm = ({
   } = useForm<Language>({ defaultValues });
 
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage(resumeId);
+  const { mutate: postLanguageMutate, isSuccess: isPostSuccess } = usePostResumeLanguage(resumeId);
   const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
     patchResumeLanguage,
     categoryKeys.award(resumeId),
@@ -46,7 +46,7 @@ const LanguageForm = ({
     } else if (isEdit && blockId) {
       patchResumeLanguageMutate({ resumeId, blockId, body });
     }
-    if (isSuccess || isPatchSuccess) {
+    if (isPostSuccess || isPatchSuccess) {
       handleDeleteForm();
       toast({
         description: '성공적으로 저장되었습니다.',
