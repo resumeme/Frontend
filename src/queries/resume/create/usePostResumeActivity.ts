@@ -6,7 +6,7 @@ import { Activity } from '~/types/activity';
 
 export const usePostResumeActivity = (resumeId: string) => {
   const queryClient = useQueryClient();
-  const TARGET_QUERY_KEY = categoryKeys.activities(resumeId);
+  const TARGET_QUERY_KEY = categoryKeys.activity(resumeId);
   return useMutation({
     mutationKey: ['postActivity'],
     mutationFn: postResumeActivity,
