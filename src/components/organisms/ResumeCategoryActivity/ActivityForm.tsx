@@ -87,7 +87,10 @@ const ActivityForm = ({
         />
       )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
               <FormControl isInvalid={Boolean(errors.activityName)}>
