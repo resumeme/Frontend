@@ -52,6 +52,9 @@ const LanguageForm = ({
         description: '성공적으로 저장되었습니다.',
       });
     }
+    if (isPatchSuccess && quitEdit) {
+      quitEdit();
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

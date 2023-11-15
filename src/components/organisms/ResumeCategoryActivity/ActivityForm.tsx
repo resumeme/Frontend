@@ -58,6 +58,9 @@ const ActivityForm = ({
         description: '성공적으로 저장되었습니다.',
       });
     }
+    if (isPatchSuccess && quitEdit) {
+      quitEdit();
+    }
   };
 
   const inProgress = watch('inProgress');
