@@ -8,6 +8,7 @@ const ResumeManagementPage = () => {
       resumeInfo: {
         id: 1,
         title: 'title1',
+        modifiedAt: '2023.06.23',
       },
       events: [
         {

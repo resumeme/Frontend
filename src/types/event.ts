@@ -24,6 +24,7 @@ type EventResume = {
   menteeName: string;
   resumeTitle: string;
   progressStatus: string;
+  modifiedAt?: string;
 };
 
 type ReadEvent = {
