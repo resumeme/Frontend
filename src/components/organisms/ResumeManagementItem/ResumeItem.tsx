@@ -15,8 +15,10 @@ import {
 import { MdOutlineArticle } from 'react-icons/md';
 import { MdMoreVert } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
+import { ManagementPanel } from '~/components/molecules/ManagementPanel';
 import { ResumeWithEvents } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
+
 type ResumeItemProps = {
   resume: ResumeWithEvents;
 };
@@ -118,11 +120,13 @@ const ResumeItem = ({
             >
               {events.length ? (
                 events.map((event) => (
-                  <Text key={uuidv4()}>{event.eventInfo.endDate}</Text>
-                  // <EventList
-                  //   key={uuidv4()}
-                  //   resume={resume}
-                  // />
+                  <ManagementPanel
+                    key={uuidv4()}
+                    name={event.mentorInfo.nickname}
+                    status={event.eventInfo.status}
+                    title={event.eventInfo.title}
+                    date={modifiedAt}
+                  />
                 ))
               ) : (
                 <Flex
