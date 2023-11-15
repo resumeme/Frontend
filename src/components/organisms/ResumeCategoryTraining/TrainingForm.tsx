@@ -35,8 +35,8 @@ const TrainingForm = () => {
     // },
   });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining(resumeId);
   const toast = useToast();
   const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
     if (!resumeId) {

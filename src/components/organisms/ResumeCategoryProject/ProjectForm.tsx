@@ -19,8 +19,8 @@ import { Project } from '~/types/project';
 const ProjectForm = () => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeProject, isSuccess } = usePostResumeProject();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeProject, isSuccess } = usePostResumeProject(resumeId);
   const toast = useToast();
 
   const {
