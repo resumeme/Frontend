@@ -12,6 +12,7 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react';
+import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { MdMoreVert } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
@@ -122,6 +123,13 @@ const ResumeItem = ({
                 events.map((event) => (
                   <ManagementPanel
                     key={uuidv4()}
+                    icon={
+                      <Icon
+                        color={'highlight.900'}
+                        as={BiCommentError}
+                        w={'1.25rem'}
+                      />
+                    }
                     name={event.mentorInfo.nickname}
                     status={event.eventInfo.status}
                     title={event.eventInfo.title}

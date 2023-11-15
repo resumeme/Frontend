@@ -6,9 +6,11 @@ import {
   AccordionPanel,
   Box,
   Flex,
+  Icon,
   Spacer,
   Text,
 } from '@chakra-ui/react';
+import { MdOutlineArticle } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
 import { EventResume, EventTime } from '~/types/event';
@@ -94,6 +96,13 @@ const EventItem = ({
                 <>
                   <ManagementPanel
                     key={uuidv4()}
+                    icon={
+                      <Icon
+                        as={MdOutlineArticle}
+                        color={'primary.900'}
+                        w={'1.25rem'}
+                      />
+                    }
                     date={resume?.modifiedAt}
                     name={resume.menteeName}
                     status={resume.progressStatus}

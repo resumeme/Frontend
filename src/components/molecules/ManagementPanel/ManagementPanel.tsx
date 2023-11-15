@@ -1,14 +1,14 @@
-import { Box, Flex, Icon, Spacer, Text } from '@chakra-ui/react';
-import { MdOutlineArticle } from 'react-icons/md';
+import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
 
 type ManagementPanelProps = {
+  icon?: React.ReactNode;
   name: string;
   title: string;
   date?: string;
   status: string;
 };
 
-const ManagementPanel = ({ date, name, status, title }: ManagementPanelProps) => {
+const ManagementPanel = ({ icon, date, name, status, title }: ManagementPanelProps) => {
   return (
     <Flex gap={'0.75rem'}>
       <Box
@@ -22,11 +22,7 @@ const ManagementPanel = ({ date, name, status, title }: ManagementPanelProps) =>
           gap={'0.88rem'}
           alignItems={'center'}
         >
-          <Icon
-            color={'primary.900'}
-            as={MdOutlineArticle}
-            w={'auto'}
-          />
+          {icon}
           <Text
             w={'5rem'}
             borderRight={'1px'}
