@@ -7,11 +7,13 @@ import {
   Box,
   Flex,
   Icon,
+  IconButton,
   Input,
   Spacer,
   Text,
 } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
+import { MdMoreVert } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { ResumeWithEvents } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
@@ -27,22 +29,33 @@ const ResumeItem = ({
 }: ResumeItemProps) => {
   return (
     <>
-      <Flex
-        alignItems={'end'}
-        fontSize={'0.875rem'}
-        color={'gray.500'}
-        justifyContent={'space-between'}
-      >
-        {modifiedAt && <Text>{`${formatDate(modifiedAt)} 수정`}</Text>}
-        <Text
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
-        >
-          {title}
-        </Text>
+      <Flex>
+        {modifiedAt && (
+          <Text
+            color={'gray.500'}
+            as={'span'}
+            fontSize={'0.75rem'}
+          >{`${formatDate(modifiedAt)} 수정`}</Text>
+        )}
+        <Spacer />
+        {/* //TODO: optionsbutton으로 변경 */}
+        <IconButton
+          size={''}
+          aria-label="more"
+          as={MdMoreVert}
+          color={'gray.500'}
+        />
       </Flex>
+      <Text
+        mt={'1.5rem'}
+        fontSize={'1.5rem'}
+        fontWeight={600}
+        color={'gray.800'}
+      >
+        {title}
+      </Text>
       <Flex
+        mt={'1.75rem'}
         borderRadius={'0.3125rem'}
         p={'0.75rem 1rem'}
         bg={'gray.200'}
