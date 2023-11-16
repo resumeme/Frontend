@@ -12,7 +12,7 @@ export const postResumeAward = async ({ resumeId, resumeAward }: postResumeAward
 
   try {
     const { data } = await resumeMeAxios.post(
-      `/v1/resume/${resumeId}/certifications`,
+      `/v1/resumes/${resumeId}/certifications`,
       resumeAward,
       {
         headers: {

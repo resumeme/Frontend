@@ -1,5 +1,7 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Language } from '~/types/language';
 
 /* TODO  
@@ -8,7 +10,11 @@ import { Language } from '~/types/language';
   언어 카테고리별 색상 테마를 상수로 적용해서 각 라벨의 색상 지정해주기?
 */
 
-const LanguageDetails = ({ data: { language, examName, scoreOrGrade } }: { data: Language }) => {
+const LanguageDetails = ({
+  data: { language, examName, scoreOrGrade },
+}: DetailsComponentProps<Language>) => {
+  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
+  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -48,6 +54,12 @@ const LanguageDetails = ({ data: { language, examName, scoreOrGrade } }: { data:
           <Text fontWeight={'regular'}>{scoreOrGrade}</Text>
         </Flex>
       </Flex>
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };

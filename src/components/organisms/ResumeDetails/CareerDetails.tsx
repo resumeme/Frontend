@@ -1,6 +1,8 @@
 import { Box, Text, Flex, Heading } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '~/components/atoms/Label';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { DetailsComponentProps } from '~/components/organisms/ResumeCategoryDetails/ResumeCategoryDetails';
 import Career from '~/types/career';
 
 const CareerDetails = ({
@@ -14,9 +16,9 @@ const CareerDetails = ({
     careerContent,
     currentlyEmployed,
   },
-}: {
-  data: Career;
-}) => {
+}: DetailsComponentProps<Career>) => {
+  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
+  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -123,6 +125,12 @@ const CareerDetails = ({
           </Box>
         ))}
       </Flex>
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };

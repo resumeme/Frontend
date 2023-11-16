@@ -1,6 +1,6 @@
-import { VStack, HStack, Flex } from '@chakra-ui/react';
+import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -20,17 +20,20 @@ const LanguageForm = () => {
     reset,
   } = useForm<Language>();
 
-  const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeLanguage();
-  const navigate = useNavigate();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage(resumeId);
+  const toast = useToast();
   const onSubmit = (resumeLanguage: Language) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeLanguage });
+    postLanguageMutate({ resumeId, resumeLanguage });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =

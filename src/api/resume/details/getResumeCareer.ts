@@ -10,7 +10,7 @@ export const getResumeCareer = async ({ resumeId }: GetResumeCareer) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.get(`/v1/resume/${resumeId}/careers`, {
+    const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}/careers`, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,

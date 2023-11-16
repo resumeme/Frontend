@@ -1,13 +1,15 @@
 import { Flex, Heading, Icon, Link, Text } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
+import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Project } from '~/types/project';
 
 const ProjectDetails = ({
   data: { projectName, productionYear, teamMembers, skills, projectContent, projectUrl, isTeam },
-}: {
-  data: Project;
-}) => {
+}: DetailsComponentProps<Project>) => {
+  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
+  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -108,6 +110,12 @@ const ProjectDetails = ({
           )}
         </Flex>
       </Flex>
+      {isCurrentUser && (
+        <EditDeleteOptionsButton
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      )}
     </Flex>
   );
 };

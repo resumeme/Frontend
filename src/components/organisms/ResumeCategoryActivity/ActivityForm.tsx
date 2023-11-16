@@ -1,7 +1,7 @@
-import { VStack, Checkbox, Flex } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -10,15 +10,13 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
-
 import { TermInput } from '~/components/molecules/TermInput';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { Activity } from '~/types/activity';
 
 const ActivityForm = () => {
-  const URL_PATTERN = /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/;
-
   const {
     setValue,
     control,
@@ -39,17 +37,20 @@ const ActivityForm = () => {
     // },
   });
 
-  const { id: resumeId } = useParams();
-  const { mutate } = usePostResumeActivity();
-  const navigate = useNavigate();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity(resumeId);
+  const toast = useToast();
   const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
-    mutate({ resumeId, resumeActivity });
+    postActivityMutate({ resumeId, resumeActivity });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const inProgress = watch('inProgress');
@@ -117,11 +118,11 @@ const ActivityForm = () => {
                 <FormLabel>링크</FormLabel>
                 <FormTextInput
                   id="link"
-                  placeholder="https://"
+                  placeholder="URL 입력"
                   register={{
                     ...register('link', {
                       pattern: {
-                        value: URL_PATTERN,
+                        value: CONSTANTS.URL_PATTERN,
                         message: '올바른 URL 형식이 아닙니다',
                       },
                     }),

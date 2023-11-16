@@ -2,7 +2,7 @@ import axios from 'axios';
 import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
 import CONSTANTS from '~/constants';
-import { getCookie } from '~/utils/cookie';
+import { getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
   baseURL: environments.baseUrlEnv(),
@@ -25,16 +25,32 @@ resumeMeAxios.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
+  async function (error) {
     const statusCode = error.response.status;
     const { code } = error.response.data;
+
     switch (statusCode) {
       //FIXME: 에러 코드 획정되면 code 수정하기
-      case 401:
-        if (code === '권한 없음 코드') {
-          alert('로그인이 필요합니다.'); //TODO: 토스트 처리, 로그인 페이지 리다이렉트
-        } else if (code === '리프레시 토큰 만료 코드') {
-          alert('토큰이 만료되어 자동으로 로그아웃되었습니다.'); //TODO: 토스트 처리, 로그인 페이지 리다이렉트
+      case 400:
+        if (code === 'INVALID_ACCESS_TOKEN') {
+          const originalRequest = error.config;
+
+          const refreshToken = getCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
+
+          originalRequest._retry = true;
+          originalRequest.headers[CONSTANTS.REFRESH_TOKEN_HEADER] = refreshToken;
+
+          const { headers } = await resumeMeAxios(originalRequest);
+
+          const newAccessToken = headers[CONSTANTS.ACCESS_TOKEN_HEADER];
+
+          setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, newAccessToken);
+        }
+        break;
+      case 403:
+        //에러 코드 추가되면 내용 추가하기
+        if (code === '멘토가 접근할 수 없는 내용입니다.') {
+          redirect('/');
         }
         break;
       case 404:

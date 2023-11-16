@@ -1,4 +1,4 @@
-import { Flex, Select, VStack } from '@chakra-ui/react';
+import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -10,6 +10,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
@@ -18,8 +19,9 @@ import { Project } from '~/types/project';
 const ProjectForm = () => {
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeProject } = usePostResumeProject();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeProject, isSuccess } = usePostResumeProject(resumeId);
+  const toast = useToast();
 
   const {
     watch,
@@ -41,6 +43,12 @@ const ProjectForm = () => {
     resumeProject.isTeam = Boolean(resumeProject.isTeam);
 
     postResumeProject({ resumeId, resumeProject });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -187,7 +195,7 @@ const ProjectForm = () => {
                   register={{
                     ...register('projectUrl', {
                       pattern: {
-                        value: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
+                        value: CONSTANTS.URL_PATTERN,
                         message: '올바른 URL 형식이 아닙니다',
                       },
                     }),

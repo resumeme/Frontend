@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useToast } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
 import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTemplate';
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
+import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
@@ -27,6 +30,18 @@ const SignUpPage = () => {
     }
   };
 
+  const toast = useToast();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!cacheKey) {
+      toast({
+        description: '소셜 로그인을 먼저 해주세요.',
+      });
+      navigate(appPaths.signIn);
+      return;
+    }
+  }, [cacheKey, navigate, toast]);
+
   return (
     <>
       {step === 'COMMON' && (
@@ -40,30 +55,34 @@ const SignUpPage = () => {
       {step === 'ROLE_PENDING' && (
         <SignUpMentorTemplate
           onNext={(data) => {
-            if (commonData && data) {
-              signUpMutate(
-                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
-                {
-                  onSuccess: ({ accessToken, refreshToken }) =>
-                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
-                },
-              );
+            if (!commonData) {
+              setStep('COMMON');
+              return;
             }
+            signUpMutate(
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+              {
+                onSuccess: ({ accessToken, refreshToken }) =>
+                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
+              },
+            );
           }}
         />
       )}
       {step === 'ROLE_MENTEE' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
-            if (commonData && data) {
-              signUpMutate(
-                { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
-                {
-                  onSuccess: ({ accessToken, refreshToken }) =>
-                    signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
-                },
-              );
+            if (!commonData) {
+              setStep('COMMON');
+              return;
             }
+            signUpMutate(
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+              {
+                onSuccess: ({ accessToken, refreshToken }) =>
+                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
+              },
+            );
           }}
         />
       )}

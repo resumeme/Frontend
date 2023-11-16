@@ -1,6 +1,6 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { Flex, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -10,14 +10,15 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { Award } from '~/types/award';
 
 const AwardForm = () => {
-  const { id: resumeId } = useParams();
-  const { mutate: postResumeAward } = usePostResumeAward();
-  const navigate = useNavigate();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postResumeAward, isSuccess } = usePostResumeAward(resumeId);
+  const toast = useToast();
 
   const {
     register,
@@ -28,12 +29,15 @@ const AwardForm = () => {
 
   const onSubmit: SubmitHandler<Award> = (resumeAward) => {
     if (!resumeId) {
-      /**TODO - 토스트 대체! */
-      alert('존재하지 않는 이력서입니다.');
-      navigate(-1);
       return;
     }
     postResumeAward({ resumeId, resumeAward });
+    if (isSuccess) {
+      handleDeleteForm();
+      toast({
+        description: '성공적으로 저장되었습니다.',
+      });
+    }
   };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -108,9 +112,17 @@ const AwardForm = () => {
                   링크
                 </FormLabel>
                 <FormTextInput
-                  placeholder="https://"
+                  placeholder="URL 입력"
                   id="link"
-                  register={{ ...register('link') }}
+                  register={{
+                    ...register('link', {
+                      pattern: {
+                        value: CONSTANTS.URL_PATTERN,
+                        message: '올바른 URL 형식이 아닙니다',
+                      },
+                    }),
+                  }}
+                  error={errors.link}
                 />
               </FormControl>
 

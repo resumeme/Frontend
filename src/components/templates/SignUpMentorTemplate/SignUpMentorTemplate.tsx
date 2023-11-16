@@ -28,17 +28,13 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
     defaultValues: {
       experiencedPositions: [],
       careerContent: '',
-      careerYear: 0,
+      careerYear: undefined,
       introduce: '',
     },
   });
 
   const onSubmit = (values: FilteredSignUpMentor) => {
     onNext(values);
-  };
-
-  const handleDelayClick = () => {
-    onNext();
   };
 
   const FORM_STYLE = {
@@ -154,21 +150,13 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 h={'3rem'}
               />
             </FormControl>
-            <VStack w={'full'}>
-              <Button
-                onClick={handleDelayClick}
-                variant={'cancel'}
-              >
-                나중에 작성하기
-              </Button>
-              <Button
-                type="submit"
-                isDisabled={!isDirty}
-                isLoading={isSubmitting}
-              >
-                완료하기
-              </Button>
-            </VStack>
+            <Button
+              type="submit"
+              isDisabled={!isDirty}
+              isLoading={isSubmitting}
+            >
+              완료하기
+            </Button>
           </VStack>
         </form>
       </Flex>
