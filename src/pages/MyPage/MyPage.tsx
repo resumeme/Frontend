@@ -3,41 +3,11 @@ import { Profile } from '~/components/organisms/Profile';
 import EventProfile from '~/components/organisms/Profile/EventProfile';
 import { ResumeManagementTemplate } from '~/components/templates/ResumeManagementTemplate';
 import useUser from '~/hooks/useUser';
-import { Position } from '~/types/position';
+import { useGetManagementEvents } from '~/queries/event/details/useGetManagementEvents';
 
 const MyPage = () => {
   const { user } = useUser();
-  // const { data: events } = useGetEvents();
-
-  const events = {
-    info: {
-      title: '제목',
-      content: '내용',
-      maximumCount: 3,
-      currentApplicantCount: 2,
-      positions: ['BACK'] as Position[],
-      timeInfo: {
-        openDateTime: '2023-11-14T05:30:07.358518606',
-        closeDateTime: '2023-11-14T06:30:07.358530106',
-        endDate: '2023-11-14T07:30:07.358542107',
-      },
-    },
-    resumes: [
-      {
-        resumeId: 1,
-        menteeName: '백둥둥',
-        resumeTitle: 'title',
-        progressStatus: 'APPLY',
-        modifiedAt: '2023.06.23',
-      },
-      {
-        resumeId: 4,
-        menteeName: '백둥둥2',
-        resumeTitle: 'title',
-        progressStatus: 'APPLY',
-      },
-    ],
-  };
+  const { data: events } = useGetManagementEvents();
 
   const DUMY_DATA = [
     {
