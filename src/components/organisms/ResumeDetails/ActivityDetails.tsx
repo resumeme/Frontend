@@ -1,8 +1,9 @@
-import { Flex, Text, Heading, Link, Icon } from '@chakra-ui/react';
+import { Flex, Text, Heading, Link, Icon, useDisclosure } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
@@ -20,6 +21,9 @@ const ActivityDetails = ({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
   });
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -92,10 +96,18 @@ const ActivityDetails = ({
         </Flex>
       </Flex>
       {isCurrentUser && (
-        <EditDeleteOptionsButton
-          onEdit={onEdit}
-          onDelete={() => deleteLanguageMutate({ resumeId, blockId })}
-        />
+        <>
+          <ConfirmModal
+            isOpen={isOpen}
+            onClose={onClose}
+            message="정말로 삭제하시겠습니까?"
+            proceed={() => deleteLanguageMutate({ resumeId, blockId })}
+          />
+          <EditDeleteOptionsButton
+            onEdit={onEdit}
+            onDelete={() => onOpen()}
+          />
+        </>
       )}
     </Flex>
   );
