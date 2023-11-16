@@ -65,8 +65,8 @@ const AwardForm = ({
     isPatchSuccess,
     isPostError,
     isPatchError,
-    handleDeleteForm,
-    quitEdit,
+    onPostSuccess: handleDeleteForm,
+    onPatchSuccess: quitEdit,
   });
 
   useEffect(() => {

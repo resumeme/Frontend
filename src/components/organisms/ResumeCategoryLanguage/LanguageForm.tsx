@@ -62,8 +62,8 @@ const LanguageForm = ({
     isPatchSuccess,
     isPostError,
     isPatchError,
-    handleDeleteForm,
-    quitEdit,
+    onPostSuccess: handleDeleteForm,
+    onPatchSuccess: quitEdit,
   });
 
   useEffect(() => {

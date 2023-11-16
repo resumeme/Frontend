@@ -6,8 +6,8 @@ type UseSubmitStatus = {
   isPatchSuccess?: boolean;
   isPostError?: boolean;
   isPatchError?: boolean;
-  handleDeleteForm?: () => void;
-  quitEdit?: () => void;
+  onPostSuccess?: () => void;
+  onPatchSuccess?: () => void;
 };
 
 export const useSubmitStatus = ({
@@ -15,8 +15,8 @@ export const useSubmitStatus = ({
   isPatchSuccess,
   isPostError,
   isPatchError,
-  handleDeleteForm,
-  quitEdit,
+  onPostSuccess,
+  onPatchSuccess,
 }: UseSubmitStatus) => {
   const toast = useToast();
   useEffect(() => {
@@ -25,8 +25,8 @@ export const useSubmitStatus = ({
         description: '성공적으로 저장되었습니다.',
         status: 'success',
       });
-      if (handleDeleteForm) {
-        handleDeleteForm();
+      if (onPostSuccess) {
+        onPostSuccess();
       }
     }
     if (isPatchSuccess) {
@@ -34,8 +34,8 @@ export const useSubmitStatus = ({
         description: '성공적으로 저장되었습니다.',
         status: 'success',
       });
-      if (quitEdit) {
-        quitEdit();
+      if (onPatchSuccess) {
+        onPatchSuccess();
       }
     }
     if (isPostError || isPatchError) {

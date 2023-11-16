@@ -84,8 +84,8 @@ const CareerForm = ({
     isPatchSuccess,
     isPostError,
     isPatchError,
-    handleDeleteForm,
-    quitEdit,
+    onPostSuccess: handleDeleteForm,
+    onPatchSuccess: quitEdit,
   });
 
   const defaultDutyData = {

@@ -68,8 +68,8 @@ const ActivityForm = ({
     isPatchSuccess,
     isPostError,
     isPatchError,
-    handleDeleteForm,
-    quitEdit,
+    onPostSuccess: handleDeleteForm,
+    onPatchSuccess: quitEdit,
   });
 
   const inProgress = watch('inProgress');
