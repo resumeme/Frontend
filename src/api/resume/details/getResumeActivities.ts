@@ -19,7 +19,7 @@ export const getResumeActivities = async ({
         Authorization: accessToken,
       },
     });
-    return data['activities'];
+    return data['activities'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
