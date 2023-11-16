@@ -41,6 +41,7 @@ export const useOptimisticDeleteCategory = <T extends Categories>({
     onSuccess: () => {
       toast({
         status: 'success',
+        description: '삭제 완료',
       });
       if (onMutateSuccess) {
         onMutateSuccess();

@@ -41,6 +41,7 @@ export const useOptimisticPatchCategory = <T extends Categories>({
     onSuccess: () => {
       toast({
         status: 'success',
+        description: '수정 완료',
       });
       if (onMutateSuccess) {
         onMutateSuccess();
