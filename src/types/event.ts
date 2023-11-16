@@ -24,6 +24,7 @@ type EventResume = {
   menteeName: string;
   resumeTitle: string;
   progressStatus: string;
+  modifiedAt?: string;
 };
 
 type ReadEvent = {
@@ -38,4 +39,28 @@ type ReadEvent = {
   resumes: EventResume[];
 };
 
-export type { CreateEvent, ReadEvent, EventResume, EventTime };
+type EventWithMentor = {
+  eventInfo: {
+    eventId: number;
+    title: string;
+    endDate: string;
+    status: string;
+    positions: Position[];
+  };
+  mentorInfo: {
+    mentorId: number;
+    nickname: string;
+    imageUrl: string;
+  };
+};
+
+type ResumeWithEvents = {
+  resumeInfo: {
+    id: number;
+    title: string;
+    modifiedAt?: string;
+  };
+  events: EventWithMentor[];
+};
+
+export type { CreateEvent, ReadEvent, EventResume, EventTime, ResumeWithEvents };
