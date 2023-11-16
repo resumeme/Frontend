@@ -6,11 +6,13 @@ import {
   AccordionPanel,
   Box,
   Flex,
+  Icon,
   Spacer,
   Text,
 } from '@chakra-ui/react';
+import { MdOutlineArticle } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
-import ResumeList from './ResumeList';
+import { ManagementPanel } from '~/components/molecules/ManagementPanel';
 import { EventResume, EventTime } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
 
@@ -91,10 +93,23 @@ const EventItem = ({
               gap={'1.37rem'}
             >
               {resumes.map((resume) => (
-                <ResumeList
-                  key={uuidv4()}
-                  resume={resume}
-                />
+                <>
+                  <ManagementPanel
+                    key={uuidv4()}
+                    url={`/resume/${resume.resumeId}`}
+                    icon={
+                      <Icon
+                        as={MdOutlineArticle}
+                        color={'primary.900'}
+                        w={'1.25rem'}
+                      />
+                    }
+                    date={resume?.modifiedAt}
+                    name={resume.menteeName}
+                    status={resume.progressStatus}
+                    title={resume.resumeTitle}
+                  />
+                </>
               ))}
             </Flex>
           </AccordionPanel>
