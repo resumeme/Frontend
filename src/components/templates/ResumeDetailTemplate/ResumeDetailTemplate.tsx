@@ -14,33 +14,25 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
-import {
-  useGetResumeCareer,
-  useGetResumeTraining,
-  useGetResumeLanguage,
-  useGetResumeProject,
-  useGetResumeActivities,
-  useGetResumeAward,
-} from '~/queries/resume/details';
-import { useGetResumeReferenceLinks } from '~/queries/resume/details/useGetResumeReferenceLinks';
+import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
+import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
+import { ReferenceLink as Link } from '~/types/referenceLink';
 
 const ResumeDetailTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
-  const { data: careersData } = useGetResumeCareer({ resumeId });
-  const { data: trainingsData } = useGetResumeTraining({ resumeId });
-  const { data: languageData } = useGetResumeLanguage({ resumeId });
-  const { data: projectData } = useGetResumeProject({ resumeId });
-  const { data: activitiesData } = useGetResumeActivities({ resumeId });
-  const { data: awardData } = useGetResumeAward({ resumeId });
-  const { data: referenceLinksData } = useGetResumeReferenceLinks({ resumeId });
+
+  const { data: details } = useGetResumeDetails({ resumeId });
+  const { data: basicInfo } = useGetResumeBasic({ resumeId });
 
   const data = {
-    career: careersData,
-    training: trainingsData,
-    project: projectData,
-    activity: activitiesData,
-    award: awardData,
-    language: languageData,
+    basic: basicInfo,
+    links: details?.links,
+    career: details?.careers,
+    training: details?.trainings,
+    project: details?.projects,
+    activity: details?.activities,
+    award: details?.certifications,
+    language: details?.['foreign-languages'],
   };
 
   return (
@@ -50,7 +42,6 @@ const ResumeDetailTemplate = () => {
       width={'960px'}
       gap={6}
     >
-      {/* NOTE ResumeTitle - 이력서 제목 */}
       <Box mx={'1rem'}>
         <Text
           fontSize={'2xl'}
@@ -60,7 +51,6 @@ const ResumeDetailTemplate = () => {
           {mockData.info.resume.resumeTitle}
         </Text>
       </Box>
-      {/* NOTE UpperPart 시작 */}
       <BorderBox
         hasShadow
         border={'none'}
@@ -74,9 +64,7 @@ const ResumeDetailTemplate = () => {
           direction={'column'}
           gap={12}
         >
-          {/* NOTE UpperPart - 상단부 UI */}
           <Flex justify={'space-between'}>
-            {/* NOTE UpperPart - 상단부 왼쪽 (이름, 직무, 참고링크) */}
             <Flex
               className="Head1"
               direction={'column'}
@@ -118,13 +106,13 @@ const ResumeDetailTemplate = () => {
                 width={'100%'}
               >
                 {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                {/* {referenceLinksData.map((link, index) => (
+                {data.links?.map((link: Link, index: number) => (
                   <ReferenceLinkBox
                     key={index}
-                    type={link.linkType}
+                    linkType={link.linkType}
                     url={link.url}
                   />
-                ))} */}
+                ))}
               </Flex>
             </Flex>
             {/* NOTE UpperPart - 상단부 오른쪽 (전화번호, 기술스택) */}
