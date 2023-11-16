@@ -3,12 +3,14 @@ import CONSTANTS from '~/constants';
 import { ReadEvent } from '~/types/event';
 import { getCookie } from '~/utils/cookie';
 
-export type GetEvents = { eventId?: string };
+export type getManagementEventsProps = { userId: number };
 
-export const getManagementEvents = async (): Promise<ReadEvent[]> => {
+export const getManagementEvents = async ({
+  userId,
+}: getManagementEventsProps): Promise<ReadEvent[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.get(`/v1/events`, {
+  const { data } = await resumeMeAxios.get(`/v1/events?mentorId=${userId}`, {
     headers: {
       Authorization: accessToken,
     },

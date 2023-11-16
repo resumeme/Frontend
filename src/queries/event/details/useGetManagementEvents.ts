@@ -1,13 +1,21 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getManagementEvents } from '~/api/event/details/getManagementEvents';
 
-export const events = {
-  all: ['events'] as const,
+type useGetManagementEventsProps = {
+  role?: 'mentee' | 'mentor';
+  userId: number;
 };
 
-export const useGetManagementEvents = () => {
-  return useSuspenseQuery({
-    queryKey: [events.all],
-    queryFn: getManagementEvents,
+export const eventsKeys = {
+  all: ['events'] as const,
+  events: ({ userId }: useGetManagementEventsProps) => [...eventsKeys.all, userId] as const,
+};
+
+export const useGetManagementEvents = ({ userId, role }: useGetManagementEventsProps) => {
+  return useQuery({
+    queryKey: [eventsKeys.events({ userId })],
+    queryFn: () => getManagementEvents({ userId }),
+    enabled: role === 'mentor',
+    retry: 0,
   });
 };
