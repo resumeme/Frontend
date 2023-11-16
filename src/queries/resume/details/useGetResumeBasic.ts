@@ -4,7 +4,7 @@ import { GetResumeBasic, getResumeBasic } from '~/api/resume/details/getResumeBa
 
 export const useGetResumeBasic = ({ resumeId }: GetResumeBasic) => {
   return useQuery({
-    queryKey: categoryKeys.all,
+    queryKey: categoryKeys.basic(resumeId),
     queryFn: () => getResumeBasic({ resumeId }),
     enabled: !!resumeId,
   });
