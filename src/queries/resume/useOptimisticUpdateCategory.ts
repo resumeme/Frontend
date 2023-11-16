@@ -1,11 +1,10 @@
 import { useToast } from '@chakra-ui/react';
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
-import { PatchResumeCategory } from '~/types/api/patchResumeCategory';
+import { MutationFunction, QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ResumeCategoryVariables } from '~/types/api/resumeCategoryVariables';
 import { Categories } from '~/types/resume/categories';
 
 type UseOptimisticUpdate<T extends Categories> = {
-  /**TODO - mutationFn을 post, delete도 받을 수 있도록 확장 */
-  mutationFn: PatchResumeCategory<T>;
+  mutationFn: MutationFunction<T, ResumeCategoryVariables<T>>;
   TARGET_QUERY_KEY: QueryKey;
   onMutateSuccess?: () => void;
 };
@@ -18,15 +17,15 @@ export const useOptimisticUpdateCategory = <T extends Categories>({
   const toast = useToast();
   return useMutation({
     mutationFn,
-    onMutate: async (newProject) => {
+    onMutate: async (newCategoryBlock) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousProjects = queryClient.getQueryData(TARGET_QUERY_KEY);
-      queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => [...old, newProject]);
+      queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => [...old, newCategoryBlock]);
       return { previousProjects };
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    onError: (err, newProject, context) => {
+    onError: (err, newCategoryBlock, context) => {
       queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousProjects);
       toast({
         title: '서버에 문제가 생겼습니다.',
