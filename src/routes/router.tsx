@@ -14,6 +14,7 @@ import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
+import { ResumeManagementPage } from '~/pages/ResumePages/ResumeManagementPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
 import SignInPage from '~/pages/SignInPage/SignInPage';
 import { SignUpPage } from '~/pages/SignUpPage';
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       { path: 'resume/:id/edit', element: <EditResumePage /> },
       { path: 'resume/:id/comment', element: <CommentResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
+      { path: 'resume/management', element: <ResumeManagementPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
       { path: 'event/create', element: <CreateEventPage /> },

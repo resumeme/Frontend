@@ -7,5 +7,5 @@ export type PatchResumeCategory<T extends Categories> = ({
 }: {
   resumeId: string;
   blockId: string;
-  body?: T;
+  body: T;
 }) => Promise<T>;

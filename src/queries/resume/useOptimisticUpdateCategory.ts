@@ -18,14 +18,14 @@ export const useOptimisticUpdateCategory = <T extends Categories>({
     mutationFn,
     onMutate: async (newCategoryBlock) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
-      const previousProjects = queryClient.getQueryData(TARGET_QUERY_KEY);
+      const previousCategoryData = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => [...old, newCategoryBlock]);
-      return { previousProjects };
+      return { previousCategoryData };
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     onError: (err, newCategoryBlock, context) => {
-      queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousProjects);
+      queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousCategoryData);
       toast({
         title: '서버에 문제가 생겼습니다.',
         description: '다시 시도해주세요.',

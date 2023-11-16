@@ -30,6 +30,7 @@ const EventProfile = ({ events }: EventProfile) => {
           <Text
             fontSize={'0.85rem'}
             color={'gray.700'}
+            fontWeight={700}
           >
             {`총 ${events.length}건`}
           </Text>
