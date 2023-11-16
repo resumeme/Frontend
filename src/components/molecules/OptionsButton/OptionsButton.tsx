@@ -1,4 +1,4 @@
-import { Box, IconButton, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Box, Icon, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { Menu } from '@chakra-ui/react';
 import { RiMore2Fill } from 'react-icons/ri';
 
@@ -18,8 +18,8 @@ const OptionsButton = ({ options }: OptionsButtonProps) => {
           display={'flex'}
           justifyContent={'center'}
         >
-          <IconButton
-            icon={<RiMore2Fill />}
+          <Icon
+            as={RiMore2Fill}
             aria-label="more button"
             w={'auto'}
           />
