@@ -7,16 +7,18 @@ import {
   Box,
   Flex,
   Icon,
-  IconButton,
   Input,
   Spacer,
   Text,
 } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
-import { MdMoreVert } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
+import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { ResumeWithEvents } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
 
@@ -30,6 +32,25 @@ const ResumeItem = ({
     resumeInfo: { modifiedAt, id, title },
   },
 }: ResumeItemProps) => {
+  const navigate = useNavigate();
+
+  const { mutate: deleteResume } = useDeleteResume();
+
+  const HandleEdit = () => {
+    navigate(`/resume/${id}/edit`);
+  };
+
+  const HandleDelete = () => {
+    // deleteResume({ resumeId: String(id) });
+    deleteResume({ resumeId: '752' });
+  };
+
+  const options: Option[] = [
+    { text: '수정하기', onClick: HandleEdit },
+    //공개하기?추가예정
+    { text: '삭제하기', onClick: HandleDelete },
+  ];
+
   return (
     <>
       <Flex>
@@ -41,13 +62,7 @@ const ResumeItem = ({
           >{`${formatDate(modifiedAt)} 수정`}</Text>
         )}
         <Spacer />
-        {/* //TODO: optionsbutton으로 변경 */}
-        <IconButton
-          size={''}
-          aria-label="more"
-          as={MdMoreVert}
-          color={'gray.500'}
-        />
+        <OptionsButton options={options} />
       </Flex>
       <Text
         mt={'1.5rem'}
