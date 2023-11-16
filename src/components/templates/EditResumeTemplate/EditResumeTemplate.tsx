@@ -25,7 +25,7 @@ import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProjec
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 
 const EditResumeTemplate = () => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { id: resumeId = '' } = useParams();
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
@@ -34,7 +34,6 @@ const EditResumeTemplate = () => {
     resumeId,
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
-
   /**TODO - 이력서 작성자가 사용자 본인과 일치하는지를 판단하기 */
   const isCurrentUser = true;
 
