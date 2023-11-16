@@ -12,6 +12,7 @@ type FeedbackInputProps = {
   value: string | undefined;
   onChange: (value: string | undefined) => void;
   onSaveClick?: (value: string) => void;
+  onCancelClick?: () => void;
   label?: string;
   saveLabel?: string;
   editorProps?: MDEditorProps;
@@ -21,6 +22,7 @@ const FeedbackInput = ({
   value,
   onChange,
   onSaveClick,
+  onCancelClick,
   label = '첨삭하기',
   saveLabel = '저장',
   ...editorProps
@@ -88,7 +90,17 @@ const FeedbackInput = ({
           {...editorProps}
         />
       </Box>
-      <Flex justify="flex-end">
+      <Flex
+        justify="flex-end"
+        gap={2}
+      >
+        <Button
+          variant={'cancel'}
+          size="xs"
+          onClick={onCancelClick}
+        >
+          취소
+        </Button>
         <Button
           size="xs"
           onClick={handleClick}
