@@ -1,37 +1,46 @@
 import { Box, Divider } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import { Activity } from '~/types/activity';
-import { Award } from '~/types/award';
-import Career from '~/types/career';
-import { Language } from '~/types/language';
-import { Project } from '~/types/project';
-import { Training } from '~/types/training';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
+import { FormComponentProps } from '~/types/props/formComponentProps';
+import { Categories } from '~/types/resume/categories';
 
-type Data = Career | Project | Award | Language | Training | Activity;
-
-type CategoryDetailsProps<T extends Data> = {
+type CategoryDetailsProps<T extends Categories> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
+  FormComponent?: React.ComponentType<FormComponentProps<T>>;
+  isCurrentUser?: boolean;
 };
 
-export type DetailsComponentProps<T extends Data> = {
-  data: T;
-};
-
-const ResumeCategoryDetails = <T extends Data>({
+const ResumeCategoryDetails = <T extends Categories>({
   arrayData,
   DetailsComponent,
+  FormComponent,
+  isCurrentUser = false,
 }: CategoryDetailsProps<T>) => {
+  const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   return (
     <React.Fragment>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
-              <Box position={'relative'}>
-                <DetailsComponent data={data} />
-              </Box>
+              {editTargetIndex === index && FormComponent ? (
+                <FormComponent
+                  defaultValues={{ ...data, id: undefined }}
+                  isEdit
+                  blockId={data.id}
+                  quitEdit={() => setEditTargetIndex(null)}
+                />
+              ) : (
+                <Box position={'relative'}>
+                  <DetailsComponent
+                    data={data}
+                    onEdit={() => setEditTargetIndex(index)}
+                    isCurrentUser={isCurrentUser}
+                  />
+                </Box>
+              )}
               {index !== arrayData.length - 1 && (
                 <Divider
                   my={'3rem'}

@@ -1,4 +1,5 @@
 type Career = {
+  id?: string;
   companyName: string;
   position: string;
   skills?: string[];

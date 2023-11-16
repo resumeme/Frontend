@@ -1,4 +1,5 @@
 type Award = {
+  id?: string;
   certificationTitle: string;
   acquisitionDate?: string;
   issuingAuthority?: string;

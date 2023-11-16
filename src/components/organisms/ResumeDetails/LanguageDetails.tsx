@@ -1,8 +1,8 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Language } from '~/types/language';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 /* TODO  
   기본으로 언어 카테고리 제시하기 (영어, 일본어, 중국어, 기타(입력받기))
@@ -12,9 +12,9 @@ import { Language } from '~/types/language';
 
 const LanguageDetails = ({
   data: { language, examName, scoreOrGrade },
+  onEdit,
+  isCurrentUser,
 }: DetailsComponentProps<Language>) => {
-  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
-  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -56,7 +56,7 @@ const LanguageDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
+          onEdit={onEdit}
           onDelete={() => {}}
         />
       )}

@@ -1,14 +1,6 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import {
-  VStack,
-  Text,
-  Divider,
-  Button as ChakraButton,
-  Checkbox,
-  Flex,
-  useToast,
-} from '@chakra-ui/react';
-import React from 'react';
+import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
 import {
   Control,
   FieldErrors,
@@ -19,6 +11,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeCareer } from '~/api/resume/edit/patchResumeCareer';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -30,10 +23,27 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import Career from '~/types/career';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const CareerForm = () => {
+const CareerForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Career>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postCareerMutate } = usePostResumeCareer(resumeId);
+  const { mutate: patchCareerMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeCareer,
+    TARGET_QUERY_KEY: categoryKeys.career(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const {
     control,
     register,
@@ -41,28 +51,27 @@ const CareerForm = () => {
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Career>();
+  } = useForm<Career>({ defaultValues });
+
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'duties',
   });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postCareerMutate, isSuccess } = usePostResumeCareer(resumeId);
-  const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
-  const onSubmit = handleSubmit((resumeCareer) => {
+
+  const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
       return;
     }
-    resumeCareer.skills = skills;
-    postCareerMutate({ resumeId, resumeCareer });
-    if (isSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
+    body.skills = skills;
+    if (!isEdit) {
+      postCareerMutate({ resumeId, resumeCareer: body });
+    } else if (isEdit && blockId) {
+      patchCareerMutate({ resumeId, blockId, body });
     }
   });
 
@@ -78,19 +87,28 @@ const CareerForm = () => {
     name: 'currentlyEmployed',
   });
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="업무경험"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="업무경험"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={onSubmit}>
             <VStack spacing={'1.25rem'}>
               <FormControl isInvalid={Boolean(errors.companyName)}>
@@ -184,9 +202,17 @@ const CareerForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

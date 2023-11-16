@@ -1,15 +1,15 @@
 import { Flex, Text, Heading, Icon, Link } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { Award } from '~/types/award';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const AwardDetails = ({
   data: { certificationTitle, acquisitionDate, issuingAuthority, link, description },
+  onEdit,
+  isCurrentUser,
 }: DetailsComponentProps<Award>) => {
-  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
-  const isCurrentUser = true;
   return (
     <Flex>
       <Flex flex={1}>
@@ -70,7 +70,7 @@ const AwardDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
+          onEdit={onEdit}
           onDelete={() => {}}
         />
       )}

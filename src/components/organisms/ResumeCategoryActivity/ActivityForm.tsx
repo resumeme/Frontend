@@ -1,7 +1,8 @@
-import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeActivity } from '~/api/resume/edit/patchResumeActivity';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -13,10 +14,27 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Activity } from '~/types/activity';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ActivityForm = () => {
+const ActivityForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Activity>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postActivityMutate } = usePostResumeActivity(resumeId);
+  const { mutate: patchResumeActivityMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeActivity,
+    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const {
     setValue,
     control,
@@ -25,31 +43,19 @@ const ActivityForm = () => {
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Activity>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   activityName: '활동1',
-    //   startDate: '2023-11-05',
-    //   endDate: '2023-11-10',
-    //   inProgress: false,
-    //   link: 'https://resumeme.kro.kr',
-    //   description: '활동 설명',
-    // },
-  });
+  } = useForm<Activity>({ defaultValues });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity(resumeId);
-  const toast = useToast();
-  const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
+
+  const onSubmit: SubmitHandler<Activity> = (body) => {
     if (!resumeId) {
       return;
     }
-    postActivityMutate({ resumeId, resumeActivity });
-    if (isSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
+    if (!isEdit) {
+      postActivityMutate({ resumeId, resumeActivity: body });
+    } else if (isEdit && blockId) {
+      patchResumeActivityMutate({ resumeId, blockId, body });
     }
   };
 
@@ -61,19 +67,28 @@ const ActivityForm = () => {
     }
   }, [inProgress, setValue]);
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="활동"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="활동"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
               <FormControl isInvalid={Boolean(errors.activityName)}>
@@ -147,9 +162,17 @@ const ActivityForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>
