@@ -1,15 +1,34 @@
 import { Flex, Heading, Icon, Link, Text } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Project } from '~/types/project';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ProjectDetails = ({
-  data: { projectName, productionYear, teamMembers, skills, projectContent, projectUrl, isTeam },
+  data: {
+    id,
+    projectName,
+    productionYear,
+    teamMembers,
+    skills,
+    projectContent,
+    projectUrl,
+    isTeam,
+  },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Project>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const blockId = id as string;
+  const { mutate: deleteProjectMutate } = useOptimisticUpdateCategory<Project>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.project(blockId),
+  });
   return (
     <Flex>
       <Flex flex={1}>
@@ -113,7 +132,7 @@ const ProjectDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => {}}
+          onDelete={() => deleteProjectMutate({ resumeId, blockId })}
         />
       )}
     </Flex>

@@ -1,14 +1,35 @@
 import { Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { Training } from '~/types/training';
 
 const TraningDetails = ({
-  data: { organization, major, degree, admissionDate, graduationDate, gpa, maxGpa, explanation },
+  data: {
+    id,
+    organization,
+    major,
+    degree,
+    admissionDate,
+    graduationDate,
+    gpa,
+    maxGpa,
+    explanation,
+  },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Training>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const blockId = id as string;
+  const { mutate: deleteTrainingMutate } = useOptimisticUpdateCategory<Training>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.training(blockId),
+  });
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -114,7 +135,7 @@ const TraningDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => {}}
+          onDelete={() => deleteTrainingMutate({ resumeId, blockId })}
         />
       )}
     </Flex>

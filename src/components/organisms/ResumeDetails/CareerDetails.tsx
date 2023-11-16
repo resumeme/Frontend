@@ -1,12 +1,17 @@
 import { Box, Text, Flex, Heading } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import Career from '~/types/career';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const CareerDetails = ({
   data: {
+    id,
     companyName,
     position,
     skills,
@@ -19,6 +24,12 @@ const CareerDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Career>) => {
+  const { id: resumeId = '' } = useParams();
+  const blockId = id as string;
+  const { mutate: deleteLanguageMutate } = useOptimisticUpdateCategory<Career>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.award(blockId),
+  });
   return (
     <Flex>
       <Flex flex={1}>
@@ -128,7 +139,7 @@ const CareerDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => {}}
+          onDelete={() => deleteLanguageMutate({ resumeId, blockId })}
         />
       )}
     </Flex>
