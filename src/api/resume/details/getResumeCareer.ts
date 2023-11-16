@@ -17,7 +17,7 @@ export const getResumeCareer = async ({ resumeId }: GetResumeCareer): Promise<Ca
         Authorization: accessToken,
       },
     });
-    return data['careers'] ?? [];
+    return data['careers'] ?? null;
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);

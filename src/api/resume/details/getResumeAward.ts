@@ -17,7 +17,7 @@ export const getResumeAward = async ({ resumeId }: GetResumeAward): Promise<Awar
         Authorization: accessToken,
       },
     });
-    return data['certifications'] ?? [];
+    return data['certifications'] ?? null;
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
