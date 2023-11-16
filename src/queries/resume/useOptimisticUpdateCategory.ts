@@ -1,10 +1,9 @@
 import { useToast } from '@chakra-ui/react';
 import { MutationFunction, QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ResumeCategoryVariables } from '~/types/api/resumeCategoryVariables';
 import { Categories } from '~/types/resume/categories';
 
 type UseOptimisticUpdate<T extends Categories> = {
-  mutationFn: MutationFunction<T, ResumeCategoryVariables<T>>;
+  mutationFn: MutationFunction<T, { resumeId: string; blockId: string; body?: T }>;
   TARGET_QUERY_KEY: QueryKey;
   onMutateSuccess?: () => void;
 };
