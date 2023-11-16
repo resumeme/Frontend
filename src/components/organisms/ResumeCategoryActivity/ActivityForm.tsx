@@ -37,8 +37,8 @@ const ActivityForm = () => {
     // },
   });
 
-  const { id: resumeId } = useParams();
-  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity();
+  const { id: resumeId } = useParams() as { id: string };
+  const { mutate: postActivityMutate, isSuccess } = usePostResumeActivity(resumeId);
   const toast = useToast();
   const onSubmit: SubmitHandler<Activity> = (resumeActivity: Activity) => {
     if (!resumeId) {

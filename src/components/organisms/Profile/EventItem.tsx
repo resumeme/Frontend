@@ -1,6 +1,16 @@
-import { Flex, Text } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Flex,
+  Spacer,
+  Text,
+} from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import { AccordionToggle } from '~/components/atoms/AccordionToggle';
+import ResumeList from './ResumeList';
 import { EventResume, EventTime } from '~/types/event';
 import { formatDate } from '~/utils/formatDate';
 
@@ -39,25 +49,57 @@ const EventItem = ({
             <Text>첨삭 종료일</Text>
             <Text>{formatDate(timeInfo.endDate)}</Text>
           </Flex>
-          <Flex justifyContent={'space-between'}>
-            <Text>신청 인원</Text>
-            <Text>{`${currentApplicantCount} / ${maximumCount}`}</Text>
-          </Flex>
         </Flex>
       </Flex>
-      <Flex
-        color={'gray.800'}
-        fontSize={'0.875rem'}
+      <Accordion
         mt={'2.37rem'}
-        justifyContent={'space-between'}
+        w={'full'}
+        allowToggle
       >
-        <AccordionToggle text="신청이력서 3건">
-          {/* //TODO: 다른 이력서 정보로 진행 */}
-          {resumes.map((resume) => (
-            <Text key={uuidv4()}>{resume.resumeId}</Text>
-          ))}
-        </AccordionToggle>
-      </Flex>
+        <AccordionItem
+          border={'none'}
+          px={0}
+          w={'full'}
+        >
+          <Flex>
+            <AccordionButton
+              w={'7rem'}
+              _hover={{ bg: 'none' }}
+              p={0}
+            >
+              <Box
+                w={'full'}
+                as="span"
+                flex={1}
+                textAlign={'left'}
+                fontSize={'0.875rem'}
+              >
+                {`신청이력서 ${resumes.length}건`}
+              </Box>
+              <AccordionIcon
+                marginLeft={'0.37rem'}
+                fontSize={'0.875rem'}
+              />
+            </AccordionButton>
+            <Spacer />
+            <Text>{`신청 인원 ${currentApplicantCount} / ${maximumCount}`}</Text>
+          </Flex>
+          <AccordionPanel p={0}>
+            <Flex
+              mt={'1rem'}
+              direction={'column'}
+              gap={'1.37rem'}
+            >
+              {resumes.map((resume) => (
+                <ResumeList
+                  key={uuidv4()}
+                  resume={resume}
+                />
+              ))}
+            </Flex>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </>
   );
 };
