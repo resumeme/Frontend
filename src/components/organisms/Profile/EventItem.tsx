@@ -96,6 +96,7 @@ const EventItem = ({
                 <>
                   <ManagementPanel
                     key={uuidv4()}
+                    url={`/resume/${resume.resumeId}`}
                     icon={
                       <Icon
                         as={MdOutlineArticle}
