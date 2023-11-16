@@ -1,7 +1,6 @@
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { data as mockData } from './ResumeDetail.const';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
@@ -48,7 +47,7 @@ const ResumeDetailTemplate = () => {
           fontWeight={'bold'}
           color={'gray.800'}
         >
-          {mockData.info.resume.resumeTitle}
+          {data.basic?.title}
         </Text>
       </Box>
       <BorderBox
@@ -80,7 +79,7 @@ const ResumeDetailTemplate = () => {
                   fontWeight={'bold'}
                   color={'gray.900'}
                 >
-                  {mockData.info.userInfo.name}
+                  {data.basic?.ownerInfo.name}
                 </Text>
                 <Label
                   width={'fit-content'}
@@ -89,33 +88,34 @@ const ResumeDetailTemplate = () => {
                   color={'gray.100'}
                   px={5}
                 >
-                  {mockData.info.basicInfo.position}
+                  {data.basic?.position}
                 </Label>
                 <Flex
                   gap={4}
                   align={'center'}
                 >
                   <PhoneIcon />
-                  <Text>{mockData.info.userInfo.phoneNumber}</Text>
+                  <Text>{data.basic?.ownerInfo.phoneNumber}</Text>
                 </Flex>
               </Flex>
-              <Flex
-                direction={'column'}
-                align={'start'}
-                gap={2}
-                width={'100%'}
-              >
-                {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                {data.links?.map((link: Link, index: number) => (
-                  <ReferenceLinkBox
-                    key={index}
-                    linkType={link.linkType}
-                    url={link.url}
-                  />
-                ))}
-              </Flex>
+              {data.links && (
+                <Flex
+                  direction={'column'}
+                  align={'start'}
+                  gap={2}
+                  width={'100%'}
+                >
+                  {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
+                  {data.links?.map((link: Link, index: number) => (
+                    <ReferenceLinkBox
+                      key={index}
+                      linkType={link.linkType}
+                      url={link.url}
+                    />
+                  ))}
+                </Flex>
+              )}
             </Flex>
-            {/* NOTE UpperPart - 상단부 오른쪽 (전화번호, 기술스택) */}
             <Flex
               className="Head2"
               direction={'column'}
@@ -124,49 +124,53 @@ const ResumeDetailTemplate = () => {
               mt={'3%'}
               flex={1}
             >
-              <Flex
-                direction={'column'}
-                align={'flex-end'}
-                gap={3}
-              >
-                <Text
-                  fontSize={'lg'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                >
-                  보유 기술
-                </Text>
+              {data.basic?.skills && (
                 <Flex
-                  gap={2}
-                  pl={1}
-                  justify={'flex-end'}
-                  flexWrap={'wrap'}
+                  direction={'column'}
+                  align={'flex-end'}
+                  gap={3}
                 >
-                  {mockData.info.basicInfo.skills?.map((skill, i) => (
-                    <Label
-                      key={i}
-                      bg={'gray.300'}
-                      color={'gray.700'}
-                      fontWeight={'medium'}
-                    >
-                      {skill}
-                    </Label>
-                  ))}
+                  <Text
+                    fontSize={'lg'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                  >
+                    보유 기술
+                  </Text>
+                  <Flex
+                    gap={2}
+                    pl={1}
+                    justify={'flex-end'}
+                    flexWrap={'wrap'}
+                  >
+                    {data.basic?.skills?.map((skill: string[], index: number) => (
+                      <Label
+                        key={index}
+                        bg={'gray.300'}
+                        color={'gray.700'}
+                        fontWeight={'medium'}
+                      >
+                        {skill}
+                      </Label>
+                    ))}
+                  </Flex>
                 </Flex>
-              </Flex>
+              )}
             </Flex>
           </Flex>
           <Flex justify={'center'}>
-            <BorderBox
-              width={'100%'}
-              textAlign={'center'}
-              whiteSpace={'break-spaces'}
-              wordBreak={'keep-all'}
-              fontSize={'sm'}
-              fontWeight={'medium'}
-            >
-              <Text>{mockData.info.basicInfo.introduce}</Text>
-            </BorderBox>
+            {data.basic?.introduce && (
+              <BorderBox
+                width={'100%'}
+                textAlign={'center'}
+                whiteSpace={'break-spaces'}
+                wordBreak={'keep-all'}
+                fontSize={'sm'}
+                fontWeight={'medium'}
+              >
+                <Text>{data.basic?.introduce}</Text>
+              </BorderBox>
+            )}
           </Flex>
           {/* NOTE LowerPart - 하단부 UI */}
           <Flex
