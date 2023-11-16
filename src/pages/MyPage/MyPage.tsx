@@ -7,7 +7,7 @@ import { useGetManagementEvents } from '~/queries/event/details/useGetManagement
 
 const MyPage = () => {
   const { user } = useUser();
-  const { data: events } = useGetManagementEvents();
+  const { data: events } = useGetManagementEvents({ role: user?.role, userId: user?.id || 0 });
 
   const DUMY_DATA = [
     {
