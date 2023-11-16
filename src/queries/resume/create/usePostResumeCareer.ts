@@ -10,7 +10,7 @@ export const usePostResumeCareer = (resumeId: string) => {
   return useMutation({
     mutationKey: ['postCareer'],
     mutationFn: postResumeCareer,
-    onMutate: async (newCareer) => {
+    onMutate: async ({ resumeCareer: newCareer }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousCareers = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: Career[]) => [...old, newCareer]);

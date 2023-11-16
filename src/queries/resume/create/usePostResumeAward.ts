@@ -10,7 +10,7 @@ export const usePostResumeAward = (resumeId: string) => {
   return useMutation({
     mutationKey: ['postAward'],
     mutationFn: postResumeAward,
-    onMutate: async (newAward) => {
+    onMutate: async ({ resumeAward: newAward }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousAwards = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: Award[]) => [...old, newAward]);

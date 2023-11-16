@@ -10,7 +10,7 @@ export const usePostResumeTraining = (resumeId: string) => {
   return useMutation({
     mutationKey: ['postCareer'],
     mutationFn: postResumeTraining,
-    onMutate: async (newProject) => {
+    onMutate: async ({ resumeTraining: newProject }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousProjects = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: Activity[]) => [...old, newProject]);

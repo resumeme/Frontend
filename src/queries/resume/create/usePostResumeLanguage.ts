@@ -10,7 +10,7 @@ export const usePostResumeLanguage = (resumeId: string) => {
   return useMutation({
     mutationKey: ['postLanguage'],
     mutationFn: postResumeLanguage,
-    onMutate: async (newLanguage) => {
+    onMutate: async ({ resumeLanguage: newLanguage }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousLanguages = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: Language[]) => [...old, newLanguage]);
