@@ -8,7 +8,7 @@ import { Categories } from '~/types/resume/categories';
 type CategoryDetailsProps<T extends Categories> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
-  FormComponent: React.ComponentType<FormComponentProps<T>>;
+  FormComponent?: React.ComponentType<FormComponentProps<T>>;
   isCurrentUser?: boolean;
 };
 
@@ -25,7 +25,7 @@ const ResumeCategoryDetails = <T extends Categories>({
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => (
             <React.Fragment key={index}>
-              {editTargetIndex === index ? (
+              {editTargetIndex === index && FormComponent ? (
                 <FormComponent
                   defaultValues={{ ...data, id: undefined }}
                   isEdit
