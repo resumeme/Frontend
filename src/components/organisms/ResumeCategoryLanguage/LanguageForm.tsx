@@ -1,4 +1,4 @@
-import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
+import { VStack, HStack, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -23,6 +24,18 @@ const LanguageForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Language>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const {
+    mutate: postLanguageMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeLanguage(resumeId);
+  const {
+    mutate: patchResumeLanguageMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeLanguage, categoryKeys.award(resumeId));
+
   const {
     register,
     handleSubmit,
@@ -30,13 +43,9 @@ const LanguageForm = ({
     reset,
   } = useForm<Language>({ defaultValues });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postLanguageMutate, isSuccess: isPostSuccess } = usePostResumeLanguage(resumeId);
-  const { mutate: patchResumeLanguageMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeLanguage,
-    categoryKeys.award(resumeId),
-  );
-  const toast = useToast();
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
+
   const onSubmit: SubmitHandler<Language> = (body) => {
     if (!resumeId) {
       return;
@@ -46,21 +55,16 @@ const LanguageForm = ({
     } else if (isEdit && blockId) {
       patchResumeLanguageMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
+  });
 
   useEffect(() => {
     if (isEdit) {

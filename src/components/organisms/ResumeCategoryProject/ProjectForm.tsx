@@ -1,4 +1,4 @@
-import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
+import { Flex, Select, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -27,16 +28,17 @@ const ProjectForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Project>) => {
-  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
-
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postResumeProjectMutate, isSuccess: isPostSuccess } =
-    usePostResumeProject(resumeId);
-  const { mutate: patchResumeProjectMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeProject,
-    categoryKeys.project(resumeId),
-  );
-  const toast = useToast();
+  const {
+    mutate: postResumeProjectMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeProject(resumeId);
+  const {
+    mutate: patchResumeProjectMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeProject, categoryKeys.project(resumeId));
 
   const {
     watch,
@@ -47,6 +49,11 @@ const ProjectForm = ({
   } = useForm<Project>({
     defaultValues: defaultValues ?? { isTeam: true },
   });
+
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
+
+  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const onSubmit: SubmitHandler<Project> = (body) => {
     if (!resumeId) {
@@ -59,21 +66,16 @@ const ProjectForm = ({
     } else if (isEdit && blockId) {
       patchResumeProjectMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
+  });
 
   useEffect(() => {
     if (isEdit) {

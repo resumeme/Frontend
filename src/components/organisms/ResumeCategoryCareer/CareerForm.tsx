@@ -1,13 +1,5 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import {
-  VStack,
-  Text,
-  Divider,
-  Button as ChakraButton,
-  Checkbox,
-  Flex,
-  useToast,
-} from '@chakra-ui/react';
+import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import {
   Control,
@@ -31,6 +23,7 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -43,6 +36,18 @@ const CareerForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Career>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const {
+    mutate: postCareerMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeCareer(resumeId);
+  const {
+    mutate: patchCareerMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeCareer, categoryKeys.career(resumeId));
+
   const {
     control,
     register,
@@ -52,19 +57,16 @@ const CareerForm = ({
     reset,
   } = useForm<Career>({ defaultValues });
 
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'duties',
   });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postCareerMutate, isSuccess: isPostSuccess } = usePostResumeCareer(resumeId);
-  const { mutate: patchCareerMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeCareer,
-    categoryKeys.career(resumeId),
-  );
-  const toast = useToast();
   const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
+
   const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
       return;
@@ -75,17 +77,15 @@ const CareerForm = ({
     } else if (isEdit && blockId) {
       patchCareerMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
+  });
+
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
   });
 
   const defaultDutyData = {
@@ -99,9 +99,6 @@ const CareerForm = ({
     control,
     name: 'currentlyEmployed',
   });
-
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
 
   useEffect(() => {
     if (isEdit) {

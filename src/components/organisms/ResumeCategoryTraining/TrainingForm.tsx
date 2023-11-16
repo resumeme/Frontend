@@ -1,4 +1,5 @@
-import { Flex, VStack, useToast } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { patchResumeTraining } from '~/api/resume/edit/patchResumeTraining';
@@ -12,6 +13,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -24,6 +26,18 @@ const TrainingForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Training>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const {
+    mutate: postTrainingMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeTraining(resumeId);
+  const {
+    mutate: patchTrainingMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeTraining, categoryKeys.award(resumeId));
+
   const {
     watch,
     register,
@@ -32,14 +46,9 @@ const TrainingForm = ({
     reset,
   } = useForm<Training>({ defaultValues });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postTrainingMutate, isSuccess: isPostSuccess } = usePostResumeTraining(resumeId);
-  const { mutate: patchTrainingMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeTraining,
-    categoryKeys.award(resumeId),
-  );
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
 
-  const toast = useToast();
   const onSubmit: SubmitHandler<Training> = (body) => {
     if (!resumeId) {
       return;
@@ -49,21 +58,23 @@ const TrainingForm = ({
     } else if (isEdit && blockId) {
       patchTrainingMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
+  });
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}

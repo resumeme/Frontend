@@ -1,4 +1,4 @@
-import { Flex, VStack, useToast } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -27,12 +28,16 @@ const AwardForm = ({
   quitEdit,
 }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postResumeAwardMutate, isSuccess: isPostSuccess } = usePostResumeAward(resumeId);
-  const { mutate: patchResumeAwardMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeAward,
-    categoryKeys.award(resumeId),
-  );
-  const toast = useToast();
+  const {
+    mutate: postResumeAwardMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeAward(resumeId);
+  const {
+    mutate: patchResumeAwardMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeAward, categoryKeys.award(resumeId));
 
   const {
     register,
@@ -40,6 +45,9 @@ const AwardForm = ({
     formState: { errors, isDirty },
     reset,
   } = useForm<Award>({ defaultValues });
+
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
 
   const onSubmit: SubmitHandler<Award> = (body) => {
     if (!resumeId) {
@@ -50,21 +58,16 @@ const AwardForm = ({
     } else if (isEdit && blockId) {
       patchResumeAwardMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
   };
 
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
+  });
 
   useEffect(() => {
     if (isEdit) {

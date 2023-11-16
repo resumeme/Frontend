@@ -1,4 +1,4 @@
-import { VStack, Checkbox, Flex, useToast } from '@chakra-ui/react';
+import { VStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
@@ -26,6 +27,18 @@ const ActivityForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Activity>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  const {
+    mutate: postActivityMutate,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+  } = usePostResumeActivity(resumeId);
+  const {
+    mutate: patchResumeActivityMutate,
+    isSuccess: isPatchSuccess,
+    isError: isPatchError,
+  } = usePatchCategoryBlock(patchResumeActivity, categoryKeys.activity(resumeId));
+
   const {
     setValue,
     control,
@@ -36,13 +49,9 @@ const ActivityForm = ({
     reset,
   } = useForm<Activity>({ defaultValues });
 
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postActivityMutate, isSuccess: isPostSuccess } = usePostResumeActivity(resumeId);
-  const { mutate: patchResumeActivityMutate, isSuccess: isPatchSuccess } = usePatchCategoryBlock(
-    patchResumeActivity,
-    categoryKeys.activity(resumeId),
-  );
-  const toast = useToast();
+  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
+    useHandleFormState(isDirty, reset);
+
   const onSubmit: SubmitHandler<Activity> = (body) => {
     if (!resumeId) {
       return;
@@ -52,18 +61,16 @@ const ActivityForm = ({
     } else if (isEdit && blockId) {
       patchResumeActivityMutate({ resumeId, blockId, body });
     }
-    if (isPostSuccess || isPatchSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-    if (isPatchSuccess) {
-      if (quitEdit) {
-        quitEdit();
-      }
-    }
   };
+
+  useSubmitStatus({
+    isPostSuccess,
+    isPatchSuccess,
+    isPostError,
+    isPatchError,
+    handleDeleteForm,
+    quitEdit,
+  });
 
   const inProgress = watch('inProgress');
 
@@ -72,9 +79,6 @@ const ActivityForm = ({
       setValue('endDate', '');
     }
   }, [inProgress, setValue]);
-
-  const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
-    useHandleFormState(isDirty, reset);
 
   useEffect(() => {
     if (isEdit) {
