@@ -11,10 +11,9 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Language } from '~/types/language';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -25,16 +24,13 @@ const LanguageForm = ({
   quitEdit,
 }: FormComponentProps<Language>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postLanguageMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeLanguage(resumeId);
-  const {
-    mutate: patchResumeLanguageMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeLanguage, categoryKeys.award(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postLanguageMutate } = usePostResumeLanguage(resumeId);
+  const { mutate: patchResumeLanguageMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeLanguage,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     register,
@@ -56,15 +52,6 @@ const LanguageForm = ({
       patchResumeLanguageMutate({ resumeId, blockId, body });
     }
   };
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
-  });
 
   useEffect(() => {
     if (isEdit) {

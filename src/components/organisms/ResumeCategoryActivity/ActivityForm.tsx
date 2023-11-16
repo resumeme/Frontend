@@ -14,10 +14,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Activity } from '~/types/activity';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -28,16 +27,13 @@ const ActivityForm = ({
   quitEdit,
 }: FormComponentProps<Activity>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postActivityMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeActivity(resumeId);
-  const {
-    mutate: patchResumeActivityMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeActivity, categoryKeys.activity(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postActivityMutate } = usePostResumeActivity(resumeId);
+  const { mutate: patchResumeActivityMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeActivity,
+    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     setValue,
@@ -62,15 +58,6 @@ const ActivityForm = ({
       patchResumeActivityMutate({ resumeId, blockId, body });
     }
   };
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
-  });
 
   const inProgress = watch('inProgress');
 

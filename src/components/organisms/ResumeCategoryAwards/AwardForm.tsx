@@ -14,10 +14,9 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Award } from '~/types/award';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -28,16 +27,13 @@ const AwardForm = ({
   quitEdit,
 }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postResumeAwardMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeAward(resumeId);
-  const {
-    mutate: patchResumeAwardMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeAward, categoryKeys.award(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postResumeAwardMutate } = usePostResumeAward(resumeId);
+  const { mutate: patchResumeAwardMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeAward,
+    TARGET_QUERY_KEY: categoryKeys.award(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     register,
@@ -59,15 +55,6 @@ const AwardForm = ({
       patchResumeAwardMutate({ resumeId, blockId, body });
     }
   };
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
-  });
 
   useEffect(() => {
     if (isEdit) {

@@ -23,10 +23,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import Career from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -37,16 +36,13 @@ const CareerForm = ({
   quitEdit,
 }: FormComponentProps<Career>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postCareerMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeCareer(resumeId);
-  const {
-    mutate: patchCareerMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeCareer, categoryKeys.career(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postCareerMutate } = usePostResumeCareer(resumeId);
+  const { mutate: patchCareerMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeCareer,
+    TARGET_QUERY_KEY: categoryKeys.career(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     control,
@@ -77,15 +73,6 @@ const CareerForm = ({
     } else if (isEdit && blockId) {
       patchCareerMutate({ resumeId, blockId, body });
     }
-  });
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
   });
 
   const defaultDutyData = {

@@ -13,10 +13,9 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
@@ -27,16 +26,13 @@ const TrainingForm = ({
   quitEdit,
 }: FormComponentProps<Training>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postTrainingMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeTraining(resumeId);
-  const {
-    mutate: patchTrainingMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeTraining, categoryKeys.award(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postTrainingMutate } = usePostResumeTraining(resumeId);
+  const { mutate: patchResumeTrainingMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeTraining,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     watch,
@@ -56,18 +52,9 @@ const TrainingForm = ({
     if (!isEdit) {
       postTrainingMutate({ resumeId, resumeTraining: body });
     } else if (isEdit && blockId) {
-      patchTrainingMutate({ resumeId, blockId, body });
+      patchResumeTrainingMutate({ resumeId, blockId, body });
     }
   };
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
-  });
 
   useEffect(() => {
     if (isEdit) {

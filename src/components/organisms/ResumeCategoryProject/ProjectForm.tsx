@@ -15,10 +15,9 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { useSubmitStatus } from '~/hooks/useSubmitStatus';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
-import { usePatchCategoryBlock } from '~/queries/resume/usePatchCategoryBlock';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -29,16 +28,13 @@ const ProjectForm = ({
   quitEdit,
 }: FormComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const {
-    mutate: postResumeProjectMutate,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-  } = usePostResumeProject(resumeId);
-  const {
-    mutate: patchResumeProjectMutate,
-    isSuccess: isPatchSuccess,
-    isError: isPatchError,
-  } = usePatchCategoryBlock(patchResumeProject, categoryKeys.project(resumeId));
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postResumeProjectMutate } = usePostResumeProject(resumeId);
+  const { mutate: patchResumeProjectMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeProject,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const {
     watch,
@@ -67,15 +63,6 @@ const ProjectForm = ({
       patchResumeProjectMutate({ resumeId, blockId, body });
     }
   };
-
-  useSubmitStatus({
-    isPostSuccess,
-    isPatchSuccess,
-    isPostError,
-    isPatchError,
-    onPostSuccess: handleDeleteForm,
-    onPatchSuccess: quitEdit,
-  });
 
   useEffect(() => {
     if (isEdit) {
