@@ -15,7 +15,6 @@ import {
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { MdMoreVert } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
 import { ResumeWithEvents } from '~/types/event';
@@ -31,8 +30,6 @@ const ResumeItem = ({
     resumeInfo: { modifiedAt, id, title },
   },
 }: ResumeItemProps) => {
-  const navigate = useNavigate();
-
   return (
     <>
       <Flex>
