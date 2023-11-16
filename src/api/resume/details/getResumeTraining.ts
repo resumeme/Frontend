@@ -2,11 +2,12 @@ import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
+import { Training } from '~/types/training';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeTraining = { resumeId: string };
 
-export const getResumeTraining = async ({ resumeId }: GetResumeTraining) => {
+export const getResumeTraining = async ({ resumeId }: GetResumeTraining): Promise<Training[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
@@ -16,10 +17,11 @@ export const getResumeTraining = async ({ resumeId }: GetResumeTraining) => {
         Authorization: accessToken,
       },
     });
-    return data;
+    return data['trainings'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
     }
+    return [];
   }
 };
