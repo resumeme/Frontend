@@ -15,7 +15,7 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
@@ -26,9 +26,8 @@ const TrainingForm = ({
   quitEdit,
 }: FormComponentProps<Training>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postTrainingMutate } = usePostResumeTraining(resumeId);
-  const { mutate: patchResumeTrainingMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeTrainingMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeTraining,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
     onMutateSuccess: quitEdit,

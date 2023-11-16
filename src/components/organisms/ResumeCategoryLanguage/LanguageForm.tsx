@@ -13,7 +13,7 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { Language } from '~/types/language';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -24,9 +24,8 @@ const LanguageForm = ({
   quitEdit,
 }: FormComponentProps<Language>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postLanguageMutate } = usePostResumeLanguage(resumeId);
-  const { mutate: patchResumeLanguageMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeLanguageMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeLanguage,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),
     onMutateSuccess: quitEdit,
