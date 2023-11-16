@@ -10,7 +10,7 @@ export const usePostResumeActivity = (resumeId: string) => {
   return useMutation({
     mutationKey: ['postActivity'],
     mutationFn: postResumeActivity,
-    onMutate: async (newActivity) => {
+    onMutate: async ({ resumeActivity: newActivity }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousActivities = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: Activity[]) => [...old, newActivity]);
