@@ -35,6 +35,9 @@ const EditResumeTemplate = () => {
   });
   const { data: awardData } = useGetResumeAward({ resumeId });
 
+  /**TODO - 이력서 작성자가 사용자 본인과 일치하는지를 판단하기 */
+  const isCurrentUser = true;
+
   return (
     <Flex
       width="960px"
@@ -48,6 +51,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={careersData}
           DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -56,6 +61,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
+          FormComponent={ProjectForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -64,6 +71,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={awardData}
           DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -72,6 +81,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={languageData}
           DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -80,6 +91,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={trainingsData}
           DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -88,6 +101,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
+          FormComponent={ActivityForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
     </Flex>

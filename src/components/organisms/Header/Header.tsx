@@ -2,6 +2,8 @@ import { BellIcon } from '@chakra-ui/icons';
 import { Box, Flex, Button, Stack, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
+import { usePostSignOut } from '~/queries/usePostSignOut';
 
 type NavItem = {
   label: string;
@@ -13,6 +15,7 @@ type NavItem = {
 const TEXT_CONTENTS = {
   LOGO: 'resume.me',
   SIGN: '회원가입 / 로그인',
+  SIGN_OUT: '로그아웃',
 };
 
 const NAV_ITEMS: Array<NavItem> = [
@@ -61,6 +64,13 @@ const Navigation = () => {
 };
 
 const Header = () => {
+  const { user } = useUser();
+  const { mutate: signOut } = usePostSignOut();
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
   return (
     <Box
       className="box"
@@ -118,7 +128,8 @@ const Header = () => {
           direction={'row'}
           spacing={2}
         >
-          <Link to={appPaths.signIn}>
+          {user ? (
+            //TODO: 추후에 컴포넌트 만들어서 프로필, 알림, 메뉴가 나오는 걸로 대체
             <Button
               w={'144px'}
               h={'40px'}
@@ -131,10 +142,31 @@ const Header = () => {
               _hover={{
                 bg: 'gray.200',
               }}
+              type="button"
+              onClick={handleSignOut}
             >
-              {TEXT_CONTENTS.SIGN}
+              {TEXT_CONTENTS.SIGN_OUT}
             </Button>
-          </Link>
+          ) : (
+            <Link to={appPaths.signIn}>
+              <Button
+                w={'144px'}
+                h={'40px'}
+                fontSize={'sm'}
+                fontWeight={600}
+                color={'primary.900'}
+                bg={'transparent'}
+                border={'1px'}
+                borderColor={'gray.300'}
+                _hover={{
+                  bg: 'gray.200',
+                }}
+              >
+                {TEXT_CONTENTS.SIGN}
+              </Button>
+            </Link>
+          )}
+
           <Button
             w={'30px'}
             h={'40px'}

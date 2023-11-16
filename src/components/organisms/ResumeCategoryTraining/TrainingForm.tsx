@@ -1,6 +1,8 @@
-import { Flex, VStack, useToast } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { patchResumeTraining } from '~/api/resume/edit/patchResumeTraining';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -11,59 +13,71 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
+import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
-const TrainingForm = () => {
+const TrainingForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Training>) => {
+  const { id: resumeId } = useParams() as { id: string };
+  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
+  const { mutate: postTrainingMutate } = usePostResumeTraining(resumeId);
+  const { mutate: patchResumeTrainingMutate } = useOptimisticUpdateCategory({
+    mutationFn: patchResumeTraining,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Training>({
-    //Todo: useQuery 관련 작업 예상
-    // defaultValues: {
-    //   organization: '데브대',
-    //   major: '컴퓨터공학과',
-    //   degree: '학사 학위',
-    //   admissionDate: '2018-03-01',
-    //   graduationDate: '2022-02-28',
-    //   gpa: 4.0,
-    //   maxGpa: 4.5,
-    //   explanation: '성적 우수',
-    // },
-  });
-
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postTrainingMutate, isSuccess } = usePostResumeTraining(resumeId);
-  const toast = useToast();
-  const onSubmit: SubmitHandler<Training> = (resumeTraining: Training) => {
-    if (!resumeId) {
-      return;
-    }
-    postTrainingMutate({ resumeId, resumeTraining });
-    if (isSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-  };
+  } = useForm<Training>({ defaultValues });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  const onSubmit: SubmitHandler<Training> = (body) => {
+    if (!resumeId) {
+      return;
+    }
+    if (!isEdit) {
+      postTrainingMutate({ resumeId, resumeTraining: body });
+    } else if (isEdit && blockId) {
+      patchResumeTrainingMutate({ resumeId, blockId, body });
+    }
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="교육"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="교육"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
               <Flex
@@ -228,9 +242,17 @@ const TrainingForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

@@ -32,6 +32,8 @@ const useUser = () => {
 
   const clearUser = () => {
     deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+    deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
+
     refetch();
   };
 
