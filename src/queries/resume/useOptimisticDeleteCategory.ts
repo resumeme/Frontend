@@ -1,17 +1,18 @@
 import { useToast } from '@chakra-ui/react';
-import { MutationFunction, QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
+import { DeleteResumeCategory } from '~/types/api/deleteResumeCategory';
 import { Categories } from '~/types/resume/categories';
 
-type UseOptimisticUpdate<T extends Categories> = {
-  mutationFn: MutationFunction<T, { resumeId: string; blockId: string; body?: T }>;
+type UseOptimisticDelete<T extends Categories> = {
+  mutationFn: DeleteResumeCategory<T>;
   TARGET_QUERY_KEY: QueryKey;
   onMutateSuccess?: () => void;
 };
-export const useOptimisticUpdateCategory = <T extends Categories>({
+export const useOptimisticDeleteCategory = <T extends Categories>({
   mutationFn,
   TARGET_QUERY_KEY,
   onMutateSuccess,
-}: UseOptimisticUpdate<T>) => {
+}: UseOptimisticDelete<T>) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
@@ -19,18 +20,20 @@ export const useOptimisticUpdateCategory = <T extends Categories>({
     onMutate: async (newCategoryBlock) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousCategoryData = queryClient.getQueryData(TARGET_QUERY_KEY);
-      queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => [...old, newCategoryBlock]);
+      queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => {
+        return [...old, newCategoryBlock];
+      });
       return { previousCategoryData };
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     onError: (err, newCategoryBlock, context) => {
-      queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousCategoryData);
       toast({
         title: '서버에 문제가 생겼습니다.',
         description: '다시 시도해주세요.',
         status: 'error',
       });
+      queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousCategoryData);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });

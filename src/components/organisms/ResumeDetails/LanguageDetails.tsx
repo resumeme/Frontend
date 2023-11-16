@@ -4,7 +4,7 @@ import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCateg
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { Language } from '~/types/language';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
@@ -21,9 +21,9 @@ const LanguageDetails = ({
 }: DetailsComponentProps<Language>) => {
   const { id: resumeId = '' } = useParams();
   const blockId = id as string;
-  const { mutate: deleteLanguageMutate } = useOptimisticUpdateCategory<Language>({
+  const { mutate: deleteLanguageMutate } = useOptimisticDeleteCategory<Language>({
     mutationFn: deleteResumeCategoryBlock,
-    TARGET_QUERY_KEY: categoryKeys.language(blockId),
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
   });
   return (
     <Flex>

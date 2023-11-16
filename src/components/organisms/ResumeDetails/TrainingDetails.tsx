@@ -4,7 +4,7 @@ import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCateg
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { Training } from '~/types/training';
 
@@ -25,9 +25,9 @@ const TraningDetails = ({
 }: DetailsComponentProps<Training>) => {
   const { id: resumeId } = useParams() as { id: string };
   const blockId = id as string;
-  const { mutate: deleteTrainingMutate } = useOptimisticUpdateCategory<Training>({
+  const { mutate: deleteTrainingMutate } = useOptimisticDeleteCategory<Training>({
     mutationFn: deleteResumeCategoryBlock,
-    TARGET_QUERY_KEY: categoryKeys.training(blockId),
+    TARGET_QUERY_KEY: categoryKeys.training(resumeId),
   });
 
   return (
