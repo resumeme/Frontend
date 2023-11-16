@@ -17,7 +17,7 @@ export const getResumeProject = async ({ resumeId }: GetResumeProject): Promise<
         Authorization: accessToken,
       },
     });
-    return data['projects'] ?? null;
+    return data['projects'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);

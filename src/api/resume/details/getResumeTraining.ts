@@ -17,7 +17,7 @@ export const getResumeTraining = async ({ resumeId }: GetResumeTraining): Promis
         Authorization: accessToken,
       },
     });
-    return data['trainings'] ?? null;
+    return data['trainings'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);

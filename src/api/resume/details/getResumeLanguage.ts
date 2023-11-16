@@ -17,7 +17,7 @@ export const getResumeLanguage = async ({ resumeId }: GetResumeLanguage): Promis
         Authorization: accessToken,
       },
     });
-    return data['foreign-languages'] ?? null;
+    return data['foreign-languages'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
