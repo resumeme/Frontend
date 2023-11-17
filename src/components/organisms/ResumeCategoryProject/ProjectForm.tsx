@@ -17,7 +17,7 @@ import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -28,9 +28,8 @@ const ProjectForm = ({
   quitEdit,
 }: FormComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postResumeProjectMutate } = usePostResumeProject(resumeId);
-  const { mutate: patchResumeProjectMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeProject,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
     onMutateSuccess: quitEdit,

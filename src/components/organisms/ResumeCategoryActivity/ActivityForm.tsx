@@ -16,7 +16,7 @@ import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { Activity } from '~/types/activity';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -27,9 +27,8 @@ const ActivityForm = ({
   quitEdit,
 }: FormComponentProps<Activity>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postActivityMutate } = usePostResumeActivity(resumeId);
-  const { mutate: patchResumeActivityMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeActivityMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeActivity,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
     onMutateSuccess: quitEdit,
