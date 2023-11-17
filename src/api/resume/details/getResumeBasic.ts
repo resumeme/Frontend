@@ -3,7 +3,6 @@ import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { getCookie } from '~/utils/cookie';
-import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 export type GetResumeBasic = { resumeId: string };
 
@@ -17,11 +16,6 @@ export const getResumeBasic = async ({ resumeId }: GetResumeBasic) => {
         Authorization: accessToken,
       },
     });
-
-    if (data.ownerInfo && data.ownerInfo.phoneNumber) {
-      data.ownerInfo.phoneNumber = formatPhoneNumber(data.ownerInfo.phoneNumber);
-    }
-
     return data;
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
