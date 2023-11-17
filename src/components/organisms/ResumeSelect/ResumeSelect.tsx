@@ -1,13 +1,15 @@
-import { Flex, HStack, Text } from '@chakra-ui/react';
+import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { ResumeListItem } from '~/components/molecules/ResumeListItem';
+import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
 
 const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const { data } = useGetMyResumes();
+  const { mutate: postCreateResumeMutate } = usePostCreateResume();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   const onSubmit: SubmitHandler<{ resumeId: string }> = (values) => {
     /**TODO - 이벤트 신청 api 연결 */
@@ -34,34 +36,60 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
             h={'30rem'}
             overflow={'auto'}
           >
-            <RadioCardGroup
-              options={data.map((data) => ({
-                value: data.id.toString(),
-                children: <ResumeListItem data={data} />,
-              }))}
-              formName="resume"
-              defaultValue={data[0].id.toString()}
-              register={{ ...register('resumeId') }}
-              direction="column"
-              overflow={'auto'}
-              borderRadius={'0.625rem'}
-            />
+            {data.length == 0 ? (
+              <Flex
+                minH={'30rem'}
+                alignItems={'center'}
+                justifyContent={'center'}
+              >
+                <VStack spacing={'2rem'}>
+                  <Text
+                    fontSize={'1rem'}
+                    fontWeight={'600'}
+                    color={'gray.600'}
+                  >
+                    신청할 이력서가 없어요. ꒰⑅ᵕ̆‧̯ᵕ̆⑅꒱
+                  </Text>
+                  <Button
+                    size={'md'}
+                    onClick={() => postCreateResumeMutate()}
+                  >
+                    이력서 작성하기
+                  </Button>
+                </VStack>
+              </Flex>
+            ) : (
+              <RadioCardGroup
+                options={data.map((data) => ({
+                  value: data.id.toString(),
+                  children: <ResumeListItem data={data} />,
+                }))}
+                formName="resume"
+                defaultValue={data[0].id.toString()}
+                register={{ ...register('resumeId') }}
+                direction="column"
+                overflow={'auto'}
+                borderRadius={'0.625rem'}
+              />
+            )}
           </BorderBox>
-          <HStack alignSelf={'flex-end'}>
-            <Button
-              size={'sm'}
-              variant={'cancel'}
-              onClick={onCancel}
-            >
-              취소
-            </Button>
-            <Button
-              size={'md'}
-              type="submit"
-            >
-              신청하기
-            </Button>
-          </HStack>
+          {data.length > 0 && (
+            <HStack alignSelf={'flex-end'}>
+              <Button
+                size={'sm'}
+                variant={'cancel'}
+                onClick={onCancel}
+              >
+                취소
+              </Button>
+              <Button
+                size={'md'}
+                type="submit"
+              >
+                신청하기
+              </Button>
+            </HStack>
+          )}
         </Flex>
       </form>
     </>
