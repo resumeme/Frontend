@@ -79,7 +79,7 @@ const ResumeDetailTemplate = () => {
                   fontWeight={'bold'}
                   color={'gray.900'}
                 >
-                  {data.basic?.ownerInfo.name}
+                  {data.basic?.ownerInfo?.name}
                 </Text>
                 {data.basic?.position && (
                   <Label
@@ -98,7 +98,7 @@ const ResumeDetailTemplate = () => {
                   align={'center'}
                 >
                   <PhoneIcon />
-                  <Text>{data.basic?.ownerInfo.phoneNumber}</Text>
+                  <Text>{data.basic?.ownerInfo?.phoneNumber}</Text>
                 </Flex>
               </Flex>
               {data.links && data.links?.length > 0 && (
@@ -127,7 +127,7 @@ const ResumeDetailTemplate = () => {
               mt={'3%'}
               flex={1}
             >
-              {data.basic?.skills && data.basic?.skills?.length > 0 && (
+              {data.basic?.skills && data.basic.skills.length > 0 && (
                 <Flex
                   direction={'column'}
                   align={'flex-end'}
@@ -146,7 +146,7 @@ const ResumeDetailTemplate = () => {
                     justify={'flex-end'}
                     flexWrap={'wrap'}
                   >
-                    {data.basic?.skills?.map((skill: string[], index: number) => (
+                    {data.basic.skills.map((skill: string, index: number) => (
                       <Label
                         key={index}
                         bg={'gray.300'}
@@ -175,12 +175,10 @@ const ResumeDetailTemplate = () => {
               </BorderBox>
             )}
           </Flex>
-          {/* NOTE LowerPart - 하단부 UI */}
           <Flex
             direction={'column'}
             gap={10}
           >
-            {/* NOTE LowerPart - 하단부 - 업무경험 UI */}
             <Flex
               direction={'column'}
               gap={'4rem'}

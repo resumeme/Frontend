@@ -1,16 +1,22 @@
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { usePostResumeBasicInfo } from '~/queries/usePostResumeBasicInfo';
+import { usePatchResumeBasicInfo } from '~/queries/resume/create/usePatchResumeBasicInfo';
 import { BasicInfo } from '~/types/basicInfo';
 
-const BasicInfoForm = () => {
-  const { mutate: postResumeBasicInfo } = usePostResumeBasicInfo();
+type BasicInfoFormProps = Omit<BasicInfo, 'title' | 'ownerInfo'> & {
+  onSave: () => void;
+};
+
+const BasicInfoForm = ({ position, skills: defaultSkills, introduce }: BasicInfoFormProps) => {
+  const { mutate: patchResumeBasicInfo } = usePatchResumeBasicInfo();
+  const { id: resumeId = '' } = useParams();
 
   const {
     control,
@@ -20,22 +26,13 @@ const BasicInfoForm = () => {
   } = useForm<BasicInfo>();
 
   const onSubmit: SubmitHandler<BasicInfo> = (data) => {
-    data.skills = skills;
-    postResumeBasicInfo(data as BasicInfo);
-    return new Promise(() => {
-      setTimeout(() => {
-        alert(JSON.stringify(data, null, 2));
-      }, 3000);
-    });
+    const resumeBasicInfo = data;
+    patchResumeBasicInfo({ resumeId, resumeBasicInfo });
   };
 
   const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
-
-  /* TODO api 함수 작성하기 */
-  // const loadFormData = async () => {}
-  // const saveFormData = async () => {}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,6 +58,7 @@ const BasicInfoForm = () => {
                 placeholder="희망 직무"
                 autoComplete="off"
                 spellCheck="false"
+                defaultValue={position ?? null}
               />
             </FormControl>
           </Box>
@@ -83,7 +81,7 @@ const BasicInfoForm = () => {
                 w={'full'}
               >
                 <FormTextInput
-                  id="skillset"
+                  id="skills"
                   register={{
                     ...register('skills', {
                       pattern: {
@@ -97,6 +95,7 @@ const BasicInfoForm = () => {
                   placeholder="보유한 기술 스택"
                   onKeyDown={handleSkillsetChange}
                   error={errors.skills}
+                  defaultValue={defaultSkills}
                 />
                 {skills.length > 0 && (
                   <DynamicTags
@@ -126,6 +125,7 @@ const BasicInfoForm = () => {
               height="100px"
               width="full"
               placeholder="간략한 자기소개 (100자 이내)"
+              defaultValue={introduce ?? null}
               resize="none"
               autoComplete="off"
               spellCheck="false"

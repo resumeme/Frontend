@@ -19,6 +19,7 @@ import {
 } from '~/components/organisms/ResumeDetails';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
+import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
@@ -26,14 +27,14 @@ import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTrain
 
 const EditResumeTemplate = () => {
   const { id: resumeId = '' } = useParams();
+  const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
-  const { data: activitiesData } = useGetResumeActivities({
-    resumeId,
-  });
+  const { data: activitiesData } = useGetResumeActivities({ resumeId });
   const { data: awardData } = useGetResumeAward({ resumeId });
+
   /**TODO - 이력서 작성자가 사용자 본인과 일치하는지를 판단하기 */
   const isCurrentUser = true;
 
@@ -43,7 +44,7 @@ const EditResumeTemplate = () => {
       direction="column"
       gap="3rem"
     >
-      <ResumeBasicInput />
+      <ResumeBasicInput basicInfo={basicInfo} />
 
       <CategoryContainer>
         <CareerForm />
