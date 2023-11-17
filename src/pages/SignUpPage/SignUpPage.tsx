@@ -32,7 +32,7 @@ const SignUpPage = () => {
     }
   };
   useEffect(() => {
-    if (user) {
+    if (user && step === 'COMMON') {
       toast({
         description: '이미 가입된 회원입니다.',
       });
