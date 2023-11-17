@@ -48,7 +48,7 @@ export const WithSubmit = () => {
       <FormControl isInvalid={Boolean(errors.endDate)}>
         <HStack>
           <TermInput
-            feature
+            future
             startDateName="startDate"
             endDateName="endDate"
             isRequired={true}
