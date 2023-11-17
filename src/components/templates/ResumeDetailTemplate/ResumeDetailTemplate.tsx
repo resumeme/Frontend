@@ -81,15 +81,18 @@ const ResumeDetailTemplate = () => {
                 >
                   {data.basic?.ownerInfo.name}
                 </Text>
-                <Label
-                  width={'fit-content'}
-                  fontSize={'sm'}
-                  bg="green.500"
-                  color={'gray.100'}
-                  px={5}
-                >
-                  {data.basic?.position}
-                </Label>
+                {data.basic?.position && (
+                  <Label
+                    width={'fit-content'}
+                    fontSize={'sm'}
+                    bg="green.500"
+                    color={'gray.100'}
+                    px={5}
+                  >
+                    {data.basic.position}
+                  </Label>
+                )}
+
                 <Flex
                   gap={4}
                   align={'center'}
@@ -98,7 +101,7 @@ const ResumeDetailTemplate = () => {
                   <Text>{data.basic?.ownerInfo.phoneNumber}</Text>
                 </Flex>
               </Flex>
-              {data.links && (
+              {data.links && data.links?.length > 0 && (
                 <Flex
                   direction={'column'}
                   align={'start'}
@@ -124,7 +127,7 @@ const ResumeDetailTemplate = () => {
               mt={'3%'}
               flex={1}
             >
-              {data.basic?.skills && (
+              {data.basic?.skills && data.basic?.skills?.length > 0 && (
                 <Flex
                   direction={'column'}
                   align={'flex-end'}
