@@ -1,19 +1,22 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { ResumeListItem } from '~/components/molecules/ResumeListItem';
+import usePostEventApply from '~/queries/event/usePostEventApply';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
 
 const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const { data } = useGetMyResumes();
   const { mutate: postCreateResumeMutate } = usePostCreateResume();
+  const { mutate: postEventApplyMutate } = usePostEventApply();
+  const { id: eventId = '' } = useParams();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
-  const onSubmit: SubmitHandler<{ resumeId: string }> = (values) => {
-    /**TODO - 이벤트 신청 api 연결 */
-    console.log(values);
+  const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
+    postEventApplyMutate({ resumeId: parseInt(resumeId), eventId });
   };
   return (
     <>
