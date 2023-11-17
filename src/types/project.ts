@@ -2,7 +2,7 @@ type Project = {
   id?: string;
   projectName: string;
   productionYear: number;
-  isTeam?: boolean;
+  team?: boolean;
   teamMembers?: string;
   skills?: string[];
   projectContent?: string;
