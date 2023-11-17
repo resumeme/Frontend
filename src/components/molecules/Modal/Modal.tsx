@@ -7,10 +7,10 @@ import {
   ModalCloseButton,
   ModalBody,
   Button,
-  ModalBodyProps,
+  ModalContentProps,
 } from '@chakra-ui/react';
 
-export type ModalProps = ModalBodyProps & {
+export type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   hasCloseButton?: boolean;
@@ -18,7 +18,7 @@ export type ModalProps = ModalBodyProps & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   title?: string;
   children?: React.ReactNode;
-};
+} & ModalContentProps;
 
 const Modal = ({
   isOpen,
@@ -28,7 +28,7 @@ const Modal = ({
   size = 'xl',
   title,
   children,
-  ...modalBodyProps
+  ...modalContentProps
 }: ModalProps) => {
   return (
     <ChakraModal
@@ -41,10 +41,11 @@ const Modal = ({
       <ModalContent
         borderRadius={'1.5rem'}
         p={'1.5rem'}
+        {...modalContentProps}
       >
         {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
         {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
-        <ModalBody {...modalBodyProps}>{children}</ModalBody>
+        <ModalBody p={0}>{children}</ModalBody>
         {hasFooter && (
           <ModalFooter
             paddingBottom={0}
