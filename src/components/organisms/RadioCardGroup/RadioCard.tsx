@@ -22,6 +22,7 @@ const RadioCard = ({ children, borderBoxStyle, ...props }: RadioCardProps) => {
         _checked={{
           borderColor: 'primary.900',
           color: 'primary.900',
+          border: '2px',
         }}
         cursor={'pointer'}
       >
