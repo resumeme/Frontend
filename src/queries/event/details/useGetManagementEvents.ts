@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { getManagementEvents } from '~/api/event/details/getManagementEvents';
+import {
+  getManagementEvents,
+  getManagementEventsProps,
+} from '~/api/event/details/getManagementEvents';
 
 type useGetManagementEventsProps = {
   role?: 'mentee' | 'mentor';
-  userId: number;
-};
+} & getManagementEventsProps;
 
 export const eventsKeys = {
   all: ['events'] as const,
