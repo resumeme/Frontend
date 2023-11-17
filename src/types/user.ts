@@ -1,6 +1,7 @@
 import { Position } from './position';
 
 type User = {
+  id: number;
   imageUrl: string;
   realName: string;
   nickname: string;
