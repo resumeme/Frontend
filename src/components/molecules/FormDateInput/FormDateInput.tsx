@@ -6,6 +6,7 @@ type FormDateInputProps = {
   register: UseFormRegisterReturn;
   isDisabled?: boolean;
   error?: FieldError;
+  future?: boolean;
 } & Omit<InputProps, 'type'>;
 
 const FormDateInput = ({
@@ -13,6 +14,7 @@ const FormDateInput = ({
   isDisabled = false,
   register,
   error,
+  future = false,
   ...props
 }: FormDateInputProps) => {
   return (
@@ -21,6 +23,7 @@ const FormDateInput = ({
       direction={'column'}
     >
       <Input
+        min={future ? new Date().toISOString().slice(0, 16) : ''}
         type={type}
         disabled={isDisabled}
         {...register}

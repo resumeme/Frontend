@@ -49,15 +49,12 @@ const TermInput = <T extends FieldValues>({
     <HStack flexGrow={1}>
       <FormControl isInvalid={!!getNestedError(errors, startDateName)}>
         <FormDateInput
+          future={future}
           name={startDateName}
           type={includeTime ? 'datetime-local' : 'date'}
           register={{
             ...register(startDateName, {
               required: isRequired ? '시작일을 입력하세요.' : false,
-              min: {
-                value: future ? new Date().toISOString() : '',
-                message: '현재 시간보다 이전 시간으로는 예약할 수 없습니다',
-              },
               max: {
                 value: getOneYearLater({ includeTime }),
                 message: '최대 1년 후까지만 입력이 가능합니다.',
