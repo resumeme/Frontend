@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import postSignOut from './../api/user/postSignOut';
+import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 
 export const usePostSignOut = () => {
@@ -12,7 +13,7 @@ export const usePostSignOut = () => {
     mutationFn: postSignOut,
     onSuccess: () => {
       clearUser();
-      navigate('/');
+      navigate(appPaths.main);
     },
     onError: () => {
       alert('잠시 후 다시 시도해 주세요.');
