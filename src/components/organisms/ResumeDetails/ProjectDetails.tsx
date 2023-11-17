@@ -11,16 +11,7 @@ import { Project } from '~/types/project';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ProjectDetails = ({
-  data: {
-    id,
-    projectName,
-    productionYear,
-    teamMembers,
-    skills,
-    projectContent,
-    projectUrl,
-    isTeam,
-  },
+  data: { id, projectName, productionYear, teamMembers, skills, projectContent, projectUrl, team },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Project>) => {
@@ -74,17 +65,17 @@ const ProjectDetails = ({
             >
               {projectName}
             </Heading>
-            {isTeam !== null && isTeam !== undefined && (
+            {team !== null && team !== undefined && (
               <Label
                 fontWeight={'semibold'}
-                bg={isTeam ? 'teal.500' : 'orange.500'}
+                bg={team ? 'teal.500' : 'orange.500'}
                 py={0}
               >
-                {isTeam ? '팀 프로젝트' : '개인 프로젝트'}
+                {team ? '팀 프로젝트' : '개인 프로젝트'}
               </Label>
             )}
           </Flex>
-          {isTeam && (
+          {team && (
             <Text
               fontWeight={'semibold'}
               color={'gray.800'}
