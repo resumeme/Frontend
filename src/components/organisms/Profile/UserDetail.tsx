@@ -80,7 +80,7 @@ const UserDetail = ({
         </Flex>
       </Flex>
       {phoneNumber && <Text as={'span'}>{phoneNumber}</Text>}
-      {introduce && <Text>{introduce}</Text>}
+      {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
       {interestedFields && (
         <Flex>
           {interestedFields.map((field) => (
