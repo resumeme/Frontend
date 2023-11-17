@@ -20,6 +20,7 @@ type TermInputProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   control: Control<T>;
+  feature?: boolean;
 };
 
 const TermInput = <T extends FieldValues>({
@@ -31,6 +32,7 @@ const TermInput = <T extends FieldValues>({
   register,
   errors,
   control,
+  feature = false,
 }: TermInputProps<T>) => {
   /*TODO - isEndDateDisabled 상태 변화 시 리렌더링되도록 수정하기 */
   const startDate = useWatch({ name: startDateName, control });
@@ -52,6 +54,10 @@ const TermInput = <T extends FieldValues>({
           register={{
             ...register(startDateName, {
               required: isRequired ? '시작일을 입력하세요.' : false,
+              min: {
+                value: feature ? new Date().toISOString() : '',
+                message: '현재 시간보다 이전 시간으로는 예약할 수 없습니다',
+              },
               max: {
                 value: getOneYearLater({ includeTime }),
                 message: '최대 1년 후까지만 입력이 가능합니다.',
