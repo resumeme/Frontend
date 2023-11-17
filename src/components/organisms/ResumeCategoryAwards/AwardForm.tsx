@@ -16,7 +16,7 @@ import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { Award } from '~/types/award';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -27,9 +27,8 @@ const AwardForm = ({
   quitEdit,
 }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postResumeAwardMutate } = usePostResumeAward(resumeId);
-  const { mutate: patchResumeAwardMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeAwardMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeAward,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),
     onMutateSuccess: quitEdit,
@@ -105,11 +104,17 @@ const AwardForm = ({
                   w={'60%'}
                   isInvalid={Boolean(errors.acquisitionDate)}
                 >
-                  <FormLabel w={'8.625rem'}>취득 년월</FormLabel>
+                  <FormLabel
+                    isRequired
+                    w={'8.625rem'}
+                  >
+                    취득 일자
+                  </FormLabel>
                   <FormDateInput
                     register={{
-                      ...register('acquisitionDate'),
+                      ...register('acquisitionDate', { required: '필수 입력값입니다.' }),
                     }}
+                    error={errors.acquisitionDate}
                   />
                 </FormControl>
 

@@ -1,15 +1,29 @@
-import { Flex, Text, Heading, Icon, Link } from '@chakra-ui/react';
+import { Flex, Text, Heading, Icon, Link, useDisclosure } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { Award } from '~/types/award';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const AwardDetails = ({
-  data: { certificationTitle, acquisitionDate, issuingAuthority, link, description },
+  data: { id, certificationTitle, acquisitionDate, issuingAuthority, link, description },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Award>) => {
+  const { id: resumeId = '' } = useParams();
+  const blockId = id as string;
+  const { mutate: deleteLanguageMutate } = useOptimisticDeleteCategory<Award>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.award(resumeId),
+  });
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -69,10 +83,18 @@ const AwardDetails = ({
         </Flex>
       </Flex>
       {isCurrentUser && (
-        <EditDeleteOptionsButton
-          onEdit={onEdit}
-          onDelete={() => {}}
-        />
+        <>
+          <ConfirmModal
+            isOpen={isOpen}
+            onClose={onClose}
+            message="정말로 삭제하시겠습니까?"
+            proceed={() => deleteLanguageMutate({ resumeId, blockId })}
+          />
+          <EditDeleteOptionsButton
+            onEdit={onEdit}
+            onDelete={() => onOpen()}
+          />
+        </>
       )}
     </Flex>
   );

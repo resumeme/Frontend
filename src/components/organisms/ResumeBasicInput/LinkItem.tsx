@@ -6,12 +6,12 @@ import {
 } from '~/components/molecules/ReferenceLinkBox';
 
 export type LinkItemProps = {
-  type?: 'default' | 'github' | 'blog';
+  linkType?: string;
   url?: string;
   onRemove: (url: string) => void;
 };
 
-const LinkItem = ({ url, type = 'github', onRemove }: LinkItemProps) => {
+const LinkItem = ({ url, linkType = 'github', onRemove }: LinkItemProps) => {
   const handleRemove = () => {
     if (url) {
       onRemove(url);
@@ -26,7 +26,7 @@ const LinkItem = ({ url, type = 'github', onRemove }: LinkItemProps) => {
     >
       <ReferenceLinkBox
         url={url}
-        type={type}
+        linkType={linkType}
       />
       <Box
         as="button"

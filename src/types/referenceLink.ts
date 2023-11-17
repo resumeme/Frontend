@@ -1,5 +1,5 @@
 type ReferenceLink = {
-  type: 'github' | 'blog' | 'default';
+  linkType: string;
   url: string;
 };
 

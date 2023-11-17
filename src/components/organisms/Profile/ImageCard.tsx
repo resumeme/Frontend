@@ -9,7 +9,7 @@ type ImageCardProps = {
 const ImageCard = ({ imageUrl }: ImageCardProps) => {
   return (
     <Flex
-      minH={'12.87rem'}
+      h={'12.87rem'}
       direction={'column'}
       justifyContent={'space-between'}
       alignItems={'center'}

@@ -24,12 +24,21 @@ const Profile = ({
 }: ProfileProps) => {
   return (
     <>
-      <Flex
-        fontSize={'1.75rem'}
-        color={'gray.800'}
-      >
-        <Heading fontWeight={700}>{realName}</Heading>
-        <Heading fontWeight={500}>님 안녕하세요.</Heading>
+      <Flex>
+        <Heading
+          fontSize={'1.75rem'}
+          color={'gray.800'}
+          fontWeight={700}
+        >
+          {realName}
+        </Heading>
+        <Heading
+          fontSize={'1.75rem'}
+          color={'gray.800'}
+          fontWeight={500}
+        >
+          님 안녕하세요.
+        </Heading>
       </Flex>
       <Heading
         mt={'2.5rem'}

@@ -25,7 +25,7 @@ import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import Career from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -36,9 +36,8 @@ const CareerForm = ({
   quitEdit,
 }: FormComponentProps<Career>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postCareerMutate } = usePostResumeCareer(resumeId);
-  const { mutate: patchCareerMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchCareerMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeCareer,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
     onMutateSuccess: quitEdit,

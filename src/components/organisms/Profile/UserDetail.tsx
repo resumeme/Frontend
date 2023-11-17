@@ -1,8 +1,8 @@
+import { PhoneIcon } from '@chakra-ui/icons';
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Badge } from '~/components/atoms/Badge';
 import { Label } from '~/components/atoms/Label';
-import CheckboxStyled from '~/components/molecules/LabelCheckboxGroup/CheckboxStyled';
 import { Position } from '~/types/position';
 
 type UserDetailProps = {
@@ -36,7 +36,6 @@ const UserDetail = ({
     ML_AI: 'ai',
     FULLSTACK: 'fullstack',
   };
-
   return (
     <Flex
       direction={'column'}
@@ -53,6 +52,9 @@ const UserDetail = ({
         )}
         {role && (
           <Badge
+            display={'flex'}
+            py={0}
+            alignItems={'center'}
             type={role}
             fontSize={'1rem'}
           >
@@ -62,6 +64,7 @@ const UserDetail = ({
         <Flex gap={'0.25rem'}>
           {experiencedPositions?.map((position) => (
             <Label
+              fontWeight={500}
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
@@ -71,6 +74,7 @@ const UserDetail = ({
 
           {interestedPositions?.map((position) => (
             <Label
+              fontWeight={500}
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
@@ -79,12 +83,35 @@ const UserDetail = ({
           ))}
         </Flex>
       </Flex>
-      {phoneNumber && <Text as={'span'}>{phoneNumber}</Text>}
-      {introduce && <Text>{introduce}</Text>}
+      {phoneNumber && (
+        <Flex
+          align={'center'}
+          gap={'1rem'}
+        >
+          <PhoneIcon />
+          <Text as={'span'}>{phoneNumber}</Text>
+        </Flex>
+      )}
+      {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
       {interestedFields && (
-        <Flex>
+        <Flex
+          wrap={'wrap'}
+          gap={'0.75rem'}
+        >
           {interestedFields.map((field) => (
-            <CheckboxStyled key={uuidv4()}>{field}</CheckboxStyled>
+            <Badge
+              display="flex"
+              alignItems="center"
+              h={'2.25rem'}
+              border={'1px'}
+              borderColor={'gray.300'}
+              borderRadius={'0.75rem'}
+              color={'gray.400'}
+              bg={'white'}
+              key={uuidv4()}
+            >
+              {field}
+            </Badge>
           ))}
         </Flex>
       )}

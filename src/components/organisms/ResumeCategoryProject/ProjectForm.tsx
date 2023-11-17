@@ -17,7 +17,7 @@ import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
-import { useOptimisticUpdateCategory } from '~/queries/resume/useOptimisticUpdateCategory';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -28,9 +28,8 @@ const ProjectForm = ({
   quitEdit,
 }: FormComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  /**TODO -  post도 useOptimisticUpdateCategory 확장 후 대체 */
   const { mutate: postResumeProjectMutate } = usePostResumeProject(resumeId);
-  const { mutate: patchResumeProjectMutate } = useOptimisticUpdateCategory({
+  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeProject,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
     onMutateSuccess: quitEdit,
@@ -43,7 +42,7 @@ const ProjectForm = ({
     formState: { errors, isDirty },
     reset,
   } = useForm<Project>({
-    defaultValues: defaultValues ?? { isTeam: true },
+    defaultValues: defaultValues ?? { team: true },
   });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -56,7 +55,7 @@ const ProjectForm = ({
       return;
     }
     body.skills = skills;
-    body.isTeam = Boolean(body.isTeam);
+    body.team = Boolean(body.team);
     if (!isEdit) {
       postResumeProjectMutate({ resumeId, resumeProject: body });
     } else if (isEdit && blockId) {
@@ -153,7 +152,7 @@ const ProjectForm = ({
                     borderColor={'gray.300'}
                     maxH={'3.125rem'}
                     h={'3.125rem'}
-                    {...register('isTeam')}
+                    {...register('team')}
                   >
                     <option value="true">팀</option>
                     <option value="false">개인</option>
@@ -168,7 +167,7 @@ const ProjectForm = ({
                   </FormLabel>
                   <FormTextInput
                     placeholder="관우, 장비"
-                    isDisabled={!watch('isTeam')}
+                    isDisabled={!watch('team')}
                     id="teamMembers"
                     register={{ ...register('teamMembers') }}
                   />
@@ -191,7 +190,7 @@ const ProjectForm = ({
                     placeholder="엔터 키로 구분할 수 있습니다."
                     id="skills"
                     register={{ ...register('skills') }}
-                    onKeyDown={handleSkills}
+                    onKeyUp={handleSkills}
                   />
                   <DynamicTags
                     handleItemDelete={handleDeleteSkills}

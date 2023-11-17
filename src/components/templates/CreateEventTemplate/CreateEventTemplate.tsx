@@ -97,6 +97,7 @@ const CreateEventTemplate = () => {
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
               <TermInput<CreateEvent>
+                future
                 control={control}
                 includeTime={true}
                 errors={errors}
