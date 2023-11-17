@@ -2,11 +2,9 @@ import {
   Modal as ChakraModal,
   ModalOverlay,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  Button,
   ModalContentProps,
 } from '@chakra-ui/react';
 
@@ -24,7 +22,6 @@ const Modal = ({
   isOpen,
   onClose,
   hasCloseButton = true,
-  hasFooter = false,
   size = 'xl',
   title,
   children,
@@ -46,22 +43,6 @@ const Modal = ({
         {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
         {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
         <ModalBody p={0}>{children}</ModalBody>
-        {hasFooter && (
-          <ModalFooter
-            paddingBottom={0}
-            px={0}
-          >
-            {/*FIXME - 공통 버튼 컴포넌트로 대체하기 */}
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={onClose}
-            >
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        )}
       </ModalContent>
     </ChakraModal>
   );
