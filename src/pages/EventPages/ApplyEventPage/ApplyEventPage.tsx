@@ -1,5 +1,6 @@
+import { ResumeSelectTemplate } from '~/components/templates/ResumeSelectTemplate';
 const ApplyEventPage = () => {
-  return <></>;
+  return <ResumeSelectTemplate />;
 };
 
 export default ApplyEventPage;

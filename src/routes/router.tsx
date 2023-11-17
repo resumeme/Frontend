@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       { path: 'event/create', element: <CreateEventPage /> },
       { path: 'event/view', element: <EventListPage /> },
       { path: 'event/view/:id', element: <EventDetailPage /> },
-      { path: 'event/apply', element: <ApplyEventPage /> },
+      { path: 'event/view/:id/apply', element: <ApplyEventPage /> },
 
       { path: 'sign-up', element: <SignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
