@@ -42,7 +42,7 @@ const ProjectForm = ({
     formState: { errors, isDirty },
     reset,
   } = useForm<Project>({
-    defaultValues: defaultValues ?? { isTeam: true },
+    defaultValues: defaultValues ?? { team: true },
   });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -55,7 +55,7 @@ const ProjectForm = ({
       return;
     }
     body.skills = skills;
-    body.isTeam = Boolean(body.isTeam);
+    body.team = Boolean(body.team);
     if (!isEdit) {
       postResumeProjectMutate({ resumeId, resumeProject: body });
     } else if (isEdit && blockId) {
@@ -152,7 +152,7 @@ const ProjectForm = ({
                     borderColor={'gray.300'}
                     maxH={'3.125rem'}
                     h={'3.125rem'}
-                    {...register('isTeam')}
+                    {...register('team')}
                   >
                     <option value="true">팀</option>
                     <option value="false">개인</option>
@@ -167,7 +167,7 @@ const ProjectForm = ({
                   </FormLabel>
                   <FormTextInput
                     placeholder="관우, 장비"
-                    isDisabled={!watch('isTeam')}
+                    isDisabled={!watch('team')}
                     id="teamMembers"
                     register={{ ...register('teamMembers') }}
                   />
