@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '~/App';
 import AdminPage from '~/pages/AdminPage/AdminPage';
-import { ApplyEventPage } from '~/pages/EventPages/ApplyEventPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
 import { EventListPage } from '~/pages/EventPages/EventListPage';
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
       { path: 'event/create', element: <CreateEventPage /> },
       { path: 'event/view', element: <EventListPage /> },
       { path: 'event/view/:id', element: <EventDetailPage /> },
-      { path: 'event/view/:id/apply', element: <ApplyEventPage /> },
 
       { path: 'sign-up', element: <SignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
