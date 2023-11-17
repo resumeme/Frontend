@@ -82,7 +82,10 @@ const UserDetail = ({
       {phoneNumber && <Text as={'span'}>{phoneNumber}</Text>}
       {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
       {interestedFields && (
-        <Flex>
+        <Flex
+          wrap={'wrap'}
+          gap={'0.75rem'}
+        >
           {interestedFields.map((field) => (
             <CheckboxStyled key={uuidv4()}>{field}</CheckboxStyled>
           ))}
