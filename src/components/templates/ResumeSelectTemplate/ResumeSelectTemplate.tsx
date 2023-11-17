@@ -67,7 +67,12 @@ const ResumeSelectTemplate = () => {
             >
               취소
             </Button>
-            <Button size={'md'}>신청하기</Button>
+            <Button
+              size={'md'}
+              type="submit"
+            >
+              신청하기
+            </Button>
           </HStack>
         </Flex>
       </form>
