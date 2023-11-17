@@ -4,6 +4,7 @@ import EventProfile from '~/components/organisms/Profile/EventProfile';
 import { ResumeManagementTemplate } from '~/components/templates/ResumeManagementTemplate';
 import useUser from '~/hooks/useUser';
 import { useGetManagementEvents } from '~/queries/event/details/useGetManagementEvents';
+import { Position } from '~/types/position';
 
 const MyPage = () => {
   const { user } = useUser();
@@ -64,7 +65,7 @@ const MyPage = () => {
     >
       {user && <Profile user={user} />}
       {user?.role === 'mentor' ? (
-        <EventProfile events={[events]} />
+        events && <EventProfile events={events} />
       ) : (
         <ResumeManagementTemplate resumes={DUMY_DATA} />
       )}
