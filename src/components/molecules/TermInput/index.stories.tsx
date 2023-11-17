@@ -1,6 +1,6 @@
 import { FormControl, HStack } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TermInput from './TermInput';
 import { Button } from '~/components/atoms/Button';
 
