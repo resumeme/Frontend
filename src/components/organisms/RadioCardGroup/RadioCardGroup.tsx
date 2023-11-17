@@ -23,7 +23,7 @@ const RadioCardGroup = ({
   register,
   error,
   direction = 'row',
-  ...boxProps
+  ...cardBoxProps
 }: RadioCardGroupProps<string>) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: formName,
@@ -39,7 +39,6 @@ const RadioCardGroup = ({
         w={'full'}
         gap={'0.5rem'}
         {...group}
-        {...boxProps}
       >
         {options.map(({ value, children }: RadioOption<string>) => {
           const radioProps = getRadioProps({ value });
@@ -50,7 +49,12 @@ const RadioCardGroup = ({
               h={'full'}
               {...register}
             >
-              <RadioCard {...radioProps}>{children}</RadioCard>
+              <RadioCard
+                {...radioProps}
+                borderBoxStyle={cardBoxProps}
+              >
+                {children}
+              </RadioCard>
             </Box>
           );
         })}

@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { Badge } from '~/components/atoms/Badge';
+import { Label } from '~/components/atoms/Label';
 import { ResumeListItem } from '~/types/resume/resumeListItem';
 
 type ResumeListItemProps = {
@@ -18,7 +18,12 @@ const ResumeListItem = ({ data: { title, modifiedAt } }: ResumeListItemProps) =>
             {new Date(modifiedAt).toLocaleString()}
           </Text>
           {/**FIXME - 이력서 희망 직무 api 데이터 추가되면 대체하기 */}
-          <Badge>{'이력서 희망 직무'}</Badge>
+          <Label
+            bg={'gray.300'}
+            color={'gray.700'}
+          >
+            {'이력서 희망 직무'}
+          </Label>
         </Flex>
         <Text
           fontSize={'1.125rem'}

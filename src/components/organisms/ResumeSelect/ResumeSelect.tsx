@@ -1,21 +1,13 @@
 import { Flex, HStack, Text } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { ResumeListItem } from '~/components/molecules/ResumeListItem';
-import RadioCardGroup, { RadioOption } from '~/components/organisms/RadioCardGroup/RadioCardGroup';
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
 
-const ResumeSelectTemplate = () => {
+const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const { data } = useGetMyResumes();
-  const resumeOptions: RadioOption[] = [];
-  data.map((data) => {
-    const option = {
-      value: data.id.toString(),
-      children: <ResumeListItem data={data} />,
-    };
-    resumeOptions.push(option);
-  });
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   const onSubmit: SubmitHandler<{ resumeId: string }> = (values) => {
     /**TODO - 이벤트 신청 api 연결 */
@@ -24,16 +16,8 @@ const ResumeSelectTemplate = () => {
   return (
     <>
       <Text
-        color={'gray.900'}
-        fontWeight={'600'}
-        fontSize={'1.5rem'}
-        mb={'2rem'}
-      >
-        첨삭 신청하기
-      </Text>
-      <Text
         color={'gray.800'}
-        fontSize={'1.5rem'}
+        fontSize={'1.3rem'}
         fontWeight={'600'}
         mb={'1rem'}
       >
@@ -47,23 +31,27 @@ const ResumeSelectTemplate = () => {
         >
           <BorderBox
             w={'full'}
-            minH={'30rem'}
-            maxH={'90vh'}
+            h={'30rem'}
             overflow={'auto'}
           >
             <RadioCardGroup
-              options={resumeOptions}
+              options={data.map((data) => ({
+                value: data.id.toString(),
+                children: <ResumeListItem data={data} />,
+              }))}
               formName="resume"
               defaultValue={data[0].id.toString()}
               register={{ ...register('resumeId') }}
               direction="column"
               overflow={'auto'}
+              borderRadius={'0.625rem'}
             />
           </BorderBox>
           <HStack alignSelf={'flex-end'}>
             <Button
-              size={'md'}
+              size={'sm'}
               variant={'cancel'}
+              onClick={onCancel}
             >
               취소
             </Button>
@@ -80,4 +68,4 @@ const ResumeSelectTemplate = () => {
   );
 };
 
-export default ResumeSelectTemplate;
+export default ResumeSelect;
