@@ -2,15 +2,13 @@ import {
   Modal as ChakraModal,
   ModalOverlay,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  Button,
-  ModalBodyProps,
+  ModalContentProps,
 } from '@chakra-ui/react';
 
-export type ModalProps = ModalBodyProps & {
+export type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   hasCloseButton?: boolean;
@@ -18,17 +16,16 @@ export type ModalProps = ModalBodyProps & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   title?: string;
   children?: React.ReactNode;
-};
+} & ModalContentProps;
 
 const Modal = ({
   isOpen,
   onClose,
   hasCloseButton = true,
-  hasFooter = false,
   size = 'xl',
   title,
   children,
-  ...modalBodyProps
+  ...modalContentProps
 }: ModalProps) => {
   return (
     <ChakraModal
@@ -41,26 +38,11 @@ const Modal = ({
       <ModalContent
         borderRadius={'1.5rem'}
         p={'1.5rem'}
+        {...modalContentProps}
       >
         {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
         {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
-        <ModalBody {...modalBodyProps}>{children}</ModalBody>
-        {hasFooter && (
-          <ModalFooter
-            paddingBottom={0}
-            px={0}
-          >
-            {/*FIXME - 공통 버튼 컴포넌트로 대체하기 */}
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={onClose}
-            >
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        )}
+        <ModalBody p={0}>{children}</ModalBody>
       </ModalContent>
     </ChakraModal>
   );
