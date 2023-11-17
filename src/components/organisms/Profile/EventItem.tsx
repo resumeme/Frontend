@@ -92,25 +92,38 @@ const EventItem = ({
               direction={'column'}
               gap={'1.37rem'}
             >
-              {resumes.map((resume) => (
-                <>
-                  <ManagementPanel
-                    key={uuidv4()}
-                    url={`/resume/${resume.resumeId}`}
-                    icon={
-                      <Icon
-                        as={MdOutlineArticle}
-                        color={'primary.900'}
-                        w={'1.25rem'}
-                      />
-                    }
-                    date={resume?.modifiedAt}
-                    name={resume.menteeName}
-                    status={resume.progressStatus}
-                    title={resume.resumeTitle}
-                  />
-                </>
-              ))}
+              {resumes.length ? (
+                resumes.map((resume) => (
+                  <>
+                    <ManagementPanel
+                      key={uuidv4()}
+                      url={`/resume/${resume.resumeId}`}
+                      icon={
+                        <Icon
+                          as={MdOutlineArticle}
+                          color={'primary.900'}
+                          w={'1.25rem'}
+                        />
+                      }
+                      date={resume?.modifiedAt}
+                      name={resume.menteeName}
+                      status={resume.progressStatus}
+                      title={resume.resumeTitle}
+                    />
+                  </>
+                ))
+              ) : (
+                <Flex
+                  borderRadius={'0.3125rem'}
+                  bg={'gray.200'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  w={'full'}
+                  h={'4.375rem'}
+                >
+                  <Text>아직 신청받은 이력서가 없어요.</Text>
+                </Flex>
+              )}
             </Flex>
           </AccordionPanel>
         </AccordionItem>
