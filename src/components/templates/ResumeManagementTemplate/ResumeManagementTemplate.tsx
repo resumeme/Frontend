@@ -26,14 +26,6 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
           내 이력서
         </Heading>
         <Spacer />
-        {/* <Flex
-          alignItems={'center'}
-          gap={'0.25rem'}
-        >
-          <Icon
-            as={MdAdd}
-            color={'gray.500'}
-          /> */}
         <Button
           p={0}
           w={'min-content'}
@@ -46,7 +38,6 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
           새 이력서 작성
         </Button>
       </Flex>
-      {/* </Flex> */}
       <Flex
         mt={'1.25rem'}
         direction={'column'}
