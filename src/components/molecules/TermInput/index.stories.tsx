@@ -1,6 +1,6 @@
 import { FormControl, HStack } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import TermInput from './TermInput';
 import { Button } from '~/components/atoms/Button';
 
@@ -37,26 +37,33 @@ export const WithSubmit = () => {
   const {
     control,
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const onSubmit = () => {};
+
   return (
-    <FormControl isInvalid={Boolean(errors.endDate)}>
-      <HStack>
-        <TermInput
-          startDateName="startDate"
-          endDateName="endDate"
-          isRequired={true}
-          register={register}
-          errors={errors}
-          control={control}
-        />
-        <Button
-          type="submit"
-          size={'xs'}
-        >
-          저장
-        </Button>
-      </HStack>
-    </FormControl>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormControl isInvalid={Boolean(errors.endDate)}>
+        <HStack>
+          <TermInput
+            feature
+            startDateName="startDate"
+            endDateName="endDate"
+            isRequired={true}
+            register={register}
+            errors={errors}
+            control={control}
+          />
+          <Button
+            type="submit"
+            size={'xs'}
+          >
+            저장
+          </Button>
+        </HStack>
+      </FormControl>
+    </form>
   );
 };
