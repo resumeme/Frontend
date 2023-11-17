@@ -8,7 +8,7 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import CONSTANTS from '~/constants';
 
 type LinkData = {
-  type?: 'default' | 'github' | 'blog';
+  linkType?: string;
   url?: string;
 };
 
@@ -46,7 +46,7 @@ const ReferenceLinkForm = () => {
           <LinkItem
             key={index}
             url={data.url}
-            type={data.type}
+            linkType={data.linkType}
             onRemove={handleRemoveLink}
           />
         </Box>
@@ -69,19 +69,19 @@ const ReferenceLinkForm = () => {
                   direction={'row'}
                 >
                   <Radio
-                    {...register('type')}
+                    {...register('linkType')}
                     value="github"
                   >
                     깃허브
                   </Radio>
                   <Radio
-                    {...register('type')}
+                    {...register('linkType')}
                     value="blog"
                   >
                     블로그
                   </Radio>
                   <Radio
-                    {...register('type')}
+                    {...register('linkType')}
                     value="default"
                   >
                     기타

@@ -3,14 +3,13 @@ import BasicInfoForm from './BasicInfoForm';
 import ReferenceLinkForm from './ReferenceLinkForm';
 import TitleInputForm from './TitleInputForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
+import useUser from '~/hooks/useUser';
 
 /* TODO api 요청으로 데이터 받아오기 */
 
-const USER = {
-  NAME: '이민희',
-};
-
 const ResumeBasicInput = () => {
+  const { user } = useUser();
+
   return (
     <Flex
       direction={'column'}
@@ -26,8 +25,7 @@ const ResumeBasicInput = () => {
               direction={'column'}
               gap={5}
             >
-              {/* FIXME 유저 데이터 받아와서 이름 렌더링하기 */}
-              <Heading>{USER.NAME}</Heading>
+              <Heading>{user?.realName}</Heading>
               <Box>
                 <Flex
                   justify={'space-between'}

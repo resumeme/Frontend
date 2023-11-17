@@ -4,11 +4,11 @@ import { AiFillGithub } from 'react-icons/ai';
 import { HiLink, HiHome, HiOutlineMinusCircle, HiOutlineX } from 'react-icons/hi';
 
 type ReferenceLinkBoxProps = {
-  type: 'default' | 'github' | 'blog';
+  linkType?: string;
   url?: string;
 };
 
-export const LINK_ICON_TYPES = {
+export const LINK_ICON_TYPES: Record<string, IconType> = {
   default: HiLink,
   github: AiFillGithub,
   blog: HiHome,
@@ -27,7 +27,7 @@ export const renderIcon = (icon: IconType, size: string, props?: IconProps) => {
   );
 };
 
-const ReferenceLinkBox = ({ url, type = 'default' }: ReferenceLinkBoxProps) => {
+const ReferenceLinkBox = ({ url, linkType = 'default' }: ReferenceLinkBoxProps) => {
   return (
     <Flex>
       <Link
@@ -55,7 +55,7 @@ const ReferenceLinkBox = ({ url, type = 'default' }: ReferenceLinkBoxProps) => {
             transitionTimingFunction: 'ease-in-out',
           }}
         >
-          {renderIcon(LINK_ICON_TYPES[type], 'lg', {
+          {renderIcon(LINK_ICON_TYPES[linkType], 'lg', {
             _groupHover: {
               color: 'primary.900',
             },
