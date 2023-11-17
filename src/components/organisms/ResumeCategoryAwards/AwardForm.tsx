@@ -104,11 +104,17 @@ const AwardForm = ({
                   w={'60%'}
                   isInvalid={Boolean(errors.acquisitionDate)}
                 >
-                  <FormLabel w={'8.625rem'}>취득 년월</FormLabel>
+                  <FormLabel
+                    isRequired
+                    w={'8.625rem'}
+                  >
+                    취득 일자
+                  </FormLabel>
                   <FormDateInput
                     register={{
-                      ...register('acquisitionDate'),
+                      ...register('acquisitionDate', { required: '필수 입력값입니다.' }),
                     }}
+                    error={errors.acquisitionDate}
                   />
                 </FormControl>
 
