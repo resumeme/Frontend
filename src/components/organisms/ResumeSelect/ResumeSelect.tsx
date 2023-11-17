@@ -38,7 +38,7 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
           >
             {data.length == 0 ? (
               <Flex
-                minH={'30rem'}
+                minH={'100%'}
                 alignItems={'center'}
                 justifyContent={'center'}
               >
