@@ -54,7 +54,7 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
                     size={'md'}
                     onClick={() => postCreateResumeMutate()}
                   >
-                    이력서 작성하기
+                    이력서 작성하러 가기
                   </Button>
                 </VStack>
               </Flex>
