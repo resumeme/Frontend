@@ -4,10 +4,9 @@ import { Button } from '~/components/atoms/Button';
 
 type ImageCardProps = {
   imageUrl: string;
-  editButton?: boolean;
 };
 
-const ImageCard = ({ imageUrl, editButton = true }: ImageCardProps) => {
+const ImageCard = ({ imageUrl }: ImageCardProps) => {
   return (
     <Flex
       minH={'12.87rem'}
@@ -20,16 +19,14 @@ const ImageCard = ({ imageUrl, editButton = true }: ImageCardProps) => {
         h={'7.75rem'}
         src={imageUrl}
       />
-      {editButton && (
-        <Button
-          w={'7.75rem'}
-          h={'2.25rem'}
-          color={'gray.700'}
-          bg={'gray.300'}
-        >
-          프로필 수정
-        </Button>
-      )}
+      <Button
+        w={'7.75rem'}
+        h={'2.25rem'}
+        color={'gray.700'}
+        bg={'gray.300'}
+      >
+        프로필 수정
+      </Button>
     </Flex>
   );
 };
