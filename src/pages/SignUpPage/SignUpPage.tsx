@@ -14,12 +14,14 @@ import { SignUpRole, SignUpCommon } from '~/types/signUp';
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
 const SignUpPage = () => {
+  const { mutate: signUpMutate } = usePostOAuthSignUp();
   const [step, setStep] = useState<Step>('COMMON');
   const [commonData, setCommonData] = useState<SignUpCommon>();
-  const { mutate: signUpMutate } = usePostOAuthSignUp();
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
-  const { initialUser } = useUser();
+  const { user, initialUser } = useUser();
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const signUpSuccessCallback = (accessToken: string, refreshToken: string, role: SignUpRole) => {
     const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
@@ -29,18 +31,15 @@ const SignUpPage = () => {
       initialUser(accessToken, refreshToken);
     }
   };
-
-  const toast = useToast();
-  const navigate = useNavigate();
   useEffect(() => {
-    if (!cacheKey) {
+    if (user && !cacheKey && step === 'COMMON') {
       toast({
         description: '소셜 로그인을 먼저 해주세요.',
       });
       navigate(appPaths.signIn);
       return;
     }
-  }, [cacheKey, navigate, toast]);
+  }, [cacheKey, navigate, toast, user]);
 
   return (
     <>
