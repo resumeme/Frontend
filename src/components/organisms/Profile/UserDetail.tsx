@@ -115,7 +115,7 @@ const UserDetail = ({
           ))}
         </Flex>
       )}
-      {careerContent && <Text>{careerContent}</Text>}
+      {careerContent && <Text whiteSpace={'pre-line'}>{careerContent}</Text>}
     </Flex>
   );
 };
