@@ -7,8 +7,7 @@ import { EventListPage } from '~/pages/EventPages/EventListPage';
 import MainPage from '~/pages/MainPage/MainPage';
 import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
-import { MenteeEditProfilePage } from '~/pages/ProfilePages/MenteeEditProfilePage';
-import { MentorEditProfilePage } from '~/pages/ProfilePages/MentorEditProfilePage';
+import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
 import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
@@ -25,8 +24,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <MainPage /> },
       { path: 'mypage/:id', element: <MyPage /> },
-      { path: 'user/edit-info/mentee', element: <MenteeEditProfilePage /> },
-      { path: 'user/edit-info/mentor', element: <MentorEditProfilePage /> },
+      { path: 'user/edit-info', element: <EditProfilePage /> },
 
       { path: 'resume/create', element: <CreateResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
