@@ -52,6 +52,8 @@ const Label = ({
       px={px}
       py={py}
       borderRadius={'full'}
+      display={'flex'}
+      alignItems={'center'}
       {...props}
     >
       <Text color={color}>{LABEL_TYPE_CONTENTS[type].text}</Text>
