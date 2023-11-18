@@ -11,7 +11,7 @@ import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { Modal } from '~/components/molecules/Modal';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
-import { SignUpCommon, SignUpMentor } from '~/types/signUp';
+import { EditMentor } from '~/types/mentor';
 
 export const FORM_STYLE = {
   control: { direction: 'column', spacing: '5px' } as ChakraProps,
@@ -28,11 +28,11 @@ const EditMentorProfileTemplate = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpCommon & SignUpMentor>({ defaultValues });
+  } = useForm<EditMentor>({ defaultValues });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const onSubmit: SubmitHandler<SignUpCommon & SignUpMentor> = () => {};
+  const onSubmit: SubmitHandler<EditMentor> = () => {};
 
   return (
     <Box

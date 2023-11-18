@@ -10,21 +10,21 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
-import { SignUpCommon, SignUpMentee } from '~/types/signUp';
+import { EditMentee } from '~/types/mentee';
 
 const EditMenteeProfileTemplate = () => {
   const navigate = useNavigate();
 
-  const defaultValues = { nickname: 'slr' } as SignUpCommon & SignUpMentee;
+  const defaultValues = { nickname: 'slr' } as EditMentee;
 
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpCommon & SignUpMentee>({ defaultValues });
+  } = useForm<EditMentee>({ defaultValues });
 
-  const onSubmit: SubmitHandler<SignUpCommon & SignUpMentee> = () => {};
+  const onSubmit: SubmitHandler<EditMentee> = () => {};
 
   return (
     <Box

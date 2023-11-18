@@ -10,4 +10,13 @@ type ReadMentor = {
   introduce: string;
 };
 
-export type { ReadMentor };
+type EditMentor = {
+  nickname: string;
+  phoneNumber: string;
+  experiencedPositions: Position[];
+  careerContent: string;
+  careerYear: number;
+  introduce: string;
+};
+
+export type { ReadMentor, EditMentor };
