@@ -1,4 +1,5 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CommonInput from './CommonInput';
@@ -10,12 +11,29 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
+import useUser from '~/hooks/useUser';
+import { usePatchMenteeProfile } from '~/queries/user/edit/userPatchMenteeProfile';
 import { EditMentee } from '~/types/mentee';
+import { revertFormatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const EditMenteeProfileTemplate = () => {
+  const { user: mentee } = useUser();
+  const { mutate: patchMenteeProfile } = usePatchMenteeProfile();
   const navigate = useNavigate();
 
-  const defaultValues = { nickname: 'slr' } as EditMentee;
+  let defaultValues = {};
+
+  if (mentee) {
+    const { interestedFields, introduce, nickname, phoneNumber, interestedPositions } = mentee;
+
+    defaultValues = {
+      nickname,
+      phoneNumber: revertFormatPhoneNumber(phoneNumber),
+      interestedPositions,
+      interestedFields,
+      introduce,
+    };
+  }
 
   const {
     control,
@@ -24,7 +42,19 @@ const EditMenteeProfileTemplate = () => {
     formState: { errors },
   } = useForm<EditMentee>({ defaultValues });
 
-  const onSubmit: SubmitHandler<EditMentee> = () => {};
+  const queryClient = useQueryClient();
+
+  const onSubmit: SubmitHandler<EditMentee> = (profile) => {
+    patchMenteeProfile(
+      { menteeId: String(mentee?.id), profile },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['user'] });
+          navigate(`/mypage/${mentee?.id}`);
+        },
+      },
+    );
+  };
 
   return (
     <Box
