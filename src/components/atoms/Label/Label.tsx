@@ -1,9 +1,19 @@
-import { Badge as ChakraBadge, BadgeProps as ChakraBadgeProps, Text } from '@chakra-ui/react';
+import {
+  Badge as ChakraBadge,
+  BadgeProps as ChakraBadgeProps,
+  ResponsiveValue,
+  Text,
+  ThemeTypings,
+} from '@chakra-ui/react';
+import * as CSS from 'csstype';
 import { ReactNode } from 'react';
+import CONSTANTS from '~/constants';
+import { Position } from '~/types/position';
 
+type LabelType = 'default' | Position;
 type LabelProps = ChakraBadgeProps & {
   children?: ReactNode;
-  type?: 'default' | 'frontend' | 'fullstack' | 'mobile' | 'backend' | 'devops' | 'ai';
+  type?: LabelType;
 };
 
 const Label = ({
@@ -16,34 +26,30 @@ const Label = ({
   ...props
 }: LabelProps) => {
   // TODO 라벨 색상들 테마에 추가하기 (색상 이름에 지정 라벨명 붙여서)
-  const LABEL_TYPE_CONTENTS = {
+  const LABEL_TYPE_CONTENTS: Record<
+    LabelType,
+    { bg: ResponsiveValue<CSS.Property.Color | ThemeTypings['colors']> }
+  > = {
     default: {
       bg,
-      text: children,
     },
-    frontend: {
+    FRONT: {
       bg: 'cyan.700',
-      text: '프론트엔드',
     },
-    fullstack: {
+    FULLSTACK: {
       bg: 'gray.800',
-      text: '웹 풀스택',
     },
-    backend: {
+    BACK: {
       bg: 'orange.500',
-      text: '서버/백엔드',
     },
-    mobile: {
+    MOBILE: {
       bg: 'green.600',
-      text: '모바일',
     },
-    devops: {
+    DEVOPS: {
       bg: 'pink.600',
-      text: '데브옵스/시스템',
     },
-    ai: {
+    ML_AI: {
       bg: 'purple.700',
-      text: '인공지능/머신러닝',
     },
   };
   return (
@@ -56,7 +62,7 @@ const Label = ({
       alignItems={'center'}
       {...props}
     >
-      <Text color={color}>{LABEL_TYPE_CONTENTS[type].text}</Text>
+      <Text color={color}>{type === 'default' ? children : CONSTANTS.POSITION[type]}</Text>
     </ChakraBadge>
   );
 };

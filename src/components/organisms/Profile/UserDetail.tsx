@@ -17,8 +17,6 @@ type UserDetailProps = {
   careerContent?: string;
 };
 
-type LabelTypes = 'default' | 'frontend' | 'fullstack' | 'mobile' | 'backend' | 'devops' | 'ai';
-
 const UserDetail = ({
   experiencedPositions,
   interestedPositions,
@@ -29,14 +27,6 @@ const UserDetail = ({
   introduce,
   phoneNumber,
 }: UserDetailProps) => {
-  const POSITIONS = {
-    BACK: 'backend',
-    FRONT: 'frontend',
-    MOBILE: 'mobile',
-    DEVOPS: 'devops',
-    ML_AI: 'ai',
-    FULLSTACK: 'fullstack',
-  };
   return (
     <Flex
       direction={'column'}
@@ -69,7 +59,7 @@ const UserDetail = ({
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
 
@@ -79,7 +69,7 @@ const UserDetail = ({
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
         </Flex>

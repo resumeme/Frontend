@@ -36,36 +36,36 @@ export const DefaultCustom: Story = {
 
 export const Frontend: Story = {
   args: {
-    type: 'frontend',
+    type: 'FRONT',
   },
 };
 
 export const Backend: Story = {
   args: {
-    type: 'backend',
+    type: 'BACK',
   },
 };
 
 export const Devops: Story = {
   args: {
-    type: 'devops',
+    type: 'DEVOPS',
   },
 };
 
 export const Mobile: Story = {
   args: {
-    type: 'mobile',
+    type: 'MOBILE',
   },
 };
 
 export const Ai: Story = {
   args: {
-    type: 'ai',
+    type: 'ML_AI',
   },
 };
 
 export const Fullstack: Story = {
   args: {
-    type: 'fullstack',
+    type: 'FULLSTACK',
   },
 };
