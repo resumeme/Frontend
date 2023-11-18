@@ -8,7 +8,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
-import { Modal } from '~/components/molecules/Modal';
+import { CareerContentModal } from '~/components/molecules/Modal';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { EditMentor } from '~/types/mentor';
@@ -206,19 +206,3 @@ const EditMentorProfileTemplate = () => {
 };
 
 export default EditMentorProfileTemplate;
-
-const CareerContentModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      size={'lg'}
-    >
-      <Text whiteSpace={'pre-line'}>
-        {`현) ▵▵▵ 시니어 풀스택 개발자 재직 중
-          전) ◻◻◻ 프론트엔드 개발자 5년 근무
-          전) ⎔⎔⎔ 인턴 프론트엔드 개발자 2년 근무`}
-      </Text>
-    </Modal>
-  );
-};
