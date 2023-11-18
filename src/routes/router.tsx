@@ -11,6 +11,7 @@ import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
 import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
+import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
 import SignInPage from '~/pages/SignInPage/SignInPage';
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: 'user/edit-info', element: <EditProfilePage /> },
 
       { path: 'resume/create', element: <CreateResumePage /> },
+      { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
       { path: 'resume/:id/comment', element: <CommentResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
