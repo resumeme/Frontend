@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { Avatar } from '~/components/atoms/Avatar';
 import { Button } from '~/components/atoms/Button';
 
@@ -7,6 +8,8 @@ type ImageCardProps = {
 };
 
 const ImageCard = ({ imageUrl }: ImageCardProps) => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       h={'12.87rem'}
@@ -24,6 +27,7 @@ const ImageCard = ({ imageUrl }: ImageCardProps) => {
         h={'2.25rem'}
         color={'gray.700'}
         bg={'gray.300'}
+        onClick={() => navigate(`/user/edit-info`)}
       >
         프로필 수정
       </Button>

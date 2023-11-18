@@ -16,6 +16,7 @@ import {
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
 import { ReferenceLink as Link } from '~/types/referenceLink';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -98,7 +99,7 @@ const ResumeDetailTemplate = () => {
                   align={'center'}
                 >
                   <PhoneIcon />
-                  <Text>{data.basic?.ownerInfo.phoneNumber}</Text>
+                  <Text>{formatPhoneNumber(data.basic?.ownerInfo.phoneNumber)}</Text>
                 </Flex>
               </Flex>
               {data.links && data.links?.length > 0 && (

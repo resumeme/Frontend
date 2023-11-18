@@ -10,7 +10,7 @@ export const getManagementEvents = async ({
 }: getManagementEventsProps): Promise<ReadEvent[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.get(`/v1/events?mentorId=${userId}`, {
+  const { data } = await resumeMeAxios.get(`/v1/mentors/${userId}/events`, {
     headers: {
       Authorization: accessToken,
     },
