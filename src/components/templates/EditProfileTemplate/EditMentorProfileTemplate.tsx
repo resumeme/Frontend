@@ -1,6 +1,15 @@
-import { Box, ChakraProps, Heading } from '@chakra-ui/react';
+import { Box, ChakraProps, Flex, Heading, Text, VStack, useDisclosure } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import CommonInput from './CommonInput';
+import { BorderBox } from '~/components/atoms/BorderBox';
+import { FormLabel } from '~/components/atoms/FormLabel';
+import { FormControl } from '~/components/molecules/FormControl';
+import { FormTextarea } from '~/components/molecules/FormTextarea';
+import { FormTextInput } from '~/components/molecules/FormTextInput';
+import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
+import { Modal } from '~/components/molecules/Modal';
+import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { SignUpCommon, SignUpMentor } from '~/types/signUp';
 
@@ -12,14 +21,16 @@ export const FORM_STYLE = {
 const EditMentorProfileTemplate = () => {
   const defaultValues = {};
 
+  const navigate = useNavigate();
 
   const {
-    // control,
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpCommon & SignUpMentor>({ defaultValues });
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onSubmit: SubmitHandler<SignUpCommon & SignUpMentor> = () => {};
 
@@ -65,9 +76,149 @@ const EditMentorProfileTemplate = () => {
           }}
           phoneNumberError={errors.phoneNumber}
         />
+        <Heading
+          mt={'2.5rem'}
+          fontSize={'1.25rem'}
+          color={'gray.700'}
+          fontWeight={700}
+        >
+          추가 정보
+        </Heading>
+        <BorderBox
+          mt={'1.25rem'}
+          py={'3rem'}
+        >
+          <Flex
+            gap={'2.25rem'}
+            direction="column"
+            px={'2rem'}
+          >
+            <VStack
+              w={'full'}
+              spacing={'1.8rem'}
+            >
+              <FormControl
+                isInvalid={!!errors.experiencedPositions}
+                {...FORM_STYLE.control}
+              >
+                <FormLabel
+                  w={'full'}
+                  isRequired
+                  subText={CONSTANTS.LABEL_MULTI_SELECTABLE}
+                  {...FORM_STYLE.label}
+                  mb={'0.5rem'}
+                >
+                  활동 직무
+                </FormLabel>
+                <LabelCheckboxGroup
+                  name="experiencedPositions"
+                  control={control}
+                  variant={'role'}
+                  error={errors.experiencedPositions}
+                />
+              </FormControl>
+              <FormControl
+                isInvalid={Boolean(errors.careerYear)}
+                {...FORM_STYLE.control}
+              >
+                <FormLabel
+                  isRequired
+                  {...FORM_STYLE.label}
+                >
+                  경력 연차
+                </FormLabel>
+                <FormTextInput
+                  mt={'0.5rem'}
+                  type="number"
+                  id="careerYear"
+                  register={{
+                    ...register('careerYear', {
+                      required: '경력 연차를 숫자로 입력해주세요.',
+                      valueAsNumber: true,
+                      validate: (value) => value > 0,
+                    }),
+                  }}
+                  error={errors.careerYear}
+                />
+              </FormControl>
+              <FormControl
+                isInvalid={Boolean(errors.careerContent)}
+                {...FORM_STYLE.control}
+              >
+                <Flex justifyContent={'space-between'}>
+                  <FormLabel
+                    isRequired
+                    {...FORM_STYLE.label}
+                  >
+                    경력 사항
+                  </FormLabel>
+                  <Text
+                    as={'u'}
+                    flexShrink={0}
+                    alignSelf={'start'}
+                    color={'gray.400'}
+                    cursor={'pointer'}
+                    onClick={() => onOpen()}
+                  >
+                    예시
+                  </Text>
+                </Flex>
+                <CareerContentModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                />
+                <FormTextarea
+                  placeholder="관련 직무의 경력 사항을 작성해주세요."
+                  id="careerContent"
+                  register={{
+                    ...register('careerContent', { required: '경력사항을 작성해주세요.' }),
+                  }}
+                  error={errors.careerContent}
+                  h={'7.2rem'}
+                />
+              </FormControl>
+              <FormControl {...FORM_STYLE.control}>
+                <FormLabel {...FORM_STYLE.label}>자기소개</FormLabel>
+                <FormTextarea
+                  mt={'0.5rem'}
+                  placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
+                  id="introduce"
+                  register={{ ...register('introduce') }}
+                  error={errors.introduce}
+                  h={'3rem'}
+                />
+              </FormControl>
+            </VStack>
+          </Flex>
+        </BorderBox>
+        <Flex
+          mt={'2rem'}
+          justify={'end'}
+        >
+          <SubmitButtonGroup
+            size={'md'}
+            onCancel={() => navigate(-1)}
+          />
+        </Flex>
       </form>
     </Box>
   );
 };
 
 export default EditMentorProfileTemplate;
+
+const CareerContentModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={'lg'}
+    >
+      <Text whiteSpace={'pre-line'}>
+        {`현) ▵▵▵ 시니어 풀스택 개발자 재직 중
+          전) ◻◻◻ 프론트엔드 개발자 5년 근무
+          전) ⎔⎔⎔ 인턴 프론트엔드 개발자 2년 근무`}
+      </Text>
+    </Modal>
+  );
+};
