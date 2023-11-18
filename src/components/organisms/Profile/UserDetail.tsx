@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Badge } from '~/components/atoms/Badge';
 import { Label } from '~/components/atoms/Label';
 import { Position } from '~/types/position';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 type UserDetailProps = {
   nickname: string;
@@ -89,7 +90,7 @@ const UserDetail = ({
           gap={'1rem'}
         >
           <PhoneIcon />
-          <Text as={'span'}>{phoneNumber}</Text>
+          <Text as={'span'}>{formatPhoneNumber(phoneNumber)}</Text>
         </Flex>
       )}
       {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}

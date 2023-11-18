@@ -3,7 +3,6 @@ import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { User } from '~/types/user';
 import { getCookie, deleteCookie, setCookie } from '~/utils/cookie';
-import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 export const userKeys = {
   user: ['user'] as const,
@@ -13,10 +12,6 @@ const getUser = async (): Promise<User | null> => {
   if (!getCookie(CONSTANTS.ACCESS_TOKEN_HEADER)) return null;
 
   const { data } = await resumeMeAxios.get('/v1/user');
-
-  if (data.phoneNumber && data.phoneNumber) {
-    data.phoneNumber = formatPhoneNumber(data.phoneNumber);
-  }
 
   return data;
 };
