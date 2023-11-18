@@ -29,8 +29,17 @@ const EditMentorProfileTemplate = () => {
   let defaultValues = {};
 
   if (mentor) {
-    defaultValues = mentor;
-    mentor.phoneNumber = revertFormatPhoneNumber(mentor.phoneNumber);
+    const { careerYear, introduce, nickname, phoneNumber, careerContent, experiencedPositions } =
+      mentor;
+
+    defaultValues = {
+      nickname,
+      phoneNumber: revertFormatPhoneNumber(phoneNumber),
+      experiencedPositions,
+      careerContent,
+      careerYear,
+      introduce,
+    };
   }
 
   const navigate = useNavigate();
