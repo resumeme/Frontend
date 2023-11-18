@@ -15,7 +15,7 @@ const getSize = (size: string | number) => {
 
 const sizes = {
   xs: getSize('1.375rem'),
-  sm: getSize('2.75rem'),
+  sm: getSize('2.5rem'),
   md: getSize('6rem'),
   lg: getSize('10rem'),
   full: getSize('100%'),
