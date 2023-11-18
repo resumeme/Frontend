@@ -1,4 +1,5 @@
 import { Box, ChakraProps, Flex, Heading, Text, VStack, useDisclosure } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CommonInput from './CommonInput';
@@ -11,7 +12,10 @@ import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { CareerContentModal } from '~/components/molecules/Modal';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
+import useUser from '~/hooks/useUser';
+import { usePatchMentorProfile } from '~/queries/user/edit/userPatchMentorProfile';
 import { EditMentor } from '~/types/mentor';
+import { revertFormatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 export const FORM_STYLE = {
   control: { direction: 'column', spacing: '5px' } as ChakraProps,
@@ -19,7 +23,15 @@ export const FORM_STYLE = {
 } as const;
 
 const EditMentorProfileTemplate = () => {
-  const defaultValues = {};
+  const { user: mentor } = useUser();
+  const { mutate: patchMentorProfile } = usePatchMentorProfile();
+
+  let defaultValues = {};
+
+  if (mentor) {
+    defaultValues = mentor;
+    mentor.phoneNumber = revertFormatPhoneNumber(mentor.phoneNumber);
+  }
 
   const navigate = useNavigate();
 
@@ -32,7 +44,19 @@ const EditMentorProfileTemplate = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const onSubmit: SubmitHandler<EditMentor> = () => {};
+  const queryClient = useQueryClient();
+
+  const onSubmit: SubmitHandler<EditMentor> = (profile) => {
+    patchMentorProfile(
+      { mentorId: String(mentor?.id), profile },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['user'] });
+          navigate(`/mypage/${mentor?.id}`);
+        },
+      },
+    );
+  };
 
   return (
     <Box
@@ -185,7 +209,7 @@ const EditMentorProfileTemplate = () => {
                   id="introduce"
                   register={{ ...register('introduce') }}
                   error={errors.introduce}
-                  h={'3rem'}
+                  h={'7.2rem'}
                 />
               </FormControl>
             </VStack>
