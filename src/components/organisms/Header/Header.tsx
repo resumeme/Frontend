@@ -32,10 +32,11 @@ const NAV_ITEMS: Array<NavItem> = [
     label: '피드백',
     href: '/event/view',
   },
-  {
-    label: '커뮤니티',
-    href: '#',
-  },
+  //TODO - 커뮤니티 기능 생기면 추가
+  // {
+  //   label: '커뮤니티',
+  //   href: '#',
+  // },
 ];
 
 const Navigation = () => {
