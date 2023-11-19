@@ -1,8 +1,6 @@
-import { Flex, Heading, Spacer, Text } from '@chakra-ui/react';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBox } from '~/components/atoms/BorderBox';
-// import { Button } from '~/components/atoms/Button';
-// import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { FeedbackManagementItem } from '~/components/organisms/FeedbackManagementItem';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
 
