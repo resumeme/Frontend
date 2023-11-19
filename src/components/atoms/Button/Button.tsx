@@ -1,7 +1,7 @@
 import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
 import { forwardRef } from 'react';
 
-type ButtonProps = ChakraButtonProps & {
+export type ButtonProps = ChakraButtonProps & {
   variant?: 'default' | 'cancel';
   size?: 'lg' | 'md' | 'sm' | 'xs' | 'full';
   children: string;

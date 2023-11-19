@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Badge } from '~/components/atoms/Badge';
 import { Label } from '~/components/atoms/Label';
 import { Position } from '~/types/position';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 type UserDetailProps = {
   nickname: string;
@@ -16,8 +17,6 @@ type UserDetailProps = {
   careerContent?: string;
 };
 
-type LabelTypes = 'default' | 'frontend' | 'fullstack' | 'mobile' | 'backend' | 'devops' | 'ai';
-
 const UserDetail = ({
   experiencedPositions,
   interestedPositions,
@@ -28,14 +27,6 @@ const UserDetail = ({
   introduce,
   phoneNumber,
 }: UserDetailProps) => {
-  const POSITIONS = {
-    BACK: 'backend',
-    FRONT: 'frontend',
-    MOBILE: 'mobile',
-    DEVOPS: 'devops',
-    ML_AI: 'ai',
-    FULLSTACK: 'fullstack',
-  };
   return (
     <Flex
       direction={'column'}
@@ -68,7 +59,7 @@ const UserDetail = ({
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
 
@@ -78,7 +69,7 @@ const UserDetail = ({
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
         </Flex>
@@ -89,7 +80,7 @@ const UserDetail = ({
           gap={'1rem'}
         >
           <PhoneIcon />
-          <Text as={'span'}>{phoneNumber}</Text>
+          <Text as={'span'}>{formatPhoneNumber(phoneNumber)}</Text>
         </Flex>
       )}
       {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
@@ -115,7 +106,7 @@ const UserDetail = ({
           ))}
         </Flex>
       )}
-      {careerContent && <Text>{careerContent}</Text>}
+      {careerContent && <Text whiteSpace={'pre-line'}>{careerContent}</Text>}
     </Flex>
   );
 };

@@ -8,9 +8,10 @@ import { ReadMentor } from '~/types/mentor';
 type MentorProfileProps = {
   mentor: ReadMentor;
   event: ReadEvent;
+  onApply: () => void;
 };
 
-const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
+const MentorProfile = ({ mentor, event, onApply }: MentorProfileProps) => {
   const { nickname, introduce, imageUrl } = mentor;
 
   return (
@@ -70,7 +71,12 @@ const MentorProfile = ({ mentor, event }: MentorProfileProps) => {
           </Text>
         </Flex>
       </Flex>
-      <Button size={'full'}>신청하기</Button>
+      <Button
+        size={'full'}
+        onClick={onApply}
+      >
+        신청하기
+      </Button>
     </VStack>
   );
 };

@@ -1,10 +1,12 @@
-import { BellIcon } from '@chakra-ui/icons';
 import { Box, Flex, Button, Stack, Heading } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { IoCaretDownOutline } from 'react-icons/io5';
+import { Link, useNavigate } from 'react-router-dom';
+import { Avatar } from '~/components/atoms/Avatar';
+import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostSignOut } from '~/queries/usePostSignOut';
-
 type NavItem = {
   label: string;
   subLabel?: string;
@@ -16,21 +18,25 @@ const TEXT_CONTENTS = {
   LOGO: 'resume.me',
   SIGN: '회원가입 / 로그인',
   SIGN_OUT: '로그아웃',
+  MY_PAGE: '마이페이지',
+  RESUME: '이력서 관리',
+  EDIT_PROFILE: '회원정보 수정',
 };
 
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: '이력서',
-    href: '/mypage/mentee',
+    href: appPaths.managementResume,
   },
   {
     label: '피드백',
-    href: '/event/view',
+    href: appPaths.viewEvent,
   },
-  {
-    label: '커뮤니티',
-    href: '#',
-  },
+  //TODO - 커뮤니티 기능 생기면 추가
+  // {
+  //   label: '커뮤니티',
+  //   href: '#',
+  // },
 ];
 
 const Navigation = () => {
@@ -67,9 +73,14 @@ const Header = () => {
   const { user } = useUser();
   const { mutate: signOut } = usePostSignOut();
 
-  const handleSignOut = () => {
-    signOut();
-  };
+  const navigate = useNavigate();
+
+  const options: Option[] = [
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume) },
+    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo) },
+    { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
+  ];
 
   return (
     <Box
@@ -129,24 +140,22 @@ const Header = () => {
           spacing={2}
         >
           {user ? (
-            //TODO: 추후에 컴포넌트 만들어서 프로필, 알림, 메뉴가 나오는 걸로 대체
-            <Button
-              w={'144px'}
-              h={'40px'}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'primary.900'}
-              bg={'transparent'}
-              border={'1px'}
-              borderColor={'gray.300'}
-              _hover={{
-                bg: 'gray.200',
-              }}
-              type="button"
-              onClick={handleSignOut}
+            <Flex
+              align={'center'}
+              gap={'1rem'}
             >
-              {TEXT_CONTENTS.SIGN_OUT}
-            </Button>
+              <Link to={appPaths.myPage(user.id)}>
+                <Avatar
+                  size="sm"
+                  src={user.imageUrl}
+                />
+              </Link>
+              <OptionsButton
+                label={user.nickname}
+                options={options}
+                icon={IoCaretDownOutline}
+              />
+            </Flex>
           ) : (
             <Link to={appPaths.signIn}>
               <Button
@@ -167,7 +176,7 @@ const Header = () => {
             </Link>
           )}
 
-          <Button
+          {/* <Button
             w={'30px'}
             h={'40px'}
             fontSize={'sm'}
@@ -180,7 +189,7 @@ const Header = () => {
             }}
           >
             <BellIcon fontSize={'1.2rem'} />
-          </Button>
+          </Button> */}
         </Stack>
       </Flex>
     </Box>

@@ -49,6 +49,7 @@ export const Default = () => {
     <MentorProfile
       mentor={DUMMY_DATA.mentor}
       event={DUMMY_DATA.event}
+      onApply={() => {}}
     />
   );
 };
