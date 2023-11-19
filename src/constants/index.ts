@@ -1,5 +1,6 @@
 import { ERROR_MESSAGES } from './errorMessage';
 import { POSITION } from './position';
+import { environments } from '~/config/environments';
 
 const CONSTANTS = {
   ERROR_MESSAGES,
