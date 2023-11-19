@@ -1,1 +1,3 @@
-export type Position = 'BACK' | 'FRONT' | 'MOBILE' | 'DEVOPS' | 'ML_AI' | 'FULLSTACK';
+import CONSTANTS from '~/constants';
+
+export type Position = keyof typeof CONSTANTS.POSITION;

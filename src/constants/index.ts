@@ -1,8 +1,10 @@
 import { ERROR_MESSAGES } from './errorMessage';
+import { POSITION } from './position';
 import { environments } from '~/config/environments';
 
 const CONSTANTS = {
   ERROR_MESSAGES,
+  POSITION,
   SIGN_UP_CACHE_KEY: 'sign-up-cache-key',
   CACHE_KEY_HEADER: 'cachekey',
   ACCESS_TOKEN_HEADER: 'authorization',
