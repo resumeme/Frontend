@@ -39,28 +39,4 @@ type ReadEvent = {
   resumes: EventResume[];
 };
 
-type EventWithMentor = {
-  eventInfo: {
-    eventId: number;
-    title: string;
-    endDate: string;
-    status: string;
-    positions: Position[];
-  };
-  mentorInfo: {
-    mentorId: number;
-    nickname: string;
-    imageUrl: string;
-  };
-};
-
-type ResumeWithEvents = {
-  resumeInfo: {
-    id: number;
-    title: string;
-    modifiedAt?: string;
-  };
-  events: EventWithMentor[];
-};
-
-export type { CreateEvent, ReadEvent, EventResume, EventTime, ResumeWithEvents };
+export type { CreateEvent, ReadEvent, EventResume, EventTime };
