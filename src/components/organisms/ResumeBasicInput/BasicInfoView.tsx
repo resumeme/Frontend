@@ -105,7 +105,9 @@ const BasicInfoView = ({ position, skills, introduce, onEditClick }: BasicInfoVi
             희망직무
           </Text>
         </GridItem>
-        <GridItem colSpan={2}>{renderPosition()}</GridItem>
+        <GridItem colSpan={2}>
+          <Box w={'fit-content'}>{renderPosition()}</Box>
+        </GridItem>
         <GridItem>
           <Text
             fontWeight={'bold'}
