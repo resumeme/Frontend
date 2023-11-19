@@ -3,6 +3,7 @@ import { MdOutlineArticle } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { appPaths } from '~/config/paths';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { MyResume } from '~/types/resume/resumeListItem';
 import { formatDate } from '~/utils/formatDate';
@@ -17,7 +18,7 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
   const { mutate: deleteResume } = useDeleteResume();
 
   const HandleEdit = () => {
-    navigate(`/resume/${id}/edit`);
+    navigate(appPaths.resumeEdit(id));
   };
 
   const HandleDelete = () => {
@@ -44,7 +45,7 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
         <Spacer />
         <OptionsButton options={options} />
       </Flex>
-      <Link to={`/resume/${id}`}>
+      <Link to={appPaths.resumeDetail(id)}>
         <Text
           noOfLines={1}
           mt={'1.5rem'}

@@ -4,6 +4,7 @@ import { MdOutlineArticle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
+import { appPaths } from '~/config/paths';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
 import { formatDate } from '~/utils/formatDate';
 
@@ -20,9 +21,9 @@ const FeedbackManagementItem = ({
 
   const handleClick = () => {
     if (status === 'CLOSE') {
-      navigate(`/resume/${resumeId}`);
+      navigate(appPaths.resumeDetail(resumeId));
     } else {
-      navigate(`/resume/${resumeId}/edit`);
+      navigate(appPaths.resumeEdit(resumeId));
     }
   };
 
