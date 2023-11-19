@@ -4,7 +4,6 @@ import { forwardRef } from 'react';
 export type ButtonProps = ChakraButtonProps & {
   variant?: 'default' | 'cancel';
   size?: 'lg' | 'md' | 'sm' | 'xs' | 'full';
-  children: string;
 };
 
 const Button = forwardRef(
