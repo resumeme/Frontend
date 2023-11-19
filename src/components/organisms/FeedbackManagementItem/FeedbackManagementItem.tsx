@@ -34,10 +34,10 @@ const FeedbackManagementItem = ({
           color={'gray.500'}
           as={'span'}
           fontSize={'0.75rem'}
+          mb={'1.75rem'}
         >{`${formatDate(modifiedAt)}`}</Text>
       )}
       <Flex
-        mt={'1.75rem'}
         align={'center'}
         gap={'1rem'}
       >
