@@ -1,5 +1,6 @@
 import { ERROR_MESSAGES } from './errorMessage';
 import { POSITION } from './position';
+import { RESUME_STATUS } from './status';
 import { environments } from '~/config/environments';
 
 const CONSTANTS = {
@@ -21,6 +22,7 @@ const CONSTANTS = {
   },
   LABEL_MULTI_SELECTABLE: '(여러 개 선택 가능)',
   URL_PATTERN: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
+  RESUME_STATUS,
 };
 
 export default CONSTANTS;
