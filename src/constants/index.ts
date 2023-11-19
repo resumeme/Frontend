@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES } from './errorMessage';
+import { EVENT_STATUS } from './eventStatus';
 import { POSITION } from './position';
 import { RESUME_STATUS } from './status';
 import { environments } from '~/config/environments';
@@ -6,6 +7,7 @@ import { environments } from '~/config/environments';
 const CONSTANTS = {
   ERROR_MESSAGES,
   POSITION,
+  EVENT_STATUS,
   SIGN_UP_CACHE_KEY: 'sign-up-cache-key',
   CACHE_KEY_HEADER: 'cachekey',
   ACCESS_TOKEN_HEADER: 'authorization',

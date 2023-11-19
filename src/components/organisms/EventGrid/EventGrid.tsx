@@ -1,8 +1,8 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { EventGridItem } from '~/components/molecules/EventGridItem';
+import { EventListItem } from '~/types/event/eventListItem';
 
-//FIXME - 데이터 타입 정의하기
-const EventGrid = ({ events }: { events: any[] }) => {
+const EventGrid = ({ events }: { events: EventListItem[] }) => {
   return (
     <>
       <Grid
@@ -11,10 +11,7 @@ const EventGrid = ({ events }: { events: any[] }) => {
       >
         {events.map((eventItem) => (
           <GridItem key={eventItem.info.id}>
-            <EventGridItem
-              eventInfo={eventItem.info}
-              mentorInfo={eventItem.mentorInfo}
-            />
+            <EventGridItem event={eventItem} />
           </GridItem>
         ))}
       </Grid>

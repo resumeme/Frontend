@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
+import { EventListItem } from '~/types/event/eventListItem';
 import { Position } from '~/types/position';
 
-//FIXME - 데이터 타입 정의하기
-const EventGridItem = ({ eventInfo, mentorInfo }: { eventInfo: any; mentorInfo: any }) => {
-  const openDate = new Date(eventInfo.timeInfo.openDateTime).toLocaleDateString();
-  const closeDate = new Date(eventInfo.timeInfo.closeDateTime).toLocaleDateString();
+const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }) => {
+  const openDate = new Date(info.timeInfo.openDateTime).toLocaleDateString();
+  const closeDate = new Date(info.timeInfo.closeDateTime).toLocaleDateString();
   return (
     <Box
       w={'18.75rem'}
@@ -32,7 +32,7 @@ const EventGridItem = ({ eventInfo, mentorInfo }: { eventInfo: any; mentorInfo: 
           h={'full'}
         >
           <AvatarAndStatus
-            status={eventInfo.status}
+            status={info.status}
             imageUrl={mentorInfo.imageUrl}
             nickname={mentorInfo.nickname}
           />
@@ -40,9 +40,9 @@ const EventGridItem = ({ eventInfo, mentorInfo }: { eventInfo: any; mentorInfo: 
             noOfLines={2}
             color={'gray.800'}
           >
-            {eventInfo.title}
+            {info.title}
           </Text>
-          <PositionLabels positions={eventInfo.positions} />
+          <PositionLabels positions={info.positions} />
           <Flex
             justifyContent={'space-between'}
             marginTop={'auto'}
@@ -52,7 +52,7 @@ const EventGridItem = ({ eventInfo, mentorInfo }: { eventInfo: any; mentorInfo: 
             </Text>
             <Text
               fontSize={'0.875rem'}
-            >{`인원 ${eventInfo.currentApplicantCount}/${eventInfo.maximumCount}`}</Text>
+            >{`인원 ${info.currentApplicantCount}/${info.maximumCount}`}</Text>
           </Flex>
         </Flex>
       </BorderBox>
