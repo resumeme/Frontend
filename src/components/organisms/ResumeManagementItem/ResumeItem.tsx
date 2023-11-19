@@ -70,6 +70,8 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
           w={'1.25rem'}
         />
         <Input
+          isTruncated
+          flexShrink={1}
           h={'min-content'}
           p={0}
           m={0}
