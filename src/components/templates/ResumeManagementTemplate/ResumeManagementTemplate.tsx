@@ -4,10 +4,10 @@ import ResumeItem from '../../organisms/ResumeManagementItem/ResumeItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
-import { ManagementResume } from '~/types/resume/resumeListItem';
+import { MyResume } from '~/types/resume/resumeListItem';
 
 type ResumeManagementTemplateProps = {
-  resumes: ManagementResume[];
+  resumes: MyResume[];
 };
 
 const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) => {

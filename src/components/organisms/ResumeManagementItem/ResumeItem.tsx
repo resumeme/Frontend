@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
-import { ManagementResume } from '~/types/resume/resumeListItem';
+import { MyResume } from '~/types/resume/resumeListItem';
 import { formatDate } from '~/utils/formatDate';
 
 type ResumeItemProps = {
-  resume: ManagementResume;
+  resume: MyResume;
 };
 
-const ResumeItem = ({ resume: { id, modifiedAt, position, title } }: ResumeItemProps) => {
+const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
   const navigate = useNavigate();
 
   const { mutate: deleteResume } = useDeleteResume();
