@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import RemoteControlComment from './RemoteControlComment';
+import RemoteControlPannel from './RemoteControlPannel';
 
 const meta = {
-  title: 'Resumeme/Components/RemoteControlComment',
-  component: RemoteControlComment,
+  title: 'Resumeme/Components/RemoteControlPannel',
+  component: RemoteControlPannel,
   tags: ['autodocs'],
-} satisfies Meta<typeof RemoteControlComment>;
+} satisfies Meta<typeof RemoteControlPannel>;
 
 export default meta;
 
@@ -16,7 +16,7 @@ export const Default = () => {
       minH={'200vh'}
       bgGradient="linear(to-b, teal.500, blue.500)"
     >
-      <RemoteControlComment />
+      <RemoteControlPannel />
     </Box>
   );
 };

@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import RemoteControlReject from './RemoteControlReject';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { RemoteControl } from '~/components/atoms/RemoteControl';
@@ -9,7 +10,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 type Temp = {
   generalComment: string;
 };
-const RemoteControlComment = () => {
+const RemoteControlPannel = () => {
   const {
     register,
     handleSubmit,
@@ -29,19 +30,24 @@ const RemoteControlComment = () => {
           spacing="0.2rem"
           mb={'1.2rem'}
         >
-          <FormLabel>총평</FormLabel>
+          <FormLabel>완료하기</FormLabel>
           <FormTextarea
-            h={'15rem'}
+            h={'8rem'}
             placeholder="총평을 입력해주세요."
             id="generalComment"
-            register={{ ...register('generalComment') }}
+            register={{
+              ...register('generalComment', {
+                required: '첨삭을 완료하려면 총평을 입력해주세요.',
+              }),
+            }}
             error={errors?.generalComment}
           />
         </FormControl>
-        <Button type="submit">첨삭 완료</Button>
+        <Button type="submit">첨삭 완료하기</Button>
+        <RemoteControlReject mt={4} />
       </form>
     </RemoteControl>
   );
 };
 
-export default RemoteControlComment;
+export default RemoteControlPannel;
