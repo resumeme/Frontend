@@ -1,6 +1,6 @@
 import { Flex, Icon, Input, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
@@ -44,15 +44,17 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
         <Spacer />
         <OptionsButton options={options} />
       </Flex>
-      <Text
-        noOfLines={1}
-        mt={'1.5rem'}
-        fontSize={'1.5rem'}
-        fontWeight={600}
-        color={'gray.800'}
-      >
-        {title}
-      </Text>
+      <Link to={`/resume/${id}`}>
+        <Text
+          noOfLines={1}
+          mt={'1.5rem'}
+          fontSize={'1.5rem'}
+          fontWeight={600}
+          color={'gray.800'}
+        >
+          {title}
+        </Text>
+      </Link>
       <Flex
         mt={'1.75rem'}
         borderRadius={'0.3125rem'}
