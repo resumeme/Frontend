@@ -2,8 +2,8 @@ import { Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import ResumeItem from '../../organisms/ResumeManagementItem/ResumeItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import { Button } from '~/components/atoms/Button';
-import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
+// import { Button } from '~/components/atoms/Button';
+// import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { MyResume } from '~/types/resume/resumeListItem';
 
 type ResumeManagementTemplateProps = {
@@ -11,7 +11,7 @@ type ResumeManagementTemplateProps = {
 };
 
 const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) => {
-  const { mutate: createResume } = usePostCreateResume();
+  // const { mutate: createResume } = usePostCreateResume();
 
   return (
     <>
