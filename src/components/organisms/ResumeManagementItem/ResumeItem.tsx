@@ -1,43 +1,24 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Flex,
-  Icon,
-  Input,
-  Spacer,
-  Text,
-} from '@chakra-ui/react';
-import { BiCommentError } from 'react-icons/bi';
+import { Flex, Icon, Input, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { ManagementPanel } from '~/components/molecules/ManagementPanel';
+import { Link, useNavigate } from 'react-router-dom';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { appPaths } from '~/config/paths';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
-import { ResumeWithEvents } from '~/types/event';
+import { MyResume } from '~/types/resume/resumeListItem';
 import { formatDate } from '~/utils/formatDate';
 
 type ResumeItemProps = {
-  resume: ResumeWithEvents;
+  resume: MyResume;
 };
 
-const ResumeItem = ({
-  resume: {
-    events,
-    resumeInfo: { modifiedAt, id, title },
-  },
-}: ResumeItemProps) => {
+const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
   const navigate = useNavigate();
 
   const { mutate: deleteResume } = useDeleteResume();
 
   const HandleEdit = () => {
-    navigate(`/resume/${id}/edit`);
+    navigate(appPaths.resumeEdit(id));
   };
 
   const HandleDelete = () => {
@@ -64,14 +45,17 @@ const ResumeItem = ({
         <Spacer />
         <OptionsButton options={options} />
       </Flex>
-      <Text
-        mt={'1.5rem'}
-        fontSize={'1.5rem'}
-        fontWeight={600}
-        color={'gray.800'}
-      >
-        {title}
-      </Text>
+      <Link to={appPaths.resumeDetail(id)}>
+        <Text
+          noOfLines={1}
+          mt={'1.5rem'}
+          fontSize={'1.5rem'}
+          fontWeight={600}
+          color={'gray.800'}
+        >
+          {title}
+        </Text>
+      </Link>
       <Flex
         mt={'1.75rem'}
         borderRadius={'0.3125rem'}
@@ -87,6 +71,8 @@ const ResumeItem = ({
           w={'1.25rem'}
         />
         <Input
+          isTruncated
+          flexShrink={1}
           h={'min-content'}
           p={0}
           m={0}
@@ -94,80 +80,6 @@ const ResumeItem = ({
           placeholder="이력서에 대한 간단한 메모를 남겨보세요. ex) 12월 25일 제출 전까지 피드백 받기"
         />
       </Flex>
-      <Accordion
-        mt={'2.37rem'}
-        w={'full'}
-        allowToggle
-      >
-        <AccordionItem
-          border={'none'}
-          p={0}
-          w={'full'}
-        >
-          <Flex>
-            <AccordionButton
-              w={'7rem'}
-              _hover={{ bg: 'none' }}
-              p={0}
-            >
-              <Box
-                w={'full'}
-                as="span"
-                flex={1}
-                textAlign={'left'}
-                fontSize={'0.875rem'}
-              >
-                {`신청이력서 ${events.length}건`}
-              </Box>
-              <AccordionIcon
-                marginLeft={'0.37rem'}
-                fontSize={'0.875rem'}
-              />
-            </AccordionButton>
-            <Spacer />
-          </Flex>
-          <AccordionPanel
-            mt={'1rem'}
-            p={0}
-          >
-            <Flex
-              direction={'column'}
-              gap={'1.37rem'}
-            >
-              {events.length ? (
-                events.map((event) => (
-                  <ManagementPanel
-                    key={uuidv4()}
-                    url={`/resume/${id}/comment`}
-                    icon={
-                      <Icon
-                        color={'highlight.900'}
-                        as={BiCommentError}
-                        w={'1.25rem'}
-                      />
-                    }
-                    name={event.mentorInfo.nickname}
-                    status={event.eventInfo.status}
-                    title={event.eventInfo.title}
-                    date={modifiedAt}
-                  />
-                ))
-              ) : (
-                <Flex
-                  borderRadius={'0.3125rem'}
-                  bg={'gray.200'}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  w={'full'}
-                  h={'4.375rem'}
-                >
-                  <Text>이력서에 대한 피드백이 없어요.</Text>
-                </Flex>
-              )}
-            </Flex>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
     </>
   );
 };

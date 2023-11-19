@@ -16,6 +16,7 @@ import {
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
 import { ReferenceLink as Link } from '~/types/referenceLink';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
   const { id: resumeId } = useParams() as { id: string };
@@ -92,14 +93,15 @@ const ResumeDetailTemplate = () => {
                     {data.basic.position}
                   </Label>
                 )}
-
-                <Flex
-                  gap={4}
-                  align={'center'}
-                >
-                  <PhoneIcon />
-                  <Text>{data.basic?.ownerInfo?.phoneNumber}</Text>
-                </Flex>
+                {data.basic?.ownerInfo && data.basic.ownerInfo.phoneNumber && (
+                  <Flex
+                    gap={4}
+                    align={'center'}
+                  >
+                    <PhoneIcon />
+                    <Text>{formatPhoneNumber(data.basic?.ownerInfo.phoneNumber)}</Text>
+                  </Flex>
+                )}
               </Flex>
               {data.links && data.links?.length > 0 && (
                 <Flex

@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex, FormErrorMessage, HStack, useRadioGroup } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, FormErrorMessage, useRadioGroup } from '@chakra-ui/react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import RadioCard from './RadioCard';
 
-export type RadioOption<T extends string> = {
+export type RadioOption<T extends string = string> = {
   value: T;
   children: React.ReactNode;
 };
@@ -13,6 +13,7 @@ type RadioCardGroupProps<T extends string> = {
   defaultValue: string;
   register: UseFormRegisterReturn;
   error?: Partial<FieldError>;
+  direction?: 'row' | 'column';
 } & BoxProps;
 
 const RadioCardGroup = ({
@@ -21,7 +22,8 @@ const RadioCardGroup = ({
   defaultValue,
   register,
   error,
-  ...boxProps
+  direction = 'row',
+  ...cardBoxProps
 }: RadioCardGroupProps<string>) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: formName,
@@ -32,24 +34,31 @@ const RadioCardGroup = ({
 
   return (
     <Flex direction={'column'}>
-      <HStack
+      <Flex
+        direction={direction}
+        w={'full'}
+        gap={'0.5rem'}
         {...group}
-        {...boxProps}
       >
         {options.map(({ value, children }: RadioOption<string>) => {
           const radioProps = getRadioProps({ value });
           return (
             <Box
               key={value}
-              w={`${100 / options.length}%`}
+              flexBasis={`${100 / options.length}%`}
               h={'full'}
               {...register}
             >
-              <RadioCard {...radioProps}>{children}</RadioCard>
+              <RadioCard
+                {...radioProps}
+                borderBoxStyle={cardBoxProps}
+              >
+                {children}
+              </RadioCard>
             </Box>
           );
         })}
-      </HStack>
+      </Flex>
       {error && <FormErrorMessage>{error.message as string}</FormErrorMessage>}
     </Flex>
   );
