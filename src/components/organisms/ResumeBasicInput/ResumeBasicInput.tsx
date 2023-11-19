@@ -18,9 +18,10 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
   const [isEdit, setIsEdit] = useState(true);
 
   useEffect(() => {
-    if (basicInfo) {
-      console.log(basicInfo);
+    if (basicInfo.position || basicInfo.skills?.length > 0 || basicInfo.introduce) {
       setIsEdit(false);
+    } else {
+      setIsEdit(true);
     }
   }, [basicInfo]);
 
@@ -72,7 +73,7 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
             {isEdit ? (
               <BasicInfoForm
                 {...basicInfoData}
-                onSave={() => setIsEdit(true)}
+                onSaveClick={() => setIsEdit(false)}
               />
             ) : (
               <BasicInfoView

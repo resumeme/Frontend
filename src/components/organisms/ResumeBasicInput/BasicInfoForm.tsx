@@ -1,4 +1,5 @@
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
@@ -7,16 +8,23 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { useStringToArray } from '~/hooks/useStringToArray';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePatchResumeBasicInfo } from '~/queries/resume/create/usePatchResumeBasicInfo';
 import { BasicInfo } from '~/types/basicInfo';
 
 type BasicInfoFormProps = Omit<BasicInfo, 'title' | 'ownerInfo'> & {
-  onSave: () => void;
+  onSaveClick: () => void;
 };
 
-const BasicInfoForm = ({ position, skills: defaultSkills, introduce }: BasicInfoFormProps) => {
+const BasicInfoForm = ({
+  position,
+  skills: defaultSkills,
+  introduce,
+  onSaveClick,
+}: BasicInfoFormProps) => {
   const { mutate: patchResumeBasicInfo } = usePatchResumeBasicInfo();
   const { id: resumeId = '' } = useParams();
+  const queryClient = useQueryClient();
 
   const {
     control,
@@ -27,7 +35,16 @@ const BasicInfoForm = ({ position, skills: defaultSkills, introduce }: BasicInfo
 
   const onSubmit: SubmitHandler<BasicInfo> = (data) => {
     const resumeBasicInfo = data;
-    patchResumeBasicInfo({ resumeId, resumeBasicInfo });
+    resumeBasicInfo.skills = skills;
+    patchResumeBasicInfo(
+      { resumeId, resumeBasicInfo },
+      {
+        onSuccess: () => {
+          queryClient.setQueryData(categoryKeys.basic(resumeId), resumeBasicInfo);
+          onSaveClick();
+        },
+      },
+    );
   };
 
   const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
