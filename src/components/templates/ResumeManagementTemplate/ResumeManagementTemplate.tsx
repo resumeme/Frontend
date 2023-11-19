@@ -35,7 +35,7 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
         </Heading>
         <Spacer />
         {/* //TODO - 네비게이션 작업 후 이전 */}
-        <Button
+        {/* <Button
           p={0}
           w={'min-content'}
           h={'min-content'}
@@ -45,7 +45,7 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
           onClick={() => createResume()}
         >
           새 이력서 작성
-        </Button>
+        </Button> */}
       </Flex>
       <Flex
         mt={'1.25rem'}
