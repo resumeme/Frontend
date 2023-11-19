@@ -26,11 +26,11 @@ const TEXT_CONTENTS = {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: '이력서',
-    href: '/resume/management',
+    href: appPaths.managementResume,
   },
   {
     label: '피드백',
-    href: '/event/view',
+    href: appPaths.viewEvent,
   },
   //TODO - 커뮤니티 기능 생기면 추가
   // {
@@ -76,9 +76,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   const options: Option[] = [
-    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(`/mypage/${user?.id}`) },
-    { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(`/resume/management`) },
-    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(`/user/edit-info`) },
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume) },
+    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
 
@@ -144,7 +144,7 @@ const Header = () => {
               align={'center'}
               gap={'1rem'}
             >
-              <Link to={`/mypage/${user.id}`}>
+              <Link to={appPaths.myPage(user.id)}>
                 <Avatar
                   size="sm"
                   src={user.imageUrl}
