@@ -4,9 +4,10 @@ import ResumeItem from '../../organisms/ResumeManagementItem/ResumeItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
-import { ResumeWithEvents } from '~/types/event';
+import { ManagementResume } from '~/types/resume/resumeListItem';
+
 type ResumeManagementTemplateProps = {
-  resumes: ResumeWithEvents[];
+  resumes: ManagementResume[];
 };
 
 const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) => {
@@ -14,6 +15,13 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
 
   return (
     <>
+      <Heading
+        fontSize={'1.75rem'}
+        color={'gray.800'}
+        fontWeight={700}
+      >
+        이력서 관리
+      </Heading>
       <Flex
         mt={'2.5rem'}
         alignItems={'end'}
@@ -26,6 +34,7 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
           내 이력서
         </Heading>
         <Spacer />
+        {/* //TODO - 네비게이션 작업 후 이전 */}
         <Button
           p={0}
           w={'min-content'}

@@ -4,18 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
-import { ResumeWithEvents } from '~/types/event';
+import { ManagementResume } from '~/types/resume/resumeListItem';
 import { formatDate } from '~/utils/formatDate';
 
 type ResumeItemProps = {
-  resume: ResumeWithEvents;
+  resume: ManagementResume;
 };
 
-const ResumeItem = ({
-  resume: {
-    resumeInfo: { modifiedAt, id, title },
-  },
-}: ResumeItemProps) => {
+const ResumeItem = ({ resume: { id, modifiedAt, position, title } }: ResumeItemProps) => {
   const navigate = useNavigate();
 
   const { mutate: deleteResume } = useDeleteResume();
@@ -49,6 +45,7 @@ const ResumeItem = ({
         <OptionsButton options={options} />
       </Flex>
       <Text
+        noOfLines={1}
         mt={'1.5rem'}
         fontSize={'1.5rem'}
         fontWeight={600}
