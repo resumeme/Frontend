@@ -9,10 +9,10 @@ type ReferenceLinkBoxProps = {
 };
 
 export const LINK_ICON_TYPES: Record<string, IconType> = {
-  default: HiLink,
+  OTHER: HiLink,
   GITHUB: AiFillGithub,
   BLOG: HiHome,
-  remove: HiOutlineX,
+  REMOVE: HiOutlineX,
 };
 
 export const renderIcon = (icon: IconType, size: string, props?: IconProps) => {
@@ -26,7 +26,7 @@ export const renderIcon = (icon: IconType, size: string, props?: IconProps) => {
   );
 };
 
-const ReferenceLinkBox = ({ url, linkType = 'default' }: ReferenceLinkBoxProps) => {
+const ReferenceLinkBox = ({ url, linkType = 'OTHER' }: ReferenceLinkBoxProps) => {
   return (
     <Flex>
       <Link

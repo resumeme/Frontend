@@ -1,11 +1,13 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import BasicInfoForm from './BasicInfoForm';
 import BasicInfoView from './BasicInfoView';
 import ReferenceLinkForm from './ReferenceLinkForm';
 import TitleInputForm from './TitleInputForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import useUser from '~/hooks/useUser';
+import { useGetResumeReferenceLinks } from '~/queries/resume/details/useGetResumeReferenceLinks';
 import { BasicInfo } from '~/types/basicInfo';
 
 type ResumeBasicInputProps = {
@@ -14,6 +16,8 @@ type ResumeBasicInputProps = {
 
 const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
   const { user } = useUser();
+  const { id: resumeId = '' } = useParams();
+  const { data: referenceLinks } = useGetResumeReferenceLinks({ resumeId });
 
   const [isEdit, setIsEdit] = useState(true);
 
@@ -26,11 +30,12 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
   }, [basicInfo]);
 
   const defaultTitle = basicInfo?.title;
+
   const basicInfoData = {
     position: basicInfo?.position,
     skills: basicInfo?.skills,
     introduce: basicInfo?.introduce,
-  }; // TODO BasicInfo 컴포넌트 둘에게 프로퍼티로 넘기기
+  };
 
   return (
     <Flex
@@ -61,7 +66,10 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
                     참고 링크
                   </Text>
                 </Flex>
-                <ReferenceLinkForm />
+                <ReferenceLinkForm
+                  defaultValue={referenceLinks.links}
+                  resumeId={resumeId}
+                />
               </Box>
             </Flex>
           </Box>
