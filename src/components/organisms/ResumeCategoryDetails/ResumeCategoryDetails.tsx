@@ -29,7 +29,7 @@ const ResumeCategoryDetails = <T extends Categories>({
                 <FormComponent
                   defaultValues={{ ...data, id: undefined }}
                   isEdit
-                  blockId={data.id}
+                  blockId={data.componentId}
                   quitEdit={() => setEditTargetIndex(null)}
                 />
               ) : (

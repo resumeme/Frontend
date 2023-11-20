@@ -11,12 +11,21 @@ import { Project } from '~/types/project';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ProjectDetails = ({
-  data: { id, projectName, productionYear, teamMembers, skills, projectContent, projectUrl, team },
+  data: {
+    componentId,
+    projectName,
+    productionYear,
+    teamMembers,
+    skills,
+    projectContent,
+    projectUrl,
+    team,
+  },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteProjectMutate } = useOptimisticDeleteCategory<Project>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),

@@ -11,7 +11,7 @@ import { Training } from '~/types/training';
 
 const TraningDetails = ({
   data: {
-    id,
+    componentId,
     organization,
     major,
     degree,
@@ -25,7 +25,7 @@ const TraningDetails = ({
   isCurrentUser,
 }: DetailsComponentProps<Training>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteTrainingMutate } = useOptimisticDeleteCategory<Training>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),

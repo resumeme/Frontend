@@ -12,7 +12,7 @@ import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const CareerDetails = ({
   data: {
-    id,
+    componentId,
     companyName,
     position,
     skills,
@@ -26,7 +26,7 @@ const CareerDetails = ({
   isCurrentUser,
 }: DetailsComponentProps<Career>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteCareerMutate } = useOptimisticDeleteCategory<Career>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
