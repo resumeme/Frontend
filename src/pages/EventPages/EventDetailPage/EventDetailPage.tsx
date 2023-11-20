@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { Spinner } from '~/components/atoms/Spinner';
 import { MentorProfile } from '~/components/molecules/MentorProfile';
@@ -24,7 +24,6 @@ const EventDetailPage = () => {
           <ResumeSelect onCancel={onClose} />
         </Suspense>
       </Modal>
-      <Button onClick={onOpen}>temp</Button>
       <Flex
         px={'0.56rem'}
         gap={'2rem'}

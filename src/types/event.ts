@@ -28,6 +28,18 @@ type EventResume = {
 };
 
 type ReadEvent = {
+  id: number;
+  title: string;
+  content: string;
+  maximumCount: number;
+  currentApplicantCount: number;
+  //TODO 상태 수정
+  status: string;
+  positions: Position[];
+  timeInfo: Omit<EventTime, 'now'>;
+};
+
+type ReadManagementEvent = {
   info: {
     title: string;
     content: string;
@@ -39,4 +51,4 @@ type ReadEvent = {
   resumes: EventResume[];
 };
 
-export type { CreateEvent, ReadEvent, EventResume, EventTime };
+export type { CreateEvent, ReadEvent, EventResume, EventTime, ReadManagementEvent };
