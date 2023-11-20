@@ -39,4 +39,16 @@ type ReadEvent = {
   timeInfo: Omit<EventTime, 'now'>;
 };
 
-export type { CreateEvent, ReadEvent, EventResume, EventTime };
+type ReadManagementEvent = {
+  info: {
+    title: string;
+    content: string;
+    maximumCount: number;
+    currentApplicantCount: number;
+    positions: Position[];
+    timeInfo: Omit<EventTime, 'now'>;
+  };
+  resumes: EventResume[];
+};
+
+export type { CreateEvent, ReadEvent, EventResume, EventTime, ReadManagementEvent };
