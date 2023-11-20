@@ -9,4 +9,5 @@ export const appPaths = {
   resumeEdit: (resumeId: number) => `/resume/${resumeId}/edit`,
   viewEvent: () => '/event/view',
   eventDetail: (eventId: number) => `/event/view/${eventId}`,
+  eventCreate: () => `/event/create`,
 };
