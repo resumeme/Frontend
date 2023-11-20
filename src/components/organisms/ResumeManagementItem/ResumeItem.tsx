@@ -1,8 +1,7 @@
 import { Flex, Icon, Input, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { OptionsButton } from '~/components/molecules/OptionsButton';
-import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { appPaths } from '~/config/paths';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { MyResume } from '~/types/resume/resumeListItem';
@@ -22,15 +21,8 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
   };
 
   const HandleDelete = () => {
-    // deleteResume({ resumeId: String(id) });
-    deleteResume({ resumeId: '752' });
+    deleteResume({ resumeId: String(id) });
   };
-
-  const options: Option[] = [
-    { text: '수정하기', onClick: HandleEdit },
-    //공개하기?추가예정
-    { text: '삭제하기', onClick: HandleDelete },
-  ];
 
   return (
     <>
@@ -43,7 +35,10 @@ const ResumeItem = ({ resume: { id, modifiedAt, title } }: ResumeItemProps) => {
           >{`${formatDate(modifiedAt)} 수정`}</Text>
         )}
         <Spacer />
-        <OptionsButton options={options} />
+        <EditDeleteOptionsButton
+          onDelete={HandleDelete}
+          onEdit={HandleEdit}
+        />
       </Flex>
       <Link to={appPaths.resumeDetail(id)}>
         <Text

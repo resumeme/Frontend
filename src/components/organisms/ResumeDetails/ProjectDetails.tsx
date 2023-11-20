@@ -1,9 +1,8 @@
-import { Flex, Heading, Icon, Link, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Heading, Icon, Link, Text } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
-import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
@@ -26,12 +25,10 @@ const ProjectDetails = ({
 }: DetailsComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
   const blockId = componentId as string;
-  const { mutate: deleteProjectMutate } = useOptimisticDeleteCategory<Project>({
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Project>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
   });
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Flex>
@@ -134,18 +131,10 @@ const ProjectDetails = ({
         </Flex>
       </Flex>
       {isCurrentUser && (
-        <>
-          <ConfirmModal
-            isOpen={isOpen}
-            onClose={onClose}
-            message="정말로 삭제하시겠습니까?"
-            proceed={() => deleteProjectMutate({ resumeId, blockId })}
-          />
-          <EditDeleteOptionsButton
-            onEdit={onEdit}
-            onDelete={() => onOpen()}
-          />
-        </>
+        <EditDeleteOptionsButton
+          onEdit={onEdit}
+          onDelete={() => deleteMutate({ resumeId, blockId })}
+        />
       )}
     </Flex>
   );
