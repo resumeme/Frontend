@@ -3,7 +3,7 @@ import { patchResumeBasicInfo } from '~/api/resume/create/patchResumeBasicInfo';
 
 export const usePatchResumeBasicInfo = () => {
   return useMutation({
-    mutationKey: ['postBasicInfo'],
+    mutationKey: ['patchBasicInfo'],
     mutationFn: patchResumeBasicInfo,
   });
 };
