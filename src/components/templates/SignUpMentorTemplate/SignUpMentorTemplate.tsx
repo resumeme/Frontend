@@ -96,9 +96,9 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 id="careerYear"
                 register={{
                   ...register('careerYear', {
-                    required: '경력 연차를 숫자로 입력해주세요.',
+                    required: '경력 연차는 1이상 80미만의 숫자로 입력해주세요.',
                     valueAsNumber: true,
-                    validate: (value) => value > 0,
+                    validate: (value) => value > 0 && value < 80,
                   }),
                 }}
                 error={errors.careerYear}
