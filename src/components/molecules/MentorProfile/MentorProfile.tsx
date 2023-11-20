@@ -11,7 +11,11 @@ type MentorProfileProps = {
   onApply: () => void;
 };
 
-const MentorProfile = ({ mentor, event, onApply }: MentorProfileProps) => {
+const MentorProfile = ({
+  mentor,
+  event: { currentApplicantCount, maximumCount },
+  onApply,
+}: MentorProfileProps) => {
   const { nickname, introduce, imageUrl } = mentor;
 
   return (
@@ -67,7 +71,7 @@ const MentorProfile = ({ mentor, event, onApply }: MentorProfileProps) => {
             as={'span'}
             color={'gray.800'}
           >
-            {event.info.currentApplicantCount}/{event.info.maximumCount}
+            {currentApplicantCount}/{maximumCount}
           </Text>
         </Flex>
       </Flex>
