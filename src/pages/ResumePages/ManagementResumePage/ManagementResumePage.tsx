@@ -1,12 +1,18 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
+import { useState } from 'react';
 import { ResumeManagementTemplate } from '../../../components/templates/ResumeManagementTemplate';
+import { ResumeNavigator } from '~/components/organisms/ResumeNavigator';
 import FeedbackManagementTemplate from '~/components/templates/FeedbackManagementTemplate/FeedbackManagementTemplate';
 import { Position } from '~/types/position';
 import { ResumeStatus } from '~/types/resume/status';
 // import { useGetManagementResumes } from '~/queries/resume/details/useGetManagementResumes';
 
+export type Step = 'MY_RESUME' | 'FEEDBACK';
+
 const ManagementResumePage = () => {
   // const { data: resumes } = useGetManagementResumes();
+
+  const [step, setStep] = useState<Step>('MY_RESUME');
 
   const resumes = [
     {
@@ -56,8 +62,20 @@ const ManagementResumePage = () => {
       w={'100%'}
       mx={'auto'}
     >
-      <ResumeManagementTemplate resumes={resumes} />
-      <FeedbackManagementTemplate resumes={feedbackResumes} />
+      <Heading
+        fontSize={'1.75rem'}
+        color={'gray.800'}
+        fontWeight={700}
+        mb={'1.25rem'}
+      >
+        이력서 관리
+      </Heading>
+      <ResumeNavigator
+        pageStep={step}
+        onStep={(step) => setStep(step)}
+      />
+      {step === 'MY_RESUME' && <ResumeManagementTemplate resumes={resumes} />}
+      {step === 'FEEDBACK' && <FeedbackManagementTemplate resumes={feedbackResumes} />}
     </Box>
   );
 };
