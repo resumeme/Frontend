@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { Spinner } from '~/components/atoms/Spinner';
 import { MentorProfile } from '~/components/molecules/MentorProfile';
