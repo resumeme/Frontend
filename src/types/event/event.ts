@@ -30,6 +30,7 @@ type EventResume = {
 
 type ReadEvent = {
   id: number;
+  mentorId: number;
   title: string;
   content: string;
   maximumCount: number;
