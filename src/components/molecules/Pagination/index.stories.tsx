@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import Pagination, { PaginationProps } from './Pagination';
+import Pagination from './Pagination';
 
 const meta = {
   title: 'Resumeme/Components/Pagination',
@@ -10,7 +10,10 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<PaginationProps>;
+type Story = StoryObj<{
+  total: number;
+  limit: number;
+}>;
 
 export const Default: Story = (args: { total: number; limit: number }) => {
   const [page, setPage] = useState(1);

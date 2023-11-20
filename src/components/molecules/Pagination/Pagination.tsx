@@ -7,7 +7,7 @@ import { Flex, IconButton, Button as ChakraButton, Text } from '@chakra-ui/react
  * page: 현재 페이지 state
  * setPage: 현재 페이지 setState 함수
  */
-export type PaginationProps = {
+type PaginationProps = {
   total: number;
   limit: number;
   page: number;
