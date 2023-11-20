@@ -44,7 +44,7 @@ const MENTEE_NAV_ITEMS: Array<NavItem> = [
 const MENTOR_NAV_ITEMS: Array<NavItem> = [
   {
     label: '피드백',
-    href: appPaths.viewEvent,
+    href: appPaths.viewEvent(),
   },
   //TODO - 커뮤니티 기능 생기면 추가
   // {
@@ -56,11 +56,11 @@ const MENTOR_NAV_ITEMS: Array<NavItem> = [
 const COMMON_NAV_ITEMS = [
   {
     label: '이력서',
-    href: appPaths.managementResume,
+    href: appPaths.managementResume(),
   },
   {
     label: '피드백',
-    href: appPaths.viewEvent,
+    href: appPaths.viewEvent(),
   },
   //TODO - 커뮤니티 기능 생기면 추가
   // {
@@ -117,7 +117,7 @@ const Header = () => {
   const mentorOptions: Option[] = [
     { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
     { text: TEXT_CONTENTS.CREATE_EVENT, onClick: () => navigate(appPaths.eventCreate()) },
-    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo) },
+    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
 
