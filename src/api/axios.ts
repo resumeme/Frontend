@@ -39,6 +39,8 @@ resumeMeAxios.interceptors.response.use(
 
             const refreshToken = getCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
 
+            if (refreshToken) return;
+
             originalRequest._retry = true;
             originalRequest.headers[CONSTANTS.REFRESH_TOKEN_HEADER] = refreshToken;
 
