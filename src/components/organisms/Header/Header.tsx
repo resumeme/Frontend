@@ -75,13 +75,18 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const options: Option[] = [
+  const mentorOptions: Option[] = [
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo) },
+    { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
+  ];
+
+  const menteeOptions: Option[] = [
     { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
     { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
-
   return (
     <Box
       className="box"
@@ -152,7 +157,7 @@ const Header = () => {
               </Link>
               <OptionsButton
                 label={user.nickname}
-                options={options}
+                options={user.role === 'mentee' ? menteeOptions : mentorOptions}
                 icon={IoCaretDownOutline}
               />
             </Flex>
