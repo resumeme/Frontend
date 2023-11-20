@@ -31,7 +31,6 @@ const ProjectForm = ({
   const { id: resumeId } = useParams() as { id: string };
 
   const {
-    setValue,
     watch,
     register,
     handleSubmit,
