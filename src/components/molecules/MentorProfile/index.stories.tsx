@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { MentorProfile } from '.';
+import { EventStatus } from '~/types/eventStatus';
 import { Position } from '~/types/position';
 
 const meta = {
@@ -28,7 +29,7 @@ export const Default = () => {
       content: '내용',
       maximumCount: 3,
       currentApplicantCount: 2,
-      status: 'OPEN',
+      status: 'OPEN' as EventStatus,
       positions: ['BACK'] as Position[],
       timeInfo: {
         openDateTime: '2023-11-19T19:35:20.791461302',
