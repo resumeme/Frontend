@@ -13,7 +13,7 @@ import {
 import { MdOutlineArticle } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
-import { EventResume, EventTime } from '~/types/event';
+import { EventResume, EventTime } from '~/types/event/event';
 import { formatDate } from '~/utils/formatDate';
 
 type EventItemProps = {

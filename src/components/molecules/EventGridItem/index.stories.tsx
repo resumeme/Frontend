@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/react';
 import { EventGridItem } from '.';
+import { EventListItem } from '~/types/event/eventList';
 import { Position } from '~/types/position';
 
 const meta = {
@@ -11,15 +12,10 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return (
-    <EventGridItem
-      eventInfo={DUMMY.info}
-      mentorInfo={DUMMY.mentorInfo}
-    />
-  );
+  return <EventGridItem event={DUMMY} />;
 };
 
-const DUMMY = {
+const DUMMY: EventListItem = {
   mentorInfo: {
     mentorId: 1,
     nickname: '큰돌',

@@ -1,6 +1,6 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import { ReadManagementEvent } from '~/types/event';
+import { ReadManagementEvent } from '~/types/event/event';
 import { getCookie } from '~/utils/cookie';
 
 export type getManagementEventsProps = { userId: number };

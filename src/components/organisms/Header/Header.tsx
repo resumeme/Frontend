@@ -26,11 +26,11 @@ const TEXT_CONTENTS = {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: '이력서',
-    href: appPaths.managementResume,
+    href: appPaths.managementResume(),
   },
   {
     label: '피드백',
-    href: appPaths.viewEvent,
+    href: appPaths.viewEvent(),
   },
   //TODO - 커뮤니티 기능 생기면 추가
   // {
@@ -77,8 +77,8 @@ const Header = () => {
 
   const options: Option[] = [
     { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
-    { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume) },
-    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo) },
+    { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume()) },
+    { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
 
@@ -157,7 +157,7 @@ const Header = () => {
               />
             </Flex>
           ) : (
-            <Link to={appPaths.signIn}>
+            <Link to={appPaths.signIn()}>
               <Button
                 w={'144px'}
                 h={'40px'}

@@ -1,4 +1,5 @@
-import { Position } from './position';
+import { EventStatus } from '../eventStatus';
+import { Position } from '../position';
 
 type CreateEvent = {
   info: EventInfo;
@@ -33,8 +34,7 @@ type ReadEvent = {
   content: string;
   maximumCount: number;
   currentApplicantCount: number;
-  //TODO 상태 수정
-  status: string;
+  status: EventStatus;
   positions: Position[];
   timeInfo: Omit<EventTime, 'now'>;
 };

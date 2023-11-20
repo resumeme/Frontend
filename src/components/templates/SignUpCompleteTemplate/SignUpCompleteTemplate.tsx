@@ -41,7 +41,7 @@ const SignUpCompleteTemplate = ({ role }: { role: SignUpRole }) => {
         >
           {TEXT[role]['SUB']}
         </Text>
-        <Button onClick={() => navigate(appPaths.main)}>홈으로 이동하기</Button>
+        <Button onClick={() => navigate(appPaths.main())}>홈으로 이동하기</Button>
       </VStack>
     </BorderBox>
   );

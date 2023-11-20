@@ -1,8 +1,9 @@
 import { Text } from '@chakra-ui/react';
 import { EventGrid } from '~/components/organisms/EventGrid';
-import { DUMMY_DATA } from '~/components/organisms/EventGrid/dummy';
+import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
+  const { data } = useGetEventList();
   return (
     <>
       <Text
@@ -12,7 +13,7 @@ const EventGridTemplate = () => {
       >
         진행 중인 첨삭 이벤트
       </Text>
-      <EventGrid events={DUMMY_DATA} />
+      <EventGrid events={data.events} />
     </>
   );
 };

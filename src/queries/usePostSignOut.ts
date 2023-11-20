@@ -13,7 +13,7 @@ export const usePostSignOut = () => {
     mutationFn: postSignOut,
     onSuccess: () => {
       clearUser();
-      navigate(appPaths.main);
+      navigate(appPaths.main());
     },
     onError: () => {
       alert('잠시 후 다시 시도해 주세요.');

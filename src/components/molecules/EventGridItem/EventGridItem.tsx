@@ -1,62 +1,66 @@
 import { Text, Box, Image, HStack, Flex } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
+import { appPaths } from '~/config/paths';
+import { EventListItem } from '~/types/event/eventList';
 import { Position } from '~/types/position';
 
-//FIXME - 데이터 타입 정의하기
-const EventGridItem = ({ eventInfo, mentorInfo }: { eventInfo: any; mentorInfo: any }) => {
-  const openDate = new Date(eventInfo.timeInfo.openDateTime).toLocaleDateString();
-  const closeDate = new Date(eventInfo.timeInfo.closeDateTime).toLocaleDateString();
+const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }) => {
+  const openDate = new Date(info.timeInfo.openDateTime).toLocaleDateString();
+  const closeDate = new Date(info.timeInfo.closeDateTime).toLocaleDateString();
   return (
-    <Box
-      w={'18.75rem'}
-      h={'28.5rem'}
-    >
-      <Image
-        src="https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg"
-        alt="썸네일 이미지"
-        borderTopRadius={'1rem'}
-        height={'45%'}
-        w={'full'}
-      />
-      <BorderBox
-        borderTop={'none'}
-        borderTopRadius={0}
-        h={'55%'}
+    <Link to={appPaths.eventDetail(info.id)}>
+      <Box
+        w={'18.75rem'}
+        h={'28.5rem'}
       >
-        <Flex
-          direction={'column'}
-          gap={'1.5rem'}
-          h={'full'}
+        <Image
+          src="https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg"
+          alt="썸네일 이미지"
+          borderTopRadius={'1rem'}
+          height={'45%'}
+          w={'full'}
+        />
+        <BorderBox
+          borderTop={'none'}
+          borderTopRadius={0}
+          h={'55%'}
         >
-          <AvatarAndStatus
-            status={eventInfo.status}
-            imageUrl={mentorInfo.imageUrl}
-            nickname={mentorInfo.nickname}
-          />
-          <Text
-            noOfLines={2}
-            color={'gray.800'}
-          >
-            {eventInfo.title}
-          </Text>
-          <PositionLabels positions={eventInfo.positions} />
           <Flex
-            justifyContent={'space-between'}
-            marginTop={'auto'}
+            direction={'column'}
+            gap={'1.5rem'}
+            h={'full'}
           >
-            <Text fontSize={'0.875rem'}>
-              {openDate} ~ {closeDate}
-            </Text>
+            <AvatarAndStatus
+              status={info.status}
+              imageUrl={mentorInfo.imageUrl}
+              nickname={mentorInfo.nickname}
+            />
             <Text
-              fontSize={'0.875rem'}
-            >{`인원 ${eventInfo.currentApplicantCount}/${eventInfo.maximumCount}`}</Text>
+              noOfLines={2}
+              color={'gray.800'}
+            >
+              {info.title}
+            </Text>
+            <PositionLabels positions={info.positions} />
+            <Flex
+              justifyContent={'space-between'}
+              marginTop={'auto'}
+            >
+              <Text fontSize={'0.875rem'}>
+                {openDate} ~ {closeDate}
+              </Text>
+              <Text
+                fontSize={'0.875rem'}
+              >{`인원 ${info.currentApplicantCount}/${info.maximumCount}`}</Text>
+            </Flex>
           </Flex>
-        </Flex>
-      </BorderBox>
-    </Box>
+        </BorderBox>
+      </Box>
+    </Link>
   );
 };
 

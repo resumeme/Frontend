@@ -36,14 +36,14 @@ const SignUpPage = () => {
       toast({
         description: '이미 가입된 회원입니다.',
       });
-      navigate(appPaths.main);
+      navigate(appPaths.main());
       return;
     }
     if (!cacheKey && step === 'COMMON') {
       toast({
         description: '소셜 로그인을 먼저 해주세요.',
       });
-      navigate(appPaths.signIn);
+      navigate(appPaths.signIn());
       return;
     }
   }, [cacheKey, navigate, toast, user]);
