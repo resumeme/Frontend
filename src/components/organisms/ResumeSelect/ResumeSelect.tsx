@@ -16,7 +16,12 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const { id: eventId = '' } = useParams();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
-    postEventApplyMutate({ resumeId: parseInt(resumeId), eventId });
+    postEventApplyMutate(
+      { resumeId: parseInt(resumeId), eventId },
+      {
+        onSuccess: onCancel,
+      },
+    );
   };
   return (
     <>
