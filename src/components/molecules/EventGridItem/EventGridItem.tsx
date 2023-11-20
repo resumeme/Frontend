@@ -88,7 +88,7 @@ const AvatarAndStatus = ({
         />
         <Text color={'gray.900'}>{nickname}</Text>
       </HStack>
-      <Label bg={isActive ? 'primary.900' : 'gray.300'}>{CONSTANTS.EVENT_STATUS[status]}</Label>
+      <Label bg={isActive ? 'primary.900' : 'gray.400'}>{CONSTANTS.EVENT_STATUS[status]}</Label>
     </Flex>
   );
 };
