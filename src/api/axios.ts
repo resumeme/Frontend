@@ -3,7 +3,7 @@ import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
 import CONSTANTS from '~/constants';
 import { ERROR_MESSAGES } from '~/constants/errorMessage';
-import { deleteCookie, getCookie, setCookie } from '~/utils/cookie';
+import { getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
   baseURL: environments.baseUrlEnv(),
