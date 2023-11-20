@@ -6,7 +6,7 @@ import { useGetManagementEvents } from '~/queries/event/details/useGetManagement
 
 const MyPage = () => {
   const { user } = useUser();
-  const { data: events } = useGetManagementEvents({ role: user?.role, userId: user?.id || 0 });
+  const { data: events } = useGetManagementEvents({ role: user?.role, userId: Number(user?.id) });
 
   return (
     <Box
@@ -15,7 +15,7 @@ const MyPage = () => {
       mx={'auto'}
     >
       {user && <Profile user={user} />}
-      {user?.role === 'mentor' && events && <EventProfile events={events} />}
+      {user?.role === 'mentor' && events && events?.length > 0 && <EventProfile events={events} />}
     </Box>
   );
 };
