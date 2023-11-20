@@ -50,10 +50,6 @@ resumeMeAxios.interceptors.response.use(
 
             setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, newAccessToken);
           }
-        } else {
-          deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
-          deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
-          redirect('/');
         }
         break;
       case 403:
