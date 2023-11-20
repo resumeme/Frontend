@@ -17,7 +17,6 @@ const MentorProfile = ({
   onApply,
 }: MentorProfileProps) => {
   const { nickname, introduce, imageUrl } = mentor;
-
   return (
     <VStack
       w={'full'}

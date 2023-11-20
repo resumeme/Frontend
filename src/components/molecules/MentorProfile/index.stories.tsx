@@ -25,6 +25,7 @@ export const Default = () => {
     },
     event: {
       id: 1,
+      mentorId: 1,
       title: '제목',
       content: '내용',
       maximumCount: 3,

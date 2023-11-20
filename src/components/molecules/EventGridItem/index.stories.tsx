@@ -23,6 +23,7 @@ const DUMMY: EventListItem = {
   },
   info: {
     id: 1,
+    mentorId: 1,
     title:
       '프론트엔드, 백엔드 이력서 첨삭해드립니다. 이게 길어지면요. 어떻게 되냐면요. 이렇게 됩니다.',
     content: '내용',
