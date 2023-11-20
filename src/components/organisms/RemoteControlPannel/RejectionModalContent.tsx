@@ -44,7 +44,7 @@ const RejectionModalContent = ({ onClose }: RejectionModalContentProps) => {
           <FormControl isInvalid={Boolean(errors.rejectMessage)}>
             <FormTextarea
               id="rejectMessage"
-              h={'4rem'}
+              h={'8rem'}
               placeholder={'(선택사항) 사유를 100자 이내로 입력해주세요.'}
               register={{
                 ...register('rejectMessage', {
