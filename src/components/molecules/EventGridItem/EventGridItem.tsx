@@ -5,7 +5,9 @@ import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import { EventListItem } from '~/types/event/eventList';
+import { EventStatus } from '~/types/eventStatus';
 import { Position } from '~/types/position';
 
 const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }) => {
@@ -71,11 +73,11 @@ const AvatarAndStatus = ({
   imageUrl,
   nickname,
 }: {
-  status: string;
+  status: EventStatus;
   imageUrl: string;
   nickname: string;
 }) => {
-  const isOpen = status === 'OPEN';
+  const isActive = status === 'OPEN' || status === 'REOPEN';
   return (
     <Flex justifyContent={'space-between'}>
       <HStack>
@@ -86,7 +88,7 @@ const AvatarAndStatus = ({
         />
         <Text color={'gray.900'}>{nickname}</Text>
       </HStack>
-      <Label bg={isOpen ? 'primary.900' : 'gray.300'}>{isOpen ? '모집 중' : '모집 마감'}</Label>
+      <Label bg={isActive ? 'primary.900' : 'gray.400'}>{CONSTANTS.EVENT_STATUS[status]}</Label>
     </Flex>
   );
 };
