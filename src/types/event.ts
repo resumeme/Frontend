@@ -28,15 +28,15 @@ type EventResume = {
 };
 
 type ReadEvent = {
-  info: {
-    title: string;
-    content: string;
-    maximumCount: number;
-    currentApplicantCount: number;
-    positions: Position[];
-    timeInfo: Omit<EventTime, 'now'>;
-  };
-  resumes: EventResume[];
+  id: number;
+  title: string;
+  content: string;
+  maximumCount: number;
+  currentApplicantCount: number;
+  //TODO 상태 수정
+  status: string;
+  positions: Position[];
+  timeInfo: Omit<EventTime, 'now'>;
 };
 
 export type { CreateEvent, ReadEvent, EventResume, EventTime };
