@@ -2,7 +2,9 @@ import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import CONSTANTS from '~/constants';
 import { ReadEvent } from '~/types/event/event';
+import { EventStatus } from '~/types/eventStatus';
 import { ReadMentor } from '~/types/mentor';
 
 type MentorProfileProps = {
@@ -13,7 +15,7 @@ type MentorProfileProps = {
 
 const MentorProfile = ({
   mentor,
-  event: { currentApplicantCount, maximumCount },
+  event: { currentApplicantCount, maximumCount, status },
   onApply,
 }: MentorProfileProps) => {
   const { nickname, introduce, imageUrl } = mentor;
@@ -76,10 +78,13 @@ const MentorProfile = ({
         </Flex>
       </Flex>
       <Button
+        type="button"
         size={'full'}
         onClick={onApply}
+        isDisabled={!(status === 'OPEN')}
+        _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
       >
-        신청하기
+        {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : '신청 마감'}
       </Button>
     </VStack>
   );
