@@ -1,21 +1,7 @@
-import { EventStatus } from '~/types/eventStatus';
-import { Position } from '~/types/position';
+import { ReadEvent } from '~/types/event/event';
 
 export type EventListItem = {
-  info: {
-    id: number;
-    title: string;
-    content: string;
-    maximumCount: number;
-    currentApplicantCount: number;
-    status: EventStatus;
-    positions: Position[];
-    timeInfo: {
-      openDateTime: string;
-      closeDateTime: string;
-      endDate: string;
-    };
-  };
+  info: ReadEvent;
   mentorInfo: {
     mentorId: number;
     nickname: string;

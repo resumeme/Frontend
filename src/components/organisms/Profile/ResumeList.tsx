@@ -1,6 +1,6 @@
 import { Box, Flex, Icon, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
-import { EventResume } from '~/types/event';
+import { EventResume } from '~/types/event/event';
 
 type ResumeListProps = {
   resume: EventResume;

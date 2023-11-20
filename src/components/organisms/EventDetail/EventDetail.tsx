@@ -4,7 +4,7 @@ import EventTime from './EventTime';
 import EventTitle from './EventTitle';
 import MentorCareerContent from './MentorCareerContent';
 import MentorCareerTitle from './MentorCareerTitle';
-import { ReadEvent } from '~/types/event';
+import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 type EventDetailProps = {

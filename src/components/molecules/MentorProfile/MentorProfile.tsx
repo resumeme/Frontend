@@ -2,7 +2,7 @@ import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
-import { ReadEvent } from '~/types/event';
+import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 type MentorProfileProps = {
