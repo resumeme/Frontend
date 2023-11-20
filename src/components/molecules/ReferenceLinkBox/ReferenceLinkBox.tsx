@@ -1,7 +1,7 @@
 import { Box, Flex, Icon, IconProps, Link, Text } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import { AiFillGithub } from 'react-icons/ai';
-import { HiLink, HiHome, HiOutlineMinusCircle, HiOutlineX } from 'react-icons/hi';
+import { HiLink, HiHome, HiOutlineX } from 'react-icons/hi';
 
 type ReferenceLinkBoxProps = {
   linkType?: string;
@@ -10,10 +10,9 @@ type ReferenceLinkBoxProps = {
 
 export const LINK_ICON_TYPES: Record<string, IconType> = {
   default: HiLink,
-  github: AiFillGithub,
-  blog: HiHome,
+  GITHUB: AiFillGithub,
+  BLOG: HiHome,
   remove: HiOutlineX,
-  remove2: HiOutlineMinusCircle,
 };
 
 export const renderIcon = (icon: IconType, size: string, props?: IconProps) => {
@@ -36,6 +35,7 @@ const ReferenceLinkBox = ({ url, linkType = 'default' }: ReferenceLinkBoxProps) 
         display={'flex'}
         alignItems={'center'}
         gap={2}
+        role="group"
       >
         <Box
           rounded={'full'}
