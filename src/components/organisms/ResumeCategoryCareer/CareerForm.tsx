@@ -11,6 +11,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeCareer } from '~/api/resume/create/postResumeCareer';
 import { patchResumeCareer } from '~/api/resume/edit/patchResumeCareer';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
@@ -24,8 +25,8 @@ import { TermInput } from '~/components/molecules/TermInput';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeCareer } from '~/queries/resume/create/usePostResumeCareer';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import Career from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -36,12 +37,6 @@ const CareerForm = ({
   quitEdit,
 }: FormComponentProps<Career>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postCareerMutate } = usePostResumeCareer(resumeId);
-  const { mutate: patchCareerMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeCareer,
-    TARGET_QUERY_KEY: categoryKeys.career(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     control,
@@ -54,6 +49,17 @@ const CareerForm = ({
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  const { mutate: postCareerMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeCareer,
+    TARGET_QUERY_KEY: categoryKeys.career(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchCareerMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeCareer,
+    TARGET_QUERY_KEY: categoryKeys.career(resumeId),
+    onMutateSuccess: quitEdit,
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -68,7 +74,7 @@ const CareerForm = ({
     }
     body.skills = skills;
     if (!isEdit) {
-      postCareerMutate({ resumeId, resumeCareer: body });
+      postCareerMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchCareerMutate({ resumeId, blockId, body });
     }

@@ -2,6 +2,7 @@ import { Flex, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeTraining } from '~/api/resume/create/postResumeTraining';
 import { patchResumeTraining } from '~/api/resume/edit/patchResumeTraining';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
@@ -14,8 +15,8 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeTraining } from '~/queries/resume/create/usePostResumeTraining';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { Training } from '~/types/training';
 
@@ -26,12 +27,6 @@ const TrainingForm = ({
   quitEdit,
 }: FormComponentProps<Training>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postTrainingMutate } = usePostResumeTraining(resumeId);
-  const { mutate: patchResumeTrainingMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeTraining,
-    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     watch,
@@ -44,12 +39,23 @@ const TrainingForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
+  const { mutate: postTrainingMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeTraining,
+    TARGET_QUERY_KEY: categoryKeys.training(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeTrainingMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeTraining,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const onSubmit: SubmitHandler<Training> = (body) => {
     if (!resumeId) {
       return;
     }
     if (!isEdit) {
-      postTrainingMutate({ resumeId, resumeTraining: body });
+      postTrainingMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchResumeTrainingMutate({ resumeId, blockId, body });
     }

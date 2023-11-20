@@ -2,6 +2,7 @@ import { VStack, HStack, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeLanguage } from '~/api/resume/create/postResumeLanguage';
 import { patchResumeLanguage } from '~/api/resume/edit/patchResumeLanguage';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
@@ -12,8 +13,8 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Language } from '~/types/language';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -24,12 +25,6 @@ const LanguageForm = ({
   quitEdit,
 }: FormComponentProps<Language>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postLanguageMutate } = usePostResumeLanguage(resumeId);
-  const { mutate: patchResumeLanguageMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeLanguage,
-    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     register,
@@ -41,12 +36,23 @@ const LanguageForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
+  const { mutate: postLanguageMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeLanguage,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeLanguageMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeLanguage,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const onSubmit: SubmitHandler<Language> = (body) => {
     if (!resumeId) {
       return;
     }
     if (!isEdit) {
-      postLanguageMutate({ resumeId, resumeLanguage: body });
+      postLanguageMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchResumeLanguageMutate({ resumeId, blockId, body });
     }

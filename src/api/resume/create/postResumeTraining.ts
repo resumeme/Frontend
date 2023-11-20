@@ -5,13 +5,13 @@ import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { Training } from '~/types/training';
 import { getCookie } from '~/utils/cookie';
 
-type PostResumeTraining = { resumeId: string; resumeTraining: Training };
+type PostResumeTraining = { resumeId: string; body: Training };
 
-export const postResumeTraining = async ({ resumeId, resumeTraining }: PostResumeTraining) => {
+export const postResumeTraining = async ({ resumeId, body }: PostResumeTraining) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/trainings`, resumeTraining, {
+    const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/trainings`, body, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
