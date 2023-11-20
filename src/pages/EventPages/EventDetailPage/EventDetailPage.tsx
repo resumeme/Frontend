@@ -24,7 +24,6 @@ const EventDetailPage = () => {
           <ResumeSelect onCancel={onClose} />
         </Suspense>
       </Modal>
-      <Button onClick={onOpen}>temp</Button>
       <Flex
         px={'0.56rem'}
         gap={'2rem'}
