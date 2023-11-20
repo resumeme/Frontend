@@ -2,10 +2,10 @@ import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import EventItem from './EventItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import { ReadEvent } from '~/types/event';
+import { ReadManagementEvent } from '~/types/event';
 
 type EventProfile = {
-  events: ReadEvent[];
+  events: ReadManagementEvent[];
 };
 
 const EventProfile = ({ events }: EventProfile) => {
