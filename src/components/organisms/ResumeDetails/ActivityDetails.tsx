@@ -11,12 +11,12 @@ import { Activity } from '~/types/activity';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ActivityDetails = ({
-  data: { id, activityName, startDate, endDate, inProgress, link, description },
+  data: { componentId, activityName, startDate, endDate, inProgress, link, description },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Activity>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteLanguageMutate } = useOptimisticDeleteCategory<Activity>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),

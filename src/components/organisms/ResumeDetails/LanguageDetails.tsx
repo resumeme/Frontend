@@ -16,12 +16,12 @@ import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 */
 
 const LanguageDetails = ({
-  data: { id, language, examName, scoreOrGrade },
+  data: { componentId, language, examName, scoreOrGrade },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Language>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteLanguageMutate } = useOptimisticDeleteCategory<Language>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),

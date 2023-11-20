@@ -11,12 +11,12 @@ import { Award } from '~/types/award';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const AwardDetails = ({
-  data: { id, certificationTitle, acquisitionDate, issuingAuthority, link, description },
+  data: { componentId, certificationTitle, acquisitionDate, issuingAuthority, link, description },
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<Award>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = id as string;
+  const blockId = componentId as string;
   const { mutate: deleteLanguageMutate } = useOptimisticDeleteCategory<Award>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),
