@@ -2,6 +2,7 @@ import { Flex, Select, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeProject } from '~/api/resume/create/postResumeProject';
 import { patchResumeProject } from '~/api/resume/edit/patchResumeProject';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
@@ -16,8 +17,8 @@ import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Project } from '~/types/project';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -28,12 +29,6 @@ const ProjectForm = ({
   quitEdit,
 }: FormComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postResumeProjectMutate } = usePostResumeProject(resumeId);
-  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeProject,
-    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     watch,
@@ -48,6 +43,17 @@ const ProjectForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
+  const { mutate: postProjectMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeProject,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeProject,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
 
   const onSubmit: SubmitHandler<Project> = (body) => {
@@ -57,7 +63,7 @@ const ProjectForm = ({
     body.skills = skills;
     body.team = Boolean(body.team);
     if (!isEdit) {
-      postResumeProjectMutate({ resumeId, resumeProject: body });
+      postProjectMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchResumeProjectMutate({ resumeId, blockId, body });
     }

@@ -2,6 +2,7 @@ import { Flex, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeAward } from '~/api/resume/create/postResumeAward';
 import { patchResumeAward } from '~/api/resume/edit/patchResumeAward';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
@@ -15,8 +16,8 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeAward } from '~/queries/resume/create/usePostResumeAward';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Award } from '~/types/award';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -27,12 +28,6 @@ const AwardForm = ({
   quitEdit,
 }: FormComponentProps<Award>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postResumeAwardMutate } = usePostResumeAward(resumeId);
-  const { mutate: patchResumeAwardMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeAward,
-    TARGET_QUERY_KEY: categoryKeys.award(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     register,
@@ -44,12 +39,23 @@ const AwardForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
+  const { mutate: postAwardMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeAward,
+    TARGET_QUERY_KEY: categoryKeys.award(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeAwardMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeAward,
+    TARGET_QUERY_KEY: categoryKeys.award(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const onSubmit: SubmitHandler<Award> = (body) => {
     if (!resumeId) {
       return;
     }
     if (!isEdit) {
-      postResumeAwardMutate({ resumeId, resumeAward: body });
+      postAwardMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchResumeAwardMutate({ resumeId, blockId, body });
     }

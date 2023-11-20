@@ -5,22 +5,18 @@ import { Award } from '~/types/award';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { getCookie } from '~/utils/cookie';
 
-type postResumeAward = { resumeId: string; resumeAward: Award };
+type postResumeAward = { resumeId: string; body: Award };
 
-export const postResumeAward = async ({ resumeId, resumeAward }: postResumeAward) => {
+export const postResumeAward = async ({ resumeId, body }: postResumeAward) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.post(
-      `/v1/resumes/${resumeId}/certifications`,
-      resumeAward,
-      {
-        headers: {
-          /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-          Authorization: accessToken,
-        },
+    const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/certifications`, body, {
+      headers: {
+        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
+        Authorization: accessToken,
       },
-    );
+    });
     return data;
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {

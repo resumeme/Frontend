@@ -2,6 +2,7 @@ import { VStack, Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeActivity } from '~/api/resume/create/postResumeActivity';
 import { patchResumeActivity } from '~/api/resume/edit/patchResumeActivity';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
@@ -15,8 +16,8 @@ import { TermInput } from '~/components/molecules/TermInput';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
-import { usePostResumeActivity } from '~/queries/resume/create/usePostResumeActivity';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Activity } from '~/types/activity';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
@@ -27,12 +28,6 @@ const ActivityForm = ({
   quitEdit,
 }: FormComponentProps<Activity>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postActivityMutate } = usePostResumeActivity(resumeId);
-  const { mutate: patchResumeActivityMutate } = useOptimisticPatchCategory({
-    mutationFn: patchResumeActivity,
-    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
-    onMutateSuccess: quitEdit,
-  });
 
   const {
     setValue,
@@ -47,12 +42,23 @@ const ActivityForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
+  const { mutate: postActivityMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeActivity,
+    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeActivityMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeActivity,
+    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
   const onSubmit: SubmitHandler<Activity> = (body) => {
     if (!resumeId) {
       return;
     }
     if (!isEdit) {
-      postActivityMutate({ resumeId, resumeActivity: body });
+      postActivityMutate({ resumeId, body });
     } else if (isEdit && blockId) {
       patchResumeActivityMutate({ resumeId, blockId, body });
     }
