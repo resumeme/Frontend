@@ -2,6 +2,7 @@ import axios from 'axios';
 import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
 import CONSTANTS from '~/constants';
+import { ERROR_MESSAGES } from '~/constants/errorMessage';
 import { deleteCookie, getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
@@ -32,19 +33,21 @@ resumeMeAxios.interceptors.response.use(
     switch (statusCode) {
       //FIXME: 에러 코드 획정되면 code 수정하기
       case 400:
-        if (code === 'INVALID_ACCESS_TOKEN') {
-          const originalRequest = error.config;
+        if (code in ERROR_MESSAGES) {
+          if (code === 'INVALID_ACCESS_TOKEN') {
+            const originalRequest = error.config;
 
-          const refreshToken = getCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
+            const refreshToken = getCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
 
-          originalRequest._retry = true;
-          originalRequest.headers[CONSTANTS.REFRESH_TOKEN_HEADER] = refreshToken;
+            originalRequest._retry = true;
+            originalRequest.headers[CONSTANTS.REFRESH_TOKEN_HEADER] = refreshToken;
 
-          const { headers } = await resumeMeAxios(originalRequest);
+            const { headers } = await resumeMeAxios(originalRequest);
 
-          const newAccessToken = headers[CONSTANTS.ACCESS_TOKEN_HEADER];
+            const newAccessToken = headers[CONSTANTS.ACCESS_TOKEN_HEADER];
 
-          setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, newAccessToken);
+            setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, newAccessToken);
+          }
         } else {
           deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
           deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
