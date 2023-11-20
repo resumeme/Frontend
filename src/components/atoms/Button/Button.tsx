@@ -10,18 +10,6 @@ export type ButtonProps = ChakraButtonProps & {
   children: string;
 };
 
-// const Button = ({ size = 'full', variant = 'default', children, ...props }: ButtonProps) => {
-//   return (
-//     <ChakraButton
-//       variant={variant}
-//       size={size}
-//       {...props}
-//     >
-//       {children}
-//     </ChakraButton>
-//   );
-// };
-
 const Button = forwardRef<ButtonProps, 'button'>(
   ({ size = 'full', variant = 'default', children, ...props }, ref) => (
     <ChakraButton
