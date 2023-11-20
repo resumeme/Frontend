@@ -2,7 +2,7 @@ import axios from 'axios';
 import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
 import CONSTANTS from '~/constants';
-import { getCookie, setCookie } from '~/utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
   baseURL: environments.baseUrlEnv(),
@@ -45,6 +45,10 @@ resumeMeAxios.interceptors.response.use(
           const newAccessToken = headers[CONSTANTS.ACCESS_TOKEN_HEADER];
 
           setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, newAccessToken);
+        } else {
+          deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+          deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
+          redirect('/');
         }
         break;
       case 403:
