@@ -17,6 +17,7 @@ import {
   AwardDetails,
   ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+import useUser from '~/hooks/useUser';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
@@ -35,8 +36,9 @@ const EditResumeTemplate = () => {
   const { data: activitiesData } = useGetResumeActivities({ resumeId });
   const { data: awardData } = useGetResumeAward({ resumeId });
 
-  /**TODO - 이력서 작성자가 사용자 본인과 일치하는지를 판단하기 */
-  const isCurrentUser = true;
+  const resumeAuthorId = basicInfo.ownerInfo?.id;
+  const { user } = useUser();
+  const isCurrentUser = resumeAuthorId === user?.id;
 
   return (
     <Flex

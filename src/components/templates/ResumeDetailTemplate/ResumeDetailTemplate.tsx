@@ -1,8 +1,10 @@
 import { PhoneIcon } from '@chakra-ui/icons';
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
+import EditDeleteOptionsButton from '~/components/molecules/OptionsButton/EditDeleteOptionsButton';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
@@ -13,6 +15,9 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
+import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
 import { ReferenceLink as Link } from '~/types/referenceLink';
@@ -23,6 +28,14 @@ const ResumeDetailTemplate = () => {
 
   const { data: details } = useGetResumeDetails({ resumeId });
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
+  const { mutate: deleteResumeMutate } = useDeleteResume();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const resumeAuthorId = basicInfo.ownerInfo?.id;
+  const { user } = useUser();
+  const isCurrentUser = resumeAuthorId === user?.id;
 
   const data = {
     basic: basicInfo,
@@ -42,7 +55,11 @@ const ResumeDetailTemplate = () => {
       width={'960px'}
       gap={6}
     >
-      <Box mx={'1rem'}>
+      <Flex
+        mx={'1rem'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+      >
         <Text
           fontSize={'2xl'}
           fontWeight={'bold'}
@@ -50,7 +67,28 @@ const ResumeDetailTemplate = () => {
         >
           {data.basic?.title}
         </Text>
-      </Box>
+        {isCurrentUser && (
+          <>
+            <ConfirmModal
+              isOpen={isOpen}
+              onClose={onClose}
+              message="정말로 삭제하시겠습니까?"
+              proceed={() =>
+                deleteResumeMutate(
+                  { resumeId },
+                  {
+                    onSuccess: () => navigate(appPaths.managementResume()),
+                  },
+                )
+              }
+            />
+            <EditDeleteOptionsButton
+              onEdit={() => navigate(appPaths.resumeEdit(parseInt(resumeId)))}
+              onDelete={() => onOpen()}
+            />
+          </>
+        )}
+      </Flex>
       <BorderBox
         hasShadow
         border={'none'}
