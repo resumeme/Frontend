@@ -3,19 +3,19 @@ import { Flex, IconButton, Button as ChakraButton, Text } from '@chakra-ui/react
 
 /**
  * total: 전체 아이템 개수
- * limit: 한 페이지 당 보여줄 아이템 개수
+ * size: 한 페이지 당 보여줄 아이템 개수
  * page: 현재 페이지 state
  * setPage: 현재 페이지 setState 함수
  */
 type PaginationProps = {
   total: number;
-  limit: number;
+  size: number;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Pagination = ({ total, limit, page, setPage }: PaginationProps) => {
-  const totalPageCount = Math.ceil(total / limit);
+const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
+  const totalPageCount = Math.ceil(total / size);
   return (
     <Flex>
       <IconButton

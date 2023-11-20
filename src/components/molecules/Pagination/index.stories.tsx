@@ -12,10 +12,10 @@ export default meta;
 
 type Story = StoryObj<{
   total: number;
-  limit: number;
+  size: number;
 }>;
 
-export const Default: Story = (args: { total: number; limit: number }) => {
+export const Default: Story = (args: { total: number; size: number }) => {
   const [page, setPage] = useState(1);
   return (
     <Pagination
@@ -28,5 +28,5 @@ export const Default: Story = (args: { total: number; limit: number }) => {
 
 Default.args = {
   total: 100,
-  limit: 10,
+  size: 10,
 };
