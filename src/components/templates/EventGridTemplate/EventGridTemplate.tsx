@@ -13,7 +13,7 @@ const EventGridTemplate = () => {
       >
         진행 중인 첨삭 이벤트
       </Text>
-      <EventGrid events={data} />
+      <EventGrid events={data.events} />
     </>
   );
 };

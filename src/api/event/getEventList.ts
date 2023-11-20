@@ -1,9 +1,9 @@
 import { resumeMeAxios } from '../axios';
 import CONSTANTS from '~/constants';
-import { EventListItem } from '~/types/event/eventListItem';
+import { EventList } from '~/types/event/eventList';
 import { getCookie } from '~/utils/cookie';
 
-export const getEventList = async (): Promise<EventListItem[]> => {
+export const getEventList = async (): Promise<EventList> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   const { data } = await resumeMeAxios.get(`/v1/events`, {

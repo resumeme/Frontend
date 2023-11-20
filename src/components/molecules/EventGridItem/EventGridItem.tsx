@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
-import { EventListItem } from '~/types/event/eventListItem';
+import { EventListItem } from '~/types/event/eventList';
 import { Position } from '~/types/position';
 
 const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }) => {

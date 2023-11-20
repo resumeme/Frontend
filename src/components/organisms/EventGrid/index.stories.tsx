@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
 import { EventGrid } from '.';
-import { EventListItem } from '~/types/event/eventListItem';
+import { EventListItem } from '~/types/event/eventList';
 import { Position } from '~/types/position';
 
 const meta = {

@@ -1,6 +1,6 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { EventGridItem } from '~/components/molecules/EventGridItem';
-import { EventListItem } from '~/types/event/eventListItem';
+import { EventListItem } from '~/types/event/eventList';
 
 const EventGrid = ({ events }: { events: EventListItem[] }) => {
   return (
