@@ -69,18 +69,10 @@ const LanguageDetails = ({
         </Flex>
       </Flex>
       {isCurrentUser && (
-        <>
-          <ConfirmModal
-            isOpen={isOpen}
-            onClose={onClose}
-            message="정말로 삭제하시겠습니까?"
-            proceed={() => deleteLanguageMutate({ resumeId, blockId })}
-          />
-          <EditDeleteOptionsButton
-            onEdit={onEdit}
-            onDelete={() => onOpen()}
-          />
-        </>
+        <EditDeleteOptionsButton
+          onEdit={onEdit}
+          onDelete={() => deleteCareerMutate({ resumeId, blockId })}
+        />
       )}
     </Flex>
   );
