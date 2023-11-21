@@ -20,7 +20,7 @@ const FeedbackManagementItem = ({
 
   const handleClick = () => {
     if (status === 'CLOSE') {
-      navigate(appPaths.commentComplete(resumeId, eventId));
+      navigate(appPaths.feedbackComplete(resumeId, eventId));
     } else {
       navigate(appPaths.resumeEdit(resumeId));
     }
