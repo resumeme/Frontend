@@ -73,6 +73,7 @@ const CareerForm = ({
       return;
     }
     body.skills = skills;
+    body.duties = body.duties || [];
     if (!isEdit) {
       postCareerMutate({ resumeId, body });
     } else if (isEdit && blockId) {
