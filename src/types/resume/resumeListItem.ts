@@ -12,6 +12,7 @@ type MyResume = ResumeListItem & {
 };
 
 type FeedbackResume = {
+  eventId: number;
   resumeId: number;
   status: ResumeStatus;
   title: string;
