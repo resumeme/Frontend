@@ -9,7 +9,6 @@ import MainPage from '~/pages/MainPage/MainPage';
 import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { CommentCompletePage } from '~/pages/ResumePages/CommentCompletePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
@@ -35,7 +34,6 @@ const router = createBrowserRouter([
       { path: 'resume/:id/edit', element: <EditResumePage /> },
       { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
       { path: 'resume/:id/feedback', element: <FeedbackResumePage /> },
-      { path: 'resume/:resumeId/event/:eventId/comment', element: <CommentCompletePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
