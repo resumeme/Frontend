@@ -18,8 +18,6 @@ type FeedbackResume = {
   mentorName: string;
   startDate: string;
   endDate: string;
-  //TODO api 수정 후 ? 없애기
-  modifiedAt?: string;
 };
 
 export type { MyResume, ResumeListItem, FeedbackResume };

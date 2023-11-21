@@ -6,14 +6,13 @@ import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
-import { formatDate } from '~/utils/formatDate';
 
 type FeedbackManagementItemProps = {
   resume: FeedbackResume;
 };
 
 const FeedbackManagementItem = ({
-  resume: { endDate, mentorName, resumeId, startDate, status, title, modifiedAt },
+  resume: { endDate, mentorName, resumeId, startDate, status, title },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
@@ -29,14 +28,6 @@ const FeedbackManagementItem = ({
 
   return (
     <>
-      {modifiedAt && (
-        <Text
-          color={'gray.500'}
-          as={'span'}
-          fontSize={'0.75rem'}
-          mb={'1.75rem'}
-        >{`${formatDate(modifiedAt)}`}</Text>
-      )}
       <Flex
         align={'center'}
         gap={'1rem'}
