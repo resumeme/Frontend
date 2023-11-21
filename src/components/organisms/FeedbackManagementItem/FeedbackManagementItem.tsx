@@ -12,7 +12,7 @@ type FeedbackManagementItemProps = {
 };
 
 const FeedbackManagementItem = ({
-  resume: { endDate, mentorName, resumeId, startDate, status, title },
+  resume: { endDate, mentorName, resumeId, startDate, status, title, eventId },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const FeedbackManagementItem = ({
 
   const handleClick = () => {
     if (status === 'CLOSE') {
-      navigate(appPaths.resumeDetail(resumeId));
+      navigate(appPaths.commentComplete(resumeId, eventId));
     } else {
       navigate(appPaths.resumeEdit(resumeId));
     }
