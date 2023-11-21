@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import FocusLayout from './routes/FocusLayout';
-import Layout from '~/routes/Layout';
+import HeaderFooterLayout from './routes/HeaderFooterLayout';
 
 const App = () => {
   const regex = /^\/sign-/;
@@ -8,7 +8,7 @@ const App = () => {
   if (regex.test(currentPage)) {
     return <FocusLayout />;
   }
-  return <Layout />;
+  return <HeaderFooterLayout />;
 };
 
 export default App;
