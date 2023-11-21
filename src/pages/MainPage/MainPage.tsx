@@ -1,6 +1,5 @@
-import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { Button } from '~/components/atoms/Button';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { assets } from '~/config/assets';
@@ -8,7 +7,6 @@ import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { LAYOUT_SIZE } from '~/routes/layoutSize.const';
-import { Position } from '~/types/position';
 
 const MainPage = () => {
   const { user } = useUser();
@@ -39,15 +37,6 @@ const MainPage = () => {
     },
   ];
 
-  const POSITION_IMAGES: { [key in Position]: string } = {
-    FRONT: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-    BACK: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-    DEVOPS: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-    FULLSTACK: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-    ML_AI: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-    MOBILE: 'https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg',
-  };
-
   const button_info = user ? (user.role === 'mentor' ? mentorButton : menteeButton) : menteeButton;
 
   return (
@@ -55,6 +44,8 @@ const MainPage = () => {
       <Box
         bg={'white'}
         mt={LAYOUT_SIZE.HEADER_HEIGHT}
+        borderBottom={'1px'}
+        borderColor={'gray.300'}
       >
         <Flex
           direction={{ base: 'column', md: 'row' }}
@@ -119,36 +110,7 @@ const MainPage = () => {
             alt=""
           />
         </Flex>
-        <Grid
-          maxW={'960px'}
-          mx={'auto'}
-          templateColumns={{
-            base: 'repeat(3, 1fr)',
-            md: 'repeat(6, 1fr)',
-          }}
-          gap={'2rem'}
-        >
-          {Object.keys(POSITION_IMAGES).map((IMAGE) => (
-            <Flex
-              w={'full'}
-              key={uuidv4()}
-              direction={'column'}
-              justify={'center'}
-              align={'center'}
-              gap={'0.5rem'}
-            >
-              <Image
-                borderRadius={'1.5rem'}
-                flexShrink={1}
-                w={'full'}
-                aspectRatio={4.5 / 3}
-                src={POSITION_IMAGES[IMAGE as Position]}
-                alt={IMAGE}
-              />
-              <Text>{IMAGE}</Text>
-            </Flex>
-          ))}
-        </Grid>
+
         {/**FIXME - 아래는 임시 이력서 작성 버튼, 추후 대체할 것 */}
       </Box>
     </>
