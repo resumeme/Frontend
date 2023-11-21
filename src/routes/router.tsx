@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import FeedbackLayout from './FeedbackLayout';
 import App from '~/App';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
       { path: 'admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  {
+    path: '/resume/:id/feedback',
+    element: <FeedbackLayout />,
+    children: [{ index: true, element: <FeedbackResumePage /> }],
   },
 ]);
 
