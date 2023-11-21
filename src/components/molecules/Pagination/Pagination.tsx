@@ -17,9 +17,14 @@ type PaginationProps = {
 const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
   const totalPageCount = Math.ceil(total / size);
   return (
-    <Flex>
+    <Flex
+      w={'full'}
+      justifyContent={'center'}
+      mt={'10rem'}
+    >
       <IconButton
         w={'auto'}
+        bg={'none'}
         icon={<ChevronLeftIcon />}
         aria-label="이전 페이지로 이동"
         isDisabled={page === 1}
@@ -50,6 +55,7 @@ const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
         })}
       <IconButton
         w={'auto'}
+        bg={'none'}
         icon={<ChevronRightIcon />}
         aria-label="다음 페이지로 이동"
         isDisabled={page === totalPageCount}
