@@ -1,9 +1,9 @@
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { RemoteControlPannel } from '~/components/organisms/RemoteControlPannel';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
   ActivityDetails,
@@ -15,27 +15,25 @@ import {
 } from '~/components/organisms/ResumeDetails';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
-import { ReferenceLink as Link } from '~/types/referenceLink';
+import { ReferenceLink } from '~/types/referenceLink';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
-const FeedbackResumeTemplate = (data) => {
-  console.log(data);
-  /* TODO 목업 데이터 삭제하고 API 데이터 연결하기 */
-  // const { id: resumeId } = useParams() as { id: string };
+const FeedbackResumeTemplate = () => {
+  const { id: resumeId } = useParams() as { id: string };
 
-  // const { data: details } = useGetResumeDetails({ resumeId });
-  // const { data: basicInfo } = useGetResumeBasic({ resumeId });
+  const { data: details } = useGetResumeDetails({ resumeId });
+  const { data: basicInfo } = useGetResumeBasic({ resumeId });
 
-  // const data = {
-  //   basic: basicInfo,
-  //   links: details?.links,
-  //   career: details?.careers,
-  //   training: details?.trainings,
-  //   project: details?.projects,
-  //   activity: details?.activities,
-  //   award: details?.certifications,
-  //   language: details?.['foreign-languages'],
-  // };
+  const data = {
+    basic: basicInfo,
+    links: details?.links,
+    career: details?.careers,
+    training: details?.trainings,
+    project: details?.projects,
+    activity: details?.activities,
+    award: details?.certifications,
+    language: details?.['foreign-languages'],
+  };
 
   return (
     <Flex
@@ -126,7 +124,7 @@ const FeedbackResumeTemplate = (data) => {
                   gap={2}
                   width={'100%'}
                 >
-                  {data.links?.map((link: Link, index: number) => (
+                  {data.links?.map((link: ReferenceLink, index: number) => (
                     <ReferenceLinkBox
                       key={index}
                       linkType={link.linkType}
