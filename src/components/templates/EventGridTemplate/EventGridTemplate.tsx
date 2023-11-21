@@ -18,13 +18,19 @@ const EventGridTemplate = () => {
       >
         진행 중인 첨삭 이벤트
       </Text>
-      <EventGrid events={data.events} />
-      <Pagination
-        size={size}
-        page={page}
-        setPage={setPage}
-        total={data.pageData.totalElements}
-      />
+      {data.events.length ? (
+        <>
+          <EventGrid events={data.events} />
+          <Pagination
+            size={size}
+            page={page}
+            setPage={setPage}
+            total={data.pageData.totalElements}
+          />
+        </>
+      ) : (
+        <Text>진행 중인 이벤트가 없어요. ૮ ´• ﻌ ´• ა</Text>
+      )}
     </>
   );
 };
