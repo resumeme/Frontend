@@ -161,11 +161,12 @@ const ProjectForm = ({
                     {...register('team')}
                   >
                     <option value="true">팀</option>
-                    <option value="false">개인</option>
+                    <option value="">개인</option>
                   </Select>
                 </FormControl>
-                <FormControl>
+                <FormControl isInvalid={watch('team') ? Boolean(errors.teamMembers) : undefined}>
                   <FormLabel
+                    isRequired={watch('team')}
                     htmlFor="teamMembers"
                     w={'fit-content'}
                   >
@@ -175,7 +176,12 @@ const ProjectForm = ({
                     placeholder="관우, 장비"
                     isDisabled={!watch('team')}
                     id="teamMembers"
-                    register={{ ...register('teamMembers') }}
+                    register={{
+                      ...register('teamMembers', {
+                        required: watch('team') ? '팀원을 입력해주세요.' : undefined,
+                      }),
+                    }}
+                    error={errors.teamMembers}
                   />
                 </FormControl>
               </Flex>
