@@ -1,6 +1,6 @@
 import { resumeMeAxios } from '../axios';
 import CONSTANTS from '~/constants';
-import { CreateEvent } from '~/types/event';
+import { CreateEvent } from '~/types/event/event';
 import { getCookie } from '~/utils/cookie';
 
 const postCreateEvent = async (data: CreateEvent): Promise<{ id: number }> => {

@@ -44,7 +44,11 @@ const StateTooltip = (state: 'success' | 'error') => {
   );
 };
 
-const TitleInputForm = () => {
+type TitleInputFormProps = {
+  defaultValue: string | undefined;
+};
+
+const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
   const { id: resumeId } = useParams();
   const { mutate, isPending, isSuccess, isError } = usePatchResumeTitle();
   const navigate = useNavigate();
@@ -106,6 +110,7 @@ const TitleInputForm = () => {
         autoComplete="off"
         spellCheck="false"
         onChange={handleInputChange}
+        defaultValue={defaultValue ?? ''}
         _focusVisible={{
           borderBottomColor: `${isError ? 'red' : 'primary.900'}`,
         }}

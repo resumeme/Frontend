@@ -1,8 +1,12 @@
 import { Flex, Text, Divider, Heading } from '@chakra-ui/react';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { Language } from '~/types/language';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 /* TODO  
   기본으로 언어 카테고리 제시하기 (영어, 일본어, 중국어, 기타(입력받기))
@@ -11,10 +15,17 @@ import { Language } from '~/types/language';
 */
 
 const LanguageDetails = ({
-  data: { language, examName, scoreOrGrade },
+  data: { componentId, language, examName, scoreOrGrade },
+  onEdit,
+  isCurrentUser,
 }: DetailsComponentProps<Language>) => {
-  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
-  const isCurrentUser = true;
+  const { id: resumeId = '' } = useParams();
+  const blockId = componentId as string;
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+  });
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -56,8 +67,8 @@ const LanguageDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
-          onDelete={() => {}}
+          onEdit={onEdit}
+          onDelete={() => deleteMutate({ resumeId, blockId })}
         />
       )}
     </Flex>

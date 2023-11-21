@@ -1,12 +1,13 @@
 import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
+import Career from '~/types/career';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeCareer = { resumeId: string };
 
-export const getResumeCareer = async ({ resumeId }: GetResumeCareer) => {
+export const getResumeCareer = async ({ resumeId }: GetResumeCareer): Promise<Career[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
@@ -16,10 +17,11 @@ export const getResumeCareer = async ({ resumeId }: GetResumeCareer) => {
         Authorization: accessToken,
       },
     });
-    return data;
+    return data['careers'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
     }
+    return [];
   }
 };

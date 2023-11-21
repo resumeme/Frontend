@@ -4,7 +4,7 @@ import EventTime from './EventTime';
 import EventTitle from './EventTitle';
 import MentorCareerContent from './MentorCareerContent';
 import MentorCareerTitle from './MentorCareerTitle';
-import { ReadEvent } from '~/types/event';
+import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 type EventDetailProps = {
@@ -12,11 +12,15 @@ type EventDetailProps = {
   event: ReadEvent;
 };
 
-const EventDetail = ({ mentor, event }: EventDetailProps) => {
-  const eventStatus =
-    event.info.maximumCount > event.info.currentApplicantCount ||
-    new Date().toISOString() < event.info.timeInfo.closeDateTime;
-
+const EventDetail = ({
+  mentor,
+  event: {
+    content,
+    status,
+    timeInfo: { closeDateTime, endDate, openDateTime },
+    title,
+  },
+}: EventDetailProps) => {
   return (
     <Box w={'full'}>
       <VStack
@@ -24,19 +28,19 @@ const EventDetail = ({ mentor, event }: EventDetailProps) => {
         w={'full'}
       >
         <EventTitle
-          eventStatus={eventStatus}
-          title={event.info.title}
+          eventStatus={status}
+          title={title}
         />
         <EventTime
-          closeDateTime={event.info.timeInfo.closeDateTime}
-          endDate={event.info.timeInfo.endDate}
-          openDateTime={event.info.timeInfo.openDateTime}
+          closeDateTime={closeDateTime}
+          endDate={endDate}
+          openDateTime={openDateTime}
         />
         <MentorCareerTitle
           careerYear={mentor.careerYear}
           experiencedPositions={mentor.experiencedPositions}
         />
-        <EventContent content={event.info.content} />
+        <EventContent content={content} />
         <MentorCareerContent careerContent={mentor.careerContent} />
       </VStack>
     </Box>

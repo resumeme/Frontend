@@ -5,7 +5,7 @@ import FormControl from '../FormControl/FormControl';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
-import { CreateEvent } from '~/types/event';
+import { CreateEvent } from '~/types/event/event';
 
 const meta = {
   title: 'Resumeme/Components/FormTextInput',

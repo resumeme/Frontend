@@ -17,23 +17,28 @@ import {
   AwardDetails,
   ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+import useUser from '~/hooks/useUser';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
+import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
 import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
 import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 
 const EditResumeTemplate = () => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { id: resumeId = '' } = useParams();
+  const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
   const { data: languageData } = useGetResumeLanguage({ resumeId });
   const { data: projectData } = useGetResumeProject({ resumeId });
-  const { data: activitiesData } = useGetResumeActivities({
-    resumeId,
-  });
+  const { data: activitiesData } = useGetResumeActivities({ resumeId });
   const { data: awardData } = useGetResumeAward({ resumeId });
+
+  const resumeAuthorId = basicInfo.ownerInfo?.id;
+  const { user } = useUser();
+  const isCurrentUser = resumeAuthorId === user?.id;
 
   return (
     <Flex
@@ -41,13 +46,15 @@ const EditResumeTemplate = () => {
       direction="column"
       gap="3rem"
     >
-      <ResumeBasicInput />
+      <ResumeBasicInput basicInfo={basicInfo} />
 
       <CategoryContainer>
         <CareerForm />
         <ResumeCategoryDetails
           arrayData={careersData}
           DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -56,6 +63,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
+          FormComponent={ProjectForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -64,6 +73,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={awardData}
           DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -72,6 +83,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={languageData}
           DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -80,6 +93,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={trainingsData}
           DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
 
@@ -88,6 +103,8 @@ const EditResumeTemplate = () => {
         <ResumeCategoryDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
+          FormComponent={ActivityForm}
+          isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
     </Flex>

@@ -1,6 +1,9 @@
-import { Flex, Select, VStack, useToast } from '@chakra-ui/react';
+import { Flex, Select, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeProject } from '~/api/resume/create/postResumeProject';
+import { patchResumeProject } from '~/api/resume/edit/patchResumeProject';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -13,15 +16,19 @@ import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import CONSTANTS from '~/constants';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
 import { useStringToArray } from '~/hooks/useStringToArray';
-import { usePostResumeProject } from '~/queries/resume/create/usePostRusumeProject';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Project } from '~/types/project';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const ProjectForm = () => {
-  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
-
+const ProjectForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Project>) => {
   const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postResumeProject, isSuccess } = usePostResumeProject(resumeId);
-  const toast = useToast();
 
   const {
     watch,
@@ -30,40 +37,60 @@ const ProjectForm = () => {
     formState: { errors, isDirty },
     reset,
   } = useForm<Project>({
-    defaultValues: {
-      isTeam: true,
-    },
+    defaultValues: defaultValues ?? { team: true },
   });
-
-  const onSubmit: SubmitHandler<Project> = (resumeProject) => {
-    if (!resumeId) {
-      return;
-    }
-    resumeProject.skills = skills;
-    resumeProject.isTeam = Boolean(resumeProject.isTeam);
-
-    postResumeProject({ resumeId, resumeProject });
-    if (isSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-  };
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  const { mutate: postProjectMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeProject,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeProject,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
+  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
+
+  const onSubmit: SubmitHandler<Project> = (body) => {
+    if (!resumeId) {
+      return;
+    }
+    body.skills = skills;
+    body.team = Boolean(body.team);
+    if (!isEdit) {
+      postProjectMutate({ resumeId, body });
+    } else if (isEdit && blockId) {
+      patchResumeProjectMutate({ resumeId, blockId, body });
+    }
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="프로젝트"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="프로젝트"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
               <Flex
@@ -131,14 +158,15 @@ const ProjectForm = () => {
                     borderColor={'gray.300'}
                     maxH={'3.125rem'}
                     h={'3.125rem'}
-                    {...register('isTeam')}
+                    {...register('team')}
                   >
                     <option value="true">팀</option>
-                    <option value="false">개인</option>
+                    <option value="">개인</option>
                   </Select>
                 </FormControl>
-                <FormControl>
+                <FormControl isInvalid={watch('team') ? Boolean(errors.teamMembers) : undefined}>
                   <FormLabel
+                    isRequired={watch('team')}
                     htmlFor="teamMembers"
                     w={'fit-content'}
                   >
@@ -146,9 +174,14 @@ const ProjectForm = () => {
                   </FormLabel>
                   <FormTextInput
                     placeholder="관우, 장비"
-                    isDisabled={!watch('isTeam')}
+                    isDisabled={!watch('team')}
                     id="teamMembers"
-                    register={{ ...register('teamMembers') }}
+                    register={{
+                      ...register('teamMembers', {
+                        required: watch('team') ? '팀원을 입력해주세요.' : undefined,
+                      }),
+                    }}
+                    error={errors.teamMembers}
                   />
                 </FormControl>
               </Flex>
@@ -169,7 +202,7 @@ const ProjectForm = () => {
                     placeholder="엔터 키로 구분할 수 있습니다."
                     id="skills"
                     register={{ ...register('skills') }}
-                    onKeyDown={handleSkills}
+                    onKeyUp={handleSkills}
                   />
                   <DynamicTags
                     handleItemDelete={handleDeleteSkills}
@@ -206,9 +239,17 @@ const ProjectForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

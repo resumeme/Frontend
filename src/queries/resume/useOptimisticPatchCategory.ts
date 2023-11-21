@@ -1,0 +1,51 @@
+import { useToast } from '@chakra-ui/react';
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
+import { PatchResumeCategory } from '~/types/api/patchResumeCategory';
+import { Categories } from '~/types/resume/categories';
+
+type UseOptimisticPatch<T extends Categories> = {
+  mutationFn: PatchResumeCategory<T>;
+  TARGET_QUERY_KEY: QueryKey;
+  onMutateSuccess?: () => void;
+};
+export const useOptimisticPatchCategory = <T extends Categories>({
+  mutationFn,
+  TARGET_QUERY_KEY,
+  onMutateSuccess,
+}: UseOptimisticPatch<T>) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  return useMutation({
+    mutationFn,
+    onMutate: async (newCategoryBlock) => {
+      await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
+      const previousCategoryData = queryClient.getQueryData(TARGET_QUERY_KEY);
+      queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => {
+        return [...old, newCategoryBlock];
+      });
+      return { previousCategoryData };
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    onError: (err, newCategoryBlock, context) => {
+      toast({
+        title: '서버에 문제가 생겼습니다.',
+        description: '다시 시도해주세요.',
+        status: 'error',
+      });
+      queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousCategoryData);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });
+    },
+    onSuccess: () => {
+      toast({
+        status: 'success',
+        description: '수정 완료',
+      });
+      if (onMutateSuccess) {
+        onMutateSuccess();
+      }
+    },
+  });
+};

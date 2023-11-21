@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { MentorProfile } from '.';
+import { EventStatus } from '~/types/eventStatus';
 import { Position } from '~/types/position';
 
 const meta = {
@@ -23,32 +24,26 @@ export const Default = () => {
         '안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자! 안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!안녕하시렵니까? 큰돌입니다. 10년차 프론트앤드 개발자!',
     },
     event: {
-      info: {
-        title: 'title_b21dc40438ed',
-        content: 'dlfjgrp',
-        maximumCount: 0,
-        currentApplicantCount: 0,
-        positions: ['FRONT'] as Position[],
-        timeInfo: {
-          openDateTime: '2023-11-07 17:48:51',
-          closeDateTime: '2023-11-07 17:48:51',
-          endDate: '2023-11-07 17:48:51',
-        },
+      id: 1,
+      mentorId: 1,
+      title: '제목',
+      content: '내용',
+      maximumCount: 3,
+      currentApplicantCount: 2,
+      status: 'OPEN' as EventStatus,
+      positions: ['BACK'] as Position[],
+      timeInfo: {
+        openDateTime: '2023-11-19T19:35:20.791461302',
+        closeDateTime: '2023-11-19T20:35:20.791471101',
+        endDate: '2023-11-19T21:35:20.791482462',
       },
-      resumes: [
-        {
-          resumeId: 0,
-          menteeName: 'menteeName_a5382713f0d2',
-          resumeTitle: 'resumeTitle_3f57dbe0891f',
-          progressStatus: 'progressStatus_ad4597f425d4',
-        },
-      ],
     },
   };
   return (
     <MentorProfile
       mentor={DUMMY_DATA.mentor}
       event={DUMMY_DATA.event}
+      onApply={() => {}}
     />
   );
 };

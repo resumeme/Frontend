@@ -1,6 +1,9 @@
-import { VStack, HStack, Flex, useToast } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { VStack, HStack, Flex } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { postResumeLanguage } from '~/api/resume/create/postResumeLanguage';
+import { patchResumeLanguage } from '~/api/resume/edit/patchResumeLanguage';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import FormLabel from '~/components/atoms/FormLabel/FormLabel';
 import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
@@ -9,46 +12,74 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { useHandleFormState } from '~/hooks/useHandleFormState';
-import { usePostResumeLanguage } from '~/queries/resume/create/usePostResumeLanguage';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
+import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
 import { Language } from '~/types/language';
+import { FormComponentProps } from '~/types/props/formComponentProps';
 
-const LanguageForm = () => {
+const LanguageForm = ({
+  defaultValues,
+  isEdit = false,
+  blockId,
+  quitEdit,
+}: FormComponentProps<Language>) => {
+  const { id: resumeId } = useParams() as { id: string };
+
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Language>();
-
-  const { id: resumeId } = useParams() as { id: string };
-  const { mutate: postLanguageMutate, isSuccess } = usePostResumeLanguage(resumeId);
-  const toast = useToast();
-  const onSubmit = (resumeLanguage: Language) => {
-    if (!resumeId) {
-      return;
-    }
-    postLanguageMutate({ resumeId, resumeLanguage });
-    if (isSuccess) {
-      handleDeleteForm();
-      toast({
-        description: '성공적으로 저장되었습니다.',
-      });
-    }
-  };
+  } = useForm<Language>({ defaultValues });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
+
+  const { mutate: postLanguageMutate } = useOptimisticPostCategory({
+    mutationFn: postResumeLanguage,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+    onMutateSuccess: handleDeleteForm,
+  });
+  const { mutate: patchResumeLanguageMutate } = useOptimisticPatchCategory({
+    mutationFn: patchResumeLanguage,
+    TARGET_QUERY_KEY: categoryKeys.language(resumeId),
+    onMutateSuccess: quitEdit,
+  });
+
+  const onSubmit: SubmitHandler<Language> = (body) => {
+    if (!resumeId) {
+      return;
+    }
+    if (!isEdit) {
+      postLanguageMutate({ resumeId, body });
+    } else if (isEdit && blockId) {
+      patchResumeLanguageMutate({ resumeId, blockId, body });
+    }
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      setShowForm(true);
+    }
+  }, [isEdit, setShowForm]);
+
   return (
     <Flex
       direction={'column'}
       gap={'1rem'}
     >
-      <CategoryAddHeader
-        categoryTitle="외국어"
-        onAddItem={() => setShowForm(true)}
-      />
+      {!isEdit && (
+        <CategoryAddHeader
+          categoryTitle="외국어"
+          onAddItem={() => setShowForm(true)}
+        />
+      )}
       {showForm && (
-        <BorderBox variant={'wide'}>
+        <BorderBox
+          border={isEdit ? 'none' : undefined}
+          p={isEdit ? 0 : '2rem'}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={'1.25rem'}>
               <FormControl isInvalid={Boolean(errors.language)}>
@@ -86,9 +117,17 @@ const LanguageForm = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 message="작성하던 내용이 있습니다. 작성을 그만하시겠습니까?"
-                proceed={handleDeleteForm}
+                proceed={() => {
+                  handleDeleteForm();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
               />
-              <SubmitButtonGroup onCancel={handleCancel} />
+              <SubmitButtonGroup
+                onCancel={() => {
+                  handleCancel();
+                  if (isEdit && quitEdit) quitEdit();
+                }}
+              />
             </VStack>
           </form>
         </BorderBox>

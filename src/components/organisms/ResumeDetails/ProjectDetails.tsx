@@ -1,15 +1,35 @@
 import { Flex, Heading, Icon, Link, Text } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { Project } from '~/types/project';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ProjectDetails = ({
-  data: { projectName, productionYear, teamMembers, skills, projectContent, projectUrl, isTeam },
+  data: {
+    componentId,
+    projectName,
+    productionYear,
+    teamMembers,
+    skills,
+    projectContent,
+    projectUrl,
+    team,
+  },
+  onEdit,
+  isCurrentUser,
 }: DetailsComponentProps<Project>) => {
-  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
-  const isCurrentUser = true;
+  const { id: resumeId } = useParams() as { id: string };
+  const blockId = componentId as string;
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Project>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+  });
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -51,17 +71,17 @@ const ProjectDetails = ({
             >
               {projectName}
             </Heading>
-            {isTeam !== null && isTeam !== undefined && (
+            {team !== null && team !== undefined && (
               <Label
                 fontWeight={'semibold'}
-                bg={isTeam ? 'teal.500' : 'orange.500'}
+                bg={team ? 'teal.500' : 'orange.500'}
                 py={0}
               >
-                {isTeam ? '팀 프로젝트' : '개인 프로젝트'}
+                {team ? '팀 프로젝트' : '개인 프로젝트'}
               </Label>
             )}
           </Flex>
-          {isTeam && (
+          {team && (
             <Text
               fontWeight={'semibold'}
               color={'gray.800'}
@@ -112,8 +132,8 @@ const ProjectDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
-          onDelete={() => {}}
+          onEdit={onEdit}
+          onDelete={() => deleteMutate({ resumeId, blockId })}
         />
       )}
     </Flex>

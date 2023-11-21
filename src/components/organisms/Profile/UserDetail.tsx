@@ -1,9 +1,10 @@
+import { PhoneIcon } from '@chakra-ui/icons';
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Badge } from '~/components/atoms/Badge';
 import { Label } from '~/components/atoms/Label';
-import CheckboxStyled from '~/components/molecules/LabelCheckboxGroup/CheckboxStyled';
 import { Position } from '~/types/position';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 type UserDetailProps = {
   nickname: string;
@@ -16,8 +17,6 @@ type UserDetailProps = {
   careerContent?: string;
 };
 
-type LabelTypes = 'default' | 'frontend' | 'fullstack' | 'mobile' | 'backend' | 'devops' | 'ai';
-
 const UserDetail = ({
   experiencedPositions,
   interestedPositions,
@@ -28,15 +27,6 @@ const UserDetail = ({
   introduce,
   phoneNumber,
 }: UserDetailProps) => {
-  const POSITIONS = {
-    BACK: 'backend',
-    FRONT: 'frontend',
-    MOBILE: 'mobile',
-    DEVOPS: 'devops',
-    ML_AI: 'ai',
-    FULLSTACK: 'fullstack',
-  };
-
   return (
     <Flex
       direction={'column'}
@@ -53,6 +43,9 @@ const UserDetail = ({
         )}
         {role && (
           <Badge
+            display={'flex'}
+            py={0}
+            alignItems={'center'}
             type={role}
             fontSize={'1rem'}
           >
@@ -62,33 +55,58 @@ const UserDetail = ({
         <Flex gap={'0.25rem'}>
           {experiencedPositions?.map((position) => (
             <Label
+              fontWeight={500}
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
 
           {interestedPositions?.map((position) => (
             <Label
+              fontWeight={500}
               alignSelf={'center'}
               fontSize={'0.875rem'}
               key={uuidv4()}
-              type={POSITIONS[position as keyof typeof POSITIONS] as LabelTypes}
+              type={position}
             />
           ))}
         </Flex>
       </Flex>
-      {phoneNumber && <Text as={'span'}>{phoneNumber}</Text>}
-      {introduce && <Text>{introduce}</Text>}
+      {phoneNumber && (
+        <Flex
+          align={'center'}
+          gap={'1rem'}
+        >
+          <PhoneIcon />
+          <Text as={'span'}>{formatPhoneNumber(phoneNumber)}</Text>
+        </Flex>
+      )}
+      {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
       {interestedFields && (
-        <Flex>
+        <Flex
+          wrap={'wrap'}
+          gap={'0.75rem'}
+        >
           {interestedFields.map((field) => (
-            <CheckboxStyled key={uuidv4()}>{field}</CheckboxStyled>
+            <Badge
+              display="flex"
+              alignItems="center"
+              h={'2.25rem'}
+              border={'1px'}
+              borderColor={'gray.300'}
+              borderRadius={'0.75rem'}
+              color={'gray.400'}
+              bg={'white'}
+              key={uuidv4()}
+            >
+              {field}
+            </Badge>
           ))}
         </Flex>
       )}
-      {careerContent && <Text>{careerContent}</Text>}
+      {careerContent && <Text whiteSpace={'pre-line'}>{careerContent}</Text>}
     </Flex>
   );
 };

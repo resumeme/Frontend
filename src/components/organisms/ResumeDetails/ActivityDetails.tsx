@@ -1,15 +1,26 @@
 import { Flex, Text, Heading, Link, Icon } from '@chakra-ui/react';
 import { HiLink } from 'react-icons/hi';
-import { DetailsComponentProps } from '../ResumeCategoryDetails/ResumeCategoryDetails';
+import { useParams } from 'react-router-dom';
+import { deleteResumeCategoryBlock } from '~/api/resume/delete/deleteResumeCategoryBlock';
 import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
+import { categoryKeys } from '~/queries/resume/categoryKeys.const';
+import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { Activity } from '~/types/activity';
+import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ActivityDetails = ({
-  data: { activityName, startDate, endDate, inProgress, link, description },
+  data: { componentId, activityName, startDate, endDate, inProgress, link, description },
+  onEdit,
+  isCurrentUser,
 }: DetailsComponentProps<Activity>) => {
-  /**FIXME - 작성자와 현재 사용자 일치 여부 useUser 사용하여 판단하기 */
-  const isCurrentUser = true;
+  const { id: resumeId = '' } = useParams();
+  const blockId = componentId as string;
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Activity>({
+    mutationFn: deleteResumeCategoryBlock,
+    TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
+  });
+
   return (
     <Flex>
       <Flex flex={1}>
@@ -83,8 +94,8 @@ const ActivityDetails = ({
       </Flex>
       {isCurrentUser && (
         <EditDeleteOptionsButton
-          onEdit={() => {}}
-          onDelete={() => {}}
+          onEdit={onEdit}
+          onDelete={() => deleteMutate({ resumeId, blockId })}
         />
       )}
     </Flex>

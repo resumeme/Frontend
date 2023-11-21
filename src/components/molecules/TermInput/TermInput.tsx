@@ -20,6 +20,7 @@ type TermInputProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   control: Control<T>;
+  future?: boolean;
 };
 
 const TermInput = <T extends FieldValues>({
@@ -31,6 +32,7 @@ const TermInput = <T extends FieldValues>({
   register,
   errors,
   control,
+  future = false,
 }: TermInputProps<T>) => {
   /*TODO - isEndDateDisabled 상태 변화 시 리렌더링되도록 수정하기 */
   const startDate = useWatch({ name: startDateName, control });
@@ -47,6 +49,7 @@ const TermInput = <T extends FieldValues>({
     <HStack flexGrow={1}>
       <FormControl isInvalid={!!getNestedError(errors, startDateName)}>
         <FormDateInput
+          future={future}
           name={startDateName}
           type={includeTime ? 'datetime-local' : 'date'}
           register={{

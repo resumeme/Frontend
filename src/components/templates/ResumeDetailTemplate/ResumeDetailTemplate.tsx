@@ -1,8 +1,10 @@
 import { PhoneIcon } from '@chakra-ui/icons';
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { data } from './ResumeDetail.const';
+import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
+import { ConfirmModal } from '~/components/molecules/ConfirmModal';
+import EditDeleteOptionsButton from '~/components/molecules/OptionsButton/EditDeleteOptionsButton';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
@@ -13,8 +15,39 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
+import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
+import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
+import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
+import { ReferenceLink as Link } from '~/types/referenceLink';
+import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
+  const { id: resumeId } = useParams() as { id: string };
+
+  const { data: details } = useGetResumeDetails({ resumeId });
+  const { data: basicInfo } = useGetResumeBasic({ resumeId });
+  const { mutate: deleteResumeMutate } = useDeleteResume();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const resumeAuthorId = basicInfo.ownerInfo?.id;
+  const { user } = useUser();
+  const isCurrentUser = resumeAuthorId === user?.id;
+
+  const data = {
+    basic: basicInfo,
+    links: details?.links,
+    career: details?.careers,
+    training: details?.trainings,
+    project: details?.projects,
+    activity: details?.activities,
+    award: details?.certifications,
+    language: details?.['foreign-languages'],
+  };
+
   return (
     /* 전체 레이아웃 */
     <Flex
@@ -22,17 +55,40 @@ const ResumeDetailTemplate = () => {
       width={'960px'}
       gap={6}
     >
-      {/* NOTE ResumeTitle - 이력서 제목 */}
-      <Box mx={'1rem'}>
+      <Flex
+        mx={'1rem'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+      >
         <Text
           fontSize={'2xl'}
           fontWeight={'bold'}
           color={'gray.800'}
         >
-          {data.info.resume.resumeTitle}
+          {data.basic?.title}
         </Text>
-      </Box>
-      {/* NOTE UpperPart 시작 */}
+        {isCurrentUser && (
+          <>
+            <ConfirmModal
+              isOpen={isOpen}
+              onClose={onClose}
+              message="정말로 삭제하시겠습니까?"
+              proceed={() =>
+                deleteResumeMutate(
+                  { resumeId },
+                  {
+                    onSuccess: () => navigate(appPaths.managementResume()),
+                  },
+                )
+              }
+            />
+            <EditDeleteOptionsButton
+              onEdit={() => navigate(appPaths.resumeEdit(parseInt(resumeId)))}
+              onDelete={() => onOpen()}
+            />
+          </>
+        )}
+      </Flex>
       <BorderBox
         hasShadow
         border={'none'}
@@ -46,9 +102,7 @@ const ResumeDetailTemplate = () => {
           direction={'column'}
           gap={12}
         >
-          {/* NOTE UpperPart - 상단부 UI */}
           <Flex justify={'space-between'}>
-            {/* NOTE UpperPart - 상단부 왼쪽 (이름, 직무, 참고링크) */}
             <Flex
               className="Head1"
               direction={'column'}
@@ -64,42 +118,47 @@ const ResumeDetailTemplate = () => {
                   fontWeight={'bold'}
                   color={'gray.900'}
                 >
-                  {data.info.userInfo.name}
+                  {data.basic?.ownerInfo?.name}
                 </Text>
-                <Label
-                  width={'fit-content'}
-                  fontSize={'sm'}
-                  bg="green.500"
-                  color={'gray.100'}
-                  px={5}
-                >
-                  {data.info.basicInfo.position}
-                </Label>
+                {data.basic?.position && (
+                  <Label
+                    width={'fit-content'}
+                    fontSize={'sm'}
+                    bg="green.500"
+                    color={'gray.100'}
+                    px={5}
+                  >
+                    {data.basic.position}
+                  </Label>
+                )}
+                {data.basic?.ownerInfo && data.basic.ownerInfo.phoneNumber && (
+                  <Flex
+                    gap={4}
+                    align={'center'}
+                  >
+                    <PhoneIcon />
+                    <Text>{formatPhoneNumber(data.basic?.ownerInfo.phoneNumber)}</Text>
+                  </Flex>
+                )}
+              </Flex>
+              {data.links && data.links?.length > 0 && (
                 <Flex
-                  gap={4}
-                  align={'center'}
+                  direction={'column'}
+                  align={'start'}
+                  gap={2}
+                  width={'100%'}
                 >
-                  <PhoneIcon />
-                  <Text>{data.info.userInfo.phoneNumber}</Text>
+                  {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
+                  {data.links?.map((link: Link, index: number) => (
+                    <ReferenceLinkBox
+                      key={index}
+                      linkType={link.linkType}
+                      url={link.url}
+                    />
+                  ))}
                 </Flex>
-              </Flex>
-              <Flex
-                direction={'column'}
-                align={'start'}
-                gap={2}
-                width={'100%'}
-              >
-                {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                {data.info?.referenceLinks.map((link, i) => (
-                  <ReferenceLinkBox
-                    key={i}
-                    type="github"
-                    url={link.url}
-                  />
-                ))}
-              </Flex>
+              )}
             </Flex>
-            {/* NOTE UpperPart - 상단부 오른쪽 (전화번호, 기술스택) */}
             <Flex
               className="Head2"
               direction={'column'}
@@ -108,144 +167,158 @@ const ResumeDetailTemplate = () => {
               mt={'3%'}
               flex={1}
             >
-              <Flex
-                direction={'column'}
-                align={'flex-end'}
-                gap={3}
-              >
-                <Text
-                  fontSize={'lg'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                >
-                  보유 기술
-                </Text>
+              {data.basic?.skills && data.basic.skills.length > 0 && (
                 <Flex
-                  gap={2}
-                  pl={1}
-                  justify={'flex-end'}
-                  flexWrap={'wrap'}
+                  direction={'column'}
+                  align={'flex-end'}
+                  gap={3}
                 >
-                  {data.info.basicInfo.skills?.map((skill, i) => (
-                    <Label
-                      key={i}
-                      bg={'gray.300'}
-                      color={'gray.700'}
-                      fontWeight={'medium'}
-                    >
-                      {skill}
-                    </Label>
-                  ))}
+                  <Text
+                    fontSize={'lg'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                  >
+                    보유 기술
+                  </Text>
+                  <Flex
+                    gap={2}
+                    pl={1}
+                    justify={'flex-end'}
+                    flexWrap={'wrap'}
+                  >
+                    {data.basic.skills.map((skill: string, index: number) => (
+                      <Label
+                        key={index}
+                        bg={'gray.300'}
+                        color={'gray.700'}
+                        fontWeight={'medium'}
+                      >
+                        {skill}
+                      </Label>
+                    ))}
+                  </Flex>
                 </Flex>
-              </Flex>
+              )}
             </Flex>
           </Flex>
           <Flex justify={'center'}>
-            <BorderBox
-              width={'100%'}
-              textAlign={'center'}
-              whiteSpace={'break-spaces'}
-              wordBreak={'keep-all'}
-              fontSize={'sm'}
-              fontWeight={'medium'}
-            >
-              <Text>{data.info.basicInfo.introduce}</Text>
-            </BorderBox>
+            {data.basic?.introduce && (
+              <BorderBox
+                width={'100%'}
+                textAlign={'center'}
+                whiteSpace={'break-spaces'}
+                wordBreak={'keep-all'}
+                fontSize={'sm'}
+                fontWeight={'medium'}
+              >
+                <Text>{data.basic?.introduce}</Text>
+              </BorderBox>
+            )}
           </Flex>
-          {/* NOTE LowerPart - 하단부 UI */}
           <Flex
             direction={'column'}
             gap={10}
           >
-            {/* NOTE LowerPart - 하단부 - 업무경험 UI */}
             <Flex
               direction={'column'}
               gap={'4rem'}
             >
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  업무경험
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.career}
-                  DetailsComponent={CareerDetails}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  프로젝트
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.project}
-                  DetailsComponent={ProjectDetails}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  교육
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.training}
-                  DetailsComponent={TrainingDetails}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  수상 및 자격
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.award}
-                  DetailsComponent={AwardDetails}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  활동
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.activity}
-                  DetailsComponent={ActivityDetails}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize={'2xl'}
-                  fontWeight={'bold'}
-                  color={'gray.800'}
-                  mb={5}
-                >
-                  외국어
-                </Text>
-                <ResumeCategoryDetails
-                  arrayData={data.language}
-                  DetailsComponent={LanguageDetails}
-                />
-              </Box>
+              {data.career && data.career.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    업무경험
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.career}
+                    DetailsComponent={CareerDetails}
+                  />
+                </Box>
+              )}
+              {data.project && data.project.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    프로젝트
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.project}
+                    DetailsComponent={ProjectDetails}
+                  />
+                </Box>
+              )}
+              {data.training && data.training.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    교육
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.training}
+                    DetailsComponent={TrainingDetails}
+                  />
+                </Box>
+              )}
+              {data.award && data.award.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    수상 및 자격증
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.award}
+                    DetailsComponent={AwardDetails}
+                  />
+                </Box>
+              )}
+              {data.language && data.language.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    외국어
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.language}
+                    DetailsComponent={LanguageDetails}
+                  />
+                </Box>
+              )}
+              {data.activity && data.activity.length > 0 && (
+                <Box>
+                  <Text
+                    fontSize={'2xl'}
+                    fontWeight={'bold'}
+                    color={'gray.800'}
+                    mb={5}
+                  >
+                    활동
+                  </Text>
+                  <ResumeCategoryDetails
+                    arrayData={data.activity}
+                    DetailsComponent={ActivityDetails}
+                  />
+                </Box>
+              )}
             </Flex>
           </Flex>
         </Flex>

@@ -1,13 +1,20 @@
 import { Position } from './position';
 
-type ReadMentor = {
-  imageUrl: string;
+type BaseMentor = {
   nickname: string;
-  role: string;
   experiencedPositions: Position[];
   careerContent: string;
   careerYear: number;
   introduce: string;
 };
 
-export type { ReadMentor };
+type ReadMentor = BaseMentor & {
+  imageUrl: string;
+  role: string;
+};
+
+type EditMentor = BaseMentor & {
+  phoneNumber: string;
+};
+
+export type { ReadMentor, EditMentor };

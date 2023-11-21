@@ -1,4 +1,5 @@
 type Activity = {
+  componentId?: string;
   activityName: string;
   startDate: string;
   endDate: string;

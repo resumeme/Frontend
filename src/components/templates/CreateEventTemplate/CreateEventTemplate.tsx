@@ -10,7 +10,7 @@ import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
 import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
-import { CreateEvent } from '~/types/event';
+import { CreateEvent } from '~/types/event/event';
 
 const CreateEventTemplate = () => {
   const { mutate: createEvent, isPending } = usePostCreateEvent();
@@ -97,6 +97,7 @@ const CreateEventTemplate = () => {
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
               <TermInput<CreateEvent>
+                future
                 control={control}
                 includeTime={true}
                 errors={errors}

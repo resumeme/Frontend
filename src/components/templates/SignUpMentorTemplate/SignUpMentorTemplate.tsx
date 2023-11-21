@@ -7,7 +7,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
-import { Modal } from '~/components/molecules/Modal';
+import { CareerContentModal } from '~/components/molecules/Modal';
 import { SignUpHeader } from '~/components/organisms/SignUpHeader';
 import CONSTANTS from '~/constants';
 import { SignUpMentor } from '~/types/signUp';
@@ -96,9 +96,9 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 id="careerYear"
                 register={{
                   ...register('careerYear', {
-                    required: '경력 연차를 숫자로 입력해주세요.',
+                    required: '경력 연차는 1이상 80미만의 숫자로 입력해주세요.',
                     valueAsNumber: true,
-                    validate: (value) => value > 0,
+                    validate: (value) => value > 0 && value < 80,
                   }),
                 }}
                 error={errors.careerYear}
@@ -165,19 +165,3 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
 };
 
 export default SignUpMentorTemplate;
-
-const CareerContentModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      size={'lg'}
-    >
-      <Text whiteSpace={'pre-line'}>
-        {`현) ▵▵▵ 시니어 풀스택 개발자 재직 중
-        전) ◻◻◻ 프론트엔드 개발자 5년 근무
-        전) ⎔⎔⎔ 인턴 프론트엔드 개발자 2년 근무`}
-      </Text>
-    </Modal>
-  );
-};

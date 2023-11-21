@@ -34,7 +34,7 @@ const OAuthRedirectPage = () => {
       status: 'success',
       duration: 3000,
     });
-    navigate(appPaths.main);
+    navigate(appPaths.main());
     return;
   };
 
@@ -48,7 +48,7 @@ const OAuthRedirectPage = () => {
         status: 'error',
         duration: 9000,
       });
-      navigate(appPaths.signIn);
+      navigate(appPaths.signIn());
       return;
     }
     signInMutate(

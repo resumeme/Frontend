@@ -1,16 +1,37 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import BasicInfoForm from './BasicInfoForm';
+import BasicInfoView from './BasicInfoView';
 import ReferenceLinkForm from './ReferenceLinkForm';
 import TitleInputForm from './TitleInputForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
+import useUser from '~/hooks/useUser';
+import { BasicInfo } from '~/types/basicInfo';
 
-/* TODO api 요청으로 데이터 받아오기 */
-
-const USER = {
-  NAME: '이민희',
+type ResumeBasicInputProps = {
+  basicInfo: BasicInfo;
 };
 
-const ResumeBasicInput = () => {
+const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
+  const { user } = useUser();
+
+  const [isEdit, setIsEdit] = useState(true);
+
+  useEffect(() => {
+    if (basicInfo.position || basicInfo.skills?.length > 0 || basicInfo.introduce) {
+      setIsEdit(false);
+    } else {
+      setIsEdit(true);
+    }
+  }, [basicInfo]);
+
+  const defaultTitle = basicInfo?.title;
+  const basicInfoData = {
+    position: basicInfo?.position,
+    skills: basicInfo?.skills,
+    introduce: basicInfo?.introduce,
+  }; // TODO BasicInfo 컴포넌트 둘에게 프로퍼티로 넘기기
+
   return (
     <Flex
       direction={'column'}
@@ -18,7 +39,7 @@ const ResumeBasicInput = () => {
       width={'full'}
       id="resume-basic-input"
     >
-      <TitleInputForm />
+      <TitleInputForm defaultValue={defaultTitle} />
       <Box w={'full'}>
         <Flex justifyContent={'space-between'}>
           <Box w={'400px'}>
@@ -26,8 +47,7 @@ const ResumeBasicInput = () => {
               direction={'column'}
               gap={5}
             >
-              {/* FIXME 유저 데이터 받아와서 이름 렌더링하기 */}
-              <Heading>{USER.NAME}</Heading>
+              <Heading>{user?.realName}</Heading>
               <Box>
                 <Flex
                   justify={'space-between'}
@@ -48,8 +68,19 @@ const ResumeBasicInput = () => {
           <BorderBox
             w={'400px'}
             height={'fit-content'}
+            position={'relative'}
           >
-            <BasicInfoForm />
+            {isEdit ? (
+              <BasicInfoForm
+                {...basicInfoData}
+                onSaveClick={() => setIsEdit(false)}
+              />
+            ) : (
+              <BasicInfoView
+                {...basicInfoData}
+                onEditClick={() => setIsEdit(true)}
+              />
+            )}
           </BorderBox>
         </Flex>
       </Box>

@@ -2,11 +2,12 @@ import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
+import { Language } from '~/types/language';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeLanguage = { resumeId: string };
 
-export const getResumeLanguage = async ({ resumeId }: GetResumeLanguage) => {
+export const getResumeLanguage = async ({ resumeId }: GetResumeLanguage): Promise<Language[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
@@ -16,10 +17,11 @@ export const getResumeLanguage = async ({ resumeId }: GetResumeLanguage) => {
         Authorization: accessToken,
       },
     });
-    return data;
+    return data['foreign-languages'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);
     }
+    return [];
   }
 };
