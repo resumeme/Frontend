@@ -10,6 +10,6 @@ export const appPaths = {
   viewEvent: () => '/event/view',
   eventDetail: (eventId: number) => `/event/view/${eventId}`,
   eventCreate: () => `/event/create`,
-  commentComplete: (resumeId: number, eventId: number) =>
-    `/resume/${resumeId}/event/${eventId}/comment`,
+  feedbackComplete: (resumeId: number, eventId: number) =>
+    `/resume/${resumeId}/event/${eventId}/feedback`,
 };

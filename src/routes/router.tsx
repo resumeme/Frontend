@@ -8,10 +8,10 @@ import MainPage from '~/pages/MainPage/MainPage';
 import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { CommentCompletePage } from '~/pages/ResumePages/CommentCompletePage';
 import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
+import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
       { path: 'resume/:id/comment', element: <CommentResumePage /> },
-      { path: 'resume/:resumeId/event/:eventId/comment', element: <CommentCompletePage /> },
+      { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
