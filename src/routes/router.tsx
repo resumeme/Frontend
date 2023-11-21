@@ -31,13 +31,14 @@ const router = createBrowserRouter([
       { path: 'resume/create', element: <CreateResumePage /> },
       { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
-      { path: 'resume/:id/feedback', element: <FeedbackResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
       { path: 'event/create', element: <CreateEventPage /> },
       { path: 'event/view', element: <EventListPage /> },
       { path: 'event/view/:id', element: <EventDetailPage /> },
+
+      { path: 'event/:eventId/resume/:resumeId/', element: <FeedbackResumePage /> },
 
       { path: 'sign-up', element: <SignUpPage /> },
       { path: 'sign-in', element: <SignInPage /> },
