@@ -6,8 +6,9 @@ import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
   const [page, setPage] = useState(1);
-  const size = 10;
+  const size = 6;
   const { data } = useGetEventList({ page, size });
+
   return (
     <>
       <Text
