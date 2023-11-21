@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import FeedbackLayout from './FeedbackLayout';
+import Layout from './Layout';
 import App from '~/App';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
