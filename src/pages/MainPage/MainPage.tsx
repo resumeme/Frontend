@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
@@ -119,34 +119,6 @@ const MainPage = () => {
               alt=""
             />
           </Flex>
-          <Grid
-            templateColumns={{
-              base: 'repeat(3, 1fr)',
-              md: 'repeat(6, 1fr)',
-            }}
-            gap={'2rem'}
-          >
-            {Object.keys(POSITION_IMAGES).map((IMAGE) => (
-              <Flex
-                w={'full'}
-                key={uuidv4()}
-                direction={'column'}
-                justify={'center'}
-                align={'center'}
-                gap={'0.5rem'}
-              >
-                <Image
-                  borderRadius={'1.5rem'}
-                  flexShrink={1}
-                  w={'full'}
-                  aspectRatio={4.5 / 3}
-                  src={POSITION_IMAGES[IMAGE as Position]}
-                  alt={IMAGE}
-                />
-                <Text>{IMAGE}</Text>
-              </Flex>
-            ))}
-          </Grid>
         </Box>
       </Box>
       <Box
