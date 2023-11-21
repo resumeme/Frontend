@@ -3,7 +3,7 @@ import { redirect } from 'react-router-dom';
 import { environments } from '~/config/environments';
 import CONSTANTS from '~/constants';
 import { ERROR_MESSAGES } from '~/constants/errorMessage';
-import { getCookie, setCookie } from '~/utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '~/utils/cookie';
 
 export const resumeMeAxios = axios.create({
   baseURL: environments.baseUrlEnv(),
@@ -35,6 +35,8 @@ resumeMeAxios.interceptors.response.use(
       case 400:
         if (code in ERROR_MESSAGES) {
           if (code === 'INVALID_ACCESS_TOKEN') {
+            deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+
             const originalRequest = error.config;
 
             const refreshToken = getCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
