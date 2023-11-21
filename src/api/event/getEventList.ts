@@ -7,7 +7,7 @@ import { getCookie } from '~/utils/cookie';
 export const getEventList = async ({ page, size }: Pagination): Promise<EventList> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.get(`/v1/events?page=${page}&size=${size}`, {
+  const { data } = await resumeMeAxios.get(`/v1/events?page=${page - 1}&size=${size}`, {
     headers: {
       Authorization: accessToken,
     },

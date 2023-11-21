@@ -22,7 +22,7 @@ const EventGridTemplate = () => {
         size={size}
         page={page}
         setPage={setPage}
-        total={data.pageData.pageData.totalElements}
+        total={data.pageData.totalElements}
       />
     </>
   );
