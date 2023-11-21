@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Icon } from '@chakra-ui/react';
+import { Box, Flex, Text, Icon, Divider } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
 import { MDEditorProps } from '@uiw/react-md-editor';
 import { useState } from 'react';
@@ -12,6 +12,7 @@ type FeedbackInputProps = {
   value: string | undefined;
   onChange: (value: string | undefined) => void;
   onSaveClick?: (value: string) => void;
+  onCancelClick?: () => void;
   label?: string;
   saveLabel?: string;
   editorProps?: MDEditorProps;
@@ -21,6 +22,7 @@ const FeedbackInput = ({
   value,
   onChange,
   onSaveClick,
+  onCancelClick,
   label = '첨삭하기',
   saveLabel = '저장',
   ...editorProps
@@ -45,17 +47,20 @@ const FeedbackInput = ({
 
   return (
     <Flex
+      position="relative"
       direction="column"
       bg="gray.100"
-      border="1px solid"
-      borderColor={isFocus ? 'primary.700' : 'gray.300'}
-      rounded="2xl"
-      py={3}
-      px={4}
+      mt={5}
       gap={2}
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
+      <Divider
+        border={0}
+        h={0.1}
+        my={4}
+        bg={'gray.300'}
+      />
       <Flex
         align="center"
         gap={2}
@@ -88,7 +93,17 @@ const FeedbackInput = ({
           {...editorProps}
         />
       </Box>
-      <Flex justify="flex-end">
+      <Flex
+        justify="flex-end"
+        gap={2}
+      >
+        <Button
+          variant={'cancel'}
+          size="xs"
+          onClick={onCancelClick}
+        >
+          취소
+        </Button>
         <Button
           size="xs"
           onClick={handleClick}
