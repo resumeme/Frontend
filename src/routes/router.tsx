@@ -8,9 +8,9 @@ import MainPage from '~/pages/MainPage/MainPage';
 import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
+import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       { path: 'resume/create', element: <CreateResumePage /> },
       { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
-      { path: 'resume/:id/comment', element: <CommentResumePage /> },
+      { path: 'resume/:id/feedback', element: <FeedbackResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
