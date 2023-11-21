@@ -15,7 +15,7 @@ const MainPage = () => {
 
   const {
     data: { events },
-  } = useGetEventList();
+  } = useGetEventList({ page: 1, size: 4 });
 
   const { mutate: createResume } = usePostCreateResume();
 
@@ -127,12 +127,12 @@ const MainPage = () => {
         mb={'3rem'}
       >
         <Heading
-          mt={'6rem'}
+          mt={'3.5rem'}
           mb={'1rem'}
           fontSize={'1.5rem'}
           color={'gray.800'}
         >
-          멘토 피드백
+          진행중인 이벤트
         </Heading>
         <EventGrid
           row={4}
