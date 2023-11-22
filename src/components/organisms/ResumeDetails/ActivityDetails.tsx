@@ -6,16 +6,16 @@ import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
-import { Activity } from '~/types/activity';
+import { Activity, ReadActivity } from '~/types/activity';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ActivityDetails = ({
   data: { componentId, activityName, startDate, endDate, inProgress, link, description },
   onEdit,
   isCurrentUser,
-}: DetailsComponentProps<Activity>) => {
+}: DetailsComponentProps<ReadActivity>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = componentId as string;
+  const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Activity>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),

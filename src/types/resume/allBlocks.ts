@@ -1,17 +1,17 @@
-import { Activity } from '~/types/activity';
-import { Award } from '~/types/award';
-import { Career } from '~/types/career';
-import { Language } from '~/types/language';
-import { Project } from '~/types/project';
-import { ReferenceLink } from '~/types/referenceLink';
-import { Training } from '~/types/training';
+import { ReadActivity } from '~/types/activity';
+import { ReadAward } from '~/types/award';
+import { ReadCareer } from '~/types/career';
+import { ReadLanguage } from '~/types/language';
+import { ReadProject } from '~/types/project';
+import { ReadReferenceLink } from '~/types/referenceLink';
+import { ReadTraining } from '~/types/training';
 
 export type AllBlocks = {
-  links: ReferenceLink[];
-  careers: Career[];
-  certifications: Award[];
-  activities: Activity[];
-  foreignLanguages: Language[];
-  projects: Project[];
-  trainings: Training[];
+  links: ReadReferenceLink[];
+  careers: ReadCareer[];
+  certifications: ReadAward[];
+  activities: ReadActivity[];
+  foreignLanguages: ReadLanguage[];
+  projects: ReadProject[];
+  trainings: ReadTraining[];
 };

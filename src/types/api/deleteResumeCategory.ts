@@ -5,5 +5,5 @@ export type DeleteResumeCategory<T extends Categories> = ({
   blockId,
 }: {
   resumeId: string;
-  blockId: string;
+  blockId: number;
 }) => Promise<T>;

@@ -2,12 +2,14 @@ import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
-import { Training } from '~/types/training';
+import { ReadTraining } from '~/types/training';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeTraining = { resumeId: string };
 
-export const getResumeTraining = async ({ resumeId }: GetResumeTraining): Promise<Training[]> => {
+export const getResumeTraining = async ({
+  resumeId,
+}: GetResumeTraining): Promise<ReadTraining[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {

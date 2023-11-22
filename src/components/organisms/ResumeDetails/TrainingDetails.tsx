@@ -6,7 +6,7 @@ import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
-import { Training } from '~/types/training';
+import { Training, ReadTraining } from '~/types/training';
 
 const TraningDetails = ({
   data: {
@@ -22,9 +22,9 @@ const TraningDetails = ({
   },
   onEdit,
   isCurrentUser,
-}: DetailsComponentProps<Training>) => {
-  const { id: resumeId } = useParams() as { id: string };
-  const blockId = componentId as string;
+}: DetailsComponentProps<ReadTraining>) => {
+  const { id: resumeId = '' } = useParams();
+  const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Training>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),

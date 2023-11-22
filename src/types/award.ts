@@ -1,5 +1,4 @@
 type Award = {
-  componentId?: string;
   certificationTitle: string;
   acquisitionDate?: string;
   issuingAuthority?: string;
@@ -7,4 +6,6 @@ type Award = {
   description?: string;
 };
 
-export type { Award };
+type ReadAward = Award & { componentId: number };
+
+export type { Award, ReadAward };

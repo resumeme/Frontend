@@ -5,7 +5,7 @@ export const deleteResumeCategoryBlock = async ({
   blockId,
 }: {
   resumeId: string;
-  blockId: string;
+  blockId: number;
 }) => {
   const { data } = await resumeMeAxios.delete(`/v1/resumes/${resumeId}/components/${blockId}`);
   return data;

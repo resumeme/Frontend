@@ -5,16 +5,16 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/FeedbackBlock';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { FormComponentProps } from '~/types/props/formComponentProps';
-import { Categories } from '~/types/resume/categories';
+import { ReadCategories } from '~/types/resume/categories';
 
-type CategoryDetailsProps<T extends Categories> = {
+type CategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   FormComponent?: React.ComponentType<FormComponentProps<T>>;
   isCurrentUser?: boolean;
 };
 
-const ResumeCategoryDetails = <T extends Categories>({
+const ResumeCategoryDetails = <T extends ReadCategories>({
   arrayData,
   DetailsComponent,
   FormComponent,
