@@ -6,6 +6,7 @@ import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import CONSTANTS from '~/constants';
 import { usePostResumeLink } from '~/queries/resume/create/usePostResumeLink';
+import { useDeleteReferenceLink } from '~/queries/resume/delete/useDeleteReferenceLink';
 import { ReadReferenceLink, ReferenceLink } from '~/types/referenceLink';
 
 type ReferenceLinkFormProps = {
@@ -14,7 +15,8 @@ type ReferenceLinkFormProps = {
 };
 
 const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) => {
-  const { mutate: postResumeLinkMutate } = usePostResumeLink(resumeId);
+  const { mutate: postReferenceLinkMutate } = usePostResumeLink(resumeId);
+  const { mutate: deleteReferenceLinkMutate } = useDeleteReferenceLink(resumeId);
   const {
     register,
     handleSubmit,
@@ -23,19 +25,12 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
   } = useForm<ReferenceLink>();
 
   const onSubmit = handleSubmit((body) => {
-    postResumeLinkMutate({ resumeId, body });
+    postReferenceLinkMutate({ resumeId, body });
     reset();
   });
 
   const handleRemoveLink = (componentId: number) => {
-    /* TODO 삭제 API 연결하기 */
-    /* TODO onSuccess에 쿼리 데이터 갱신하기 (queryKey: all) */
-    /* 
-      updater 함수 예시
-      (previous) => previous.map((linkItem) => linkItem.id === newLinkItem.id ? newlinkItem : linkItem)
-    
-    */
-    alert(`removed componentId: ${componentId}`); // 임시
+    deleteReferenceLinkMutate({ resumeId, linkId: componentId });
   };
   return (
     <>
