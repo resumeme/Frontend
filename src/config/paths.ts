@@ -11,4 +11,6 @@ export const appPaths = {
   eventCreate: () => `/event/create`,
   feedbackComplete: (resumeId: number, eventId: number) =>
     `/resume/${resumeId}/event/${eventId}/feedback`,
+  feedbackResume: ({ resumeId, eventId }: { resumeId: number; eventId: number }) =>
+    `/event/${eventId}/resume/${resumeId}`,
 };

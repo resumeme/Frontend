@@ -42,6 +42,9 @@ type ReadEvent = {
 
 type ReadManagementEvent = {
   info: {
+    id: number;
+    mentorId: number;
+    status: EventStatus;
     title: string;
     content: string;
     maximumCount: number;
