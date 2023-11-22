@@ -1,5 +1,4 @@
-export type Career = {
-  componentId?: string;
+type Career = {
   companyName: string;
   position: string;
   skills?: string[];
@@ -16,3 +15,7 @@ type Duty = {
   startDate?: string;
   endDate?: string;
 };
+
+type ReadCareer = Career & { componentId: number };
+
+export type { Career, ReadCareer };

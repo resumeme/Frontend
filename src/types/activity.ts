@@ -1,5 +1,4 @@
 type Activity = {
-  componentId?: string;
   activityName: string;
   startDate: string;
   endDate: string;
@@ -8,4 +7,6 @@ type Activity = {
   description?: string;
 };
 
-export type { Activity };
+type ReadActivity = Activity & { componentId: number };
+
+export type { Activity, ReadActivity };

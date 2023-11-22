@@ -1,5 +1,4 @@
 type Project = {
-  componentId?: string;
   projectName: string;
   productionYear: number;
   team?: boolean;
@@ -9,8 +8,10 @@ type Project = {
   projectUrl?: string;
 };
 
+type ReadProject = Project & { componentId: number };
+
 type ProjectForm = {
   isTeam: boolean | string;
 } & Omit<Project, 'isTeam'>;
 
-export type { Project, ProjectForm };
+export type { Project, ReadProject, ProjectForm };
