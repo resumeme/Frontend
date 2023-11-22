@@ -1,5 +1,5 @@
 type Project = {
-  componentId?: string;
+  componentId?: number;
   projectName: string;
   productionYear: number;
   team?: boolean;
