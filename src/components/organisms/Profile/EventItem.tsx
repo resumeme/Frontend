@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
 import { appPaths } from '~/config/paths';
