@@ -33,6 +33,7 @@ const router = createBrowserRouter([
       { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
       { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
+      { path: 'resume/:id/feedback', element: <FeedbackResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 

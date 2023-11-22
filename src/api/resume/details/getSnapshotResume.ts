@@ -1,63 +1,7 @@
-export const DUMMY_DATA: any = {
-  careers: [
-    {
-      type: 'careers',
-      componentId: 95,
-      originComponentId: null,
-      reflectFeedback: false,
-      createdDate: '2023-11-21T16:22:27.599617',
-      companyName: '그렙',
-      position: 'fe',
-      skills: [''],
-      duties: [],
-      careerStartDate: '2023-11-02',
-      endDate: null,
-      careerContent: '',
-      currentlyEmployed: true,
-    },
-  ],
-  projects: [
-    {
-      type: 'projects',
-      componentId: 80,
-      originComponentId: null,
-      reflectFeedback: false,
-      createdDate: '2023-11-21T16:13:42.422896',
-      projectName: '세번째 프로젝트',
-      productionYear: 2023,
-      teamMembers: '',
-      skills: [''],
-      projectContent: '',
-      projectUrl: '',
-      team: false,
-    },
-    {
-      type: 'projects',
-      componentId: 85,
-      originComponentId: null,
-      reflectFeedback: false,
-      createdDate: '2023-11-21T16:14:29.203953',
-      projectName: '세번째 프로젝트',
-      productionYear: 2023,
-      teamMembers: 'ㅇㅇ',
-      skills: [''],
-      projectContent: '',
-      projectUrl: '',
-      team: true,
-    },
-  ],
-  certifications: [
-    {
-      type: 'certifications',
-      componentId: 91,
-      originComponentId: null,
-      reflectFeedback: false,
-      createdDate: '2023-11-21T16:15:16.822349',
-      certificationTitle: '대상',
-      acquisitionDate: '2023-10-31',
-      issuingAuthority: '',
-      link: '',
-      description: '',
-    },
-  ],
+import { resumeMeAxios } from '~/api/axios';
+import { AllBlocks } from '~/types/resume/allBlocks';
+
+export const getSnapshotResume = async ({ resumeId }: { resumeId: string }): Promise<AllBlocks> => {
+  const { data } = await resumeMeAxios.get(`/v1/snapshot?resumeId=${resumeId}`);
+  return data;
 };
