@@ -10,7 +10,7 @@ type FeedbackViewProps = {
   lastModifiedAt?: string;
   commentId?: number;
   componentId?: number;
-  showOptions?: boolean;
+  isAuthorizedMentor?: boolean;
 };
 
 const LABELS = {
@@ -25,7 +25,7 @@ const FeedbackView = ({
   lastModifiedAt = '2023-11-15 17:17:09',
   commentId,
   componentId,
-  showOptions = false,
+  isAuthorizedMentor = false,
 }: FeedbackViewProps) => {
   const handleRemove = () => {
     /* TODO 코멘트 삭제 API */
@@ -61,7 +61,7 @@ const FeedbackView = ({
             {fomattedDate}에 작성된 피드백
           </Text>
         </Flex>
-        {showOptions && (
+        {isAuthorizedMentor && (
           <Flex
             gap={3}
             align={'end'}
