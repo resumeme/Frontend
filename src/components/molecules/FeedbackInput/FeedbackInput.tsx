@@ -10,7 +10,7 @@ import '@uiw/react-markdown-preview/markdown.css';
 
 type FeedbackInputProps = {
   value: string | undefined;
-  onChange: (value: string | undefined) => void;
+  onChange: (value: string) => void;
   onSaveClick?: (value: string) => void;
   onCancelClick?: () => void;
   label?: string;
@@ -38,7 +38,9 @@ const FeedbackInput = ({
   };
 
   const handleChange = (newValue: string | undefined) => {
-    onChange(newValue);
+    if (newValue) {
+      onChange(newValue);
+    }
   };
 
   const handleClick = () => {
