@@ -6,7 +6,7 @@ import { FeedbackInput } from '~/components/molecules/FeedbackInput';
 import usePostFeedbackComment from '~/queries/event/usePostFeedbackComment';
 
 type FeedbackBlockProps = {
-  blockId: string;
+  blockId: number;
 };
 
 const LABEL_TEXT = '첨삭하기';
