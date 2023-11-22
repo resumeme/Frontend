@@ -46,6 +46,7 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
             mb={3}
           >
             <LinkItem
+              componentId={data.componentId}
               url={data.url}
               linkType={data.linkType}
               onRemove={handleRemoveLink}

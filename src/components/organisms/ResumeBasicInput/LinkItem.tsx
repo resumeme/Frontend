@@ -4,9 +4,9 @@ import {
   renderIcon,
   LINK_ICON_TYPES,
 } from '~/components/molecules/ReferenceLinkBox';
-import { ReferenceLink } from '~/types/referenceLink';
+import { ReadReferenceLink } from '~/types/referenceLink';
 
-export type LinkItemProps = ReferenceLink & {
+export type LinkItemProps = Pick<ReadReferenceLink, 'componentId' | 'url' | 'linkType'> & {
   onRemove: (componentId: number) => void;
 };
 
