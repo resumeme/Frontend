@@ -1,11 +1,10 @@
 import { CheckboxGroup, CheckboxGroupProps, Flex, FormErrorMessage, Stack } from '@chakra-ui/react';
 import { Controller, Control, FieldValues, Path, FieldError } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
-import { Fields } from '~/types/fields';
-import { Position } from '~/types/position';
+import CONSTANTS from '~/constants';
 
 export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps & {
-  options?: Array<{ label: string; value: string }>;
+  options?: Record<string, string>;
   variant?: 'role' | 'domain' | 'default';
   spacing?: string;
   name: Path<T>;
@@ -14,25 +13,6 @@ export type LabelCheckboxGroupProps<T extends FieldValues> = CheckboxGroupProps 
   error?: Partial<FieldError>;
   errorMessage?: string;
 };
-
-const role: { label: string; value: Position }[] = [
-  { label: '프론트엔드', value: 'FRONT' },
-  { label: '백엔드', value: 'BACK' },
-  { label: '안드로이드/iOS', value: 'MOBILE' },
-  { label: '데브옵스', value: 'DEVOPS' },
-  { label: '인공지능/머신러닝', value: 'ML_AI' },
-];
-
-const domain: { label: string; value: Fields }[] = [
-  { label: '광고', value: 'AD' },
-  { label: '미디어', value: 'MEDIA' },
-  { label: '커뮤니티/SNS', value: 'SNS' },
-  { label: 'e커머스', value: 'COMMERCE' },
-  { label: '솔루션/유틸리티', value: 'SOLUTION' },
-  { label: '게임', value: 'GAME' },
-  { label: '금융/핀테크', value: 'FINANCE' },
-  { label: '제조', value: 'MANUFACTURE' },
-];
 
 const LabelCheckboxGroup = <T extends FieldValues>({
   options,
@@ -45,10 +25,10 @@ const LabelCheckboxGroup = <T extends FieldValues>({
   errorMessage = '선택해주세요.',
   ...props
 }: LabelCheckboxGroupProps<T>) => {
-  let selectedOptions = options;
+  let selectedOptions = { ...options };
 
   if (variant != 'default') {
-    selectedOptions = variant === 'domain' ? domain : role;
+    selectedOptions = variant === 'domain' ? { ...CONSTANTS.FIELD } : { ...CONSTANTS.POSITION };
   }
 
   return (
@@ -68,12 +48,12 @@ const LabelCheckboxGroup = <T extends FieldValues>({
               flexWrap="wrap"
             >
               {selectedOptions &&
-                selectedOptions.map((option) => (
+                Object.keys(selectedOptions).map((key) => (
                   <CheckboxStyled
-                    key={option.value}
-                    value={option.value}
+                    key={key}
+                    value={key}
                   >
-                    {option.label}
+                    {selectedOptions[key]}
                   </CheckboxStyled>
                 ))}
             </Stack>

@@ -17,11 +17,7 @@ export default meta;
 export const Default = () => {
   const { control, handleSubmit } = useForm();
 
-  const options = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
-  ];
+  const options = { option1: 'Option 1', option2: 'Option 2', option3: 'Option 3' };
 
   const onSubmit = (data: { [key: string]: string }) => {
     alert(`selected options: ${JSON.stringify(data.selectedOptions)}`);

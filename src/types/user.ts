@@ -1,3 +1,4 @@
+import { Fields } from './fields';
 import { Position } from './position';
 
 type User = {
@@ -9,7 +10,7 @@ type User = {
   role: 'mentee' | 'mentor';
   experiencedPositions?: Position[];
   interestedPositions?: Position[];
-  interestedFields: string[];
+  interestedFields: Fields[];
   careerContent?: string;
   careerYear: number;
   introduce: string;

@@ -3,6 +3,8 @@ import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { Badge } from '~/components/atoms/Badge';
 import { Label } from '~/components/atoms/Label';
+import CONSTANTS from '~/constants';
+import { Fields } from '~/types/fields';
 import { Position } from '~/types/position';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
@@ -13,7 +15,7 @@ type UserDetailProps = {
   interestedPositions?: Position[];
   phoneNumber: string;
   introduce: string;
-  interestedFields: string[];
+  interestedFields: Fields[];
   careerContent?: string;
 };
 
@@ -101,7 +103,7 @@ const UserDetail = ({
               bg={'white'}
               key={uuidv4()}
             >
-              {field}
+              {CONSTANTS.FIELD[field]}
             </Badge>
           ))}
         </Flex>
