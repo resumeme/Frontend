@@ -1,12 +1,9 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
+import { EventReject } from '~/types/resume/eventReject';
 import { getCookie } from '~/utils/cookie';
 
-type Body = {
-  rejectMessage: string;
-};
-
-type PatchFeedbackReject = { eventId: string; menteeId: string; body: Body };
+type PatchFeedbackReject = { eventId: string; menteeId: number; body: EventReject };
 
 export const patchFeedbackReject = async ({ eventId, menteeId, body }: PatchFeedbackReject) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
