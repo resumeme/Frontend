@@ -19,7 +19,7 @@ import useUser from '~/hooks/useUser';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
-import { ReferenceLink as Link } from '~/types/referenceLink';
+import { ReadReferenceLink } from '~/types/referenceLink';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
@@ -139,10 +139,9 @@ const ResumeDetailTemplate = () => {
                   gap={2}
                   width={'100%'}
                 >
-                  {/* FIXME type 관련 에러가 ReferenceLinkBox에서 발생! */}
-                  {data.links?.map((link: Link, index: number) => (
+                  {data.links?.map((link: ReadReferenceLink) => (
                     <ReferenceLinkBox
-                      key={index}
+                      key={link.componentId}
                       linkType={link.linkType}
                       url={link.url}
                     />

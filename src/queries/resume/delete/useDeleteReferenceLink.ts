@@ -1,21 +1,20 @@
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { resumeDetailKeys } from '../details/resumeDetailKeys.const';
-import { postResumeLink } from '~/api/resume/create/postResumeLink';
+import { deleteReferenceLink } from '~/api/resume/delete/deleteReferenceLink';
 import { ReadReferenceLink } from '~/types/referenceLink';
 
-export const usePostResumeLink = (resumeId: string) => {
-  const queryClient = useQueryClient();
+export const useDeleteReferenceLink = (resumeId: string) => {
   const TARGET_QUERY_KEY = resumeDetailKeys.referenceLinks(resumeId);
+  const queryClient = useQueryClient();
   const toast = useToast();
-
-  const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: postResumeLink,
-    onMutate: async (newReferenceLinks) => {
+  return useMutation({
+    mutationFn: deleteReferenceLink,
+    onMutate: async ({ linkId: targetLinkId }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousReferenceLinks = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: ReadReferenceLink[]) => {
-        return [...old, newReferenceLinks];
+        return old.filter((link: ReadReferenceLink) => link.componentId !== targetLinkId);
       });
       return { previousReferenceLinks };
     },
@@ -33,6 +32,4 @@ export const usePostResumeLink = (resumeId: string) => {
       queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });
     },
   });
-
-  return { mutate, isPending, isError, isSuccess };
 };

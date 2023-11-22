@@ -4,17 +4,16 @@ import {
   renderIcon,
   LINK_ICON_TYPES,
 } from '~/components/molecules/ReferenceLinkBox';
+import { ReadReferenceLink } from '~/types/referenceLink';
 
-export type LinkItemProps = {
-  linkType?: string;
-  url?: string;
-  onRemove: (url: string) => void;
+export type LinkItemProps = Pick<ReadReferenceLink, 'componentId' | 'url' | 'linkType'> & {
+  onRemove: (componentId: number) => void;
 };
 
-const LinkItem = ({ url, linkType = 'github', onRemove }: LinkItemProps) => {
+const LinkItem = ({ componentId, url, linkType = 'OTHER', onRemove }: LinkItemProps) => {
   const handleRemove = () => {
-    if (url) {
-      onRemove(url);
+    if (componentId) {
+      onRemove(componentId);
     }
   };
 
@@ -41,7 +40,7 @@ const LinkItem = ({ url, linkType = 'github', onRemove }: LinkItemProps) => {
           display: 'block',
         }}
       >
-        {renderIcon(LINK_ICON_TYPES.remove, 'lg', {
+        {renderIcon(LINK_ICON_TYPES.REMOVE, 'lg', {
           color: 'red.500',
         })}
       </Box>
