@@ -1,39 +1,29 @@
 import { Box, Flex, FormControl, Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import LinkItem from './LinkItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import CONSTANTS from '~/constants';
-import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { usePostResumeLink } from '~/queries/resume/create/usePostResumeLink';
-import { ReferenceLink } from '~/types/referenceLink';
+import { ReadReferenceLink, ReferenceLink } from '~/types/referenceLink';
 
 type ReferenceLinkFormProps = {
-  defaultValue: ReferenceLink[];
+  defaultValue?: ReadReferenceLink[];
   resumeId: string;
 };
 
 const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) => {
-  const { mutate } = usePostResumeLink();
-  const queryClient = useQueryClient();
+  const { mutate: postResumeLinkMutate } = usePostResumeLink(resumeId);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<ReferenceLink>();
 
-  const onSubmit = handleSubmit((values) => {
-    console.log(values);
-
-    /* TODO 저장 API 연결하기 */
-    /* 
-    const referenceLink = values;
-      const componentId = mutate({ resumeId, referenceLink });
-    */
-
+  const onSubmit = handleSubmit((body) => {
+    postResumeLinkMutate({ resumeId, body });
     reset();
   });
 
@@ -50,7 +40,7 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
   return (
     <>
       {defaultValue &&
-        defaultValue?.map((data: ReferenceLink) => (
+        defaultValue?.map((data: ReadReferenceLink) => (
           <Box
             key={data.componentId}
             mb={3}

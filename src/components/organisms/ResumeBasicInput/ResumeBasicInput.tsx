@@ -67,7 +67,7 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
                   </Text>
                 </Flex>
                 <ReferenceLinkForm
-                  defaultValue={referenceLinks.links}
+                  defaultValue={referenceLinks}
                   resumeId={resumeId}
                 />
               </Box>

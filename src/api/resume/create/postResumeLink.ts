@@ -5,15 +5,14 @@ import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { ReferenceLink } from '~/types/referenceLink';
 import { getCookie } from '~/utils/cookie';
 
-type postResumeLink = { resumeId: string; referenceLink: ReferenceLink };
+type postResumeLink = { resumeId: string; body: ReferenceLink };
 
-export const postResumeLink = async ({ resumeId, referenceLink }: postResumeLink) => {
+export const postResumeLink = async ({ resumeId, body }: postResumeLink) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.post(`v1/resumes/${resumeId}/links`, referenceLink, {
+    const { data } = await resumeMeAxios.post(`v1/resumes/${resumeId}/links`, body, {
       headers: {
-        /* FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });
