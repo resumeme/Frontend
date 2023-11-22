@@ -1,7 +1,7 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { PatchResumeCategory } from '~/types/api/patchResumeCategory';
-import Career from '~/types/career';
+import { Career } from '~/types/career';
 import { getCookie } from '~/utils/cookie';
 
 export const patchResumeCareer: PatchResumeCategory<Career> = async ({

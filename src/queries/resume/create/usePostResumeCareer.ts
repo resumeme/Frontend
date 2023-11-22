@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { categoryKeys } from '../categoryKeys.const';
 import { postResumeCareer } from '~/api/resume/create/postResumeCareer';
-import Career from '~/types/career';
+import { Career } from '~/types/career';
 
 export const usePostResumeCareer = (resumeId: string) => {
   const queryClient = useQueryClient();
