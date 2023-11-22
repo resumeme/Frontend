@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackResumeDetails } from '~/components/organisms/FeedbackResumeDetails';
@@ -16,7 +16,7 @@ import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFee
 const FeedbackCompleteTemplate = () => {
   const { resumeId = '', eventId = '' } = useParams();
   const {
-    data: { commentResponses },
+    data: { commentResponses, overallReview },
   } = useGetResumeFeedbacks({ resumeId, eventId });
 
   const { data: details } = useGetSnapshotResume({ resumeId });
@@ -32,7 +32,6 @@ const FeedbackCompleteTemplate = () => {
         border={'none'}
         bg={'gray.100'}
         height={'full'}
-        mx={'1rem'}
         px={10}
         py={10}
       >
@@ -153,6 +152,17 @@ const FeedbackCompleteTemplate = () => {
             </Flex>
           </Flex>
         </Flex>
+      </BorderBox>
+      <BorderBox hasShadow>
+        <Text
+          fontWeight={'600'}
+          fontSize={'xl'}
+          p={'0.5rem'}
+        >
+          총평
+        </Text>
+        <Divider my={'1rem'} />
+        <Text p={'0.5rem'}>{overallReview}</Text>
       </BorderBox>
     </Flex>
   );
