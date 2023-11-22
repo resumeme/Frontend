@@ -4,16 +4,16 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
 import { FeedbackComment } from '~/types/event/feedback';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
-import { Categories } from '~/types/resume/categories';
+import { ReadCategories } from '~/types/resume/categories';
 
-type FeedbackResumeDetailsProps<T extends Categories> = {
+type FeedbackResumeDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   isAuthorizedMentor?: boolean;
 };
 
-const FeedbackResumeDetails = <T extends Categories>({
+const FeedbackResumeDetails = <T extends ReadCategories>({
   arrayData,
   DetailsComponent,
   commentsData,
@@ -26,7 +26,7 @@ const FeedbackResumeDetails = <T extends Categories>({
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
-            const currentBlockId = parseInt(data.componentId!);
+            const currentBlockId = data.componentId;
             const targetComment: FeedbackComment = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
@@ -64,7 +64,7 @@ const FeedbackResumeDetails = <T extends Categories>({
 export default FeedbackResumeDetails;
 
 const getIndexedComments = (commentsData: FeedbackComment[]) => {
-  const indexedComments: { [blockId: string]: FeedbackComment } = {};
+  const indexedComments: { [blockId: number]: FeedbackComment } = {};
   commentsData.forEach((commentItem) => {
     const componentId = commentItem.componentId;
     indexedComments[componentId] = commentItem;
