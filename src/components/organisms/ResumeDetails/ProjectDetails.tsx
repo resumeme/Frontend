@@ -6,7 +6,7 @@ import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
-import { Project } from '~/types/project';
+import { Project, ReadProject } from '~/types/project';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const ProjectDetails = ({
@@ -22,9 +22,9 @@ const ProjectDetails = ({
   },
   onEdit,
   isCurrentUser,
-}: DetailsComponentProps<Project>) => {
-  const { id: resumeId } = useParams() as { id: string };
-  const blockId = componentId as string;
+}: DetailsComponentProps<ReadProject>) => {
+  const { id: resumeId = '' } = useParams();
+  const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Project>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),

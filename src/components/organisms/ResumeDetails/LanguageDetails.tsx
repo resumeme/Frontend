@@ -5,7 +5,7 @@ import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
-import { Language } from '~/types/language';
+import { Language, ReadLanguage } from '~/types/language';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 /* TODO  
@@ -18,9 +18,9 @@ const LanguageDetails = ({
   data: { componentId, language, examName, scoreOrGrade },
   onEdit,
   isCurrentUser,
-}: DetailsComponentProps<Language>) => {
+}: DetailsComponentProps<ReadLanguage>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = componentId as string;
+  const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),

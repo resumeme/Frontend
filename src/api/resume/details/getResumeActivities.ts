@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import { Activity } from '~/types/activity';
+import { ReadActivity } from '~/types/activity';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { getCookie } from '~/utils/cookie';
 
@@ -9,7 +9,7 @@ export type GetResumeActivities = { resumeId: string };
 
 export const getResumeActivities = async ({
   resumeId,
-}: GetResumeActivities): Promise<Activity[]> => {
+}: GetResumeActivities): Promise<ReadActivity[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {

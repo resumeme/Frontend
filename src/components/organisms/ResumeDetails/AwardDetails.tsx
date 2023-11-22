@@ -6,16 +6,16 @@ import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
-import { Award } from '~/types/award';
+import { Award, ReadAward } from '~/types/award';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const AwardDetails = ({
   data: { componentId, certificationTitle, acquisitionDate, issuingAuthority, link, description },
   onEdit,
   isCurrentUser,
-}: DetailsComponentProps<Award>) => {
+}: DetailsComponentProps<ReadAward>) => {
   const { id: resumeId = '' } = useParams();
-  const blockId = componentId as string;
+  const blockId = componentId;
   const { mutate: deleteAward } = useOptimisticDeleteCategory<Award>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),

@@ -2,12 +2,14 @@ import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
-import { Language } from '~/types/language';
+import { ReadLanguage } from '~/types/language';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeLanguage = { resumeId: string };
 
-export const getResumeLanguage = async ({ resumeId }: GetResumeLanguage): Promise<Language[]> => {
+export const getResumeLanguage = async ({
+  resumeId,
+}: GetResumeLanguage): Promise<ReadLanguage[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
