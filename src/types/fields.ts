@@ -1,9 +1,3 @@
-export type Fields =
-  | 'AD' // 광고
-  | 'FINANCE' // 금융/핀테크
-  | 'MANUFACTURE' // 제조
-  | 'COMMERCE' // 이커머스
-  | 'MEDIA' // 미디어
-  | 'GAME' // 게임
-  | 'SOLUTION' // 솔루션/유틸리티
-  | 'SNS'; // 커뮤니티/SNS
+import { FIELD } from '~/constants/field';
+
+export type Fields = keyof typeof FIELD;
