@@ -1,5 +1,5 @@
 type Training = {
-  componentId?: number;
+  componentId?: string;
   organization: string;
   major: string;
   degree: string;

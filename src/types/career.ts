@@ -1,5 +1,5 @@
 export type Career = {
-  componentId?: number;
+  componentId?: string;
   companyName: string;
   position: string;
   skills?: string[];
