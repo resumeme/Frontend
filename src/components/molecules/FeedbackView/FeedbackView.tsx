@@ -10,6 +10,7 @@ type FeedbackViewProps = {
   lastModifiedAt?: string;
   commentId?: number;
   componentId?: number;
+  isAuthorizedMentor?: boolean;
 };
 
 const LABELS = {
@@ -24,6 +25,7 @@ const FeedbackView = ({
   lastModifiedAt = '2023-11-15 17:17:09',
   commentId,
   componentId,
+  isAuthorizedMentor = false,
 }: FeedbackViewProps) => {
   const handleRemove = () => {
     /* TODO 코멘트 삭제 API */
@@ -59,42 +61,44 @@ const FeedbackView = ({
             {fomattedDate}에 작성된 피드백
           </Text>
         </Flex>
-        <Flex
-          gap={3}
-          align={'end'}
-        >
-          <Box
-            as="button"
-            onClick={handleEdit}
+        {isAuthorizedMentor && (
+          <Flex
+            gap={3}
+            align={'end'}
           >
-            <Tooltip
-              label={LABELS.EDIT}
-              placement="top"
-              hasArrow
+            <Box
+              as="button"
+              onClick={handleEdit}
             >
-              <span>
-                <Icon
-                  as={HiPencilAlt}
-                  alignSelf={'flex-end'}
-                />
-              </span>
-            </Tooltip>
-          </Box>
-          <Box
-            as="button"
-            onClick={handleRemove}
-          >
-            <Tooltip
-              label={LABELS.REMOVE}
-              placement="top"
-              hasArrow
+              <Tooltip
+                label={LABELS.EDIT}
+                placement="top"
+                hasArrow
+              >
+                <span>
+                  <Icon
+                    as={HiPencilAlt}
+                    alignSelf={'flex-end'}
+                  />
+                </span>
+              </Tooltip>
+            </Box>
+            <Box
+              as="button"
+              onClick={handleRemove}
             >
-              <span>
-                <Icon as={HiTrash} />
-              </span>
-            </Tooltip>
-          </Box>
-        </Flex>
+              <Tooltip
+                label={LABELS.REMOVE}
+                placement="top"
+                hasArrow
+              >
+                <span>
+                  <Icon as={HiTrash} />
+                </span>
+              </Tooltip>
+            </Box>
+          </Flex>
+        )}
       </Flex>
 
       <Divider />
@@ -121,7 +125,7 @@ const FeedbackView = ({
             fontWeight={'light'}
             color={'gray.500'}
           >
-            {lastModifiedAt}
+            {fomattedDate}
           </Text>
         </Flex>
       </Flex>

@@ -27,7 +27,7 @@ import { useStringToArray } from '~/hooks/useStringToArray';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticPatchCategory } from '~/queries/resume/useOptimisticPatchCategory';
 import { useOptimisticPostCategory } from '~/queries/resume/useOptimsticPostCategory';
-import Career from '~/types/career';
+import { Career } from '~/types/career';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 
 const CareerForm = ({

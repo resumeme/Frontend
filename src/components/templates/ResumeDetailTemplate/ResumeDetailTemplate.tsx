@@ -1,9 +1,8 @@
 import { PhoneIcon } from '@chakra-ui/icons';
-import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
-import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import EditDeleteOptionsButton from '~/components/molecules/OptionsButton/EditDeleteOptionsButton';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
@@ -30,7 +29,6 @@ const ResumeDetailTemplate = () => {
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { mutate: deleteResumeMutate } = useDeleteResume();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
   const resumeAuthorId = basicInfo.ownerInfo?.id;
@@ -68,25 +66,17 @@ const ResumeDetailTemplate = () => {
           {data.basic?.title}
         </Text>
         {isCurrentUser && (
-          <>
-            <ConfirmModal
-              isOpen={isOpen}
-              onClose={onClose}
-              message="정말로 삭제하시겠습니까?"
-              proceed={() =>
-                deleteResumeMutate(
-                  { resumeId },
-                  {
-                    onSuccess: () => navigate(appPaths.managementResume()),
-                  },
-                )
-              }
-            />
-            <EditDeleteOptionsButton
-              onEdit={() => navigate(appPaths.resumeEdit(parseInt(resumeId)))}
-              onDelete={() => onOpen()}
-            />
-          </>
+          <EditDeleteOptionsButton
+            onEdit={() => navigate(appPaths.resumeEdit(parseInt(resumeId)))}
+            onDelete={() =>
+              deleteResumeMutate(
+                { resumeId },
+                {
+                  onSuccess: () => navigate(appPaths.managementResume()),
+                },
+              )
+            }
+          />
         )}
       </Flex>
       <BorderBox

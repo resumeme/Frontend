@@ -6,7 +6,7 @@ import { Label } from '~/components/atoms/Label';
 import { EditDeleteOptionsButton } from '~/components/molecules/OptionsButton';
 import { categoryKeys } from '~/queries/resume/categoryKeys.const';
 import { useOptimisticDeleteCategory } from '~/queries/resume/useOptimisticDeleteCategory';
-import Career from '~/types/career';
+import { Career } from '~/types/career';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 
 const CareerDetails = ({
