@@ -24,6 +24,7 @@ type EventResume = {
   resumeId: number;
   menteeName: string;
   resumeTitle: string;
+  //TODO - 이벤트 참여 상태코드 나오면 변경
   progressStatus: string;
   modifiedAt?: string;
 };
@@ -42,6 +43,9 @@ type ReadEvent = {
 
 type ReadManagementEvent = {
   info: {
+    id: number;
+    mentorId: number;
+    status: EventStatus;
     title: string;
     content: string;
     maximumCount: number;

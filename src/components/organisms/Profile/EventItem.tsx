@@ -11,12 +11,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { ManagementPanel } from '~/components/molecules/ManagementPanel';
+import { appPaths } from '~/config/paths';
 import { EventResume, EventTime } from '~/types/event/event';
 import { formatDate } from '~/utils/formatDate';
 
 type EventItemProps = {
+  eventId: number;
   title: string;
   maximumCount: number;
   currentApplicantCount: number;
@@ -25,6 +28,7 @@ type EventItemProps = {
 };
 
 const EventItem = ({
+  eventId,
   currentApplicantCount,
   maximumCount,
   resumes,
@@ -39,13 +43,15 @@ const EventItem = ({
         color={'gray.500'}
         justifyContent={'space-between'}
       >
-        <Text
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
-        >
-          {title}
-        </Text>
+        <Link to={appPaths.eventDetail(eventId)}>
+          <Text
+            fontSize={'1.5rem'}
+            fontWeight={600}
+            color={'gray.800'}
+          >
+            {title}
+          </Text>
+        </Link>
         <Flex direction={'column'}>
           <Flex gap={'1.5rem'}>
             <Text>첨삭 종료일</Text>
@@ -93,11 +99,15 @@ const EventItem = ({
               gap={'1.37rem'}
             >
               {resumes.length ? (
-                resumes.map((resume) => (
+                resumes.map(({ menteeName, progressStatus, resumeId, resumeTitle, modifiedAt }) => (
                   <>
                     <ManagementPanel
                       key={uuidv4()}
-                      url={`/resume/${resume.resumeId}`}
+                      url={
+                        progressStatus === 'COMPLETE'
+                          ? appPaths.feedbackComplete(resumeId, eventId)
+                          : appPaths.feedbackResume({ resumeId, eventId })
+                      }
                       icon={
                         <Icon
                           as={MdOutlineArticle}
@@ -105,10 +115,10 @@ const EventItem = ({
                           w={'1.25rem'}
                         />
                       }
-                      date={resume?.modifiedAt}
-                      name={resume.menteeName}
-                      status={resume.progressStatus}
-                      title={resume.resumeTitle}
+                      date={modifiedAt}
+                      name={menteeName}
+                      status={progressStatus}
+                      title={resumeTitle}
                     />
                   </>
                 ))

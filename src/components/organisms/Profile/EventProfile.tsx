@@ -36,7 +36,10 @@ const EventProfile = ({ events }: EventProfile) => {
           </Text>
         </BorderBox>
         {events.map(
-          ({ info: { currentApplicantCount, maximumCount, timeInfo, title }, resumes }, index) => (
+          (
+            { info: { currentApplicantCount, maximumCount, timeInfo, title, id }, resumes },
+            index,
+          ) => (
             <BorderBox
               key={uuidv4()}
               borderTop={0}
@@ -45,6 +48,7 @@ const EventProfile = ({ events }: EventProfile) => {
               p={'2.75rem 1.69rem'}
             >
               <EventItem
+                eventId={id}
                 currentApplicantCount={currentApplicantCount}
                 maximumCount={maximumCount}
                 resumes={resumes}
