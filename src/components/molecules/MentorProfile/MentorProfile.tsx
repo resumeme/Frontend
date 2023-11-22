@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -28,33 +28,31 @@ const MentorProfile = ({
         name={nickname}
         src={imageUrl}
       />
-      <Flex
-        w={'100%'}
-        justifyContent={'space-between'}
+      <Heading
+        textAlign={'center'}
+        fontSize={'20px'}
+        color={'gray.800'}
       >
-        <Heading
-          fontSize={'20px'}
-          color={'gray.800'}
-        >
-          {nickname}
-        </Heading>
-      </Flex>
+        {nickname}
+      </Heading>
       <Flex
         w={'100%'}
         minH={'12.44rem'}
         direction={'column'}
-        justifyContent={'space-between'}
       >
-        <BorderBox>
-          <Text
-            textAlign={'center'}
-            noOfLines={6}
-            overflow={'hidden'}
-            color={'gray.700'}
-          >
-            {introduce}
-          </Text>
-        </BorderBox>
+        {introduce && (
+          <BorderBox>
+            <Text
+              textAlign={'center'}
+              noOfLines={6}
+              overflow={'hidden'}
+              color={'gray.700'}
+            >
+              {introduce}
+            </Text>
+          </BorderBox>
+        )}
+        <Spacer />
         <Flex
           w={'100%'}
           justifyContent={'space-between'}
