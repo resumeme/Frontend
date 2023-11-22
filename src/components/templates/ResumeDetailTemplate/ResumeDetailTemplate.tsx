@@ -49,6 +49,7 @@ const ResumeDetailTemplate = () => {
   return (
     /* 전체 레이아웃 */
     <Flex
+      className="resume-detail"
       direction={'column'}
       width={'960px'}
       gap={6}
