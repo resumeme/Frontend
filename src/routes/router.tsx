@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import FeedbackLayout from './FeedbackLayout';
-import App from '~/App';
+import Layout from './Layout';
+import MainLayout from './Mainlayout';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
@@ -23,9 +24,13 @@ import { WriteReviewPage } from '~/pages/WriteReviewPage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <MainLayout />,
+    children: [{ index: true, element: <MainPage /> }],
+  },
+  {
+    path: '/',
+    element: <Layout />,
     children: [
-      { index: true, element: <MainPage /> },
       { path: 'mypage/:id', element: <MyPage /> },
       { path: 'user/edit-info', element: <EditProfilePage /> },
 
