@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import FeedbackLayout from './FeedbackLayout';
 import Layout from './Layout';
-import MainLayout from './Mainlayout';
+import MainLayout from './MainLayout';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
