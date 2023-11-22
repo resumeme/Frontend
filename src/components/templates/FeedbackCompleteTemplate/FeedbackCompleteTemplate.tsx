@@ -1,6 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { DUMMY_DATA } from '~/api/resume/details/getSnapshotResume';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackResumeDetails } from '~/components/organisms/FeedbackResumeDetails';
 import {
@@ -11,6 +10,7 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
 
 const FeedbackCompleteTemplate = () => {
@@ -19,16 +19,8 @@ const FeedbackCompleteTemplate = () => {
     data: { commentResponses },
   } = useGetResumeFeedbacks({ resumeId, eventId });
 
-  const details = DUMMY_DATA;
+  const { data: details } = useGetSnapshotResume({ resumeId });
 
-  const data = {
-    career: details?.careers,
-    training: details?.trainings,
-    project: details?.projects,
-    activity: details?.activities,
-    award: details?.certifications,
-    language: details?.['foreign-languages'],
-  };
   return (
     <Flex
       direction={'column'}
@@ -56,7 +48,7 @@ const FeedbackCompleteTemplate = () => {
               direction={'column'}
               gap={'4rem'}
             >
-              {data.career && data.career.length > 0 && (
+              {details.careers && details.careers.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -67,13 +59,13 @@ const FeedbackCompleteTemplate = () => {
                     업무경험
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.career}
+                    arrayData={details.careers}
                     DetailsComponent={CareerDetails}
                     commentsData={commentResponses}
                   />
                 </Box>
               )}
-              {data.project && data.project.length > 0 && (
+              {details.projects && details.projects.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -84,13 +76,13 @@ const FeedbackCompleteTemplate = () => {
                     프로젝트
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.project}
+                    arrayData={details.projects}
                     DetailsComponent={ProjectDetails}
                     commentsData={commentResponses}
                   />
                 </Box>
               )}
-              {data.training && data.training.length > 0 && (
+              {details.trainings && details.trainings.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -101,13 +93,13 @@ const FeedbackCompleteTemplate = () => {
                     교육
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.training}
+                    arrayData={details.trainings}
                     DetailsComponent={TrainingDetails}
                     commentsData={commentResponses}
                   />
                 </Box>
               )}
-              {data.award && data.award.length > 0 && (
+              {details.certifications && details.certifications.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -118,13 +110,13 @@ const FeedbackCompleteTemplate = () => {
                     수상 및 자격증
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.award}
+                    arrayData={details.certifications}
                     DetailsComponent={AwardDetails}
                     commentsData={commentResponses}
                   />
                 </Box>
               )}
-              {data.language && data.language.length > 0 && (
+              {details.foreignLanguages && details.foreignLanguages.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -135,13 +127,13 @@ const FeedbackCompleteTemplate = () => {
                     외국어
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.language}
+                    arrayData={details.foreignLanguages}
                     DetailsComponent={LanguageDetails}
                     commentsData={commentResponses}
                   />
                 </Box>
               )}
-              {data.activity && data.activity.length > 0 && (
+              {details.activities && details.activities.length > 0 && (
                 <Box>
                   <Text
                     fontSize={'2xl'}
@@ -152,7 +144,7 @@ const FeedbackCompleteTemplate = () => {
                     활동
                   </Text>
                   <FeedbackResumeDetails
-                    arrayData={data.activity}
+                    arrayData={details.activities}
                     DetailsComponent={ActivityDetails}
                     commentsData={commentResponses}
                   />
