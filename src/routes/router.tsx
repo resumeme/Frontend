@@ -12,6 +12,7 @@ import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
+import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';

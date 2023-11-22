@@ -1,6 +1,6 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import { Feedback } from '~/types/resume/feedback';
+import { FeedbackComment } from '~/types/event/feedback';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeFeedbacks = {
@@ -11,7 +11,7 @@ export type GetResumeFeedbacks = {
 export const getResumeFeedbacks = async ({
   resumeId,
   eventId,
-}: GetResumeFeedbacks): Promise<Feedback[]> => {
+}: GetResumeFeedbacks): Promise<FeedbackComment[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   const { data } = await resumeMeAxios.get(`/v1/events/${eventId}/resumes/${resumeId}/comments`, {
