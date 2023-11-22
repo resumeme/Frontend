@@ -19,7 +19,7 @@ import useUser from '~/hooks/useUser';
 import { useDeleteResume } from '~/queries/resume/delete/useDeleteResume';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
-import { ReferenceLink } from '~/types/referenceLink';
+import { ReadReferenceLink } from '~/types/referenceLink';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
@@ -139,7 +139,7 @@ const ResumeDetailTemplate = () => {
                   gap={2}
                   width={'100%'}
                 >
-                  {data.links?.map((link: ReferenceLink) => (
+                  {data.links?.map((link: ReadReferenceLink) => (
                     <ReferenceLinkBox
                       key={link.componentId}
                       linkType={link.linkType}
