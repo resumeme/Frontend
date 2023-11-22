@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import FeedbackLayout from './FeedbackLayout';
+import FocusLayout from './FocusLayout';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
 import AdminPage from '~/pages/AdminPage/AdminPage';
@@ -47,12 +48,17 @@ const router = createBrowserRouter([
       { path: 'event/view', element: <EventListPage /> },
       { path: 'event/view/:id', element: <EventDetailPage /> },
 
-      { path: 'sign-up', element: <SignUpPage /> },
-      { path: 'sign-in', element: <SignInPage /> },
-      { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
-
       { path: 'admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    path: '/sign',
+    element: <FocusLayout />,
+    children: [
+      { path: 'up', element: <SignUpPage /> },
+      { path: 'in', element: <SignInPage /> },
+      { path: 'in/oauth/kakao', element: <OAuthRedirectPage /> },
     ],
   },
   {
