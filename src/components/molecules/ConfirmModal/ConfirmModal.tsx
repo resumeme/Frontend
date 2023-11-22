@@ -22,6 +22,7 @@ const ConfirmModal = ({ message, isOpen, onClose, proceed }: ConfirmModalProps) 
       isOpen={isOpen}
       leastDestructiveRef={cancelRef}
       onClose={onClose}
+      isCentered
     >
       <AlertDialogOverlay>
         <AlertDialogContent py={4}>

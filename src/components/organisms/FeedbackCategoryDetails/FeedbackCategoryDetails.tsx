@@ -2,25 +2,29 @@ import { Box, Divider } from '@chakra-ui/react';
 import React from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
+import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/FeedbackBlock';
 import { FeedbackComment } from '~/types/event/feedback';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
 
-type FeedbackResumeDetailsProps<T extends ReadCategories> = {
+type FeedbackCategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   isAuthorizedMentor?: boolean;
+  isFeedbackPage?: boolean;
 };
 
-const FeedbackResumeDetails = <T extends ReadCategories>({
+const FeedbackCategoryDetails = <T extends ReadCategories>({
   arrayData,
   DetailsComponent,
   commentsData,
   isAuthorizedMentor = false,
-}: FeedbackResumeDetailsProps<T>) => {
+  isFeedbackPage = false,
+}: FeedbackCategoryDetailsProps<T>) => {
   const indexedComments = getIndexedComments(commentsData);
   const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
+
   return (
     <>
       {arrayData?.length > 0 && (
@@ -31,7 +35,10 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
               <React.Fragment key={index}>
-                <Box position={'relative'}>
+                <Box
+                  position={'relative'}
+                  role="group"
+                >
                   <DetailsComponent
                     data={data}
                     isCurrentUser={false}
@@ -42,7 +49,6 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
                         <FeedbackView
                           key={currentComment.commentId}
                           commentId={currentComment.commentId}
-                          componentId={currentComment.componentId}
                           lastModifiedAt={currentComment.lastModifiedAt}
                           content={currentComment.content}
                           isAuthorizedMentor={isAuthorizedMentor}
@@ -50,6 +56,7 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
                       ))}
                     </>
                   )}
+                  {isFeedbackPage && <FeedbackBlock blockId={data.componentId} />}
                 </Box>
                 {index !== arrayData.length - 1 && (
                   <Divider
@@ -66,7 +73,7 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
   );
 };
 
-export default FeedbackResumeDetails;
+export default FeedbackCategoryDetails;
 
 const getIndexedComments = (commentsData: FeedbackComment[]) => {
   const indexedComments: { [blockId: string]: FeedbackComment[] } = {};

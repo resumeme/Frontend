@@ -1,8 +1,6 @@
 import { Box, Divider } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/FeedbackBlock';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
@@ -21,9 +19,6 @@ const ResumeCategoryDetails = <T extends ReadCategories>({
   isCurrentUser = false,
 }: CategoryDetailsProps<T>) => {
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
-  const currentPath = useLocation().pathname;
-  const feedbackPageRegex = /^\/resume\/\d+\/feedback$/;
-  const isFeedbackPage = feedbackPageRegex.test(currentPath);
 
   return (
     <React.Fragment>
@@ -48,7 +43,6 @@ const ResumeCategoryDetails = <T extends ReadCategories>({
                     onEdit={() => setEditTargetIndex(index)}
                     isCurrentUser={isCurrentUser}
                   />
-                  {isFeedbackPage && <FeedbackBlock blockId={data.componentId} />}
                 </Box>
               )}
               {index !== arrayData.length - 1 && (

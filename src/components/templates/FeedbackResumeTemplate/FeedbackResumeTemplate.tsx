@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
+import { FeedbackCategoryDetails } from '~/components/organisms/FeedbackCategoryDetails';
 import {
   ActivityDetails,
   AwardDetails,
@@ -15,14 +15,17 @@ import {
 } from '~/components/organisms/ResumeDetails';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
+import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
 import { ReferenceLink } from '~/types/referenceLink';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const FeedbackResumeTemplate = () => {
-  const { resumeId = '' } = useParams();
-
+  const { resumeId = '', eventId = '' } = useParams();
   const { data: details } = useGetResumeDetails({ resumeId });
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
+  const {
+    data: { commentResponses },
+  } = useGetResumeFeedbacks({ resumeId, eventId });
 
   const data = {
     basic: basicInfo,
@@ -208,9 +211,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     업무경험
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.career}
+                    commentsData={commentResponses}
                     DetailsComponent={CareerDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}
@@ -224,9 +230,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     프로젝트
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
+                    commentsData={commentResponses}
                     arrayData={data.project}
                     DetailsComponent={ProjectDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}
@@ -240,9 +249,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     교육
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.training}
+                    commentsData={commentResponses}
                     DetailsComponent={TrainingDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}
@@ -256,9 +268,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     수상 및 자격증
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.award}
+                    commentsData={commentResponses}
                     DetailsComponent={AwardDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}
@@ -272,9 +287,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     외국어
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.language}
+                    commentsData={commentResponses}
                     DetailsComponent={LanguageDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}
@@ -288,9 +306,12 @@ const FeedbackResumeTemplate = () => {
                   >
                     활동
                   </Text>
-                  <ResumeCategoryDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.activity}
+                    commentsData={commentResponses}
                     DetailsComponent={ActivityDetails}
+                    isAuthorizedMentor
+                    isFeedbackPage
                   />
                 </Box>
               )}

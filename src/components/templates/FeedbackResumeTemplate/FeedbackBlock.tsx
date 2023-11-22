@@ -12,8 +12,8 @@ type FeedbackBlockProps = {
 const LABEL_TEXT = '첨삭하기';
 
 const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
-  const { mutate } = usePostFeedbackComment();
   const { eventId = '', resumeId = '' } = useParams();
+  const { mutate } = usePostFeedbackComment(resumeId, eventId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState<string>('');
 
@@ -24,14 +24,6 @@ const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
   };
 
   const handleSave = () => {
-    /* TODO POST API 연동
-      - value를 가지고 저장함
-      - 연동에 성공할 경우!
-        - 첨삭 코멘트 렌더링 하는 곳의 쿼리 데이터 변경하기 (최신화) ❌
-        - value reset하기 ⭕
-        - isOpen false로 변경하기 (에디터 안보이게하기) - onClose() ⭕
-    */
-
     const body = {
       componentId: blockId,
       content: value,
