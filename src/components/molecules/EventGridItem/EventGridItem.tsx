@@ -16,8 +16,8 @@ const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }
   return (
     <Link to={appPaths.eventDetail(info.id)}>
       <Box
-        w={'18.75rem'}
-        h={'28.5rem'}
+        w={'full'}
+        aspectRatio={3 / 4.5}
       >
         <Image
           src="https://i.pinimg.com/564x/97/7c/ad/977cad5f391fe80dc7aa4a8194c30e9e.jpg"
@@ -33,8 +33,10 @@ const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }
         >
           <Flex
             direction={'column'}
-            gap={'1.5rem'}
+            justifyContent={'space-between'}
             h={'full'}
+            gap={'0.5rem'}
+            flex={1}
           >
             <AvatarAndStatus
               status={info.status}
@@ -42,6 +44,8 @@ const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }
               nickname={mentorInfo.nickname}
             />
             <Text
+              // flex={1}
+              h={'30%'}
               noOfLines={2}
               color={'gray.800'}
             >
@@ -50,7 +54,7 @@ const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }
             <PositionLabels positions={info.positions} />
             <Flex
               justifyContent={'space-between'}
-              marginTop={'auto'}
+              flexWrap={'wrap'}
             >
               <Text fontSize={'0.875rem'}>
                 {openDate} ~ {closeDate}
