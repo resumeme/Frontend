@@ -1,6 +1,17 @@
+type LinkType = 'GITHUB' | 'BLOG' | 'OTHER';
+
 type ReferenceLink = {
-  linkType: string;
+  linkType: LinkType;
   url: string;
 };
 
-export type { ReferenceLink };
+type ReadReferenceLink = {
+  componentId: number;
+  originComponentId?: number;
+  reflectFeedback: boolean;
+  createdDate: string;
+  linkType: LinkType;
+  url: string;
+};
+
+export type { ReferenceLink, ReadReferenceLink };
