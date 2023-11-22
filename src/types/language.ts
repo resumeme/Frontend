@@ -1,5 +1,5 @@
 export type Language = {
-  componentId?: number;
+  componentId?: string;
   language: string;
   examName: string;
   scoreOrGrade: string;
