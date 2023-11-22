@@ -7,7 +7,7 @@ import { FeedbackComment } from '~/types/event/feedback';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
 
-type FeedbackResumeDetailsProps<T extends ReadCategories> = {
+type FeedbackCategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
@@ -15,13 +15,13 @@ type FeedbackResumeDetailsProps<T extends ReadCategories> = {
   isFeedbackPage?: boolean;
 };
 
-const FeedbackResumeDetails = <T extends ReadCategories>({
+const FeedbackCategoryDetails = <T extends ReadCategories>({
   arrayData,
   DetailsComponent,
   commentsData,
   isAuthorizedMentor = false,
   isFeedbackPage = false,
-}: FeedbackResumeDetailsProps<T>) => {
+}: FeedbackCategoryDetailsProps<T>) => {
   const indexedComments = getIndexedComments(commentsData);
   const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
 
@@ -49,7 +49,6 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
                         <FeedbackView
                           key={currentComment.commentId}
                           commentId={currentComment.commentId}
-                          componentId={currentComment.componentId}
                           lastModifiedAt={currentComment.lastModifiedAt}
                           content={currentComment.content}
                           isAuthorizedMentor={isAuthorizedMentor}
@@ -74,7 +73,7 @@ const FeedbackResumeDetails = <T extends ReadCategories>({
   );
 };
 
-export default FeedbackResumeDetails;
+export default FeedbackCategoryDetails;
 
 const getIndexedComments = (commentsData: FeedbackComment[]) => {
   const indexedComments: { [blockId: string]: FeedbackComment[] } = {};

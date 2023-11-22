@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
-import { FeedbackResumeDetails } from '~/components/organisms/FeedbackResumeDetails';
+import { FeedbackCategoryDetails } from '~/components/organisms/FeedbackCategoryDetails';
 import {
   ActivityDetails,
   AwardDetails,
@@ -211,7 +211,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     업무경험
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.career}
                     commentsData={commentResponses}
                     DetailsComponent={CareerDetails}
@@ -230,7 +230,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     프로젝트
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     commentsData={commentResponses}
                     arrayData={data.project}
                     DetailsComponent={ProjectDetails}
@@ -249,7 +249,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     교육
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.training}
                     commentsData={commentResponses}
                     DetailsComponent={TrainingDetails}
@@ -268,7 +268,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     수상 및 자격증
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.award}
                     commentsData={commentResponses}
                     DetailsComponent={AwardDetails}
@@ -287,7 +287,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     외국어
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.language}
                     commentsData={commentResponses}
                     DetailsComponent={LanguageDetails}
@@ -306,7 +306,7 @@ const FeedbackResumeTemplate = () => {
                   >
                     활동
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={data.activity}
                     commentsData={commentResponses}
                     DetailsComponent={ActivityDetails}

@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
-import { FeedbackResumeDetails } from '~/components/organisms/FeedbackResumeDetails';
+import { FeedbackCategoryDetails } from '~/components/organisms/FeedbackCategoryDetails';
 import {
   ActivityDetails,
   AwardDetails,
@@ -58,7 +58,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     업무경험
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.careers}
                     DetailsComponent={CareerDetails}
                     commentsData={commentResponses}
@@ -75,7 +75,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     프로젝트
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.projects}
                     DetailsComponent={ProjectDetails}
                     commentsData={commentResponses}
@@ -92,7 +92,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     교육
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.trainings}
                     DetailsComponent={TrainingDetails}
                     commentsData={commentResponses}
@@ -109,7 +109,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     수상 및 자격증
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.certifications}
                     DetailsComponent={AwardDetails}
                     commentsData={commentResponses}
@@ -126,7 +126,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     외국어
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.foreignLanguages}
                     DetailsComponent={LanguageDetails}
                     commentsData={commentResponses}
@@ -143,7 +143,7 @@ const FeedbackCompleteTemplate = () => {
                   >
                     활동
                   </Text>
-                  <FeedbackResumeDetails
+                  <FeedbackCategoryDetails
                     arrayData={details.activities}
                     DetailsComponent={ActivityDetails}
                     commentsData={commentResponses}
