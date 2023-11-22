@@ -2,25 +2,26 @@ import { Box, Flex, Text, FormControl, FormErrorMessage } from '@chakra-ui/react
 import { useForm } from 'react-hook-form';
 import { Button } from '~/components/atoms/Button';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
-
-type Temp = {
-  rejectMessage: string;
-};
+import usePatchFeedbackReject from '~/queries/event/usePatchFeedbackReject';
+import { EventReject } from '~/types/resume/eventReject';
 
 type RejectionModalContentProps = {
+  eventId: string;
+  menteeId: number;
   onClose?: () => void;
 };
 
-const RejectionModalContent = ({ onClose }: RejectionModalContentProps) => {
+const RejectionModalContent = ({ onClose, eventId, menteeId }: RejectionModalContentProps) => {
+  const { mutate } = usePatchFeedbackReject();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Temp>();
+  } = useForm<EventReject>();
 
-  const onSubmit = (value: Temp) => {
-    /* TODO API 연동 */
-    alert(value.rejectMessage);
+  const onSubmit = (value: EventReject) => {
+    mutate({ eventId, menteeId, body: value });
 
     if (onClose) {
       onClose();

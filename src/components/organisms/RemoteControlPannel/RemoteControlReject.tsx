@@ -1,17 +1,26 @@
-import { useDisclosure, Text, Box, BoxProps } from '@chakra-ui/react';
+import { useDisclosure, Text, Box } from '@chakra-ui/react';
 import RejectionModalContent from './RejectionModalContent';
 import { Modal } from '~/components/molecules/Modal';
 
-const RemoteControlReject = ({ ...props }: BoxProps) => {
+type RemoteControlRejectProps = {
+  eventId: string;
+  menteeId: number;
+};
+
+const RemoteControlReject = ({ eventId, menteeId }: RemoteControlRejectProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box {...props}>
+    <Box mt={3}>
       <Modal
         w={'25rem'}
         isOpen={isOpen}
         onClose={onClose}
       >
-        <RejectionModalContent onClose={onClose} />
+        <RejectionModalContent
+          onClose={onClose}
+          menteeId={menteeId}
+          eventId={eventId}
+        />
       </Modal>
       <Text
         fontSize={'sm'}

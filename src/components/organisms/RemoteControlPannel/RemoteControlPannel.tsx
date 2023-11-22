@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import RemoteControlReject from './RemoteControlReject';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { RemoteControl } from '~/components/atoms/RemoteControl';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
+import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 
 /**TODO - api 명세가 나오면 타입 별도로 정리해두기 */
 type Temp = {
@@ -12,6 +14,10 @@ type Temp = {
 };
 
 const RemoteControlPannel = () => {
+  const { eventId = '', resumeId = '' } = useParams();
+  const { data } = useGetResumeBasic({ resumeId });
+  const menteeId = data?.ownerInfo?.id as number;
+
   const {
     register,
     handleSubmit,
@@ -53,8 +59,11 @@ const RemoteControlPannel = () => {
         >
           첨삭 완료하기
         </Button>
-        <RemoteControlReject mt={3} />
       </form>
+      <RemoteControlReject
+        menteeId={menteeId}
+        eventId={eventId}
+      />
     </RemoteControl>
   );
 };
