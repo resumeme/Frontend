@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { resumeDetailKeys } from './resumeDetailKeys.const';
 import {
   GetResumeReferenceLinks,
   getResumeReferenceLinks,
@@ -6,7 +7,7 @@ import {
 
 export const useGetResumeReferenceLinks = ({ resumeId }: GetResumeReferenceLinks) => {
   return useQuery({
-    queryKey: ['getResumeReferenceLinks'],
+    queryKey: resumeDetailKeys.referenceLinks(resumeId),
     queryFn: () => getResumeReferenceLinks({ resumeId }),
     enabled: !!resumeId,
   });
