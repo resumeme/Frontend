@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import Career from '~/types/career';
+import { Career } from '~/types/career';
 import { ResumeMeErrorResponse } from '~/types/errorResponse';
 import { getCookie } from '~/utils/cookie';
 

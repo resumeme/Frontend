@@ -1,4 +1,4 @@
-type Career = {
+export type Career = {
   componentId?: string;
   companyName: string;
   position: string;
@@ -9,8 +9,6 @@ type Career = {
   endDate?: string;
   careerContent: string;
 };
-
-export default Career;
 
 type Duty = {
   title?: string;
