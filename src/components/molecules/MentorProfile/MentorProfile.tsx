@@ -28,17 +28,13 @@ const MentorProfile = ({
         name={nickname}
         src={imageUrl}
       />
-      <Flex
-        w={'100%'}
-        justifyContent={'space-between'}
+      <Heading
+        textAlign={'center'}
+        fontSize={'20px'}
+        color={'gray.800'}
       >
-        <Heading
-          fontSize={'20px'}
-          color={'gray.800'}
-        >
-          {nickname}
-        </Heading>
-      </Flex>
+        {nickname}
+      </Heading>
       <Flex
         w={'100%'}
         minH={'12.44rem'}
