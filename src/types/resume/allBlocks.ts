@@ -3,11 +3,11 @@ import { ReadAward } from '~/types/award';
 import { ReadCareer } from '~/types/career';
 import { ReadLanguage } from '~/types/language';
 import { ReadProject } from '~/types/project';
-import { Link } from '~/types/resume/link';
+import { ReadReferenceLink } from '~/types/referenceLink';
 import { ReadTraining } from '~/types/training';
 
 export type AllBlocks = {
-  links: Link[];
+  links: ReadReferenceLink[];
   careers: ReadCareer[];
   certifications: ReadAward[];
   activities: ReadActivity[];
