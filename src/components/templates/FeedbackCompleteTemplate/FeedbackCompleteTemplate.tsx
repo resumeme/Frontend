@@ -15,7 +15,9 @@ import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFee
 
 const FeedbackCompleteTemplate = () => {
   const { resumeId = '', eventId = '' } = useParams();
-  const { data: commentsData } = useGetResumeFeedbacks({ resumeId, eventId });
+  const {
+    data: { commentResponses },
+  } = useGetResumeFeedbacks({ resumeId, eventId });
 
   const details = DUMMY_DATA;
 
@@ -67,7 +69,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.career}
                     DetailsComponent={CareerDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}
@@ -84,7 +86,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.project}
                     DetailsComponent={ProjectDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}
@@ -101,7 +103,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.training}
                     DetailsComponent={TrainingDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}
@@ -118,7 +120,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.award}
                     DetailsComponent={AwardDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}
@@ -135,7 +137,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.language}
                     DetailsComponent={LanguageDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}
@@ -152,7 +154,7 @@ const FeedbackCompleteTemplate = () => {
                   <FeedbackResumeDetails
                     arrayData={data.activity}
                     DetailsComponent={ActivityDetails}
-                    commentsData={commentsData}
+                    commentsData={commentResponses}
                   />
                 </Box>
               )}

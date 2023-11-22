@@ -20,13 +20,13 @@ const FeedbackResumeDetails = <T extends Categories>({
   isAuthorizedMentor = false,
 }: FeedbackResumeDetailsProps<T>) => {
   const indexedComments = getIndexedComments(commentsData);
-  const commentComponentIds = Object.keys(indexedComments);
+  const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
   return (
     <>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
-            const currentBlockId = data.componentId as string;
+            const currentBlockId = parseInt(data.componentId!);
             const targetComment: FeedbackComment = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
