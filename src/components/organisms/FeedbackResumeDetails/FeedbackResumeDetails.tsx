@@ -10,21 +10,23 @@ type FeedbackResumeDetailsProps<T extends Categories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
+  isAuthorizedMentor?: boolean;
 };
 
 const FeedbackResumeDetails = <T extends Categories>({
   arrayData,
   DetailsComponent,
   commentsData,
+  isAuthorizedMentor = false,
 }: FeedbackResumeDetailsProps<T>) => {
   const indexedComments = getIndexedComments(commentsData);
-  const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
+  const commentComponentIds = Object.keys(indexedComments);
   return (
     <>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
-            const currentBlockId = data.componentId!;
+            const currentBlockId = data.componentId as string;
             const targetComment: FeedbackComment = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
@@ -40,6 +42,7 @@ const FeedbackResumeDetails = <T extends Categories>({
                       componentId={targetComment.componentId}
                       lastModifiedAt={targetComment.lastModifiedAt}
                       content={targetComment.content}
+                      isAuthorizedMentor={isAuthorizedMentor}
                     />
                   )}
                 </Box>
@@ -61,7 +64,7 @@ const FeedbackResumeDetails = <T extends Categories>({
 export default FeedbackResumeDetails;
 
 const getIndexedComments = (commentsData: FeedbackComment[]) => {
-  const indexedComments: { [blockId: number]: FeedbackComment } = {};
+  const indexedComments: { [blockId: string]: FeedbackComment } = {};
   commentsData.forEach((commentItem) => {
     const componentId = commentItem.componentId;
     indexedComments[componentId] = commentItem;
