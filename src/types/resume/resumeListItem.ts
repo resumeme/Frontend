@@ -12,14 +12,13 @@ type MyResume = ResumeListItem & {
 };
 
 type FeedbackResume = {
+  eventId: number;
   resumeId: number;
   status: ResumeStatus;
   title: string;
   mentorName: string;
   startDate: string;
   endDate: string;
-  //TODO api 수정 후 ? 없애기
-  modifiedAt?: string;
 };
 
 export type { MyResume, ResumeListItem, FeedbackResume };
