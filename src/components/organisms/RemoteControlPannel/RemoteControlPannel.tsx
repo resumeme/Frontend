@@ -10,6 +10,7 @@ import { FormTextarea } from '~/components/molecules/FormTextarea';
 type Temp = {
   generalComment: string;
 };
+
 const RemoteControlPannel = () => {
   const {
     register,
@@ -18,9 +19,12 @@ const RemoteControlPannel = () => {
   } = useForm<Temp>();
 
   const onSubmit = (values: Temp) => {
-    /**TODO - api 호출 */
+    /**TODO
+      - POST API 연결 + 성공시 리다이렉션
+    */
     console.log(values);
   };
+
   return (
     <RemoteControl>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -28,23 +32,28 @@ const RemoteControlPannel = () => {
           isInvalid={Boolean(errors.generalComment)}
           direction="column"
           spacing="0.2rem"
-          mb={'1.2rem'}
+          mb={'1rem'}
         >
-          <FormLabel>완료하기</FormLabel>
+          <FormLabel fontSize={'md'}>총평 작성</FormLabel>
           <FormTextarea
-            h={'8rem'}
+            h={'6rem'}
+            fontSize={'sm'}
             placeholder="총평을 입력해주세요."
             id="generalComment"
             register={{
-              ...register('generalComment', {
-                required: '첨삭을 완료하려면 총평을 입력해주세요.',
-              }),
+              ...register('generalComment'),
             }}
             error={errors?.generalComment}
           />
         </FormControl>
-        <Button type="submit">첨삭 완료하기</Button>
-        <RemoteControlReject mt={4} />
+        <Button
+          h={'1.8rem'}
+          fontSize={'sm'}
+          type="submit"
+        >
+          첨삭 완료하기
+        </Button>
+        <RemoteControlReject mt={3} />
       </form>
     </RemoteControl>
   );

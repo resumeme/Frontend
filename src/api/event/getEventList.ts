@@ -1,12 +1,13 @@
 import { resumeMeAxios } from '../axios';
 import CONSTANTS from '~/constants';
 import { EventList } from '~/types/event/eventList';
+import { Pagination } from '~/types/pagination';
 import { getCookie } from '~/utils/cookie';
 
-export const getEventList = async (): Promise<EventList> => {
+export const getEventList = async ({ page, size }: Pagination): Promise<EventList> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.get(`/v1/events`, {
+  const { data } = await resumeMeAxios.get(`/v1/events?page=${page - 1}&size=${size}`, {
     headers: {
       Authorization: accessToken,
     },

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import FeedbackLayout from './FeedbackLayout';
 import App from '~/App';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
@@ -8,10 +9,10 @@ import MainPage from '~/pages/MainPage/MainPage';
 import { MyPage } from '~/pages/MyPage';
 import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
 import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { CommentResumePage } from '~/pages/ResumePages/CommentResumePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
+import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
 import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
@@ -31,8 +32,8 @@ const router = createBrowserRouter([
       { path: 'resume/create', element: <CreateResumePage /> },
       { path: 'resume/management', element: <ManagementResumePage /> },
       { path: 'resume/:id/edit', element: <EditResumePage /> },
-      { path: 'resume/:id/comment', element: <CommentResumePage /> },
       { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
+      { path: 'resume/:id/feedback', element: <FeedbackResumePage /> },
       { path: 'resume/:id', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
       { path: 'admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  {
+    path: '/resume/:id/feedback',
+    element: <FeedbackLayout />,
+    children: [{ index: true, element: <FeedbackResumePage /> }],
   },
 ]);
 
