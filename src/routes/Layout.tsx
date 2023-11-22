@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { LAYOUT_SIZE } from './layoutSize.const';
 import { Spinner } from '~/components/atoms/Spinner';
 import { Footer } from '~/components/organisms/Footer';
 import { Header } from '~/components/organisms/Header';
@@ -8,9 +9,11 @@ import { Header } from '~/components/organisms/Header';
 const Layout = () => {
   return (
     <Box
+      w={'full'}
       minH={'100vh'}
       display={'flex'}
       flexDirection={'column'}
+      overflowX={'hidden'}
     >
       <Box
         position={'fixed'}
@@ -26,7 +29,7 @@ const Layout = () => {
       </Box>
       <Box
         flexGrow={1}
-        mt={'66px'}
+        mt={LAYOUT_SIZE.HEADER_HEIGHT}
         w={'100%'}
         maxW={'992px'}
         mx={'auto'}
