@@ -1,5 +1,5 @@
 type Award = {
-  componentId?: string;
+  componentId?: number;
   certificationTitle: string;
   acquisitionDate?: string;
   issuingAuthority?: string;

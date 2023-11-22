@@ -1,5 +1,5 @@
 type Career = {
-  componentId?: string;
+  componentId?: number;
   companyName: string;
   position: string;
   skills?: string[];
