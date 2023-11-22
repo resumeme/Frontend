@@ -27,7 +27,7 @@ const FeedbackResumeDetails = <T extends Categories>({
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
             const currentBlockId = parseInt(data.componentId!);
-            const targetComment: FeedbackComment = indexedComments[currentBlockId];
+            const targetComments: FeedbackComment[] = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
               <React.Fragment key={index}>
@@ -37,13 +37,18 @@ const FeedbackResumeDetails = <T extends Categories>({
                     isCurrentUser={false}
                   />
                   {hasComment && (
-                    <FeedbackView
-                      commentId={targetComment.commentId}
-                      componentId={targetComment.componentId}
-                      lastModifiedAt={targetComment.lastModifiedAt}
-                      content={targetComment.content}
-                      isAuthorizedMentor={isAuthorizedMentor}
-                    />
+                    <>
+                      {targetComments.map((currentComment) => (
+                        <FeedbackView
+                          key={currentComment.commentId}
+                          commentId={currentComment.commentId}
+                          componentId={currentComment.componentId}
+                          lastModifiedAt={currentComment.lastModifiedAt}
+                          content={currentComment.content}
+                          isAuthorizedMentor={isAuthorizedMentor}
+                        />
+                      ))}
+                    </>
                   )}
                 </Box>
                 {index !== arrayData.length - 1 && (
@@ -64,10 +69,14 @@ const FeedbackResumeDetails = <T extends Categories>({
 export default FeedbackResumeDetails;
 
 const getIndexedComments = (commentsData: FeedbackComment[]) => {
-  const indexedComments: { [blockId: string]: FeedbackComment } = {};
+  const indexedComments: { [blockId: string]: FeedbackComment[] } = {};
   commentsData.forEach((commentItem) => {
     const componentId = commentItem.componentId;
-    indexedComments[componentId] = commentItem;
+    if (!indexedComments[componentId]) {
+      indexedComments[componentId] = [{ ...commentItem }];
+      return;
+    }
+    indexedComments[componentId].push({ ...commentItem });
   });
   return indexedComments;
 };
