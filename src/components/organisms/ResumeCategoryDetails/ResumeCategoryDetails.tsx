@@ -48,7 +48,7 @@ const ResumeCategoryDetails = <T extends Categories>({
                     onEdit={() => setEditTargetIndex(index)}
                     isCurrentUser={isCurrentUser}
                   />
-                  {isFeedbackPage && <FeedbackBlock />}
+                  {isFeedbackPage && <FeedbackBlock blockId={data?.componentId as string} />}
                 </Box>
               )}
               {index !== arrayData.length - 1 && (
