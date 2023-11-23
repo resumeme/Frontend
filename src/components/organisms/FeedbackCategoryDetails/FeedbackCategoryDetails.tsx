@@ -38,6 +38,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
                 <Box
                   position={'relative'}
                   role="group"
+                  pb={7}
                 >
                   <DetailsComponent
                     data={data}
