@@ -1,6 +1,8 @@
 import CONSTANTS from '~/constants';
 
+export type ErrorMessage = keyof typeof CONSTANTS.ERROR_MESSAGES;
+
 export type ResumeMeErrorResponse = {
-  code: keyof typeof CONSTANTS.ERROR_MESSAGES;
+  code: ErrorMessage;
   message: string;
 };
