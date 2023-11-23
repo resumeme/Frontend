@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
@@ -12,6 +12,8 @@ import { LAYOUT_SIZE } from '~/routes/layoutSize.const';
 
 const MainPage = () => {
   const { user } = useUser();
+
+  const toast = useToast();
 
   const {
     data: { events },
@@ -35,7 +37,7 @@ const MainPage = () => {
   const menteeButton: Option[] = [
     {
       text: '새 이력서 작성',
-      onClick: () => createResume(),
+      onClick: createResume,
     },
     {
       text: '이력서 관리',
@@ -43,7 +45,24 @@ const MainPage = () => {
     },
   ];
 
-  const button_info = user ? (user.role === 'mentor' ? mentorButton : menteeButton) : menteeButton;
+  const pendingButton: Option[] = [
+    {
+      text: '이벤트 생성',
+      onClick: () => toast({ description: '멘토 가입이 승인되면 작성할 수 있어요.' }),
+    },
+    {
+      text: '이벤트 관리',
+      onClick: () => navigate(appPaths.myPage()),
+    },
+  ];
+
+  const button_info = user
+    ? user.role === 'mentor'
+      ? mentorButton
+      : user.role === 'mentee'
+      ? menteeButton
+      : pendingButton
+    : menteeButton;
 
   return (
     <>
