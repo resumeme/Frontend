@@ -7,7 +7,7 @@ type User = {
   realName: string;
   nickname: string;
   phoneNumber: string;
-  role: 'mentee' | 'mentor';
+  role: 'mentee' | 'mentor' | 'pending';
   experiencedPositions?: Position[];
   interestedPositions?: Position[];
   interestedFields: Fields[];
