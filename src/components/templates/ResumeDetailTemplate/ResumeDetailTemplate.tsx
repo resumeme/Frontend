@@ -23,7 +23,7 @@ import { ReadReferenceLink } from '~/types/referenceLink';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 const ResumeDetailTemplate = () => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const { data: details } = useGetResumeDetails({ resumeId });
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
