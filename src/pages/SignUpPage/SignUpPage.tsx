@@ -23,28 +23,34 @@ const SignUpPage = () => {
   const toast = useToast();
   const navigate = useNavigate();
 
-  const signUpSuccessCallback = (accessToken: string, refreshToken: string, role: SignUpRole) => {
+  const signUpSuccessCallback = async (
+    accessToken: string,
+    refreshToken: string,
+    role: SignUpRole,
+  ) => {
     const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
     resetCacheKey();
-    setStep(nextStep);
     if (accessToken && refreshToken) {
-      initialUser(accessToken, refreshToken);
+      await initialUser(accessToken, refreshToken);
     }
+    setStep(nextStep);
   };
   useEffect(() => {
-    if (user && step === 'COMMON') {
-      toast({
-        description: '이미 가입된 회원입니다.',
-      });
-      navigate(appPaths.main());
-      return;
-    }
-    if (!cacheKey && step === 'COMMON') {
-      toast({
-        description: '소셜 로그인을 먼저 해주세요.',
-      });
-      navigate(appPaths.signIn());
-      return;
+    if (step === 'COMMON') {
+      if (user) {
+        toast({
+          description: '이미 가입된 회원입니다.',
+        });
+        navigate(appPaths.main());
+        return;
+      }
+      if (!cacheKey) {
+        toast({
+          description: '소셜 로그인을 먼저 해주세요.',
+        });
+        navigate(appPaths.signIn());
+        return;
+      }
     }
   }, [cacheKey, navigate, toast, user]);
 
@@ -93,7 +99,12 @@ const SignUpPage = () => {
         />
       )}
       {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="ROLE_PENDING" />}
-      {step === 'MENTEE_COMPLETE' && <SignUpCompleteTemplate role="ROLE_MENTEE" />}
+      {step === 'MENTEE_COMPLETE' && (
+        <SignUpCompleteTemplate
+          role="ROLE_MENTEE"
+          user={user}
+        />
+      )}
     </>
   );
 };
