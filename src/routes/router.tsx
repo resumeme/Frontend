@@ -14,6 +14,7 @@ import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
 import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
+import { FeedbackReflectPage } from '~/pages/ResumePages/FeedbackReflectPage';
 import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
@@ -64,7 +65,10 @@ const router = createBrowserRouter([
   {
     path: 'event/:eventId/resume/:resumeId/',
     element: <FeedbackLayout />,
-    children: [{ index: true, element: <FeedbackResumePage /> }],
+    children: [
+      { index: true, element: <FeedbackResumePage /> },
+      { path: '/feedback/reflect', element: <FeedbackReflectPage /> },
+    ],
   },
 ]);
 
