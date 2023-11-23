@@ -4,8 +4,9 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { appPaths } from '~/config/paths';
 import { SignUpRole } from '~/types/signUp';
+import { User } from '~/types/user';
 
-const SignUpCompleteTemplate = ({ role }: { role: SignUpRole }) => {
+const SignUpCompleteTemplate = ({ role, user }: { role: SignUpRole; user?: User | null }) => {
   const TEXT = {
     ROLE_PENDING: {
       MAIN: '멘토 가입 신청이 완료되었습니다.',
@@ -14,8 +15,7 @@ const SignUpCompleteTemplate = ({ role }: { role: SignUpRole }) => {
     },
     ROLE_MENTEE: {
       MAIN: '가입이 완료되었습니다.',
-      /**FIXME - 로그인 후 이름 api에서 받아와 OOO 대체하기 */
-      SUB: `이력, 써에 오신 것을 환영합니다. OOO님!\n이력서를 관리하고 자유롭게 피드백을 주고 받아보세요.`,
+      SUB: `이력, 써에 오신 것을 환영합니다. ${user?.realName}님!\n이력서를 관리하고 자유롭게 피드백을 주고 받아보세요.`,
     },
   } as const;
   const navigate = useNavigate();
