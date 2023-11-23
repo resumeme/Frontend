@@ -27,7 +27,7 @@ import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProjec
 import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
 
 const EditResumeTemplate = () => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
