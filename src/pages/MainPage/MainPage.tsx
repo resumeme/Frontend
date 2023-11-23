@@ -104,7 +104,7 @@ const MainPage = () => {
                 >
                   이력, 써
                 </Text>
-                <Text color={'gry.800'}>
+                <Text color={'gray.800'}>
                   의 피드백 커뮤니티를 경험하고 커리어의 나침반을 찾으세요.
                 </Text>
               </Flex>
