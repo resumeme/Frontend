@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     element: <FeedbackLayout />,
     children: [
       { index: true, element: <FeedbackResumePage /> },
-      { path: '/feedback/reflect', element: <FeedbackReflectPage /> },
+      { path: 'feedback/reflect', element: <FeedbackReflectPage /> },
     ],
   },
 ]);
