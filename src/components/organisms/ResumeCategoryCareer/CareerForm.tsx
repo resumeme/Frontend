@@ -72,7 +72,6 @@ const CareerForm = ({
     if (!resumeId) {
       return;
     }
-    console.log('isEdit', isEdit, 'blockId', blockId);
     body.skills = skills;
     body.duties = body.duties || [];
     if (!isEdit) {
