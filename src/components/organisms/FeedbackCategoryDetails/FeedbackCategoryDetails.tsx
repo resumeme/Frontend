@@ -6,6 +6,7 @@ import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/Feedbac
 import { FeedbackComment } from '~/types/event/feedback';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
+import { getIndexedCommentsObject } from '~/utils/getIndexedCommentsObject';
 
 type FeedbackCategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
@@ -22,7 +23,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
   isAuthorizedMentor = false,
   isFeedbackPage = false,
 }: FeedbackCategoryDetailsProps<T>) => {
-  const indexedComments = getIndexedComments(commentsData);
+  const indexedComments = getIndexedCommentsObject(commentsData);
   const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
 
   return (
@@ -74,16 +75,3 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
 };
 
 export default FeedbackCategoryDetails;
-
-const getIndexedComments = (commentsData: FeedbackComment[]) => {
-  const indexedComments: { [blockId: string]: FeedbackComment[] } = {};
-  commentsData.forEach((commentItem) => {
-    const componentId = commentItem.componentId;
-    if (!indexedComments[componentId]) {
-      indexedComments[componentId] = [{ ...commentItem }];
-      return;
-    }
-    indexedComments[componentId].push({ ...commentItem });
-  });
-  return indexedComments;
-};
