@@ -12,7 +12,7 @@ type FeedbackManagementItemProps = {
 };
 
 const FeedbackManagementItem = ({
-  resume: { endDate, mentorName, resumeId, startDate, status, title, resumeTitle, eventId },
+  resume: { endDate, mentorName, resumeId, startDate, status, title, eventId },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
@@ -88,7 +88,8 @@ const FeedbackManagementItem = ({
           color={'gray.500'}
           w={'1.25rem'}
         />
-        {resumeTitle && <Text>{resumeTitle}</Text>}
+        {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
+        <Text>내 이력서</Text>
         <Spacer />
         {status && (
           <Button
