@@ -8,6 +8,7 @@ import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostSignOut } from '~/queries/usePostSignOut';
 import { User } from '~/types/user';
+
 type NavItem = {
   label: string;
   subLabel?: string;

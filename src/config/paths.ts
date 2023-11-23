@@ -1,5 +1,6 @@
 export const appPaths = {
   signIn: () => '/sign-in',
+  signUp: () => '/sign-up',
   main: () => '/',
   managementResume: () => '/resume/management',
   myPage: (id?: number) => (id ? `/mypage/${id}` : '/'),

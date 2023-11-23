@@ -22,7 +22,7 @@ const OAuthRedirectPage = () => {
     // 새로운 사용자가 로그인한 경우
     if (cacheKey) {
       setCacheKey(cacheKey);
-      navigate('/sign-up');
+      navigate(appPaths.signUp());
       return;
     }
     // 기존 사용자가 로그인한 경우
