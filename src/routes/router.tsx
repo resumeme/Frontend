@@ -38,11 +38,11 @@ const router = createBrowserRouter([
 
       { path: 'resume/create', element: <CreateResumePage /> },
       { path: 'resume/management', element: <ManagementResumePage /> },
-      { path: 'resume/:id/edit', element: <EditResumePage /> },
+      { path: 'resume/:resumeId/edit', element: <EditResumePage /> },
 
       { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
 
-      { path: 'resume/:id', element: <ResumeDetailPage /> },
+      { path: 'resume/:resumeId', element: <ResumeDetailPage /> },
       { path: 'write-review', element: <WriteReviewPage /> },
 
       { path: 'event/create', element: <CreateEventPage /> },

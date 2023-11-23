@@ -26,7 +26,7 @@ const TrainingForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Training>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     watch,

@@ -28,7 +28,7 @@ const ProjectForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Project>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     watch,

@@ -27,7 +27,7 @@ const AwardForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Award>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     register,

@@ -24,7 +24,7 @@ const LanguageForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Language>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     register,

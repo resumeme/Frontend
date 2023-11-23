@@ -36,7 +36,7 @@ const CareerForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Career>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     control,
@@ -72,6 +72,7 @@ const CareerForm = ({
     if (!resumeId) {
       return;
     }
+    console.log('isEdit', isEdit, 'blockId', blockId);
     body.skills = skills;
     body.duties = body.duties || [];
     if (!isEdit) {

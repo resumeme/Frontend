@@ -27,7 +27,7 @@ const ActivityForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Activity>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     setValue,
