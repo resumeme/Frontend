@@ -7,14 +7,7 @@ import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostSignOut } from '~/queries/usePostSignOut';
-import { User } from '~/types/user';
-
-type NavItem = {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-};
+import { User, UserRole } from '~/types/user';
 
 const TEXT_CONTENTS = {
   LOGO: 'resume.me',
@@ -26,59 +19,46 @@ const TEXT_CONTENTS = {
   CREATE_EVENT: '이벤트 생성',
 };
 
-const MENTEE_NAV_ITEMS: Array<NavItem> = [
-  {
-    label: '이력서',
-    href: appPaths.managementResume(),
-  },
-  {
-    label: '피드백',
-    href: appPaths.viewEvent(),
-  },
-  //TODO - 커뮤니티 기능 생기면 추가
-  // {
-  //   label: '커뮤니티',
-  //   href: '#',
-  // },
-];
-
-const MENTOR_NAV_ITEMS: Array<NavItem> = [
-  {
-    label: '피드백',
-    href: appPaths.viewEvent(),
-  },
-  //TODO - 커뮤니티 기능 생기면 추가
-  // {
-  //   label: '커뮤니티',
-  //   href: '#',
-  // },
-];
-
-const COMMON_NAV_ITEMS = [
-  {
-    label: '이력서',
-    href: appPaths.signIn(),
-  },
-  {
-    label: '피드백',
-    href: appPaths.viewEvent(),
-  },
-  //TODO - 커뮤니티 기능 생기면 추가
-  // {
-  //   label: '커뮤니티',
-  //   href: '#',
-  // },
-];
+const USER_NAV_ITEMS: Record<UserRole | 'common', Record<string, string>[]> = {
+  mentee: [
+    {
+      label: '이력서',
+      href: appPaths.managementResume(),
+    },
+    {
+      label: '피드백',
+      href: appPaths.viewEvent(),
+    },
+  ],
+  mentor: [
+    {
+      label: '피드백',
+      href: appPaths.viewEvent(),
+    },
+  ],
+  pending: [
+    {
+      label: '피드백',
+      href: appPaths.viewEvent(),
+    },
+  ],
+  common: [
+    {
+      label: '이력서',
+      href: appPaths.signIn(),
+    },
+    {
+      label: '피드백',
+      href: appPaths.viewEvent(),
+    },
+  ],
+};
 
 const Navigation = ({ user }: { user: User | null }) => {
   const linkColor = 'gray.800';
   const linkHoverColor = 'gray.600';
 
-  const NAV_ITEMS = user
-    ? user.role === 'mentee'
-      ? MENTEE_NAV_ITEMS
-      : MENTOR_NAV_ITEMS
-    : COMMON_NAV_ITEMS;
+  const NAV_ITEMS = user ? USER_NAV_ITEMS[user.role] : USER_NAV_ITEMS.common;
 
   return (
     <Stack
@@ -87,7 +67,6 @@ const Navigation = ({ user }: { user: User | null }) => {
     >
       {NAV_ITEMS.map((navItem) => (
         <>
-          {user?.role === 'mentor'}
           <Box key={navItem.label}>
             <Box
               as="a"
