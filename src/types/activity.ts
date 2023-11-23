@@ -7,6 +7,10 @@ type Activity = {
   description?: string;
 };
 
-type ReadActivity = Activity & { componentId: number };
+type ReadActivity = Activity & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 export type { Activity, ReadActivity };

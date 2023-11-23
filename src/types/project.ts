@@ -8,7 +8,11 @@ type Project = {
   projectUrl?: string;
 };
 
-type ReadProject = Project & { componentId: number };
+type ReadProject = Project & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 type ProjectForm = {
   isTeam: boolean | string;

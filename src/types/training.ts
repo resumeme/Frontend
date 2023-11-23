@@ -9,6 +9,10 @@ type Training = {
   explanation?: string;
 };
 
-type ReadTraining = Training & { componentId: number };
+type ReadTraining = Training & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 export type { Training, ReadTraining };

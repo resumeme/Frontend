@@ -6,6 +6,10 @@ type Award = {
   description?: string;
 };
 
-type ReadAward = Award & { componentId: number };
+type ReadAward = Award & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 export type { Award, ReadAward };
