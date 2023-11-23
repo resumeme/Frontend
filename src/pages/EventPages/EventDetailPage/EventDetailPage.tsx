@@ -1,16 +1,21 @@
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '~/components/atoms/Spinner';
 import { MentorProfile } from '~/components/molecules/MentorProfile';
 import { Modal } from '~/components/molecules/Modal';
 import { EventDetail } from '~/components/organisms/EventDetail';
 import ResumeSelect from '~/components/organisms/ResumeSelect/ResumeSelect';
+import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
 import { useGetEventDetail } from '~/queries/event/details/useGetEventDetail';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const EventDetailPage = () => {
-  //TODO: 이벤트 리스트가 완성되면 "1" 지우기
+  const { user } = useUser();
+
+  const navigate = useNavigate();
+
   const { id: eventId } = useParams();
 
   const { data: event } = useGetEventDetail({ eventId });
@@ -35,7 +40,9 @@ const EventDetailPage = () => {
         <MentorProfile
           mentor={mentor}
           event={event}
-          onApply={onOpen}
+          onApply={() => {
+            user ? onOpen() : navigate(appPaths.signIn());
+          }}
         />
         <EventDetail
           mentor={mentor}
