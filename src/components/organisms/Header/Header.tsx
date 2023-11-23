@@ -57,7 +57,7 @@ const MENTOR_NAV_ITEMS: Array<NavItem> = [
 const COMMON_NAV_ITEMS = [
   {
     label: '이력서',
-    href: appPaths.managementResume(),
+    href: appPaths.signIn(),
   },
   {
     label: '피드백',
