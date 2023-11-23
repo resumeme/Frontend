@@ -124,9 +124,9 @@ const MainPage = () => {
                   border={'1px'}
                   borderColor={'primary.900'}
                   size={'md'}
-                  onClick={() => navigate(appPaths.managementResume())}
+                  onClick={button_info[1].onClick}
                 >
-                  이력서 관리
+                  {button_info[1].text}
                 </Button>
               </Flex>
             </Flex>
