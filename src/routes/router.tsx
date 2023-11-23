@@ -53,12 +53,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/sign',
+    path: '/',
     element: <FocusLayout />,
     children: [
-      { path: 'up', element: <SignUpPage /> },
-      { path: 'in', element: <SignInPage /> },
-      { path: 'in/oauth/kakao', element: <OAuthRedirectPage /> },
+      { path: 'sign-up', element: <SignUpPage /> },
+      { path: 'sign-in', element: <SignInPage /> },
+      { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
     ],
   },
   {
