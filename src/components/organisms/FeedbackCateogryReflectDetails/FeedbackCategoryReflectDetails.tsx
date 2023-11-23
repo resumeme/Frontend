@@ -13,6 +13,7 @@ import { getIndexedCommentsObject } from '~/utils/getIndexedCommentsObject';
 type CategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
+  snapshotData: T[];
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   FormComponent?: React.ComponentType<FormComponentProps<T>>;
   isCurrentUser: boolean;
@@ -21,6 +22,7 @@ type CategoryDetailsProps<T extends ReadCategories> = {
 const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   arrayData,
   commentsData,
+  snapshotData,
   DetailsComponent,
   FormComponent,
   isCurrentUser,
@@ -28,7 +30,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
   const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
-
+  const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
   return (
     <>
       {arrayData?.length > 0 && (
@@ -41,7 +43,14 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
               <React.Fragment key={index}>
                 {editTargetIndex === index && FormComponent ? (
                   <FormComponent
-                    defaultValues={{ ...data, id: undefined }}
+                    defaultValues={{
+                      ...data,
+                      componentId: undefined,
+                      reflectFeedback: undefined,
+                      type: undefined,
+                      originComponentId: undefined,
+                      createdDate: undefined,
+                    }}
                     isEdit
                     blockId={data.componentId}
                     quitEdit={() => setEditTargetIndex(null)}
@@ -58,9 +67,11 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     />
                   </Box>
                 )}
-                {/**NOTE - 첨삭 코멘트 id와 현재 블럭 id 비교 후 일치하면 아래를 렌더링 */}
-                <AccordionToggle text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭">
-                  {hasComment && (
+                {hasComment && (
+                  <AccordionToggle
+                    text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
+                    w={'full'}
+                  >
                     <>
                       {targetComments.map((currentComment) => (
                         <FeedbackView
@@ -71,8 +82,14 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                         />
                       ))}
                     </>
-                  )}
-                </AccordionToggle>
+                    {data.reflectFeedback && (
+                      <DetailsComponent
+                        data={indexedSnapshots[data.componentId]}
+                        isCurrentUser={false}
+                      />
+                    )}
+                  </AccordionToggle>
+                )}
                 {index !== arrayData.length - 1 && (
                   <Divider
                     my={'3rem'}
@@ -89,3 +106,12 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
 };
 
 export default FeedbackCategoryReflectDetails;
+
+const getIndexedSnapshotObject = <T extends ReadCategories>(snapshotData: T[]) => {
+  const indexedSnapshot: { [blockId: string]: T } = {};
+  snapshotData.forEach((commentItem) => {
+    const componentId = commentItem.componentId;
+    indexedSnapshot[componentId] = commentItem;
+  });
+  return indexedSnapshot;
+};

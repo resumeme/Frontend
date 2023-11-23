@@ -26,6 +26,7 @@ import {
   useGetResumeTraining,
 } from '~/queries/resume/details';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
+import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
 
 const FeedbackReflectTemplate = () => {
@@ -46,6 +47,10 @@ const FeedbackReflectTemplate = () => {
     data: { commentResponses },
   } = useGetResumeFeedbacks({ resumeId, eventId });
 
+  const { data: snapshotData } = useGetSnapshotResume({
+    resumeId,
+  });
+
   return (
     <Flex
       width="960px"
@@ -62,6 +67,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={CareerForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.careers}
         />
       </CategoryContainer>
 
@@ -73,6 +79,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={ProjectForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.projects}
         />
       </CategoryContainer>
 
@@ -84,6 +91,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={AwardForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.certifications}
         />
       </CategoryContainer>
 
@@ -95,6 +103,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={LanguageForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.foreignLanguages}
         />
       </CategoryContainer>
 
@@ -106,6 +115,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={TrainingForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.trainings}
         />
       </CategoryContainer>
 
@@ -117,6 +127,7 @@ const FeedbackReflectTemplate = () => {
           FormComponent={ActivityForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
+          snapshotData={snapshotData.activities}
         />
       </CategoryContainer>
     </Flex>
