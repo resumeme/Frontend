@@ -1,7 +1,7 @@
-import { Flex, Icon, Input, Spacer, Text } from '@chakra-ui/react';
+import { Flex, Icon, Spacer, Text } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
@@ -32,13 +32,15 @@ const FeedbackManagementItem = ({
         align={'center'}
         gap={'1rem'}
       >
-        <Text
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
-        >
-          {title}
-        </Text>
+        <Link to={appPaths.eventDetail(eventId)}>
+          <Text
+            fontSize={'1.5rem'}
+            fontWeight={600}
+            color={'gray.800'}
+          >
+            {title}
+          </Text>
+        </Link>
         <Label
           fontSize={'0.75rem'}
           p={'0.25rem 0.37rem'}
@@ -86,15 +88,8 @@ const FeedbackManagementItem = ({
           color={'gray.500'}
           w={'1.25rem'}
         />
-        <Input
-          isTruncated
-          flexShrink={1}
-          h={'min-content'}
-          p={0}
-          m={0}
-          border={0}
-          placeholder="이력서에 대한 간단한 메모를 남겨보세요. ex) 12월 25일 제출 전까지 피드백 받기"
-        />
+        {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
+        <Text>내 이력서</Text>
         <Spacer />
         {status && (
           <Button

@@ -12,6 +12,8 @@ type MyResume = ResumeListItem & {
 };
 
 type FeedbackResume = {
+  //TODO - api 수정 후 변경 - ?제거, title-eventTItle로 변경
+  resumeTitle?: string;
   eventId: number;
   resumeId: number;
   status: ResumeStatus;
