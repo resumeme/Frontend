@@ -67,7 +67,7 @@ const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
             placement="top"
           >
             <PlusSquareIcon
-              color={'red'}
+              color={'gray.500'}
               boxSize={6}
               _groupHover={{
                 color: 'primary.900',
