@@ -6,11 +6,12 @@ import { Label } from '~/components/atoms/Label';
 import CONSTANTS from '~/constants';
 import { Fields } from '~/types/fields';
 import { Position } from '~/types/position';
+import { UserRole } from '~/types/user';
 import { formatPhoneNumber } from '~/utils/formatPhoneNumber';
 
 type UserDetailProps = {
   nickname: string;
-  role: 'mentee' | 'mentor';
+  role: UserRole;
   experiencedPositions?: Position[];
   interestedPositions?: Position[];
   phoneNumber: string;

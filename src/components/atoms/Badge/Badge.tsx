@@ -1,9 +1,10 @@
 import { Badge as ChakraBadge, BadgeProps as ChakraBadgeProps, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { UserRole } from '~/types/user';
 
 type BadgeProps = ChakraBadgeProps & {
   children: ReactNode;
-  type?: 'mentor' | 'mentee' | 'default';
+  type?: UserRole | 'default';
 };
 
 const Badge = ({
@@ -27,6 +28,10 @@ const Badge = ({
     mentee: {
       color: 'primary.800',
       bg: 'primary.100',
+    },
+    pending: {
+      color: 'gray.100',
+      bg: 'highlight.500',
     },
   };
   return (

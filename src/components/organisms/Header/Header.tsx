@@ -75,9 +75,9 @@ const Navigation = ({ user }: { user: User | null }) => {
   const linkHoverColor = 'gray.600';
 
   const NAV_ITEMS = user
-    ? user.role === 'mentor'
-      ? MENTOR_NAV_ITEMS
-      : MENTEE_NAV_ITEMS
+    ? user.role === 'mentee'
+      ? MENTEE_NAV_ITEMS
+      : MENTOR_NAV_ITEMS
     : COMMON_NAV_ITEMS;
 
   return (
