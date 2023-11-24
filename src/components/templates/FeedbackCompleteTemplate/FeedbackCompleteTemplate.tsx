@@ -21,6 +21,7 @@ const FeedbackCompleteTemplate = () => {
   } = useGetResumeFeedbacks({ resumeId, eventId });
 
   const { data: details } = useGetSnapshotResume({ resumeId });
+  /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
   const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
 
   return (

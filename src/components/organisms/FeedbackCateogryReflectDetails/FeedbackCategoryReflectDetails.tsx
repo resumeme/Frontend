@@ -15,7 +15,7 @@ type CategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   snapshotData: T[];
-  mentorData: ReadMentor;
+  mentorData: Pick<ReadMentor, 'imageUrl' | 'nickname'>;
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   FormComponent?: React.ComponentType<FormComponentProps<T>>;
   isCurrentUser: boolean;

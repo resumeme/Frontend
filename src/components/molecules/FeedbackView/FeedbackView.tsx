@@ -17,7 +17,7 @@ type FeedbackViewProps = {
   lastModifiedAt?: string;
   commentId?: number;
   isAuthorizedMentor?: boolean;
-  mentorData: ReadMentor;
+  mentorData: Pick<ReadMentor, 'imageUrl' | 'nickname'>;
 };
 
 const LABELS = {

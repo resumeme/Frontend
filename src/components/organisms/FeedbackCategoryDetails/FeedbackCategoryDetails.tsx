@@ -7,13 +7,12 @@ import { FeedbackComment } from '~/types/event/feedback';
 import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
-import { User } from '~/types/user';
 import { getIndexedCommentsObject } from '~/utils/getIndexedCommentsObject';
 
 type FeedbackCategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
-  mentorData: ReadMentor | User;
+  mentorData: Pick<ReadMentor, 'imageUrl' | 'nickname'>;
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   isAuthorizedMentor?: boolean;
   isFeedbackPage?: boolean;
