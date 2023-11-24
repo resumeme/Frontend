@@ -28,6 +28,7 @@ import {
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
+import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const FeedbackReflectTemplate = () => {
   const { resumeId = '', eventId = '' } = useParams();
@@ -51,6 +52,9 @@ const FeedbackReflectTemplate = () => {
     resumeId,
   });
 
+  /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
+  const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
+
   return (
     <Flex
       width="960px"
@@ -68,6 +72,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.careers}
+          mentorData={mentorData}
         />
       </CategoryContainer>
 
@@ -80,6 +85,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.projects}
+          mentorData={mentorData}
         />
       </CategoryContainer>
 
@@ -92,6 +98,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.certifications}
+          mentorData={mentorData}
         />
       </CategoryContainer>
 
@@ -104,6 +111,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.foreignLanguages}
+          mentorData={mentorData}
         />
       </CategoryContainer>
 
@@ -116,6 +124,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.trainings}
+          mentorData={mentorData}
         />
       </CategoryContainer>
 
@@ -128,6 +137,7 @@ const FeedbackReflectTemplate = () => {
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
           snapshotData={snapshotData.activities}
+          mentorData={mentorData}
         />
       </CategoryContainer>
     </Flex>

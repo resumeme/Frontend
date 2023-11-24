@@ -5,6 +5,7 @@ import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
 import { FeedbackComment } from '~/types/event/feedback';
+import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { FormComponentProps } from '~/types/props/formComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
@@ -14,6 +15,7 @@ type CategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
   snapshotData: T[];
+  mentorData: Pick<ReadMentor, 'imageUrl' | 'nickname'>;
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   FormComponent?: React.ComponentType<FormComponentProps<T>>;
   isCurrentUser: boolean;
@@ -23,6 +25,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   arrayData,
   commentsData,
   snapshotData,
+  mentorData,
   DetailsComponent,
   FormComponent,
   isCurrentUser,
@@ -82,6 +85,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                           commentId={currentComment.commentId}
                           lastModifiedAt={currentComment.lastModifiedAt}
                           content={currentComment.content}
+                          mentorData={mentorData}
                         />
                       ))}
                     </>

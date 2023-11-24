@@ -8,6 +8,7 @@ type FeedbackComment = {
 type Feedback = {
   commentResponses: FeedbackComment[];
   overallReview: string | null;
+  mentorId: string;
 };
 
 export type { FeedbackComment, Feedback };

@@ -4,6 +4,7 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
 import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/FeedbackBlock';
 import { FeedbackComment } from '~/types/event/feedback';
+import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
 import { ReadCategories } from '~/types/resume/categories';
 import { getIndexedCommentsObject } from '~/utils/getIndexedCommentsObject';
@@ -11,6 +12,7 @@ import { getIndexedCommentsObject } from '~/utils/getIndexedCommentsObject';
 type FeedbackCategoryDetailsProps<T extends ReadCategories> = {
   arrayData: T[];
   commentsData: FeedbackComment[];
+  mentorData: Pick<ReadMentor, 'imageUrl' | 'nickname'>;
   DetailsComponent: React.ComponentType<DetailsComponentProps<T>>;
   isAuthorizedMentor?: boolean;
   isFeedbackPage?: boolean;
@@ -20,6 +22,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
   arrayData,
   DetailsComponent,
   commentsData,
+  mentorData,
   isAuthorizedMentor = false,
   isFeedbackPage = false,
 }: FeedbackCategoryDetailsProps<T>) => {
@@ -54,6 +57,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
                           lastModifiedAt={currentComment.lastModifiedAt}
                           content={currentComment.content}
                           isAuthorizedMentor={isAuthorizedMentor}
+                          mentorData={mentorData}
                         />
                       ))}
                     </>

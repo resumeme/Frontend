@@ -12,6 +12,7 @@ import {
 } from '~/components/organisms/ResumeDetails';
 import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
+import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const FeedbackCompleteTemplate = () => {
   const { resumeId = '', eventId = '' } = useParams();
@@ -20,6 +21,8 @@ const FeedbackCompleteTemplate = () => {
   } = useGetResumeFeedbacks({ resumeId, eventId });
 
   const { data: details } = useGetSnapshotResume({ resumeId });
+  /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
+  const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
 
   return (
     <Flex
@@ -61,6 +64,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.careers}
                     DetailsComponent={CareerDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
@@ -78,6 +82,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.projects}
                     DetailsComponent={ProjectDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
@@ -95,6 +100,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.trainings}
                     DetailsComponent={TrainingDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
@@ -112,6 +118,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.certifications}
                     DetailsComponent={AwardDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
@@ -129,6 +136,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.foreignLanguages}
                     DetailsComponent={LanguageDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
@@ -146,6 +154,7 @@ const FeedbackCompleteTemplate = () => {
                     arrayData={details.activities}
                     DetailsComponent={ActivityDetails}
                     commentsData={commentResponses}
+                    mentorData={mentorData}
                   />
                 </Box>
               )}
