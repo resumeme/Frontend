@@ -3,7 +3,7 @@ import { Position } from '../position';
 
 type CreateEvent = {
   info: EventInfo;
-  time: EventTime;
+  time: CreateEventTime;
   positions: Position[];
 };
 
@@ -15,10 +15,14 @@ type EventInfo = {
 
 type EventTime = {
   now: string;
-  openDateTime: string | null;
+  openDateTime: string;
   closeDateTime: string;
   endDate: string;
 };
+
+type CreateEventTime = {
+  openDateTime: string | null;
+} & Omit<EventTime, 'openDateTime'>;
 
 type EventResume = {
   resumeId: number;
@@ -56,4 +60,11 @@ type ReadManagementEvent = {
   resumes: EventResume[];
 };
 
-export type { CreateEvent, ReadEvent, EventResume, EventTime, ReadManagementEvent };
+export type {
+  CreateEvent,
+  ReadEvent,
+  EventResume,
+  EventTime,
+  ReadManagementEvent,
+  CreateEventTime,
+};
