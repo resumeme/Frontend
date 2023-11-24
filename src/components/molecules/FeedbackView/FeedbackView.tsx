@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Icon, Image, Tooltip, useDisclosure, Divider } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import { ConfirmModal } from '../ConfirmModal';
@@ -39,12 +39,6 @@ const FeedbackView = ({
   const { mutate: deleteCommentMutate } = useDeleteFeedbackComment(resumeId, eventId);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useEffect(() => {
-    if (content !== '') {
-      setValue(content);
-    }
-  }, [value, content]);
-
   const isEditToggle = () => {
     setIsEdit(!isEdit);
   };
@@ -68,7 +62,7 @@ const FeedbackView = ({
         { resumeId, eventId, commentId, body },
         {
           onSuccess: () => {
-            setValue('');
+            setValue(value);
             isEditToggle();
           },
         },
