@@ -9,14 +9,29 @@ const EventGridTemplate = () => {
   const size = 6;
   const { data } = useGetEventList({ page, size });
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage !== page) {
+      setPage(newPage);
+    }
+    scrollToTop();
+  };
+
   return (
     <>
       <Text
-        color={'gray.900'}
+        color={'gray.800'}
         fontSize={'1.5rem'}
+        fontWeight={'semibold'}
         mb={'2rem'}
       >
-        진행 중인 첨삭 이벤트
+        진행 중인 피드백
       </Text>
       {data.events.length ? (
         <>
@@ -24,7 +39,7 @@ const EventGridTemplate = () => {
           <Pagination
             size={size}
             page={page}
-            setPage={setPage}
+            setPage={handlePageChange}
             total={data.pageData.totalElements}
           />
         </>
