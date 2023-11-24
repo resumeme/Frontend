@@ -43,7 +43,7 @@ const ResumeDetailTemplate = () => {
     project: details?.projects,
     activity: details?.activities,
     award: details?.certifications,
-    language: details?.['foreign-languages'],
+    language: details?.['foreignLanguages'],
   };
 
   return (

@@ -13,13 +13,13 @@ export const getResumeLanguage = async ({
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}/foreign-languages`, {
+    const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}/foreignLanguages`, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });
-    return data['foreign-languages'] ?? [];
+    return data['foreignLanguages'] ?? [];
   } catch (e) {
     if (isAxiosError<ResumeMeErrorResponse>(e)) {
       throw new Error(e.response?.data.message);

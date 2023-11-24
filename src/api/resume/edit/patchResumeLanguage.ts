@@ -11,7 +11,7 @@ export const patchResumeLanguage: PatchResumeCategory<Language> = async ({
 }) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
   const { data } = await resumeMeAxios.patch(
-    `/v1/resumes/${resumeId}/foreign-languages/components/${blockId}`,
+    `/v1/resumes/${resumeId}/foreignLanguages/components/${blockId}`,
     body,
     {
       headers: {
