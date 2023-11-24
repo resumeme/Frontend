@@ -26,6 +26,7 @@ const CONSTANTS = {
   },
   LABEL_MULTI_SELECTABLE: '(여러 개 선택 가능)',
   URL_PATTERN: /^(https?:\/\/)?([\w.-]+\.\w{2,})([\w\W]*)$/,
+  KO_PATTERN: /^[가-힣]+$/,
   RESUME_STATUS,
 };
 

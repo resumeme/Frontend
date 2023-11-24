@@ -92,7 +92,16 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
               <FormTextInput
                 id={'realName'}
                 placeholder="본명을 입력해주세요."
-                register={{ ...register('realName', { required: '이름을 입력해주세요.' }) }}
+                register={{
+                  ...register('realName', {
+                    required: '이름을 입력해주세요.',
+                    maxLength: { value: 6, message: '6자 이하여야 합니다.' },
+                    pattern: {
+                      value: CONSTANTS.KO_PATTERN,
+                      message: '올바른 형태의 한글로 입력해주세요.',
+                    },
+                  }),
+                }}
                 error={errors.realName}
               />
             </FormControl>
