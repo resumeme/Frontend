@@ -46,7 +46,7 @@ const TrainingForm = ({
   });
   const { mutate: patchResumeTrainingMutate } = useOptimisticPatchCategory({
     mutationFn: patchResumeTraining,
-    TARGET_QUERY_KEY: categoryKeys.project(resumeId),
+    TARGET_QUERY_KEY: categoryKeys.training(resumeId),
     onMutateSuccess: quitEdit,
   });
 
