@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
 import FeedbackLayout from './FeedbackLayout';
 import FocusLayout from './FocusLayout';
 import Layout from './Layout';
@@ -24,47 +25,53 @@ import { WriteReviewPage } from '~/pages/WriteReviewPage';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <MainLayout />,
-    children: [{ index: true, element: <MainPage /> }],
-  },
-  {
-    path: '/',
-    element: <Layout />,
+    errorElement: <ErrorBoundary />,
     children: [
-      { path: 'mypage/:id', element: <MyPage /> },
-      { path: 'user/edit-info', element: <EditProfilePage /> },
+      {
+        path: '/',
+        element: <MainLayout />,
+        children: [{ index: true, element: <MainPage /> }],
+      },
+      {
+        element: <Layout />,
+        children: [
+          { path: 'mypage/:id', element: <MyPage /> },
+          { path: 'user/edit-info', element: <EditProfilePage /> },
 
-      { path: 'resume/create', element: <CreateResumePage /> },
-      { path: 'resume/management', element: <ManagementResumePage /> },
-      { path: 'resume/:id/edit', element: <EditResumePage /> },
+          { path: 'resume/create', element: <CreateResumePage /> },
+          {
+            path: 'resume/management',
+            element: <ManagementResumePage />,
+          },
+          { path: 'resume/:id/edit', element: <EditResumePage /> },
 
-      { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
+          { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
 
-      { path: 'resume/:id', element: <ResumeDetailPage /> },
-      { path: 'write-review', element: <WriteReviewPage /> },
+          { path: 'resume/:id', element: <ResumeDetailPage /> },
+          { path: 'write-review', element: <WriteReviewPage /> },
 
-      { path: 'event/create', element: <CreateEventPage /> },
-      { path: 'event/view', element: <EventListPage /> },
-      { path: 'event/view/:id', element: <EventDetailPage /> },
+          { path: 'event/create', element: <CreateEventPage /> },
+          { path: 'event/view', element: <EventListPage /> },
+          { path: 'event/view/:id', element: <EventDetailPage /> },
 
-      { path: 'admin', element: <AdminPage /> },
-      { path: '*', element: <NotFoundPage /> },
+          { path: 'admin', element: <AdminPage /> },
+          { path: '*', element: <NotFoundPage /> },
+        ],
+      },
+      {
+        element: <FocusLayout />,
+        children: [
+          { path: 'sign-up', element: <SignUpPage /> },
+          { path: 'sign-in', element: <SignInPage /> },
+          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
+        ],
+      },
+      {
+        path: 'event/:eventId/resume/:resumeId/',
+        element: <FeedbackLayout />,
+        children: [{ index: true, element: <FeedbackResumePage /> }],
+      },
     ],
-  },
-  {
-    path: '/',
-    element: <FocusLayout />,
-    children: [
-      { path: 'sign-up', element: <SignUpPage /> },
-      { path: 'sign-in', element: <SignInPage /> },
-      { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
-    ],
-  },
-  {
-    path: 'event/:eventId/resume/:resumeId/',
-    element: <FeedbackLayout />,
-    children: [{ index: true, element: <FeedbackResumePage /> }],
   },
 ]);
 

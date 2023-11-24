@@ -3,9 +3,10 @@ import {
   getManagementEvents,
   getManagementEventsProps,
 } from '~/api/event/details/getManagementEvents';
+import { UserRole } from '~/types/user';
 
 type useGetManagementEventsProps = {
-  role?: 'mentee' | 'mentor';
+  role?: UserRole;
 } & getManagementEventsProps;
 
 export const eventsKeys = {
@@ -17,6 +18,6 @@ export const useGetManagementEvents = ({ userId, role }: useGetManagementEventsP
   return useQuery({
     queryKey: [eventsKeys.events({ userId })],
     queryFn: () => getManagementEvents({ userId }),
-    enabled: role === 'mentor',
+    enabled: !!(role === 'mentor'),
   });
 };
