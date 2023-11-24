@@ -23,8 +23,8 @@ const MentorProfile = ({
   const { nickname, introduce, imageUrl } = mentor;
   return (
     <VStack
-      w={'full'}
-      maxW="14.25rem"
+      flexShrink={0}
+      w="14.25rem"
       gap={'1.56rem'}
     >
       <Avatar
