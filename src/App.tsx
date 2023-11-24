@@ -1,11 +1,35 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createStandaloneToast } from '@chakra-ui/toast';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { RouterProvider } from 'react-router-dom';
+import CONSTANTS from './constants/index';
+import { ResumeMeErrorResponse } from './types/errorResponse';
 import router from '~/routes/router';
 import theme from '~/theme';
 import Fonts from '~/theme/typography/fonts';
 
-const queryClient = new QueryClient();
+const { toast } = createStandaloneToast({ theme });
+
+const axiosErrorHandler = (error: Error) => {
+  if (isAxiosError<ResumeMeErrorResponse>(error)) {
+    if (error.response) {
+      const errorCode = error.response.data.code;
+      toast({
+        description: CONSTANTS.ERROR_MESSAGES[errorCode],
+        status: 'error',
+      });
+    }
+  }
+  return;
+};
+
+const queryClient = new QueryClient({
+  defaultOptions: { mutations: { onError: axiosErrorHandler }, queries: { retry: 1 } },
+  queryCache: new QueryCache({
+    onError: axiosErrorHandler,
+  }),
+});
 
 const App = () => {
   return (

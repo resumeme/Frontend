@@ -25,6 +25,14 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
   } = useForm<ReferenceLink>();
 
   const onSubmit = handleSubmit((body) => {
+    if (
+      defaultValue &&
+      defaultValue.map((data: ReadReferenceLink) => data.url).includes(body.url)
+    ) {
+      reset();
+      return;
+    }
+
     postReferenceLinkMutate({ resumeId, body });
     reset();
   });

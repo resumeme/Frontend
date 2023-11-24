@@ -1,13 +1,15 @@
 import { Fields } from './fields';
 import { Position } from './position';
 
+type UserRole = 'mentee' | 'mentor' | 'pending';
+
 type User = {
   id: number;
   imageUrl: string;
   realName: string;
   nickname: string;
   phoneNumber: string;
-  role: 'mentee' | 'mentor';
+  role: UserRole;
   experiencedPositions?: Position[];
   interestedPositions?: Position[];
   interestedFields: Fields[];
@@ -16,4 +18,4 @@ type User = {
   introduce: string;
 };
 
-export type { User };
+export type { User, UserRole };

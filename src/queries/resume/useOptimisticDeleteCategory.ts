@@ -15,6 +15,7 @@ export const useOptimisticDeleteCategory = <T extends Categories>({
 }: UseOptimisticDelete<T>) => {
   const queryClient = useQueryClient();
   const toast = useToast();
+
   return useMutation({
     mutationFn,
     onMutate: async (newCategoryBlock) => {

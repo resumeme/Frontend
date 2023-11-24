@@ -1,4 +1,5 @@
 import { useToast } from '@chakra-ui/react';
+import { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
@@ -6,9 +7,11 @@ import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTem
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
+import { ErrorMessage } from '~/types/errorResponse';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
@@ -76,6 +79,15 @@ const SignUpPage = () => {
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
                   signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
+                onError: (error) => {
+                  if (error instanceof AxiosError) {
+                    toast({
+                      description: CONSTANTS.ERROR_MESSAGES[error.code as ErrorMessage],
+                      status: 'error',
+                    });
+                  }
+                  setStep('COMMON');
+                },
               },
             );
           }}
@@ -93,6 +105,15 @@ const SignUpPage = () => {
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
                   signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
+                onError: (error) => {
+                  if (error instanceof AxiosError) {
+                    toast({
+                      description: CONSTANTS.ERROR_MESSAGES[error.code as ErrorMessage],
+                      status: 'error',
+                    });
+                  }
+                  setStep('COMMON');
+                },
               },
             );
           }}

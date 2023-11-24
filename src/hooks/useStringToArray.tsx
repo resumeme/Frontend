@@ -18,6 +18,7 @@ export const useStringToArray = (): [
     if (!skill.trim() || skill === ',') {
       event.currentTarget.value = '';
     }
+
     if (skill.length > 1 && key === 'Enter') {
       event.currentTarget.value = '';
       if (!array.includes(skill)) {
