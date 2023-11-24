@@ -15,7 +15,7 @@ type EventInfo = {
 
 type EventTime = {
   now: string;
-  openDateTime: string;
+  openDateTime: string | null;
   closeDateTime: string;
   endDate: string;
 };

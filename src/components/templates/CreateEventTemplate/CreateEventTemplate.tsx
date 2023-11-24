@@ -1,4 +1,5 @@
-import { HStack, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Checkbox, HStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -15,7 +16,10 @@ import { CreateEvent } from '~/types/event/event';
 const CreateEventTemplate = () => {
   const { mutate: createEvent, isPending } = usePostCreateEvent();
 
+  const [isOpenDateDisabled, setIsOpenDateDisabled] = useState(false);
+
   const {
+    setValue,
     control,
     handleSubmit,
     register,
@@ -112,11 +116,39 @@ const CreateEventTemplate = () => {
                 isRequired={true}
                 endDateName="time.closeDateTime"
                 startDateName="time.openDateTime"
+                isOpenDateDisabled={isOpenDateDisabled}
               />
+              <Checkbox
+                ml={'1rem'}
+                onChange={(event) => {
+                  setIsOpenDateDisabled(!isOpenDateDisabled);
+
+                  if (event.target.checked) {
+                    setValue('time.openDateTime', null);
+                  }
+                }}
+              >
+                재직 중
+              </Checkbox>
             </HStack>
+            {/* <HStack spacing={'1.6rem'}>
+              <FormLabel isRequired={true}>신청 기간</FormLabel>
+              <TermInput<CreateEvent>
+                future
+                control={control}
+                includeTime={true}
+                errors={errors}
+                register={register}
+                isRequired={true}
+                endDateName="time.closeDateTime"
+                startDateName="time.openDateTime"
+              />
+            </HStack> */}
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
+                name="time.endDate"
+                min={closeDateTime}
                 error={errors.time?.endDate}
                 w={'47.6%'}
                 register={{
