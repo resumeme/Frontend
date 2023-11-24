@@ -33,7 +33,6 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
   const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
-  if (!snapshotData) return;
   const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
   return (
     <>
