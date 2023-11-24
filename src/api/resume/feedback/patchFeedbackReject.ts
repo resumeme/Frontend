@@ -3,12 +3,12 @@ import CONSTANTS from '~/constants';
 import { EventReject } from '~/types/resume/eventReject';
 import { getCookie } from '~/utils/cookie';
 
-type PatchFeedbackReject = { eventId: string; menteeId: number; body: EventReject };
+type PatchFeedbackReject = { eventId: string; body: EventReject };
 
-export const patchFeedbackReject = async ({ eventId, menteeId, body }: PatchFeedbackReject) => {
+export const patchFeedbackReject = async ({ eventId, body }: PatchFeedbackReject) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.patch(`/v1/events/${eventId}/mentee/${menteeId}`, body, {
+  const { data } = await resumeMeAxios.patch(`/v1/appliments/events/${eventId}`, body, {
     headers: {
       Authorization: accessToken,
     },
