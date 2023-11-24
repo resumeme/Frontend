@@ -8,6 +8,7 @@ import { FeedbackInput } from '../FeedbackInput';
 import { Label } from '~/components/atoms/Label';
 import useDeleteFeedbackComment from '~/queries/event/useDeleteFeedbackComment';
 import usePatchFeedbackComment from '~/queries/event/usePatchFeedbackComment';
+import { ReadMentor } from '~/types/mentor';
 import { formatKoreanDateWithoutSeconds } from '~/utils/formatDate';
 import '@uiw/react-markdown-preview/markdown.css';
 
@@ -16,6 +17,7 @@ type FeedbackViewProps = {
   lastModifiedAt?: string;
   commentId?: number;
   isAuthorizedMentor?: boolean;
+  mentorData: ReadMentor;
 };
 
 const LABELS = {
@@ -30,6 +32,7 @@ const FeedbackView = ({
   content = ``,
   lastModifiedAt = '2023-11-15 17:17:09',
   commentId,
+  mentorData,
   isAuthorizedMentor = false,
 }: FeedbackViewProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -37,6 +40,7 @@ const FeedbackView = ({
   const { resumeId = '', eventId = '' } = useParams();
   const { mutate: patchCommentMutate } = usePatchFeedbackComment(resumeId, eventId);
   const { mutate: deleteCommentMutate } = useDeleteFeedbackComment(resumeId, eventId);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const isEditToggle = () => {
@@ -122,15 +126,15 @@ const FeedbackView = ({
                 py={1}
               >
                 <Tooltip
-                  label={'카키디'}
+                  label={mentorData.nickname}
                   placement="top"
                   hasArrow
                 >
                   <Image
                     borderRadius="full"
                     boxSize="24px"
-                    /* FIXME 멘토 아이콘 */
-                    src="https://bit.ly/dan-abramov"
+                    src={mentorData.imageUrl}
+                    alt="멘토 프로필 이미지"
                   />
                 </Tooltip>
                 <Text
@@ -138,8 +142,7 @@ const FeedbackView = ({
                   fontWeight={'bold'}
                   color={'gray.800'}
                 >
-                  {/* FIXME 멘토 닉네임 */}
-                  카키디
+                  {mentorData.nickname}
                 </Text>
               </Flex>
               {isAuthorizedMentor ? (
