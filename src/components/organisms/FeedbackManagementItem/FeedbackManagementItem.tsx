@@ -1,4 +1,4 @@
-import { Flex, Icon, Link, Spacer, Text } from '@chakra-ui/react';
+import { Flex, Icon, Link, Spacer, Text, useToast } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -17,13 +17,16 @@ const FeedbackManagementItem = ({
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
+  const toast = useToast();
   // TODO api 상태 정해지면 label 컬러 추가
 
   const handleClick = () => {
     if (status === 'CLOSE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
-    } else {
+    } else if (status === 'FINISH') {
       navigate(appPaths.feedbackReflect(resumeId, eventId));
+    } else {
+      toast({ description: '첨삭 받은 후에 수정 가능해요.', status: 'info' });
     }
   };
 
