@@ -11,7 +11,7 @@ export const patchResumeBasicInfo = async ({ resumeId, resumeBasicInfo }: patchR
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.patch(`/v1/resumes/${resumeId}/basic`, resumeBasicInfo, {
+    const { data } = await resumeMeAxios.patch(`/v2/resumes/${resumeId}`, resumeBasicInfo, {
       headers: {
         Authorization: accessToken,
       },
