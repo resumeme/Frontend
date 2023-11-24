@@ -45,7 +45,6 @@ const EditMenteeProfileTemplate = () => {
   const queryClient = useQueryClient();
 
   const onSubmit: SubmitHandler<EditMentee> = (profile) => {
-    debugger;
     patchMenteeProfile(
       { menteeId: String(mentee?.id), profile },
       {
