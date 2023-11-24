@@ -1,5 +1,5 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
-import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
