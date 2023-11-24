@@ -20,8 +20,9 @@ const EventContent = ({ content }: EventContent) => {
         <Text as="span">이벤트 내용</Text>
         <Text
           color={'gray.900'}
-          whiteSpace={'pre-line'}
+          whiteSpace={'pre-wrap'}
           as="p"
+          wordBreak={'break-word'}
         >
           {content}
         </Text>
