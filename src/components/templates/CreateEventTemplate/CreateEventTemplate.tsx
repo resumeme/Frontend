@@ -90,13 +90,15 @@ const CreateEventTemplate = () => {
             </FormControl>
             <FormControl
               spacing="1.63rem"
-              isInvalid={!!errors['positions']}
+              isInvalid={!!errors.positions}
             >
               <FormLabel isRequired={true}>직무</FormLabel>
               <LabelCheckboxGroup
                 control={control}
                 name="positions"
                 variant="role"
+                error={errors.positions}
+                errorMessage="직무를 선택해 주세요."
               />
             </FormControl>
             <HStack spacing={'1.6rem'}>
