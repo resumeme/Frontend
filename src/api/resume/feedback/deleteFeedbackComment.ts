@@ -15,7 +15,7 @@ export const deleteFeedbackComment = async ({
 }: DeleteFeedbackComment) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.patch(
+  const { data } = await resumeMeAxios.delete(
     `/v1/events/${eventId}/resumes/${resumeId}/comments/${commentId}`,
     {
       headers: {
