@@ -1,5 +1,6 @@
 import { Divider, HStack, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import CONSTANTS from './../../../constants/index';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Position } from '~/types/position';
 
@@ -36,7 +37,7 @@ const MentorCareerTitle = ({ experiencedPositions, careerYear }: MentorCareerTit
                 key={uuidv4()}
                 as={'span'}
               >
-                {position}
+                {CONSTANTS.POSITION[position]}
               </Text>
             ))}
           </HStack>
