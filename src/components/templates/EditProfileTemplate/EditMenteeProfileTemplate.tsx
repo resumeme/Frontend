@@ -36,6 +36,7 @@ const EditMenteeProfileTemplate = () => {
   }
 
   const {
+    watch,
     control,
     register,
     handleSubmit,
@@ -146,7 +147,10 @@ const EditMenteeProfileTemplate = () => {
               variant={'domain'}
             />
           </FormControl>
-          <FormControl {...FORM_STYLE.control}>
+          <FormControl
+            isInvalid={!!errors.introduce}
+            {...FORM_STYLE.control}
+          >
             <FormLabel
               {...FORM_STYLE.label}
               mb={'0.75rem'}
@@ -156,7 +160,14 @@ const EditMenteeProfileTemplate = () => {
             <FormTextarea
               placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
               id="introduce"
-              register={{ ...register('introduce') }}
+              register={{
+                ...register('introduce', {
+                  maxLength: {
+                    value: 100,
+                    message: `100자 이내로 입력해주세요. ${watch('introduce').length}자`,
+                  },
+                }),
+              }}
               error={errors.introduce}
               h={'7.2rem'}
             />
