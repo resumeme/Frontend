@@ -11,7 +11,7 @@ export const postResumeLanguage = async ({ resumeId, body }: PostResumeLanguage)
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   try {
-    const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/foreign-languages`, body, {
+    const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/foreignLanguages`, body, {
       headers: {
         /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,

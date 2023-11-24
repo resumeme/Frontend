@@ -1,11 +1,12 @@
 import { Box, Flex, Spinner, Tooltip } from '@chakra-ui/react';
+import { useState } from 'react';
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 import { useNavigate, useParams } from 'react-router-dom';
 import TitleInput from '~/components/atoms/TitleInput/TitleInput';
 import { renderIcon } from '~/components/molecules/ReferenceLinkBox';
 import { usePatchResumeTitle } from '~/queries/resume/create/usePatchResumeTitle';
 
-const StateTooltip = (state: 'success' | 'error') => {
+const StateTooltip = (state: 'success' | 'error' | 'empty') => {
   const STATE_STYLE = {
     success: {
       icon: HiCheck,
@@ -16,6 +17,11 @@ const StateTooltip = (state: 'success' | 'error') => {
       icon: HiXCircle,
       color: 'red.600',
       message: '저장에 실패했어요 :(',
+    },
+    empty: {
+      icon: HiXCircle,
+      color: 'red.600',
+      message: '제목을 입력해 주세요',
     },
   };
 
@@ -52,6 +58,7 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
   const { id: resumeId } = useParams();
   const { mutate, isPending, isSuccess, isError } = usePatchResumeTitle();
   const navigate = useNavigate();
+  const [empty, setEmpty] = useState(false);
 
   let debounceTimeout: NodeJS.Timeout | null = null;
 
@@ -68,11 +75,21 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
 
     debounceTimeout = setTimeout(() => {
       const resumeTitle = e.target.value;
+
+      if (e.target.value.length < 1) {
+        setEmpty(true);
+        return;
+      } else {
+        setEmpty(false);
+      }
       mutate({ resumeId, resumeTitle });
     }, 1000);
   };
 
   const renderMutationState = () => {
+    if (empty) {
+      return StateTooltip('empty');
+    }
     if (isPending) {
       /* TODO pending 상태일 때, Spinner가 돌아가는 최소 시간을 보장하는 로직을 추가해보자 */
       return (
@@ -91,6 +108,7 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
     if (isSuccess) {
       return StateTooltip('success');
     }
+
     return null;
   };
 
