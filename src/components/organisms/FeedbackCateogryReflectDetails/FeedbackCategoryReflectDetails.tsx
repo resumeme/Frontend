@@ -90,7 +90,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     </>
                     {data.reflectFeedback && (
                       <DetailsComponent
-                        data={indexedSnapshots[data.componentId]}
+                        data={indexedSnapshots[data.originComponentId!]}
                         isCurrentUser={false}
                       />
                     )}

@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
 import { FeedbackCategoryReflectDetails } from '~/components/organisms/FeedbackCateogryReflectDetails';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
@@ -16,6 +17,7 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import {
   useGetResumeActivities,
@@ -28,6 +30,7 @@ import {
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
+import { usePatchFeedbackReflectComplete } from '~/queries/resume/feedback/usePatchFeedbackReflectComplete';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const FeedbackReflectTemplate = () => {
@@ -55,6 +58,8 @@ const FeedbackReflectTemplate = () => {
   /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
   const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
 
+  const { mutate: patchReflectCompleteMutate } = usePatchFeedbackReflectComplete();
+  const navigate = useNavigate();
   return (
     <Flex
       width="960px"
@@ -140,6 +145,21 @@ const FeedbackReflectTemplate = () => {
           mentorData={mentorData}
         />
       </CategoryContainer>
+
+      <Button
+        onClick={() =>
+          patchReflectCompleteMutate(
+            { resumeId },
+            {
+              onSuccess: () => {
+                navigate(appPaths.managementResume());
+              },
+            },
+          )
+        }
+      >
+        수정 완료
+      </Button>
     </Flex>
   );
 };
