@@ -11,7 +11,7 @@ const postEventApply = async ({
 }): Promise<{ id: number }> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.patch(
+  const { data } = await resumeMeAxios.post(
     `/v1/appliments/events/${eventId}`,
     { resumeId },
     {
