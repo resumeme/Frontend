@@ -40,6 +40,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
             const currentBlockId = data.componentId;
             const targetComments: FeedbackComment[] = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
+            const isOpen = hasComment ?? !data.reflectFeedback;
             return (
               <React.Fragment key={index}>
                 {editTargetIndex === index && FormComponent ? (
@@ -72,6 +73,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                   <AccordionToggle
                     text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
                     w={'full'}
+                    isOpen={isOpen}
                   >
                     <>
                       {targetComments.map((currentComment) => (
