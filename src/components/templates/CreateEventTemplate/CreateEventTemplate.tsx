@@ -119,7 +119,6 @@ const CreateEventTemplate = () => {
                 isOpenDateDisabled={isOpenDateDisabled}
               />
               <Checkbox
-                ml={'1rem'}
                 onChange={(event) => {
                   setIsOpenDateDisabled(!isOpenDateDisabled);
 
@@ -128,22 +127,9 @@ const CreateEventTemplate = () => {
                   }
                 }}
               >
-                재직 중
+                즉시 오픈
               </Checkbox>
             </HStack>
-            {/* <HStack spacing={'1.6rem'}>
-              <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput<CreateEvent>
-                future
-                control={control}
-                includeTime={true}
-                errors={errors}
-                register={register}
-                isRequired={true}
-                endDateName="time.closeDateTime"
-                startDateName="time.openDateTime"
-              />
-            </HStack> */}
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
