@@ -13,6 +13,7 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import useUser from '~/hooks/useUser';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetResumeDetails } from '~/queries/resume/details/useGetResumeDetails';
 import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
@@ -26,6 +27,8 @@ const FeedbackResumeTemplate = () => {
   const {
     data: { commentResponses },
   } = useGetResumeFeedbacks({ resumeId, eventId });
+
+  const { user: mentorData } = useUser();
 
   const data = {
     basic: basicInfo,
@@ -217,6 +220,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={CareerDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
@@ -236,6 +240,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={ProjectDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
@@ -255,6 +260,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={TrainingDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
@@ -274,6 +280,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={AwardDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
@@ -293,6 +300,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={LanguageDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
@@ -312,6 +320,7 @@ const FeedbackResumeTemplate = () => {
                     DetailsComponent={ActivityDetails}
                     isAuthorizedMentor
                     isFeedbackPage
+                    mentorData={mentorData!}
                   />
                 </Box>
               )}
