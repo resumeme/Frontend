@@ -147,12 +147,22 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 h={'7.2rem'}
               />
             </FormControl>
-            <FormControl {...FORM_STYLE.control}>
+            <FormControl
+              isInvalid={Boolean(errors.introduce)}
+              {...FORM_STYLE.control}
+            >
               <FormLabel {...FORM_STYLE.label}>자기소개</FormLabel>
               <FormTextarea
                 placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                 id="introduce"
-                register={{ ...register('introduce') }}
+                register={{
+                  ...register('introduce', {
+                    maxLength: {
+                      value: 99,
+                      message: '최대 100자 이내로만 작성해주세요.',
+                    },
+                  }),
+                }}
                 error={errors.introduce}
                 h={'3rem'}
               />
