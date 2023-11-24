@@ -57,7 +57,12 @@ const CreateEventTemplate = () => {
               <FormTextInput
                 w={'100%'}
                 id="info.title"
-                register={{ ...register('info.title', { required: true }) }}
+                register={{
+                  ...register('info.title', {
+                    required: true,
+                    maxLength: { value: 30, message: '30자 보다 짧게 입력해주세요' },
+                  }),
+                }}
                 error={errors.info?.title}
                 placeholder="이벤트 제목을 입력해주세요."
               />
