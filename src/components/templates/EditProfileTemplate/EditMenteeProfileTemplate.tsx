@@ -45,6 +45,7 @@ const EditMenteeProfileTemplate = () => {
   const queryClient = useQueryClient();
 
   const onSubmit: SubmitHandler<EditMentee> = (profile) => {
+    debugger;
     patchMenteeProfile(
       { menteeId: String(mentee?.id), profile },
       {
@@ -122,6 +123,7 @@ const EditMenteeProfileTemplate = () => {
               관심 직무
             </FormLabel>
             <LabelCheckboxGroup
+              required={false}
               name="interestedPositions"
               control={control}
               variant={'role'}
@@ -139,6 +141,7 @@ const EditMenteeProfileTemplate = () => {
               관심 도메인
             </FormLabel>
             <LabelCheckboxGroup
+              required={false}
               name="interestedFields"
               control={control}
               variant={'domain'}
