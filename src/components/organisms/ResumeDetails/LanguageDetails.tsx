@@ -19,7 +19,7 @@ const LanguageDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadLanguage>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language>({
     mutationFn: deleteResumeCategoryBlock,

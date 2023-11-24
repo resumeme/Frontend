@@ -23,7 +23,7 @@ const TraningDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadTraining>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Training>({
     mutationFn: deleteResumeCategoryBlock,

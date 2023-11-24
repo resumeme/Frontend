@@ -55,7 +55,7 @@ type TitleInputFormProps = {
 };
 
 const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
-  const { id: resumeId } = useParams();
+  const { resumeId } = useParams();
   const { mutate, isPending, isSuccess, isError } = usePatchResumeTitle();
   const navigate = useNavigate();
   const [empty, setEmpty] = useState(false);

@@ -14,7 +14,7 @@ const ActivityDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadActivity>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Activity>({
     mutationFn: deleteResumeCategoryBlock,

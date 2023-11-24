@@ -24,7 +24,9 @@ const RemoteControlPannel = () => {
 
   const onSubmit = (value: FeedbackComplete) => {
     if (eventId !== '' && resumeId !== '') {
-      mutate({ eventId, resumeId, body: value });
+      value.resumeId = Number(resumeId);
+
+      mutate({ eventId, body: value });
     } else {
       alert('eventId와 resumeId를 찾을 수 없습니다.');
     }
@@ -34,7 +36,7 @@ const RemoteControlPannel = () => {
     <RemoteControl>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl
-          isInvalid={Boolean(errors.comment)}
+          isInvalid={Boolean(errors.completeMessage)}
           direction="column"
           spacing="0.2rem"
           mb={'1rem'}
@@ -44,13 +46,13 @@ const RemoteControlPannel = () => {
             h={'6rem'}
             fontSize={'sm'}
             placeholder="총평을 입력해주세요."
-            id="comment"
+            id="completeMessage"
             register={{
-              ...register('comment', {
+              ...register('completeMessage', {
                 required: '짧게라도 총평을 남겨주세요!',
               }),
             }}
-            error={errors?.comment}
+            error={errors?.completeMessage}
           />
         </FormControl>
         <Button

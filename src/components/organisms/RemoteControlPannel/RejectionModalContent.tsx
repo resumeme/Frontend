@@ -21,7 +21,9 @@ const RejectionModalContent = ({ onClose, eventId, menteeId }: RejectionModalCon
   } = useForm<EventReject>();
 
   const onSubmit = (value: EventReject) => {
-    mutate({ eventId, menteeId, body: value });
+    value.menteeId = menteeId;
+
+    mutate({ eventId, body: value });
 
     if (onClose) {
       onClose();

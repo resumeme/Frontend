@@ -14,7 +14,7 @@ const AwardDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadAward>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteAward } = useOptimisticDeleteCategory<Award>({
     mutationFn: deleteResumeCategoryBlock,
