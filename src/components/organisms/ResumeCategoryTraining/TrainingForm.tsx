@@ -204,8 +204,11 @@ const TrainingForm = ({
                     register={{
                       ...register('gpa', {
                         valueAsNumber: true,
-                        max: { value: 4.5, message: '최대 학점은 4.5입니다.' },
-                        min: { value: 0, message: '올바른 학점을 입력해주세요.' },
+                        max: {
+                          value: Number(watch('maxGpa')),
+                          message: '최대 학점보다 높을 수 없어요',
+                        },
+                        min: { value: 1, message: '1보다 높아야 해요.' },
                       }),
                     }}
                     error={errors.gpa}
@@ -227,7 +230,7 @@ const TrainingForm = ({
                       }),
                     }}
                     error={errors.maxGpa}
-                  />
+                  /> */}
                 </FormControl>
               </Flex>
               <FormControl isInvalid={Boolean(errors.explanation)}>
