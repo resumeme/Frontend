@@ -11,7 +11,7 @@ type PaginationProps = {
   total: number;
   size: number;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: (page: number) => void;
 };
 
 const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
@@ -20,6 +20,7 @@ const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
     <Flex
       w={'full'}
       justifyContent={'center'}
+      align={'center'}
       mt={'10rem'}
     >
       <IconButton
@@ -37,15 +38,16 @@ const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
           return (
             <ChakraButton
               key={i + 1}
+              size={'xs'}
               onClick={() => setPage(i + 1)}
-              bg={isCurrentPage ? 'primary.900' : 'none'}
+              bg={isCurrentPage ? 'primary.800' : 'none'}
               _hover={{
-                bg: isCurrentPage ? 'primary.900' : 'primary.100',
+                bg: isCurrentPage ? 'primary.800' : 'primary.100',
               }}
               w={'auto'}
             >
               <Text
-                fontSize={'1.2rem'}
+                fontSize={'1rem'}
                 color={isCurrentPage ? 'gray.100' : 'gray. 700'}
               >
                 {i + 1}
