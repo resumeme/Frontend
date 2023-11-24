@@ -23,7 +23,7 @@ const BasicInfoForm = ({
   onSaveClick,
 }: BasicInfoFormProps) => {
   const { mutate: patchResumeBasicInfo } = usePatchResumeBasicInfo();
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const queryClient = useQueryClient();
 
   const {
