@@ -1,7 +1,9 @@
 import { Flex, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import useUser from '~/hooks/useUser';
 import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
@@ -16,6 +18,8 @@ const MentorProfile = ({
   event: { currentApplicantCount, maximumCount, status },
   onApply,
 }: MentorProfileProps) => {
+  const { user } = useUser();
+
   const { nickname, introduce, imageUrl } = mentor;
   return (
     <VStack
@@ -72,15 +76,17 @@ const MentorProfile = ({
           </Text>
         </Flex>
       </Flex>
-      <Button
-        type="button"
-        size={'full'}
-        onClick={onApply}
-        isDisabled={!(status === 'OPEN')}
-        _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
-      >
-        {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : '신청 마감'}
-      </Button>
+      {user?.role === 'mentee' && (
+        <Button
+          type="button"
+          size={'full'}
+          onClick={onApply}
+          isDisabled={!(status === 'OPEN')}
+          _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
+        >
+          {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : CONSTANTS.EVENT_STATUS[status]}
+        </Button>
+      )}
     </VStack>
   );
 };
