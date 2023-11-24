@@ -11,7 +11,7 @@ export const patchResumeTitle = async ({ resumeId, resumeTitle }: patchResumeTit
 
   try {
     const { data } = await resumeMeAxios.patch(
-      `v1/resumes/${resumeId}/title`,
+      `v2/resumes/${resumeId}`,
       {
         title: resumeTitle,
       },
