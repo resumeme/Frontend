@@ -202,7 +202,7 @@ const ProjectForm = ({
                     placeholder="엔터 키로 구분할 수 있습니다."
                     id="skills"
                     register={{ ...register('skills') }}
-                    onKeyUp={handleSkills}
+                    onKeyDown={handleSkills}
                   />
                   <DynamicTags
                     handleItemDelete={handleDeleteSkills}
