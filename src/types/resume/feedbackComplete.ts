@@ -1,3 +1,6 @@
 export type FeedbackComplete = {
-  comment: string;
+  menteeId: null;
+  rejectMessage: null;
+  resumeId: number;
+  completeMessage: string;
 };
