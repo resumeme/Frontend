@@ -23,7 +23,7 @@ const ProjectDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadProject>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Project>({
     mutationFn: deleteResumeCategoryBlock,

@@ -16,7 +16,7 @@ type ResumeBasicInputProps = {
 
 const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
   const { user } = useUser();
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const { data: referenceLinks } = useGetResumeReferenceLinks({ resumeId });
 
   const [isEdit, setIsEdit] = useState(true);

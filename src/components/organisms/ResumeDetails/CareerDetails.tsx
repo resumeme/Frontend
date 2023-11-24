@@ -24,7 +24,7 @@ const CareerDetails = ({
   onEdit,
   isCurrentUser,
 }: DetailsComponentProps<ReadCareer>) => {
-  const { id: resumeId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const blockId = componentId;
   const { mutate: deleteMutate } = useOptimisticDeleteCategory<Career>({
     mutationFn: deleteResumeCategoryBlock,
