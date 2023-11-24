@@ -1,4 +1,5 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
@@ -10,18 +11,16 @@ import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
 
 const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
+  const queryClient = useQueryClient();
   const { data } = useGetMyResumes();
   const { mutate: postCreateResumeMutate } = usePostCreateResume();
   const { mutate: postEventApplyMutate } = usePostEventApply();
   const { id: eventId = '' } = useParams();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
-    postEventApplyMutate(
-      { resumeId: parseInt(resumeId), eventId },
-      {
-        onSuccess: onCancel,
-      },
-    );
+    postEventApplyMutate({ resumeId: parseInt(resumeId), eventId });
+    onCancel();
+    queryClient.refetchQueries({ queryKey: ['getEventDetail', eventId] });
   };
   return (
     <>
