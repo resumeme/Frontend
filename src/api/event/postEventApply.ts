@@ -12,7 +12,7 @@ const postEventApply = async ({
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
   const { data } = await resumeMeAxios.patch(
-    `/v1/events/${eventId}`,
+    `/v1/appliments/events/${eventId}`,
     { resumeId },
     {
       headers: {
