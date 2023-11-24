@@ -1,33 +1,36 @@
 import { Flex } from '@chakra-ui/react';
-import React from 'react';
 import { useParams } from 'react-router-dom';
+import { FeedbackCategoryReflectDetails } from '~/components/organisms/FeedbackCateogryReflectDetails';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
 import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
-import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
-import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
+import ProjectForm from '~/components/organisms/ResumeCategoryProject/ProjectForm';
 import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
+  ActivityDetails,
+  AwardDetails,
   CareerDetails,
-  TrainingDetails,
   LanguageDetails,
   ProjectDetails,
-  AwardDetails,
-  ActivityDetails,
+  TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
 import useUser from '~/hooks/useUser';
-import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
-import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
+import {
+  useGetResumeActivities,
+  useGetResumeAward,
+  useGetResumeCareer,
+  useGetResumeLanguage,
+  useGetResumeProject,
+  useGetResumeTraining,
+} from '~/queries/resume/details';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
-import { useGetResumeCareer } from '~/queries/resume/details/useGetResumeCareer';
-import { useGetResumeLanguage } from '~/queries/resume/details/useGetResumeLanguage';
-import { useGetResumeProject } from '~/queries/resume/details/useGetResumeProject';
-import { useGetResumeTraining } from '~/queries/resume/details/useGetResumeTraining';
+import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
+import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
 
-const EditResumeTemplate = () => {
-  const { resumeId = '' } = useParams();
+const FeedbackReflectTemplate = () => {
+  const { resumeId = '', eventId = '' } = useParams();
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
@@ -40,6 +43,14 @@ const EditResumeTemplate = () => {
   const { user } = useUser();
   const isCurrentUser = resumeAuthorId === user?.id;
 
+  const {
+    data: { commentResponses },
+  } = useGetResumeFeedbacks({ resumeId, eventId });
+
+  const { data: snapshotData } = useGetSnapshotResume({
+    resumeId,
+  });
+
   return (
     <Flex
       width="960px"
@@ -50,68 +61,80 @@ const EditResumeTemplate = () => {
 
       <CategoryContainer>
         <CareerForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={careersData}
           DetailsComponent={CareerDetails}
           FormComponent={CareerForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.careers}
         />
       </CategoryContainer>
 
       <CategoryContainer>
         <ProjectForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
           FormComponent={ProjectForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.projects}
         />
       </CategoryContainer>
 
       <CategoryContainer>
         <AwardForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={awardData}
           DetailsComponent={AwardDetails}
           FormComponent={AwardForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.certifications}
         />
       </CategoryContainer>
 
       <CategoryContainer>
         <LanguageForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={languageData}
           DetailsComponent={LanguageDetails}
           FormComponent={LanguageForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.foreignLanguages}
         />
       </CategoryContainer>
 
       <CategoryContainer>
         <TrainingForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={trainingsData}
           DetailsComponent={TrainingDetails}
           FormComponent={TrainingForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.trainings}
         />
       </CategoryContainer>
 
       <CategoryContainer>
         <ActivityForm />
-        <ResumeCategoryDetails
+        <FeedbackCategoryReflectDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
           FormComponent={ActivityForm}
           isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.activities}
         />
       </CategoryContainer>
     </Flex>
   );
 };
 
-export default EditResumeTemplate;
+export default FeedbackReflectTemplate;
 
 const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -4,6 +4,10 @@ type Language = {
   scoreOrGrade: string;
 };
 
-type ReadLanguage = Language & { componentId: number };
+type ReadLanguage = Language & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 export type { Language, ReadLanguage };

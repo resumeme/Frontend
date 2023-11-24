@@ -36,7 +36,7 @@ const CareerForm = ({
   blockId,
   quitEdit,
 }: FormComponentProps<Career>) => {
-  const { id: resumeId } = useParams() as { id: string };
+  const { resumeId = '' } = useParams();
 
   const {
     control,

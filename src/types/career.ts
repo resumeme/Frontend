@@ -16,6 +16,10 @@ type Duty = {
   endDate?: string;
 };
 
-type ReadCareer = Career & { componentId: number };
+type ReadCareer = Career & {
+  componentId: number;
+  reflectFeedback: boolean;
+  originComponentId: number | null;
+};
 
 export type { Career, ReadCareer };

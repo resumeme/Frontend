@@ -14,6 +14,7 @@ type AccordionToggleProps = AccordionProps & {
   panelPx?: string;
   panelPy?: string;
   fontSize?: string;
+  isOpen?: boolean;
   children: React.ReactNode;
 };
 
@@ -22,6 +23,7 @@ const AccordionToggle = ({
   panelPx = '0',
   panelPy = '1rem',
   fontSize = 'sm',
+  isOpen = false,
   children,
   ...props
 }: AccordionToggleProps) => {
@@ -29,6 +31,7 @@ const AccordionToggle = ({
     <Flex>
       <Accordion
         allowToggle
+        defaultIndex={isOpen ? [0] : []}
         {...props}
       >
         <AccordionItem

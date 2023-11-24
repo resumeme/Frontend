@@ -22,7 +22,7 @@ const FeedbackManagementItem = ({
     if (status === 'CLOSE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
     } else {
-      navigate(appPaths.resumeEdit(resumeId));
+      navigate(appPaths.feedbackReflect(resumeId, eventId));
     }
   };
 
