@@ -6,6 +6,7 @@ import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { ResumeListItem } from '~/components/molecules/ResumeListItem';
+import { eventKeys } from '~/queries/event/eventKeys.const';
 import usePostEventApply from '~/queries/event/usePostEventApply';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
@@ -20,7 +21,7 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
     postEventApplyMutate({ resumeId: parseInt(resumeId), eventId });
     onCancel();
-    queryClient.refetchQueries({ queryKey: ['getEventDetail', eventId] });
+    queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
   };
   return (
     <>
