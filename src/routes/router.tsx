@@ -49,7 +49,7 @@ const router = createBrowserRouter([
           { path: 'write-review', element: <WriteReviewPage /> },
 
           { path: 'event/create', element: <CreateEventPage /> },
-          { path: 'event/view', element: <EventListPage /> },
+          { path: 'event/', element: <EventListPage /> },
           { path: 'event/view/:id', element: <EventDetailPage /> },
 
           { path: 'admin', element: <AdminPage /> },

@@ -16,7 +16,12 @@ const EventTitle = ({ title, eventStatus }: EventTitle) => {
       w={'full'}
       justifyContent={'space-between'}
     >
-      <Heading fontSize={'1.5rem'}>{title}</Heading>
+      <Heading
+        noOfLines={1}
+        fontSize={'1.5rem'}
+      >
+        {title}
+      </Heading>
       <Label
         fontSize={'0.875rem'}
         bg={isActive ? 'primary.900' : 'gray.400'}

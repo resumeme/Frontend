@@ -1,22 +1,49 @@
 import { Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
-  const [page, setPage] = useState(1);
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  const pageParamValue = parseInt(queryParams.get('page') || '1', 10);
+
+  const [page, setPage] = useState(pageParamValue);
   const size = 6;
-  const { data } = useGetEventList({ page, size });
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      navigate(`?page=${newPage}`);
+      scrollToTop();
+    },
+    [navigate],
+  );
+
+  useEffect(() => {
+    handlePageChange(pageParamValue);
+    setPage(pageParamValue);
+  }, [handlePageChange, pageParamValue]);
+
+  const { data } = useGetEventList({ page: pageParamValue, size });
 
   return (
     <>
       <Text
-        color={'gray.900'}
+        color={'gray.800'}
         fontSize={'1.5rem'}
+        fontWeight={'semibold'}
         mb={'2rem'}
       >
-        진행 중인 첨삭 이벤트
+        진행 중인 피드백
       </Text>
       {data.events.length ? (
         <>
@@ -24,7 +51,7 @@ const EventGridTemplate = () => {
           <Pagination
             size={size}
             page={page}
-            setPage={setPage}
+            setPage={handlePageChange}
             total={data.pageData.totalElements}
           />
         </>

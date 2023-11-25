@@ -1,4 +1,6 @@
 import { Box } from '@chakra-ui/react';
+import { Suspense } from 'react';
+import { Spinner } from '~/components/atoms/Spinner';
 import { Profile } from '~/components/organisms/Profile';
 import EventProfile from '~/components/organisms/Profile/EventProfile';
 import useUser from '~/hooks/useUser';
@@ -15,7 +17,11 @@ const MyPage = () => {
       mx={'auto'}
     >
       {user && <Profile user={user} />}
-      {user?.role === 'mentor' && events && events?.length > 0 && <EventProfile events={events} />}
+      <Suspense fallback={<Spinner />}>
+        {user?.role === 'mentor' && events && events?.length > 0 && (
+          <EventProfile events={events} />
+        )}
+      </Suspense>
     </Box>
   );
 };
