@@ -175,13 +175,6 @@ const CreateEventTemplate = () => {
           <Button
             size={'md'}
             isLoading={isPending}
-            type="button"
-          >
-            미리보기
-          </Button>
-          <Button
-            size={'md'}
-            isLoading={isPending}
             type="submit"
           >
             등록하기
