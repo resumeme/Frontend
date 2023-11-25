@@ -26,7 +26,7 @@ const FeedbackManagementItem = ({
     } else if (status === 'FINISH') {
       navigate(appPaths.feedbackReflect(resumeId, eventId));
     } else {
-      toast({ description: '첨삭 받은 후에 수정 가능해요.', status: 'info' });
+      toast({ description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.', status: 'info' });
     }
   };
 
