@@ -72,7 +72,7 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
                   value: data.id.toString(),
                   children: <ResumeListItem data={data} />,
                 }))}
-                formName="resume"
+                formName="resumeId"
                 defaultValue={data[0].id.toString()}
                 register={{ ...register('resumeId') }}
                 direction="column"
