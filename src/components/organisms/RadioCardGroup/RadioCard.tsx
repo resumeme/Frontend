@@ -13,8 +13,14 @@ const RadioCard = ({ children, borderBoxStyle, ...props }: RadioCardProps) => {
   const radioProps = getRadioProps();
 
   return (
-    <Box as={'label'}>
-      <input {...inputProps} />
+    <Box
+      as={'label'}
+      h={'full'}
+    >
+      <input
+        style={{ display: 'none' }}
+        {...inputProps}
+      />
       <BorderBox
         h={'full'}
         {...radioProps}
