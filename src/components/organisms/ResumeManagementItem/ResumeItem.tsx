@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Spacer, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, FormErrorMessage, Icon, Spacer, Text, useDisclosure } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { MdOutlineArticle } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
@@ -41,9 +41,15 @@ const ResumeItem = ({ resume: { id, modifiedAt, title, memo } }: ResumeItemProps
     const {
       register,
       handleSubmit,
-      getValues,
+      watch,
       formState: { errors },
-    } = useForm<MemoFormType>();
+    } = useForm<MemoFormType>({
+      defaultValues: {
+        memo,
+      },
+    });
+
+    const inputMemo = watch('memo');
 
     const onSubmit: SubmitHandler<MemoFormType> = (body) => {
       patchMemo({ resumeId: String(id), resumeMemo: body });
@@ -56,44 +62,43 @@ const ResumeItem = ({ resume: { id, modifiedAt, title, memo } }: ResumeItemProps
         onClose={onClose}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Flex
-            direction={'column'}
-            w="full"
-            gap={3}
-          >
+          <FormControl isInvalid={Boolean(errors.memo)}>
             <Flex
-              w={'full'}
               direction={'column'}
+              w="full"
+              position={'relative'}
+              gap={2}
             >
               <FormLabel>메모하기</FormLabel>
-              <FormControl isInvalid={Boolean(errors.memo)}>
-                <FormTextInput
-                  placeholder="40자 이내로 간략하게 작성해주세요."
-                  id="memo"
-                  fontSize={'sm'}
-                  color={'gray.700'}
-                  defaultValue={memo}
-                  register={{
-                    ...register('memo', {
-                      maxLength: {
-                        value: 41,
-                        message: `40자 이내로 입력해주세요. (${getValues('memo')?.length}/40자)`,
-                      },
-                    }),
-                  }}
-                  error={errors.memo}
-                />
-              </FormControl>
+              <FormTextInput
+                placeholder="40자 이내로 간략하게 작성해주세요."
+                id="memo"
+                fontSize={'sm'}
+                color={'gray.700'}
+                defaultValue={memo}
+                autoComplete="off"
+                register={{
+                  ...register('memo', {
+                    maxLength: {
+                      value: 40,
+                      message: `40자 이내로 작성해주세요.`,
+                    },
+                  }),
+                }}
+              />
+              <FormErrorMessage>
+                {errors.memo && `${errors.memo.message} (${inputMemo?.length})`}
+              </FormErrorMessage>
+              <Flex justify={'end'}>
+                <Button
+                  size={'xs'}
+                  type="submit"
+                >
+                  저장
+                </Button>
+              </Flex>
             </Flex>
-            <Flex justify={'end'}>
-              <Button
-                size={'xs'}
-                type="submit"
-              >
-                저장
-              </Button>
-            </Flex>
-          </Flex>
+          </FormControl>
         </form>
       </Modal>
     );
