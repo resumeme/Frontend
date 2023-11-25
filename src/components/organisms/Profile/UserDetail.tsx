@@ -35,9 +35,13 @@ const UserDetail = ({
       direction={'column'}
       gap={'1.31rem'}
     >
-      <Flex gap={'1rem'}>
+      <Flex
+        gap={'1rem'}
+        align={'start'}
+      >
         {nickname && (
           <Heading
+            flexShrink={0}
             fontSize={'1.5rem'}
             color={'gray.800'}
           >
@@ -55,7 +59,10 @@ const UserDetail = ({
             {role === 'mentee' ? '멘티' : '멘토'}
           </Badge>
         )}
-        <Flex gap={'0.25rem'}>
+        <Flex
+          gap={'0.25rem'}
+          flexWrap={'wrap'}
+        >
           {experiencedPositions?.map((position) => (
             <Label
               fontWeight={500}

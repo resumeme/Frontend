@@ -45,6 +45,7 @@ const EditMentorProfileTemplate = () => {
   const navigate = useNavigate();
 
   const {
+    watch,
     control,
     register,
     handleSubmit,
@@ -148,6 +149,7 @@ const EditMentorProfileTemplate = () => {
                   control={control}
                   variant={'role'}
                   error={errors.experiencedPositions}
+                  errorMessage="직무를 하나 이상 선택해 주세요"
                 />
               </FormControl>
               <FormControl
@@ -210,13 +212,23 @@ const EditMentorProfileTemplate = () => {
                   h={'7.2rem'}
                 />
               </FormControl>
-              <FormControl {...FORM_STYLE.control}>
+              <FormControl
+                isInvalid={!!errors.introduce}
+                {...FORM_STYLE.control}
+              >
                 <FormLabel {...FORM_STYLE.label}>자기소개</FormLabel>
                 <FormTextarea
                   mt={'0.5rem'}
                   placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                   id="introduce"
-                  register={{ ...register('introduce') }}
+                  register={{
+                    ...register('introduce', {
+                      maxLength: {
+                        value: 100,
+                        message: `100자 이내로 입력해주세요. ${watch('introduce').length}자`,
+                      },
+                    }),
+                  }}
                   error={errors.introduce}
                   h={'7.2rem'}
                 />
