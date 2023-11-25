@@ -50,7 +50,7 @@ const router = createBrowserRouter([
 
           { path: 'event/create', element: <CreateEventPage /> },
           { path: 'event/view', element: <EventListPage /> },
-          { path: 'event/view/:id', element: <EventDetailPage /> },
+          { path: 'event/:eventId', element: <EventDetailPage /> },
 
           { path: 'admin', element: <AdminPage /> },
           { path: '*', element: <NotFoundPage /> },
