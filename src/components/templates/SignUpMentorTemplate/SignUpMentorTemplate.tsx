@@ -98,7 +98,8 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                   ...register('careerYear', {
                     required: '경력 연차는 1이상 80미만의 숫자로 입력해주세요.',
                     valueAsNumber: true,
-                    validate: (value) => value > 0 && value < 80,
+                    max: { value: 79, message: '80미만의 숫자여야 합니다.' },
+                    min: { value: 1, message: '1이상의 숫자여야 합니다.' },
                   }),
                 }}
                 error={errors.careerYear}
@@ -134,18 +135,34 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
                 placeholder="관련 직무의 경력 사항을 작성해주세요."
                 id="careerContent"
                 register={{
-                  ...register('careerContent', { required: '경력사항을 작성해주세요.' }),
+                  ...register('careerContent', {
+                    required: '경력사항을 작성해주세요.',
+                    maxLength: {
+                      value: 299,
+                      message: '최대 300자 이내로만 작성해주세요.',
+                    },
+                  }),
                 }}
                 error={errors.careerContent}
                 h={'7.2rem'}
               />
             </FormControl>
-            <FormControl {...FORM_STYLE.control}>
+            <FormControl
+              isInvalid={Boolean(errors.introduce)}
+              {...FORM_STYLE.control}
+            >
               <FormLabel {...FORM_STYLE.label}>자기소개</FormLabel>
               <FormTextarea
                 placeholder="프로필에 표시할 간단한 자기소개를 남겨주세요."
                 id="introduce"
-                register={{ ...register('introduce') }}
+                register={{
+                  ...register('introduce', {
+                    maxLength: {
+                      value: 99,
+                      message: '최대 100자 이내로만 작성해주세요.',
+                    },
+                  }),
+                }}
                 error={errors.introduce}
                 h={'3rem'}
               />
