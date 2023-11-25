@@ -35,7 +35,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
             const currentBlockId = data.componentId;
-            const targetComments: FeedbackComment[] = indexedComments[currentBlockId];
+            const currentComments: FeedbackComment[] = indexedComments[currentBlockId];
             const hasComment = commentComponentIds.includes(currentBlockId);
             return (
               <React.Fragment key={index}>
@@ -50,7 +50,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
                   />
                   {hasComment && (
                     <>
-                      {targetComments.map((currentComment) => (
+                      {currentComments.map((currentComment) => (
                         <FeedbackView
                           key={currentComment.commentId}
                           commentId={currentComment.commentId}
