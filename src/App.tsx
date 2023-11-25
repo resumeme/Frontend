@@ -3,6 +3,7 @@ import { createStandaloneToast } from '@chakra-ui/toast';
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { RouterProvider } from 'react-router-dom';
+import { appPaths } from './config/paths';
 import CONSTANTS from './constants/index';
 import { ResumeMeErrorResponse } from './types/errorResponse';
 import router from '~/routes/router';
@@ -11,15 +12,27 @@ import Fonts from '~/theme/typography/fonts';
 
 const { toast } = createStandaloneToast({ theme });
 
-const axiosErrorHandler = (error: Error) => {
-  if (isAxiosError<ResumeMeErrorResponse>(error)) {
-    if (error.response) {
-      const errorCode = error.response.data.code;
-      toast({
-        description: CONSTANTS.ERROR_MESSAGES[errorCode],
-        status: 'error',
-      });
+const axiosErrorHandler = async (error: Error) => {
+  if (isAxiosError<ResumeMeErrorResponse>(error) && error.response) {
+    const { code } = error.response.data;
+    const { status } = error.response;
+
+    if (status === 401) {
+      if (window.location.pathname === '/') {
+        await window.location.assign(appPaths.signIn());
+      } else {
+        await window.location.replace(appPaths.signIn());
+      }
     }
+
+    if (status === 500) {
+      await window.location.replace(appPaths.main());
+    }
+    toast({
+      description: CONSTANTS.ERROR_MESSAGES[code],
+      status: 'error',
+      // position: 'top',
+    });
   }
   return;
 };
