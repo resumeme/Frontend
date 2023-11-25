@@ -142,15 +142,15 @@ const Header = () => {
             {/* NOTE LOGO */}
             <Flex align="center">
               <Image
-                h={'24px'}
-                minH={'24px'}
+                h={'26px'}
+                minH={'26px'}
                 src={ASSETS.LOGO.svg}
                 alt={ASSETS.LOGO.text}
                 borderRadius={'md'}
                 mr="0.7rem"
               />
               <Heading
-                fontSize={'lg'}
+                fontSize={'xl'}
                 fontWeight={'black'}
                 color={'gray.800'}
               >
@@ -178,8 +178,16 @@ const Header = () => {
             >
               <Link to={appPaths.myPage(user.id)}>
                 <Avatar
-                  size="xs"
+                  w="30px"
+                  h="30px"
                   src={user.imageUrl}
+                  outline={'2px solid'}
+                  outlineColor={'gray.300'}
+                  _hover={{
+                    outline: '5px solid',
+                    outlineColor: 'gray.300',
+                    transition: 'ease-in-out 0.2s',
+                  }}
                 />
               </Link>
               <OptionsButton

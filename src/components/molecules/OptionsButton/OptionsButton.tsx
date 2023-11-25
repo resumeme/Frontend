@@ -15,7 +15,7 @@ type OptionsButtonProps = {
 };
 const OptionsButton = ({ label, icon = RiMore2Fill, options }: OptionsButtonProps) => {
   return (
-    <Box>
+    <Box role="group">
       <Menu>
         <MenuButton
           display={'flex'}
@@ -31,6 +31,9 @@ const OptionsButton = ({ label, icon = RiMore2Fill, options }: OptionsButtonProp
                 fontSize={'sm'}
                 fontWeight={'bold'}
                 color={'gray.700'}
+                _groupHover={{
+                  textDecoration: 'underline',
+                }}
               >
                 {label}
                 <Text
