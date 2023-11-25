@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import RemoteControlReject from './RemoteControlReject';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { RemoteControl } from '~/components/atoms/RemoteControl';
 import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
+import { appPaths } from '~/config/paths';
 import usePatchFeedbackComplete from '~/queries/event/usePatchFeedbackComplete';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { FeedbackComplete } from '~/types/resume/feedbackComplete';
@@ -15,6 +16,7 @@ const RemoteControlPannel = () => {
   const { data } = useGetResumeBasic({ resumeId });
   const menteeId = data?.ownerInfo?.id as number;
   const { mutate } = usePatchFeedbackComplete();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,7 +28,10 @@ const RemoteControlPannel = () => {
     if (eventId !== '' && resumeId !== '') {
       value.resumeId = Number(resumeId);
 
-      mutate({ eventId, body: value });
+      mutate(
+        { eventId, body: value },
+        { onSuccess: () => navigate(appPaths.feedbackComplete(Number(resumeId), Number(eventId))) },
+      );
     } else {
       alert('eventId와 resumeId를 찾을 수 없습니다.');
     }
