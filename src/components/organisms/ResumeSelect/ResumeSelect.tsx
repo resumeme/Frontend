@@ -16,12 +16,18 @@ const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
   const { data } = useGetMyResumes();
   const { mutate: postCreateResumeMutate } = usePostCreateResume();
   const { mutate: postEventApplyMutate } = usePostEventApply();
-  const { id: eventId = '' } = useParams();
+  const { eventId = '' } = useParams();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
-    postEventApplyMutate({ resumeId: parseInt(resumeId), eventId });
-    onCancel();
-    queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
+    postEventApplyMutate(
+      { resumeId: parseInt(resumeId), eventId },
+      {
+        onSettled: () => {
+          onCancel();
+          queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
+        },
+      },
+    );
   };
   return (
     <>
