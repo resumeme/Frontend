@@ -28,7 +28,10 @@ const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
           w={'42%'}
           as="span"
           color={'gray.900'}
-        >{`${formatDate(openDateTime)} ~ ${formatDate(closeDateTime)}`}</Text>
+          whiteSpace={'pre-line'}
+        >{`${new Date(openDateTime).toLocaleString()} \n ~ ${new Date(
+          closeDateTime,
+        ).toLocaleString()}`}</Text>
         <Divider
           orientation="vertical"
           w={'0.625rem'}

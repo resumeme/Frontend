@@ -27,6 +27,7 @@ const MentorCareerContent = ({ careerContent }: MentorCareerContent) => {
           color={'gray.900'}
           whiteSpace={'pre-line'}
           as="p"
+          wordBreak={'break-word'}
         >
           {careerContent}
         </Text>

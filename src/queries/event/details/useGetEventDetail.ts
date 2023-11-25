@@ -3,7 +3,7 @@ import { GetEventDetail, getEventDetail } from '~/api/event/details/getEventDeta
 
 export const useGetEventDetail = ({ eventId }: GetEventDetail) => {
   return useSuspenseQuery({
-    queryKey: ['getEventDetail'],
+    queryKey: ['getEventDetail', eventId],
     queryFn: () => getEventDetail({ eventId }),
   });
 };

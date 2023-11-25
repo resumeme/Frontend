@@ -1,7 +1,7 @@
 export const EVENT_STATUS = {
-  READY: '오픈 예약',
+  READY: '모집 준비 중',
   REOPEN: '재모집 중',
-  CLOSE: '마감',
+  CLOSE: '모집 마감',
   OPEN: '모집 중',
   FINISH: '종료',
 };
