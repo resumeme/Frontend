@@ -1,4 +1,4 @@
-import { Flex, Icon, Link, Spacer, Text, useToast } from '@chakra-ui/react';
+import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -100,12 +100,25 @@ const FeedbackManagementItem = ({
           w={'1.25rem'}
         />
         {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
-        <Text
-          as={'span'}
-          noOfLines={1}
+        <Tooltip
+          maxW={'xl'}
+          noOfLines={2}
+          placement="bottom-start"
+          //TODO -  이력서 제목이 들어갈 부분
+          label={'내 이력서'}
+          aria-label="tooltip"
+          borderRadius={'xl'}
+          fontSize={'sm'}
+          bg={'gray.300'}
+          color={'gray.600'}
         >
-          내 이력서
-        </Text>
+          <Text
+            as={'span'}
+            noOfLines={1}
+          >
+            {/* //TODO -  이력서 제목이 들어갈 부분 */}내 이력서
+          </Text>
+        </Tooltip>
         <Spacer />
         {status && (
           <Button
