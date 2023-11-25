@@ -64,7 +64,7 @@ const CreateEventTemplate = () => {
                 register={{
                   ...register('info.title', {
                     required: true,
-                    maxLength: { value: 30, message: '30자 보다 짧게 입력해주세요' },
+                    maxLength: { value: 30, message: '최대 30자까지 입력할 수 있어요.' },
                   }),
                 }}
                 error={errors.info?.title}
