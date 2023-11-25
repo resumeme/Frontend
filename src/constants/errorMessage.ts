@@ -3,7 +3,7 @@ export const ERROR_MESSAGES = {
   DUPLICATE_APPLICATION_EVENT: '이미 신청하셨어요 :)',
   TIME_ERROR: '시간을 다시 확인해주세요',
   MENTOR_ALREADY_APPROVED: '이미 승인된 멘토에요',
-  INFO_NOT_FOUND: '임시 정보를 찾지 못했어요',
+  INFO_NOT_FOUND: '회원 가입 시간이 초과 되었어요.',
   MENTEE_NOT_FOUND: '멘티를 찾을 수 없어요 :(',
   DUPLICATED_EVENT_OPEN: '이미 오픈된 이벤트가 있어요',
   NO_AVAILABLE_SEATS: '잔여 자리가 없어요 :(',
