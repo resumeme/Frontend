@@ -1,4 +1,5 @@
-import { HStack, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Checkbox, HStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -15,7 +16,10 @@ import { CreateEvent } from '~/types/event/event';
 const CreateEventTemplate = () => {
   const { mutate: createEvent, isPending } = usePostCreateEvent();
 
+  const [isOpenDateDisabled, setIsOpenDateDisabled] = useState(false);
+
   const {
+    setValue,
     control,
     handleSubmit,
     register,
@@ -57,7 +61,12 @@ const CreateEventTemplate = () => {
               <FormTextInput
                 w={'100%'}
                 id="info.title"
-                register={{ ...register('info.title', { required: true }) }}
+                register={{
+                  ...register('info.title', {
+                    required: true,
+                    maxLength: { value: 30, message: '최대 30자까지 입력할 수 있어요.' },
+                  }),
+                }}
                 error={errors.info?.title}
                 placeholder="이벤트 제목을 입력해주세요."
               />
@@ -85,13 +94,15 @@ const CreateEventTemplate = () => {
             </FormControl>
             <FormControl
               spacing="1.63rem"
-              isInvalid={!!errors['positions']}
+              isInvalid={!!errors.positions}
             >
               <FormLabel isRequired={true}>직무</FormLabel>
               <LabelCheckboxGroup
                 control={control}
                 name="positions"
                 variant="role"
+                error={errors.positions}
+                errorMessage="직무를 선택해 주세요."
               />
             </FormControl>
             <HStack spacing={'1.6rem'}>
@@ -105,11 +116,25 @@ const CreateEventTemplate = () => {
                 isRequired={true}
                 endDateName="time.closeDateTime"
                 startDateName="time.openDateTime"
+                isOpenDateDisabled={isOpenDateDisabled}
               />
+              <Checkbox
+                onChange={(event) => {
+                  setIsOpenDateDisabled(!isOpenDateDisabled);
+
+                  if (event.target.checked) {
+                    setValue('time.openDateTime', null);
+                  }
+                }}
+              >
+                즉시 오픈
+              </Checkbox>
             </HStack>
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
               <FormDateInput
+                name="time.endDate"
+                min={closeDateTime}
                 error={errors.time?.endDate}
                 w={'47.6%'}
                 register={{

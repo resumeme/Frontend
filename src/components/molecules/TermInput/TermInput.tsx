@@ -14,6 +14,7 @@ import { getOneYearLater } from '~/utils/getOneYearLater';
 type TermInputProps<T extends FieldValues> = {
   startDateName: Path<T>;
   endDateName: Path<T>;
+  isOpenDateDisabled?: boolean;
   isEndDateDisabled?: boolean;
   isRequired?: boolean;
   includeTime?: boolean;
@@ -26,6 +27,7 @@ type TermInputProps<T extends FieldValues> = {
 const TermInput = <T extends FieldValues>({
   startDateName,
   endDateName,
+  isOpenDateDisabled = false,
   isEndDateDisabled = false,
   isRequired = false,
   includeTime = false,
@@ -52,9 +54,10 @@ const TermInput = <T extends FieldValues>({
           future={future}
           name={startDateName}
           type={includeTime ? 'datetime-local' : 'date'}
+          isDisabled={isOpenDateDisabled}
           register={{
             ...register(startDateName, {
-              required: isRequired ? '시작일을 입력하세요.' : false,
+              required: !isOpenDateDisabled && isRequired ? '시작일을 입력하세요.' : false,
               max: {
                 value: getOneYearLater({ includeTime }),
                 message: '최대 1년 후까지만 입력이 가능합니다.',
@@ -70,6 +73,7 @@ const TermInput = <T extends FieldValues>({
       />
       <FormControl isInvalid={!!getNestedError(errors, endDateName)}>
         <FormDateInput
+          min={startDate}
           name={endDateName}
           type={includeTime ? 'datetime-local' : 'date'}
           isDisabled={isEndDateDisabled}
