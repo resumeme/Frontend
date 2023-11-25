@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Stack, Heading, Image } from '@chakra-ui/react';
+import { Box, Flex, Button, Stack, Image } from '@chakra-ui/react';
 import { IoCaretDownOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -59,6 +59,10 @@ const ASSETS = {
   LOGO: {
     svg: assets.logoSvg,
     text: '로고',
+  },
+  TEXT: {
+    svg: assets.logoText,
+    text: '이력써',
   },
 };
 
@@ -144,18 +148,31 @@ const Header = () => {
               <Image
                 h={'26px'}
                 minH={'26px'}
-                src={ASSETS.LOGO.svg}
+                src={assets.logoLight}
                 alt={ASSETS.LOGO.text}
                 borderRadius={'md'}
                 mr="0.7rem"
               />
-              <Heading
+              {/* <Image
+                h={'26px'}
+                minH={'26px'}
+                src={ASSETS.LOGO.svg}
+                alt={ASSETS.LOGO.text}
+                borderRadius={'md'}
+                mr="0.7rem"
+              /> */}
+              <Image
+                h={'18px'}
+                src={ASSETS.TEXT.svg}
+                alt={ASSETS.TEXT.text}
+              />
+              {/* <Heading
                 fontSize={'xl'}
                 fontWeight={'black'}
                 color={'gray.800'}
               >
                 {TEXT_CONTENTS.LOGO}
-              </Heading>
+              </Heading> */}
             </Flex>
           </Link>
           <Flex
