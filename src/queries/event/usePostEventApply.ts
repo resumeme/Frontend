@@ -11,7 +11,8 @@ const usePostEventApply = () => {
     mutationFn: postEventApply,
     onSuccess: () => {
       toast({
-        description: '이벤트 신청에 성공했습니다.',
+        status: 'success',
+        description: '이벤트 신청에 성공했습니다 :)',
       });
     },
     /**TODO - queryClient에 공통 에러 처리 (onError) 설정해주기 */
