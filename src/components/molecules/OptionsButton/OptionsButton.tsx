@@ -15,7 +15,7 @@ type OptionsButtonProps = {
 };
 const OptionsButton = ({ label, icon = RiMore2Fill, options }: OptionsButtonProps) => {
   return (
-    <Box>
+    <Box role="group">
       <Menu>
         <MenuButton
           display={'flex'}
@@ -26,7 +26,25 @@ const OptionsButton = ({ label, icon = RiMore2Fill, options }: OptionsButtonProp
             gap={'0.5em'}
             align={'center'}
           >
-            {label && <Text>{label}</Text>}
+            {label && (
+              <Text
+                fontSize={'sm'}
+                fontWeight={'bold'}
+                color={'gray.700'}
+                _groupHover={{
+                  textDecoration: 'underline',
+                }}
+              >
+                {label}
+                <Text
+                  as="span"
+                  fontWeight={'normal'}
+                  fontSize={'xs'}
+                >
+                  님
+                </Text>
+              </Text>
+            )}
             <Icon
               as={icon}
               aria-label="more button"
@@ -42,6 +60,8 @@ const OptionsButton = ({ label, icon = RiMore2Fill, options }: OptionsButtonProp
                 key={text + index}
                 onClick={onClick}
                 _hover={{ bg: 'gray.200' }}
+                fontSize={'sm'}
+                color={'gray.700'}
               >
                 {text}
               </MenuItem>
