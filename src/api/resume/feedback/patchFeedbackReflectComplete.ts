@@ -7,7 +7,7 @@ type PatchFeedbackReflectComplete = { resumeId: string };
 export const patchFeedbackReflectComplete = async ({ resumeId }: PatchFeedbackReflectComplete) => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.patch(`/v1/resumes/${resumeId}/complete`, {
+  const { data } = await resumeMeAxios.patch(`/v2/resumes/${resumeId}`, {
     headers: {
       Authorization: accessToken,
     },
