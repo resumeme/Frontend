@@ -1,4 +1,4 @@
-import { Divider, Box } from '@chakra-ui/react';
+import { Divider, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useState } from 'react';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
@@ -33,6 +33,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
   const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
+
   return (
     <>
       {arrayData?.length > 0 && (
@@ -89,10 +90,12 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                       ))}
                     </>
                     {isReflectFeedback && currentSnapshots && (
-                      <DetailsComponent
-                        data={currentSnapshots}
-                        isCurrentUser={false}
-                      />
+                      <SnapshotSection>
+                        <DetailsComponent
+                          data={currentSnapshots}
+                          isCurrentUser={false}
+                        />
+                      </SnapshotSection>
                     )}
                   </AccordionToggle>
                 )}
@@ -119,4 +122,41 @@ const getIndexedSnapshotObject = <T extends ReadCategories>(snapshotData: T[]) =
     indexedSnapshot[snapshotBlock.originComponentId!] = snapshotBlock;
   });
   return indexedSnapshot;
+};
+
+const SnapshotSection = ({ children }: { children: React.ReactNode }) => {
+  const BGCOLOR = '#fbfffc';
+  return (
+    <Box
+      mt={'1rem'}
+      p={'2rem'}
+      bg={BGCOLOR}
+      position={'relative'}
+      borderTop={'1px solid'}
+      borderBottom={'1px solid'}
+      borderColor={'gray.300'}
+      pt={'3rem'}
+    >
+      <Box
+        position={'absolute'}
+        top={-2}
+        left={1}
+        border={'1px solid'}
+        borderColor={'gray.300'}
+        borderRadius={'1rem'}
+        bg={'gray.100'}
+        px={'1rem'}
+        py={'0.3rem'}
+      >
+        <Text
+          fontSize={'xs'}
+          fontWeight={'bold'}
+          color={'gray.800'}
+        >
+          수정 전
+        </Text>
+      </Box>
+      {children}
+    </Box>
+  );
 };
