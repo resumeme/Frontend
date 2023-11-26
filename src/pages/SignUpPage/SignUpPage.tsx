@@ -1,5 +1,4 @@
 import { useToast } from '@chakra-ui/react';
-import { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignUpCommonTemplate } from '~/components/templates/SignUpCommonTemplate';
@@ -7,11 +6,9 @@ import { SignUpCompleteTemplate } from '~/components/templates/SignUpCompleteTem
 import { SignUpMenteeTemplate } from '~/components/templates/SignUpMenteeTemplate';
 import { SignUpMentorTemplate } from '~/components/templates/SignUpMentorTemplate';
 import { appPaths } from '~/config/paths';
-import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { usePostOAuthSignUp } from '~/queries/usePostOAuthSignUp';
 import { useCacheKeyStore } from '~/stores/useCacheKeyStore';
-import { ErrorMessage } from '~/types/errorResponse';
 import { SignUpRole, SignUpCommon } from '~/types/signUp';
 
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
@@ -26,18 +23,23 @@ const SignUpPage = () => {
   const toast = useToast();
   const navigate = useNavigate();
 
+  const signUpErrorCallback = () => {
+    navigate(appPaths.signIn());
+  };
+
   const signUpSuccessCallback = async (
     accessToken: string,
     refreshToken: string,
     role: SignUpRole,
   ) => {
-    const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+    const nextStep = role;
     resetCacheKey();
     if (accessToken && refreshToken) {
       await initialUser(accessToken, refreshToken);
     }
     setStep(nextStep);
   };
+
   useEffect(() => {
     if (step === 'COMMON') {
       if (user) {
@@ -67,7 +69,7 @@ const SignUpPage = () => {
           }}
         />
       )}
-      {step === 'ROLE_PENDING' && (
+      {step === 'pending' && (
         <SignUpMentorTemplate
           onNext={(data) => {
             if (!commonData) {
@@ -75,25 +77,17 @@ const SignUpPage = () => {
               return;
             }
             signUpMutate(
-              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'pending' },
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
-                onError: (error) => {
-                  if (error instanceof AxiosError) {
-                    toast({
-                      description: CONSTANTS.ERROR_MESSAGES[error.code as ErrorMessage],
-                      status: 'error',
-                    });
-                  }
-                  setStep('COMMON');
-                },
+                  signUpSuccessCallback(accessToken, refreshToken, 'pending'),
+                onError: signUpErrorCallback,
               },
             );
           }}
         />
       )}
-      {step === 'ROLE_MENTEE' && (
+      {step === 'mentee' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
             if (!commonData) {
@@ -101,28 +95,20 @@ const SignUpPage = () => {
               return;
             }
             signUpMutate(
-              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'mentee' },
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
-                onError: (error) => {
-                  if (error instanceof AxiosError) {
-                    toast({
-                      description: CONSTANTS.ERROR_MESSAGES[error.code as ErrorMessage],
-                      status: 'error',
-                    });
-                  }
-                  setStep('COMMON');
-                },
+                  signUpSuccessCallback(accessToken, refreshToken, 'mentee'),
+                onError: signUpErrorCallback,
               },
             );
           }}
         />
       )}
-      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="ROLE_PENDING" />}
+      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="pending" />}
       {step === 'MENTEE_COMPLETE' && (
         <SignUpCompleteTemplate
-          role="ROLE_MENTEE"
+          role="mentee"
           user={user}
         />
       )}

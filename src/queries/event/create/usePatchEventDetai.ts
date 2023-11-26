@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import postCreateEvent from '~/api/event/postCreateEvent';
+import patchEventDetail from '~/api/event/create/patchEventDetail';
 import { appPaths } from '~/config/paths';
 
-export const usePostCreateEvent = () => {
+export const usePatchEventDetail = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: postCreateEvent,
+    mutationFn: patchEventDetail,
     onSuccess: ({ id }) => {
       navigate(appPaths.eventDetail(id), { replace: true });
     },

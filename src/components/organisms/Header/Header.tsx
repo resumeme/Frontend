@@ -1,9 +1,10 @@
-import { Box, Flex, Button, Stack, Heading } from '@chakra-ui/react';
+import { Box, Flex, Button, Stack, Image } from '@chakra-ui/react';
 import { IoCaretDownOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '~/components/atoms/Avatar';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { assets } from '~/config/assets';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { usePostSignOut } from '~/queries/usePostSignOut';
@@ -54,6 +55,17 @@ const USER_NAV_ITEMS: Record<UserRole | 'common', Record<string, string>[]> = {
   ],
 };
 
+const ASSETS = {
+  LOGO: {
+    svg: assets.logoSvg,
+    text: '로고',
+  },
+  TEXT: {
+    svg: assets.logoText,
+    text: '이력써',
+  },
+};
+
 const Navigation = ({ user }: { user: User | null }) => {
   const linkColor = 'gray.800';
   const linkHoverColor = 'gray.600';
@@ -66,23 +78,21 @@ const Navigation = ({ user }: { user: User | null }) => {
       spacing={'70px'}
     >
       {NAV_ITEMS.map((navItem) => (
-        <>
-          <Box key={navItem.label}>
-            <Box
-              as="a"
-              p={2}
-              href={navItem.href ?? '#'}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={linkColor}
-              _hover={{
-                color: linkHoverColor,
-              }}
-            >
-              {navItem.label}
-            </Box>
+        <Box key={navItem.label}>
+          <Box
+            as="a"
+            p={2}
+            href={navItem.href ?? '#'}
+            fontSize={'sm'}
+            fontWeight={600}
+            color={linkColor}
+            _hover={{
+              color: linkHoverColor,
+            }}
+          >
+            {navItem.label}
           </Box>
-        </>
+        </Box>
       ))}
     </Stack>
   );
@@ -95,14 +105,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   const mentorOptions: Option[] = [
-    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     { text: TEXT_CONTENTS.CREATE_EVENT, onClick: () => navigate(appPaths.eventCreate()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
 
   const menteeOptions: Option[] = [
-    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
@@ -135,20 +145,34 @@ const Header = () => {
           <Link to="/">
             {/* NOTE LOGO */}
             <Flex align="center">
-              <Box
-                bg="gray.800"
-                w="24px"
-                h="24px"
-                borderRadius="md"
-                mr="12px"
+              <Image
+                h={'26px'}
+                minH={'26px'}
+                src={assets.logoLight}
+                alt={ASSETS.LOGO.text}
+                borderRadius={'md'}
+                mr="0.7rem"
               />
-              <Heading
+              {/* <Image
+                h={'26px'}
+                minH={'26px'}
+                src={ASSETS.LOGO.svg}
+                alt={ASSETS.LOGO.text}
+                borderRadius={'md'}
+                mr="0.7rem"
+              /> */}
+              <Image
+                h={'18px'}
+                src={ASSETS.TEXT.svg}
+                alt={ASSETS.TEXT.text}
+              />
+              {/* <Heading
                 fontSize={'xl'}
                 fontWeight={'black'}
                 color={'gray.800'}
               >
                 {TEXT_CONTENTS.LOGO}
-              </Heading>
+              </Heading> */}
             </Flex>
           </Link>
           <Flex
@@ -167,12 +191,20 @@ const Header = () => {
           {user ? (
             <Flex
               align={'center'}
-              gap={'1rem'}
+              gap={3}
             >
-              <Link to={appPaths.myPage(user.id)}>
+              <Link to={appPaths.myPage()}>
                 <Avatar
-                  size="sm"
+                  w="30px"
+                  h="30px"
                   src={user.imageUrl}
+                  outline={'2px solid'}
+                  outlineColor={'gray.300'}
+                  _hover={{
+                    outline: '5px solid',
+                    outlineColor: 'gray.300',
+                    transition: 'ease-in-out 0.2s',
+                  }}
                 />
               </Link>
               <OptionsButton

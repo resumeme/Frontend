@@ -69,14 +69,19 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
       return;
     }
 
+    const resumeTitle = e.target.value.trim();
+
+    if (!resumeTitle) {
+      e.target.value = '';
+      return;
+    }
+
     if (debounceTimeout) {
       clearTimeout(debounceTimeout);
     }
 
     debounceTimeout = setTimeout(() => {
-      const resumeTitle = e.target.value;
-
-      if (e.target.value.length < 1) {
+      if (resumeTitle.length < 1) {
         setEmpty(true);
         return;
       } else {

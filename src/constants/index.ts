@@ -15,9 +15,6 @@ const CONSTANTS = {
   ACCESS_TOKEN_HEADER: 'authorization',
   REFRESH_TOKEN_HEADER: 'refresh-token',
   RESUME_DEFAULT_TITLE: '새 이력서',
-  ROLE_MENTEE: 'ROLE_MENTEE',
-  ROLE_MENTOR: 'ROLE_MENTOR',
-  ROLE_PENDING: 'ROLE_PENDING',
   PHONE_NUMBER_REGEX: /^010\d{8}$/g,
   KAKAO_SIGNIN_URL: `https://kauth.kakao.com/oauth/authorize?client_id=${environments.kakaoRestApiKeyEnv()}&redirect_uri=${environments.kakaoRedirectUriEnv()}&response_type=code`,
   SIGNUP_HEADER_MESSAGE: {

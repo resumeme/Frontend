@@ -10,11 +10,25 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
+import { usePatchEventDetail } from '~/queries/event/create/usePatchEventDetai';
 import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
 import { CreateEvent } from '~/types/event/event';
 
-const CreateEventTemplate = () => {
-  const { mutate: createEvent, isPending } = usePostCreateEvent();
+type CreateEventTemplateProps = {
+  isEdit?: boolean;
+  defaultValues?: CreateEvent;
+  eventId?: string;
+};
+
+const CreateEventTemplate = ({
+  eventId = '',
+  defaultValues,
+  isEdit = false,
+}: CreateEventTemplateProps) => {
+  const { mutate: createEvent, isPending: isCreatePending } = usePostCreateEvent();
+  const { mutate: patchEvent, isPending: isEditPending } = usePatchEventDetail();
+
+  const isPending = isEdit ? isEditPending : isCreatePending;
 
   const [isOpenDateDisabled, setIsOpenDateDisabled] = useState(false);
 
@@ -24,12 +38,16 @@ const CreateEventTemplate = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreateEvent>();
+  } = useForm<CreateEvent>({ defaultValues });
 
   const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
 
   const onSubmit: SubmitHandler<CreateEvent> = (values) => {
-    createEvent(values);
+    if (isEdit) {
+      patchEvent({ data: values, eventId });
+    } else {
+      createEvent(values);
+    }
   };
 
   return (
@@ -108,7 +126,7 @@ const CreateEventTemplate = () => {
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
               <TermInput<CreateEvent>
-                future
+                future={!isEdit}
                 control={control}
                 includeTime={true}
                 errors={errors}
@@ -175,16 +193,9 @@ const CreateEventTemplate = () => {
           <Button
             size={'md'}
             isLoading={isPending}
-            type="button"
-          >
-            미리보기
-          </Button>
-          <Button
-            size={'md'}
-            isLoading={isPending}
             type="submit"
           >
-            등록하기
+            {isEdit ? '수정하기' : '등록하기'}
           </Button>
         </Flex>
       </form>
