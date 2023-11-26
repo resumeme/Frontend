@@ -56,7 +56,7 @@ const UserDetail = ({
             type={role}
             fontSize={'1rem'}
           >
-            {role === 'mentee' ? '멘티' : '멘토'}
+            {role === 'mentee' ? '멘티' : role === 'mentor' ? '멘토' : '승인 대기 중'}
           </Badge>
         )}
         <Flex
