@@ -16,7 +16,7 @@ const EventDetailPage = () => {
 
   const navigate = useNavigate();
 
-  const { eventId = '' } = useParams();
+  const { id: eventId } = useParams();
 
   const { data: event } = useGetEventDetail({ eventId });
   const { data: mentor } = useGetMentorDetail({ mentorId: String(event.mentorId) });

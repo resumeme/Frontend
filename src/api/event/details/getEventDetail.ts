@@ -3,7 +3,7 @@ import CONSTANTS from '~/constants';
 import { ReadEvent } from '~/types/event/event';
 import { getCookie } from '~/utils/cookie';
 
-export type GetEventDetail = { eventId: string };
+export type GetEventDetail = { eventId?: string };
 
 export const getEventDetail = async ({ eventId }: GetEventDetail): Promise<ReadEvent> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
