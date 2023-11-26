@@ -33,13 +33,13 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
       name: '멘티',
       imageSrc: assets.menteeSvg,
       description: '이력서를 관리하고,\n자유롭게 피드백을\n나눌 수 있습니다.',
-      value: 'ROLE_MENTEE',
+      value: 'mentee',
     },
     mentor: {
       name: '멘토',
       imageSrc: assets.mentorSvg,
       description: '멘토는 가입 승인 후\n계정 사용이 가능합니다.',
-      value: 'ROLE_PENDING',
+      value: 'pending',
     },
   } as const;
 

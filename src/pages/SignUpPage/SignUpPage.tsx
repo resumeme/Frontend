@@ -32,7 +32,7 @@ const SignUpPage = () => {
     refreshToken: string,
     role: SignUpRole,
   ) => {
-    const nextStep = role === 'ROLE_MENTEE' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+    const nextStep = role;
     resetCacheKey();
     if (accessToken && refreshToken) {
       await initialUser(accessToken, refreshToken);
@@ -69,7 +69,7 @@ const SignUpPage = () => {
           }}
         />
       )}
-      {step === 'ROLE_PENDING' && (
+      {step === 'pending' && (
         <SignUpMentorTemplate
           onNext={(data) => {
             if (!commonData) {
@@ -77,17 +77,17 @@ const SignUpPage = () => {
               return;
             }
             signUpMutate(
-              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_PENDING' },
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'pending' },
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_PENDING'),
+                  signUpSuccessCallback(accessToken, refreshToken, 'pending'),
                 onError: signUpErrorCallback,
               },
             );
           }}
         />
       )}
-      {step === 'ROLE_MENTEE' && (
+      {step === 'mentee' && (
         <SignUpMenteeTemplate
           onNext={(data) => {
             if (!commonData) {
@@ -95,20 +95,20 @@ const SignUpPage = () => {
               return;
             }
             signUpMutate(
-              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'ROLE_MENTEE' },
+              { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'mentee' },
               {
                 onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'ROLE_MENTEE'),
+                  signUpSuccessCallback(accessToken, refreshToken, 'mentee'),
                 onError: signUpErrorCallback,
               },
             );
           }}
         />
       )}
-      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="ROLE_PENDING" />}
+      {step === 'MENTOR_COMPLETE' && <SignUpCompleteTemplate role="pending" />}
       {step === 'MENTEE_COMPLETE' && (
         <SignUpCompleteTemplate
-          role="ROLE_MENTEE"
+          role="mentee"
           user={user}
         />
       )}

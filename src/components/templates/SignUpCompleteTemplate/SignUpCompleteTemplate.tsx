@@ -8,12 +8,12 @@ import { User } from '~/types/user';
 
 const SignUpCompleteTemplate = ({ role, user }: { role: SignUpRole; user?: User | null }) => {
   const TEXT = {
-    ROLE_PENDING: {
+    pending: {
       MAIN: '멘토 가입 신청이 완료되었습니다.',
       /**TODO - 멘트 점검: 가입 검토 소요 시간, 알람 기능 되는지 */
       SUB: `멘토 가입 검토는 최소 5분에서 최대 3일까지 소요됩니다.\n검토가 끝난 경우, 연동한 소셜 서비스로 알람을 보내드려요.`,
     },
-    ROLE_MENTEE: {
+    mentee: {
       MAIN: '가입이 완료되었습니다.',
       SUB: `이력, 써에 오신 것을 환영합니다. ${user?.realName}님!\n이력서를 관리하고 자유롭게 피드백을 주고 받아보세요.`,
     },

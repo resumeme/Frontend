@@ -1,5 +1,6 @@
 import { Fields } from './fields';
 import { Position } from './position';
+import { UserRole } from './user';
 
 export type SignUpMentor = {
   cacheKey: string;
@@ -29,6 +30,5 @@ export type SignUpCommon = {
  * ROLE_PENDING: 멘토로 가입했지만 어드민의 승인이 아직 없는 상태
  * ROLE_MENTOR: 멘토로 가입해서 어드민의 승인까지 받은 상태
  */
-export type Role = 'ROLE_PENDING' | 'ROLE_MENTOR' | 'ROLE_MENTEE';
 
-export type SignUpRole = Exclude<Role, 'ROLE_MENTOR'>;
+export type SignUpRole = Exclude<UserRole, 'mentor'>;
