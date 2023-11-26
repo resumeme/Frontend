@@ -1,4 +1,4 @@
-import { resumeMeAxios } from '../axios';
+import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
 import { CreateEvent } from '~/types/event/event';
 import { getCookie } from '~/utils/cookie';
