@@ -1,8 +1,10 @@
-import { Flex, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Flex, HStack, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { Label } from '~/components/atoms/Label';
 import useUser from '~/hooks/useUser';
 import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
@@ -20,7 +22,8 @@ const MentorProfile = ({
 }: MentorProfileProps) => {
   const { user } = useUser();
 
-  const { nickname, introduce, imageUrl } = mentor;
+  const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
+
   return (
     <VStack
       flexShrink={0}
@@ -44,16 +47,74 @@ const MentorProfile = ({
         minH={'12.44rem'}
         direction={'column'}
       >
-        {introduce && (
+        {(introduce || careerYear) && (
           <BorderBox>
-            <Text
-              textAlign={'center'}
-              noOfLines={6}
-              overflow={'hidden'}
-              color={'gray.700'}
+            <Flex
+              direction={'column'}
+              gap={'0.5rem'}
             >
-              {introduce}
-            </Text>
+              {careerYear && (
+                <HStack
+                  w={'100%'}
+                  gap={'1.5rem'}
+                >
+                  <Text as="span">경력</Text>
+                  <Text
+                    fontWeight={500}
+                    as="span"
+                    color={'gray.900'}
+                  >{`${careerYear}년`}</Text>
+                </HStack>
+              )}
+
+              {experiencedPositions && (
+                <Flex
+                  w={'100%'}
+                  gap={'1.5rem'}
+                >
+                  <Text
+                    flexShrink={0}
+                    as="span"
+                  >
+                    직무
+                  </Text>
+                  <HStack flexWrap={'wrap'}>
+                    {experiencedPositions.map((position) => (
+                      <Label
+                        fontWeight={500}
+                        alignSelf={'center'}
+                        fontSize={'0.875rem'}
+                        key={uuidv4()}
+                        type={position}
+                      />
+                    ))}
+                  </HStack>
+                </Flex>
+              )}
+
+              {introduce && (
+                <Flex
+                  direction={'column'}
+                  gap={'0.5rem'}
+                >
+                  <Text
+                    flexShrink={0}
+                    as="span"
+                  >
+                    자기소개
+                  </Text>
+                  <Text
+                    textAlign={'center'}
+                    noOfLines={6}
+                    overflow={'hidden'}
+                    color={'gray.700'}
+                    fontWeight={500}
+                  >
+                    {introduce}
+                  </Text>
+                </Flex>
+              )}
+            </Flex>
           </BorderBox>
         )}
         <Spacer />
