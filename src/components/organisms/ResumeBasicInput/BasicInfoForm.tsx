@@ -40,7 +40,7 @@ const BasicInfoForm = ({
       { resumeId, resumeBasicInfo },
       {
         onSuccess: () => {
-          queryClient.setQueryData(categoryKeys.basic(resumeId), resumeBasicInfo);
+          queryClient.refetchQueries({ queryKey: categoryKeys.basic(resumeId) });
           onSaveClick();
         },
       },
