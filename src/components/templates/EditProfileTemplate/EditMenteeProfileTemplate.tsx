@@ -10,6 +10,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { usePatchMenteeProfile } from '~/queries/user/edit/userPatchMenteeProfile';
@@ -51,7 +52,7 @@ const EditMenteeProfileTemplate = () => {
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries({ queryKey: ['user'] });
-          navigate(`/mypage/${mentee?.id}`);
+          navigate(appPaths.myPage());
         },
       },
     );
