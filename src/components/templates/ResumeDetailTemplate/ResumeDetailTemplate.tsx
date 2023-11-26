@@ -49,7 +49,6 @@ const ResumeDetailTemplate = () => {
   return (
     /* 전체 레이아웃 */
     <Flex
-      className="resume-detail"
       direction={'column'}
       width={'960px'}
       gap={6}
@@ -81,6 +80,7 @@ const ResumeDetailTemplate = () => {
         )}
       </Flex>
       <BorderBox
+        id="resume-detail"
         hasShadow
         border={'none'}
         bg={'gray.100'}
