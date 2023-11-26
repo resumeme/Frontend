@@ -17,11 +17,5 @@ export const usePatchResumeMemo = () => {
       });
       queryClient.refetchQueries({ queryKey: resumesKeys.my() });
     },
-    onError: (error) => {
-      toast({
-        description: error.message,
-        status: 'error',
-      });
-    },
   });
 };
