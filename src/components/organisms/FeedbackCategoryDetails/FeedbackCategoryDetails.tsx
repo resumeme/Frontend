@@ -27,8 +27,6 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
   isFeedbackPage = false,
 }: FeedbackCategoryDetailsProps<T>) => {
   const indexedComments = getIndexedCommentsObject(commentsData);
-  const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
-
   return (
     <>
       {arrayData?.length > 0 && (
@@ -36,7 +34,6 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
           {arrayData.map((data: T, index: number) => {
             const currentBlockId = data.componentId;
             const currentComments: FeedbackComment[] = indexedComments[currentBlockId];
-            const hasComment = commentComponentIds.includes(currentBlockId);
             return (
               <React.Fragment key={index}>
                 <Box
@@ -48,7 +45,7 @@ const FeedbackCategoryDetails = <T extends ReadCategories>({
                     data={data}
                     isCurrentUser={false}
                   />
-                  {hasComment && (
+                  {currentComments && (
                     <>
                       {currentComments.map((currentComment) => (
                         <FeedbackView
