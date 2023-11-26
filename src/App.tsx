@@ -17,31 +17,41 @@ const axiosErrorHandler = (error: Error) => {
     const { code } = error.response.data;
     const { status } = error.response;
 
-    switch (status) {
-      case 400:
-        if (code === 'BAD_REQUEST') {
-          window.location.replace(appPaths.main());
-        }
-        break;
-      case 401:
-        if (window.location.pathname === '/') {
-          window.location.assign(appPaths.signIn());
-        } else {
-          window.location.replace(appPaths.signIn());
-        }
-        break;
-      case 500:
-        window.location.replace(appPaths.main());
-        break;
-      default:
-        break;
-    }
-
     toast({
       description: CONSTANTS.ERROR_MESSAGES[code],
       status: 'error',
       // position: 'top',
     });
+
+    setTimeout(() => {
+      switch (status) {
+        case 400:
+          switch (code) {
+            case 'BAD_REQUEST':
+              window.location.replace(appPaths.main());
+              break;
+            case 'DUPLICATED_EVENT_OPEN':
+              window.location.replace(appPaths.main());
+              break;
+
+            default:
+              break;
+          }
+          break;
+        case 401:
+          if (window.location.pathname === '/') {
+            window.location.assign(appPaths.signIn());
+          } else {
+            window.location.replace(appPaths.signIn());
+          }
+          break;
+        case 500:
+          window.location.replace(appPaths.main());
+          break;
+        default:
+          break;
+      }
+    }, 800);
   }
   return;
 };
