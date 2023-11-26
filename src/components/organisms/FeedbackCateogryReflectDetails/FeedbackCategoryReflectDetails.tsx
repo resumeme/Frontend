@@ -1,9 +1,12 @@
 import { Divider, Box, Text } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
+import { feedbackKeys } from '~/queries/resume/feedback/feedbackKeys.const';
 import { FeedbackComment } from '~/types/event/feedback';
 import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
@@ -30,10 +33,11 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   FormComponent,
   isCurrentUser,
 }: CategoryDetailsProps<T>) => {
+  const { resumeId = '', eventId = '' } = useParams();
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
   const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
-
+  const queryClient = useQueryClient();
   return (
     <>
       {arrayData?.length > 0 && (
@@ -58,7 +62,12 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     }}
                     isEdit
                     blockId={data.componentId}
-                    quitEdit={() => setEditTargetIndex(null)}
+                    quitEdit={() => {
+                      queryClient.refetchQueries({
+                        queryKey: feedbackKeys.resumeFeedbacks(resumeId, eventId),
+                      });
+                      setEditTargetIndex(null);
+                    }}
                   />
                 ) : (
                   <Box
