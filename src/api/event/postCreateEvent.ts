@@ -6,14 +6,9 @@ import { getCookie } from '~/utils/cookie';
 const postCreateEvent = async (data: CreateEvent): Promise<{ id: number }> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hour = String(date.getHours()).padStart(2, '0');
-  const minute = String(date.getMinutes()).padStart(2, '0');
+  const offset = new Date().getTimezoneOffset() * 60000;
 
-  const formattedDate = `${year}-${month}-${day}T${hour}:${minute}`;
+  const formattedDate = new Date(Date.now() - offset).toISOString().substring(0, 16);
 
   data.time.now = formattedDate;
   data.time.endDate = new Date(data.time.endDate).toISOString().substring(0, 16);
