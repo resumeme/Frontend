@@ -32,7 +32,6 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
 }: CategoryDetailsProps<T>) => {
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
-  const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
   const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
   return (
     <>
@@ -40,9 +39,10 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
             const currentBlockId = data.componentId;
-            const targetComments: FeedbackComment[] = indexedComments[currentBlockId];
-            const hasComment = commentComponentIds.includes(currentBlockId);
-            const isOpen = hasComment ?? !data.reflectFeedback;
+            const currentComments: FeedbackComment[] = indexedComments[currentBlockId];
+            const currentSnapshots = indexedSnapshots[data.originComponentId!];
+            const isReflectFeedback = data.originComponentId !== data.componentId;
+            const isOpen = currentComments && !isReflectFeedback;
             return (
               <React.Fragment key={index}>
                 {editTargetIndex === index && FormComponent ? (
@@ -71,14 +71,14 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     />
                   </Box>
                 )}
-                {hasComment && (
+                {currentComments && (
                   <AccordionToggle
                     text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
                     w={'full'}
                     isOpen={isOpen}
                   >
                     <>
-                      {targetComments.map((currentComment) => (
+                      {currentComments.map((currentComment) => (
                         <FeedbackView
                           key={currentComment.commentId}
                           commentId={currentComment.commentId}
@@ -88,9 +88,9 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                         />
                       ))}
                     </>
-                    {data.reflectFeedback && (
+                    {isReflectFeedback && currentSnapshots && (
                       <DetailsComponent
-                        data={indexedSnapshots[data.originComponentId!]}
+                        data={currentSnapshots}
                         isCurrentUser={false}
                       />
                     )}
@@ -115,9 +115,8 @@ export default FeedbackCategoryReflectDetails;
 
 const getIndexedSnapshotObject = <T extends ReadCategories>(snapshotData: T[]) => {
   const indexedSnapshot: { [blockId: string]: T } = {};
-  snapshotData.forEach((commentItem) => {
-    const componentId = commentItem.componentId;
-    indexedSnapshot[componentId] = commentItem;
+  snapshotData.forEach((snapshotBlock) => {
+    indexedSnapshot[snapshotBlock.originComponentId!] = snapshotBlock;
   });
   return indexedSnapshot;
 };
