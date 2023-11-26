@@ -12,22 +12,31 @@ import Fonts from '~/theme/typography/fonts';
 
 const { toast } = createStandaloneToast({ theme });
 
-const axiosErrorHandler = async (error: Error) => {
+const axiosErrorHandler = (error: Error) => {
   if (isAxiosError<ResumeMeErrorResponse>(error) && error.response) {
     const { code } = error.response.data;
     const { status } = error.response;
 
-    if (status === 401) {
-      if (window.location.pathname === '/') {
-        await window.location.assign(appPaths.signIn());
-      } else {
-        await window.location.replace(appPaths.signIn());
-      }
+    switch (status) {
+      case 400:
+        if (code === 'BAD_REQUEST') {
+          window.location.replace(appPaths.main());
+        }
+        break;
+      case 401:
+        if (window.location.pathname === '/') {
+          window.location.assign(appPaths.signIn());
+        } else {
+          window.location.replace(appPaths.signIn());
+        }
+        break;
+      case 500:
+        window.location.replace(appPaths.main());
+        break;
+      default:
+        break;
     }
 
-    if (status === 500) {
-      await window.location.replace(appPaths.main());
-    }
     toast({
       description: CONSTANTS.ERROR_MESSAGES[code],
       status: 'error',
