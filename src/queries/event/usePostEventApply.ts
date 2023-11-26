@@ -8,7 +8,8 @@ const usePostEventApply = () => {
     mutationFn: postEventApply,
     onSuccess: () => {
       toast({
-        description: '이벤트 신청에 성공했습니다.',
+        status: 'success',
+        description: '이벤트 신청에 성공했습니다 :)',
       });
     },
   });

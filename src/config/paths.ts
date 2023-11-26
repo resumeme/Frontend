@@ -8,7 +8,7 @@ export const appPaths = {
   resumeDetail: (resumeId: number) => `/resume/${resumeId}`,
   resumeEdit: (resumeId: number) => `/resume/${resumeId}/edit`,
   viewEvent: () => '/event',
-  eventDetail: (eventId: number) => `/event/view/${eventId}`,
+  eventDetail: (eventId: number) => `/event/${eventId}`,
   eventCreate: () => `/event/create`,
   feedbackComplete: (resumeId: number, eventId: number) =>
     `/resume/${resumeId}/event/${eventId}/feedback`,

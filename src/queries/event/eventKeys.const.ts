@@ -6,4 +6,5 @@ export const eventKeys = {
     { page },
     { size },
   ],
+  getEventDetail: (eventId: string) => [...eventKeys.all, 'getEventDetail', eventId],
 };
