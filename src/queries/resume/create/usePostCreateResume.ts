@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { postCreateResume } from '~/api/resume/create/postCreateResume';
+import { appPaths } from '~/config/paths';
 
 export const usePostCreateResume = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export const usePostCreateResume = () => {
     mutationKey: ['postResume'],
     mutationFn: postCreateResume,
     onSuccess: ({ id }) => {
-      navigate(`/resume/${id}/edit`);
+      navigate(appPaths.resumeEdit(id));
     },
   });
 };

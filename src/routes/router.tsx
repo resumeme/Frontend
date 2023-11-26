@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       {
         element: <Layout />,
         children: [
-          { path: 'mypage/:id', element: <MyPage /> },
+          { path: 'mypage', element: <MyPage /> },
           { path: 'user/edit-info', element: <EditProfilePage /> },
 
           { path: 'resume/create', element: <CreateResumePage /> },
