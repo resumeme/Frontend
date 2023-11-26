@@ -1,15 +1,14 @@
-import { Divider, HStack, Text } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import CONSTANTS from './../../../constants/index';
 import { BorderBox } from '~/components/atoms/BorderBox';
+import { Label } from '~/components/atoms/Label';
 import { Position } from '~/types/position';
 
 type MentorCareerTitle = {
   experiencedPositions: Position[];
-  careerYear: number;
 };
 
-const MentorCareerTitle = ({ experiencedPositions, careerYear }: MentorCareerTitle) => {
+const MentorCareerTitle = ({ experiencedPositions }: MentorCareerTitle) => {
   return (
     <BorderBox
       borderRadius={'0.375rem'}
@@ -23,7 +22,7 @@ const MentorCareerTitle = ({ experiencedPositions, careerYear }: MentorCareerTit
           w={'18%'}
           as="span"
         >
-          직무
+          모집 직무
         </Text>
         <Text
           flexGrow={0}
@@ -31,36 +30,18 @@ const MentorCareerTitle = ({ experiencedPositions, careerYear }: MentorCareerTit
           as="span"
           color={'gray.900'}
         >
-          <HStack>
+          <HStack flexWrap={'wrap'}>
             {experiencedPositions.map((position) => (
-              <Text
+              <Label
+                fontWeight={500}
+                alignSelf={'center'}
+                fontSize={'0.875rem'}
                 key={uuidv4()}
-                as={'span'}
-              >
-                {CONSTANTS.POSITION[position]}
-              </Text>
+                type={position}
+              />
             ))}
           </HStack>
         </Text>
-        <Divider
-          orientation="vertical"
-          w={'0.625rem'}
-          h={'1.375rem'}
-          borderColor={'gray.400'}
-        />
-        <Text
-          textAlign={'center'}
-          w={'20%'}
-          as="span"
-        >
-          경력
-        </Text>
-        <Text
-          textAlign={'center'}
-          w={'20%'}
-          as="span"
-          color={'gray.900'}
-        >{`${careerYear}년`}</Text>
       </HStack>
     </BorderBox>
   );

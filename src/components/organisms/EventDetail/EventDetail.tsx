@@ -8,38 +8,41 @@ import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 type EventDetailProps = {
+  isAuthorizedMentor: boolean;
   mentor: ReadMentor;
   event: ReadEvent;
 };
 
 const EventDetail = ({
+  isAuthorizedMentor,
   mentor,
   event: {
+    id,
     content,
     status,
     timeInfo: { closeDateTime, endDate, openDateTime },
     title,
+    positions,
   },
 }: EventDetailProps) => {
   return (
-    <Box w={'full'}>
+    <Box w={'73%'}>
       <VStack
         gap={'1.56rem'}
         w={'full'}
       >
         <EventTitle
+          id={id}
+          isAuthorizedMentor={isAuthorizedMentor}
           eventStatus={status}
           title={title}
         />
         <EventTime
-          closeDateTime={closeDateTime}
           endDate={endDate}
+          closeDateTime={closeDateTime}
           openDateTime={openDateTime}
         />
-        <MentorCareerTitle
-          careerYear={mentor.careerYear}
-          experiencedPositions={mentor.experiencedPositions}
-        />
+        <MentorCareerTitle experiencedPositions={positions} />
         <EventContent content={content} />
         <MentorCareerContent careerContent={mentor.careerContent} />
       </VStack>

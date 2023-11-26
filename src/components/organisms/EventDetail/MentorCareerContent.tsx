@@ -21,7 +21,7 @@ const MentorCareerContent = ({ careerContent }: MentorCareerContent) => {
           as="span"
           color={'gray.700'}
         >
-          수상 경력
+          경력 사항
         </Text>
         <Text
           color={'gray.900'}

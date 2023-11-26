@@ -1,22 +1,36 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Spacer } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { Label } from '~/components/atoms/Label';
+import { OptionsButton } from '~/components/molecules/OptionsButton';
+import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
+import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
 import { EventStatus } from '~/types/eventStatus';
 
 type EventTitle = {
+  id: number;
+  isAuthorizedMentor: boolean;
   title: string;
   eventStatus: EventStatus;
 };
 
-const EventTitle = ({ title, eventStatus }: EventTitle) => {
+const EventTitle = ({ id, isAuthorizedMentor, title, eventStatus }: EventTitle) => {
   const isActive = eventStatus === 'OPEN' || eventStatus === 'REOPEN';
+  const navigate = useNavigate();
+
+  const options: Option[] = [{ onClick: () => navigate(appPaths.eventEdit(id)), text: '수정하기' }];
+
   return (
     <Flex
       p={'1rem'}
       w={'full'}
-      justifyContent={'space-between'}
+      align={'center'}
+      gap={'1.5rem'}
     >
       <Heading
+        maxW={'50%'}
+        as={'span'}
+        overflow={'hidden'}
         noOfLines={1}
         fontSize={'1.5rem'}
       >
@@ -29,6 +43,8 @@ const EventTitle = ({ title, eventStatus }: EventTitle) => {
       >
         {CONSTANTS.EVENT_STATUS[eventStatus]}
       </Label>
+      <Spacer />
+      {isAuthorizedMentor && <OptionsButton options={options} />}
     </Flex>
   );
 };
