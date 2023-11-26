@@ -6,6 +6,7 @@ import Layout from './Layout';
 import MainLayout from './MainLayout';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
+import EditEventPage from '~/pages/EventPages/EditEventPage/EditEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
 import { EventListPage } from '~/pages/EventPages/EventListPage';
 import MainPage from '~/pages/MainPage/MainPage';
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
           { path: 'write-review', element: <WriteReviewPage /> },
 
           { path: 'event/create', element: <CreateEventPage /> },
+          { path: 'event/edit/:eventId', element: <EditEventPage /> },
           { path: 'event/', element: <EventListPage /> },
           { path: 'event/view/:id', element: <EventDetailPage /> },
 

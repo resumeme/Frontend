@@ -3,13 +3,18 @@ import CONSTANTS from '~/constants';
 import { CreateEvent } from '~/types/event/event';
 import { getCookie } from '~/utils/cookie';
 
-const postCreateEvent = async (data: CreateEvent): Promise<{ id: number }> => {
+type PatchEventDetail = {
+  eventId: string;
+  data: CreateEvent;
+};
+
+const patchEventDetail = async ({ data, eventId }: PatchEventDetail): Promise<{ id: number }> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
   data.time.now = new Date().toISOString().substring(0, 16);
   data.time.endDate = new Date(data.time.endDate).toISOString().substring(0, 16);
 
-  const { data: eventId } = await resumeMeAxios.post(
-    '/v1/events',
+  const { data: resEventId } = await resumeMeAxios.patch(
+    `/v1/events/${eventId}`,
     { ...data },
     {
       headers: {
@@ -18,6 +23,6 @@ const postCreateEvent = async (data: CreateEvent): Promise<{ id: number }> => {
     },
   );
 
-  return eventId;
+  return resEventId;
 };
-export default postCreateEvent;
+export default patchEventDetail;
