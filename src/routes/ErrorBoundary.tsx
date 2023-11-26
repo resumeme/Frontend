@@ -1,14 +1,6 @@
-import { Box, Container, Flex, Heading, Highlight, Image, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { assets } from '~/config/assets';
+import { Container, Flex, Heading, Highlight, Text } from '@chakra-ui/react';
 
 const ErrorBoundary = () => {
-  const IMAGE = {
-    SRC: assets.noDataSvg,
-    ALT: 'error',
-    SIZE: '200px',
-  };
-
   const TEXT_CONTENTS = {
     HEADING: 'ERROR ໒꒰ ◞ ‌ ◟ ꒱ྀིა',
     DESCRIBE: '페이지 이동 중입니다. 잠시만 기다려 주세요.',

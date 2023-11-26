@@ -95,14 +95,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   const mentorOptions: Option[] = [
-    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     { text: TEXT_CONTENTS.CREATE_EVENT, onClick: () => navigate(appPaths.eventCreate()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
 
   const menteeOptions: Option[] = [
-    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage(user?.id)) },
+    { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
@@ -169,7 +169,7 @@ const Header = () => {
               align={'center'}
               gap={'1rem'}
             >
-              <Link to={appPaths.myPage(user.id)}>
+              <Link to={appPaths.myPage()}>
                 <Avatar
                   size="sm"
                   src={user.imageUrl}

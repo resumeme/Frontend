@@ -19,7 +19,7 @@ const usePatchFeedbackComplete = () => {
       });
 
       if (user) {
-        navigate(appPaths.myPage(user.id));
+        navigate(appPaths.myPage());
       } else {
         navigate(appPaths.main());
       }
