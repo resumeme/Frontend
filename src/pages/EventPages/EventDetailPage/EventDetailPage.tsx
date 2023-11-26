@@ -45,6 +45,7 @@ const EventDetailPage = () => {
           }}
         />
         <EventDetail
+          isAuthorizedMentor={user?.id === event.mentorId}
           mentor={mentor}
           event={event}
         />
