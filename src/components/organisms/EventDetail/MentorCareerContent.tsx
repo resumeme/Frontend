@@ -7,32 +7,27 @@ type MentorCareerContent = {
 
 const MentorCareerContent = ({ careerContent }: MentorCareerContent) => {
   return (
-    <BorderBox
-      borderRadius={'0.375rem'}
-      w={'full'}
+    <Flex
+      w={'100%'}
+      direction={'column'}
+      gap={'1.25rem'}
     >
-      <Flex
-        pl={'1.5rem'}
-        w={'100%'}
-        direction={'column'}
-        gap={'1.25rem'}
+      <Text
+        fontWeight={700}
+        as="span"
+        color={'gray.700'}
       >
-        <Text
-          as="span"
-          color={'gray.700'}
-        >
-          경력 사항
-        </Text>
-        <Text
-          color={'gray.900'}
-          whiteSpace={'pre-line'}
-          as="p"
-          wordBreak={'break-word'}
-        >
-          {careerContent}
-        </Text>
-      </Flex>
-    </BorderBox>
+        경력 사항
+      </Text>
+      <Text
+        color={'gray.900'}
+        whiteSpace={'pre-line'}
+        as="p"
+        wordBreak={'break-word'}
+      >
+        {careerContent}
+      </Text>
+    </Flex>
   );
 };
 

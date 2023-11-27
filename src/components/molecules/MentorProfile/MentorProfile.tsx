@@ -50,6 +50,7 @@ const MentorProfile = ({
         {(introduce || careerYear) && (
           <BorderBox>
             <Flex
+              fontSize={'0.875rem'}
               direction={'column'}
               gap={'0.5rem'}
             >
@@ -81,6 +82,7 @@ const MentorProfile = ({
                   <HStack flexWrap={'wrap'}>
                     {experiencedPositions.map((position) => (
                       <Label
+                        py={'0.05rem'}
                         fontWeight={500}
                         alignSelf={'center'}
                         fontSize={'0.875rem'}
@@ -104,7 +106,6 @@ const MentorProfile = ({
                     자기소개
                   </Text>
                   <Text
-                    textAlign={'center'}
                     noOfLines={6}
                     overflow={'hidden'}
                     color={'gray.700'}

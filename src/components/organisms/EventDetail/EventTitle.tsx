@@ -37,6 +37,7 @@ const EventTitle = ({ id, isAuthorizedMentor, title, eventStatus }: EventTitle) 
         {title}
       </Heading>
       <Label
+        py={'0.1rem'}
         fontSize={'0.875rem'}
         bg={isActive ? 'primary.900' : 'gray.400'}
         textAlign={'center'}

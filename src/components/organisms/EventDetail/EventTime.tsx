@@ -1,4 +1,4 @@
-import { Divider, HStack, Text } from '@chakra-ui/react';
+import { Divider, Flex, HStack, Text } from '@chakra-ui/react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { formatDate } from '~/utils/formatDate';
 
@@ -10,51 +10,43 @@ type EventTime = {
 
 const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
   return (
-    <BorderBox
-      borderRadius={'0.375rem'}
-      w={'full'}
-    >
-      <HStack
-        pl={'1.5rem'}
+    <>
+      <Flex
+        gap={'1.5rem'}
         w={'100%'}
       >
         <Text
-          w={'18%'}
+          w={'15%'}
+          fontWeight={700}
           as="span"
         >
           모집 기간
         </Text>
+
+        <Flex
+          flexGrow={1}
+          gap={'1rem'}
+        >
+          <Text as="span">{`${new Date(openDateTime).toLocaleString()}`}</Text>
+          <Text as="span"> ~ </Text>
+          <Text as="span">{`${new Date(closeDateTime).toLocaleString()}`}</Text>
+        </Flex>
+      </Flex>
+
+      <Flex
+        w={'100%'}
+        gap={'1.5rem'}
+      >
         <Text
-          w={'42%'}
-          as="span"
-          color={'gray.900'}
-          whiteSpace={'pre-line'}
-        >{`${new Date(openDateTime).toLocaleString()} \n ~ ${new Date(
-          closeDateTime,
-        ).toLocaleString()}`}</Text>
-        <Divider
-          orientation="vertical"
-          w={'0.625rem'}
-          h={'1.375rem'}
-          borderColor={'gray.400'}
-        />
-        <Text
-          textAlign={'center'}
-          w={'20%'}
+          fontWeight={700}
+          w={'15%'}
           as="span"
         >
           첨삭 종료일
         </Text>
-        <Text
-          textAlign={'center'}
-          w={'20%'}
-          as="span"
-          color={'gray.900'}
-        >
-          {formatDate(endDate)}
-        </Text>
-      </HStack>
-    </BorderBox>
+        <Text as="span">{formatDate(endDate)}</Text>
+      </Flex>
+    </>
   );
 };
 
