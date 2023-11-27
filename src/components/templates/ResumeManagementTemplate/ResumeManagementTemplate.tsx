@@ -24,7 +24,7 @@ const ResumeManagementTemplate = ({ resumes }: ResumeManagementTemplateProps) =>
         direction={'column'}
       >
         <BorderBox
-          borderBottomRadius={0}
+          borderBottomRadius={resumes.length > 0 ? 0 : undefined}
           p={'1.88rem 1.69rem'}
         >
           <Text

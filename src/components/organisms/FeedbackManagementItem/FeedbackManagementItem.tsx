@@ -1,10 +1,12 @@
-import { Flex, Icon, Spacer, Text } from '@chakra-ui/react';
+import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
 
 type FeedbackManagementItemProps = {
@@ -16,13 +18,16 @@ const FeedbackManagementItem = ({
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
+  const toast = useToast();
   // TODO api 상태 정해지면 label 컬러 추가
 
   const handleClick = () => {
-    if (status === 'CLOSE') {
+    if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
-    } else {
+    } else if (status === 'FEEDBACK_COMPLETE') {
       navigate(appPaths.feedbackReflect(resumeId, eventId));
+    } else {
+      toast({ description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.', status: 'info' });
     }
   };
 
@@ -31,25 +36,31 @@ const FeedbackManagementItem = ({
       <Flex
         align={'center'}
         gap={'1rem'}
+        w={'full'}
       >
-        <Link to={appPaths.eventDetail(eventId)}>
-          <Text
-            fontSize={'1.5rem'}
-            fontWeight={600}
-            color={'gray.800'}
-          >
-            {title}
-          </Text>
+        <Link
+          type="button"
+          w={'fit-content'}
+          noOfLines={1}
+          fontSize={'1.5rem'}
+          fontWeight={600}
+          color={'gray.800'}
+          as={ReactRouterLink}
+          to={appPaths.eventDetail(eventId)}
+        >
+          {title}
         </Link>
         <Label
           fontSize={'0.75rem'}
           p={'0.25rem 0.37rem'}
           borderRadius={'0.3125rem'}
         >
-          {status}
+          {CONSTANTS.RESUME_STATUS[status]}
         </Label>
         <Spacer />
         <Text
+          flexShrink={0}
+          as={'span'}
           fontSize={'0.875rem'}
           color={'gray.500'}
         >
@@ -58,6 +69,7 @@ const FeedbackManagementItem = ({
           ).toLocaleDateString()}`}
         </Text>
         <Flex
+          flexShrink={0}
           align={'center'}
           gap={'0.5rem'}
         >
@@ -89,7 +101,25 @@ const FeedbackManagementItem = ({
           w={'1.25rem'}
         />
         {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
-        <Text>내 이력서</Text>
+        <Tooltip
+          maxW={'xl'}
+          noOfLines={2}
+          placement="bottom-start"
+          //TODO -  이력서 제목이 들어갈 부분
+          label={'내 이력서'}
+          aria-label="tooltip"
+          borderRadius={'xl'}
+          fontSize={'sm'}
+          bg={'gray.300'}
+          color={'gray.600'}
+        >
+          <Text
+            as={'span'}
+            noOfLines={1}
+          >
+            {/* //TODO -  이력서 제목이 들어갈 부분 */}내 이력서
+          </Text>
+        </Tooltip>
         <Spacer />
         {status && (
           <Button
@@ -101,7 +131,7 @@ const FeedbackManagementItem = ({
             w={'fit-content'}
             onClick={handleClick}
           >
-            {status === 'CLOSE' ? '첨삭 내역 확인' : '수정하기'}
+            {status === 'COMPLETE' ? '첨삭 내역 확인' : '수정하기'}
           </Button>
         )}
       </Flex>
