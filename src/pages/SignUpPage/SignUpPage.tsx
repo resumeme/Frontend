@@ -32,7 +32,8 @@ const SignUpPage = () => {
     refreshToken: string,
     role: SignUpRole,
   ) => {
-    const nextStep = role;
+    const nextStep = role === 'mentee' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+
     resetCacheKey();
     if (accessToken && refreshToken) {
       await initialUser(accessToken, refreshToken);
