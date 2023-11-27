@@ -28,10 +28,10 @@ const axiosErrorHandler = (error: Error) => {
         case 400:
           switch (code) {
             case 'BAD_REQUEST':
-              window.location.replace(appPaths.main());
+              // window.location.replace(appPaths.main());
               break;
             case 'DUPLICATED_EVENT_OPEN':
-              window.location.replace(appPaths.main());
+              // window.location.replace(appPaths.main());
               break;
 
             default:
@@ -46,7 +46,7 @@ const axiosErrorHandler = (error: Error) => {
           }
           break;
         case 500:
-          window.location.replace(appPaths.main());
+          // window.location.replace(appPaths.main());
           break;
         default:
           break;
