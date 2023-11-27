@@ -165,7 +165,7 @@ const EditMenteeProfileTemplate = () => {
                   maxLength: {
                     value: 100,
                     message: `100자 이내로 입력해주세요. ${
-                      watch('introduce') && watch('introduce').length
+                      watch('introduce') ? watch('introduce').length : 0
                     }자`,
                   },
                 }),
