@@ -138,7 +138,7 @@ const MentorProfile = ({
           </Text>
         </Flex>
       </Flex>
-      {user?.role === 'mentee' && (
+      {(!user || user?.role === 'mentee') && (
         <Button
           type="button"
           size={'full'}
