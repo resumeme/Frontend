@@ -93,7 +93,14 @@ const UserDetail = ({
           <Text as={'span'}>{formatPhoneNumber(phoneNumber)}</Text>
         </Flex>
       )}
-      {introduce && <Text whiteSpace={'pre-line'}>{introduce}</Text>}
+      {introduce && (
+        <Text
+          whiteSpace={'pre-line'}
+          wordBreak={'break-word'}
+        >
+          {introduce}
+        </Text>
+      )}
       {interestedFields && (
         <Flex
           wrap={'wrap'}
