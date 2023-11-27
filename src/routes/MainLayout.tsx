@@ -26,9 +26,11 @@ const MainLayout = () => {
       >
         <Header />
       </Box>
-      <Suspense fallback={<Spinner />}>
-        <Outlet />
-      </Suspense>
+      <Box flexGrow={1}>
+        <Suspense fallback={<Spinner />}>
+          <Outlet />
+        </Suspense>
+      </Box>
       <Box
         flexGrow={0}
         flexShrink={0}
