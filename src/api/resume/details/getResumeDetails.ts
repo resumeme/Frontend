@@ -1,25 +1,25 @@
-import { isAxiosError } from 'axios';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import { ResumeMeErrorResponse } from '~/types/errorResponse';
+import { AllBlocks } from '~/types/resume/allBlocks';
 import { getCookie } from '~/utils/cookie';
 
 export type GetResumeDetails = { resumeId: string };
 
-export const getResumeDetails = async ({ resumeId }: GetResumeDetails) => {
+export const getResumeDetails = async ({ resumeId }: GetResumeDetails): Promise<AllBlocks> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+  const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}`, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
 
-  try {
-    const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}`, {
-      headers: {
-        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
-        Authorization: accessToken,
-      },
-    });
-    return data;
-  } catch (e) {
-    if (isAxiosError<ResumeMeErrorResponse>(e)) {
-      throw new Error(e.response?.data.message);
-    }
-  }
+  data.careers = data.careers ?? [];
+  data.certifications = data.certifications ?? [];
+  data.activities = data.activities ?? [];
+  data.projects = data.projects ?? [];
+  data.foreignLanguages = data.foreignLanguages ?? [];
+  data.trainings = data.trainings ?? [];
+  data.links = data.links ?? [];
+
+  return data;
 };

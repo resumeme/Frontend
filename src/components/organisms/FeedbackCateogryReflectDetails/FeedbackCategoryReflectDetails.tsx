@@ -1,9 +1,12 @@
-import { Divider, Box } from '@chakra-ui/react';
+import { Divider, Box, Text } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
+import { feedbackKeys } from '~/queries/resume/feedback/feedbackKeys.const';
 import { FeedbackComment } from '~/types/event/feedback';
 import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
@@ -30,20 +33,21 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   FormComponent,
   isCurrentUser,
 }: CategoryDetailsProps<T>) => {
+  const { resumeId = '', eventId = '' } = useParams();
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
-  const commentComponentIds = Object.keys(indexedComments).map((index) => parseInt(index));
-  if (!snapshotData) return;
   const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
+  const queryClient = useQueryClient();
   return (
     <>
       {arrayData?.length > 0 && (
         <BorderBox variant={'wide'}>
           {arrayData.map((data: T, index: number) => {
             const currentBlockId = data.componentId;
-            const targetComments: FeedbackComment[] = indexedComments[currentBlockId];
-            const hasComment = commentComponentIds.includes(currentBlockId);
-            const isOpen = hasComment ?? !data.reflectFeedback;
+            const currentComments: FeedbackComment[] = indexedComments[currentBlockId];
+            const currentSnapshots = indexedSnapshots[data.originComponentId!];
+            const isReflectFeedback = data.originComponentId !== data.componentId;
+            const isOpen = currentComments && !isReflectFeedback;
             return (
               <React.Fragment key={index}>
                 {editTargetIndex === index && FormComponent ? (
@@ -58,7 +62,12 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     }}
                     isEdit
                     blockId={data.componentId}
-                    quitEdit={() => setEditTargetIndex(null)}
+                    quitEdit={() => {
+                      queryClient.refetchQueries({
+                        queryKey: feedbackKeys.resumeFeedbacks(resumeId, eventId),
+                      });
+                      setEditTargetIndex(null);
+                    }}
                   />
                 ) : (
                   <Box
@@ -72,14 +81,14 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     />
                   </Box>
                 )}
-                {hasComment && (
+                {currentComments && (
                   <AccordionToggle
                     text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
                     w={'full'}
                     isOpen={isOpen}
                   >
                     <>
-                      {targetComments.map((currentComment) => (
+                      {currentComments.map((currentComment) => (
                         <FeedbackView
                           key={currentComment.commentId}
                           commentId={currentComment.commentId}
@@ -89,11 +98,13 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                         />
                       ))}
                     </>
-                    {data.reflectFeedback && (
-                      <DetailsComponent
-                        data={indexedSnapshots[data.componentId]}
-                        isCurrentUser={false}
-                      />
+                    {isReflectFeedback && currentSnapshots && (
+                      <SnapshotSection>
+                        <DetailsComponent
+                          data={currentSnapshots}
+                          isCurrentUser={false}
+                        />
+                      </SnapshotSection>
                     )}
                   </AccordionToggle>
                 )}
@@ -116,9 +127,45 @@ export default FeedbackCategoryReflectDetails;
 
 const getIndexedSnapshotObject = <T extends ReadCategories>(snapshotData: T[]) => {
   const indexedSnapshot: { [blockId: string]: T } = {};
-  snapshotData.forEach((commentItem) => {
-    const componentId = commentItem.componentId;
-    indexedSnapshot[componentId] = commentItem;
+  snapshotData.forEach((snapshotBlock) => {
+    indexedSnapshot[snapshotBlock.originComponentId!] = snapshotBlock;
   });
   return indexedSnapshot;
+};
+
+const SnapshotSection = ({ children }: { children: React.ReactNode }) => {
+  const BGCOLOR = '#fbfffc';
+  return (
+    <Box
+      mt={'1rem'}
+      p={'2rem'}
+      bg={BGCOLOR}
+      position={'relative'}
+      borderTop={'1px solid'}
+      borderBottom={'1px solid'}
+      borderColor={'gray.300'}
+      pt={'3rem'}
+    >
+      <Box
+        position={'absolute'}
+        top={-2}
+        left={1}
+        border={'1px solid'}
+        borderColor={'gray.300'}
+        borderRadius={'1rem'}
+        bg={'gray.100'}
+        px={'1rem'}
+        py={'0.3rem'}
+      >
+        <Text
+          fontSize={'xs'}
+          fontWeight={'bold'}
+          color={'gray.800'}
+        >
+          수정 전
+        </Text>
+      </Box>
+      {children}
+    </Box>
+  );
 };
