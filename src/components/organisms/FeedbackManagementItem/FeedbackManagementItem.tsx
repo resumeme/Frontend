@@ -1,4 +1,4 @@
-import { ChakraProps, Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
+import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
-import { ResumeStatus } from '~/types/resume/status';
 
 type FeedbackManagementItemProps = {
   resume: FeedbackResume;
