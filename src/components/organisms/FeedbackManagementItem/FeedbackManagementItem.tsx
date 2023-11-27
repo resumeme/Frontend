@@ -1,4 +1,4 @@
-import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
+import { ChakraProps, Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
 import { BiCommentError } from 'react-icons/bi';
 import { MdOutlineArticle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,9 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import { FeedbackResume } from '~/types/resume/resumeListItem';
+import { ResumeStatus } from '~/types/resume/status';
 
 type FeedbackManagementItemProps = {
   resume: FeedbackResume;
@@ -21,9 +23,9 @@ const FeedbackManagementItem = ({
   // TODO api 상태 정해지면 label 컬러 추가
 
   const handleClick = () => {
-    if (status === 'CLOSE') {
+    if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
-    } else if (status === 'FINISH') {
+    } else if (status === 'FEEDBACK_COMPLETE') {
       navigate(appPaths.feedbackReflect(resumeId, eventId));
     } else {
       toast({ description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.', status: 'info' });
@@ -39,7 +41,7 @@ const FeedbackManagementItem = ({
       >
         <Link
           type="button"
-          w={'100%'}
+          w={'fit-content'}
           noOfLines={1}
           fontSize={'1.5rem'}
           fontWeight={600}
@@ -54,7 +56,7 @@ const FeedbackManagementItem = ({
           p={'0.25rem 0.37rem'}
           borderRadius={'0.3125rem'}
         >
-          {status}
+          {CONSTANTS.RESUME_STATUS[status]}
         </Label>
         <Spacer />
         <Text
@@ -130,7 +132,7 @@ const FeedbackManagementItem = ({
             w={'fit-content'}
             onClick={handleClick}
           >
-            {status === 'CLOSE' ? '첨삭 내역 확인' : '수정하기'}
+            {status === 'COMPLETE' ? '첨삭 내역 확인' : '수정하기'}
           </Button>
         )}
       </Flex>
