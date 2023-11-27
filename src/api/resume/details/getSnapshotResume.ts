@@ -2,15 +2,19 @@ import { resumeMeAxios } from '~/api/axios';
 import { AllBlocks } from '~/types/resume/allBlocks';
 
 export const getSnapshotResume = async ({ resumeId }: { resumeId: string }): Promise<AllBlocks> => {
-  const { data } = await resumeMeAxios.get<AllBlocks>(`/v1/snapshot?resumeId=${resumeId}`);
+  const {
+    data: { resumeData },
+  } = await resumeMeAxios.get<{ resumeData: AllBlocks }>(
+    `/v1/snapshot?resumeId=${resumeId}&type=resume`,
+  );
 
-  data.careers = data.careers ?? [];
-  data.certifications = data.certifications ?? [];
-  data.activities = data.activities ?? [];
-  data.projects = data.projects ?? [];
-  data.foreignLanguages = data.foreignLanguages ?? [];
-  data.trainings = data.trainings ?? [];
-  data.links = data.links ?? [];
+  resumeData.careers = resumeData.careers ?? [];
+  resumeData.certifications = resumeData.certifications ?? [];
+  resumeData.activities = resumeData.activities ?? [];
+  resumeData.projects = resumeData.projects ?? [];
+  resumeData.foreignLanguages = resumeData.foreignLanguages ?? [];
+  resumeData.trainings = resumeData.trainings ?? [];
+  resumeData.links = resumeData.links ?? [];
 
-  return data;
+  return resumeData;
 };
