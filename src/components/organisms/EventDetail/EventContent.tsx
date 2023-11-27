@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { BorderBox } from '~/components/atoms/BorderBox';
 
 type EventContent = {
   content: string;
@@ -7,27 +6,26 @@ type EventContent = {
 
 const EventContent = ({ content }: EventContent) => {
   return (
-    <BorderBox
-      borderRadius={'0.375rem'}
-      w={'full'}
+    <Flex
+      w={'100%'}
+      direction={'column'}
+      gap={'1.25rem'}
     >
-      <Flex
-        pl={'1.5rem'}
-        w={'100%'}
-        direction={'column'}
-        gap={'1.25rem'}
+      <Text
+        fontWeight={700}
+        as="span"
       >
-        <Text as="span">이벤트 내용</Text>
-        <Text
-          color={'gray.900'}
-          whiteSpace={'pre-wrap'}
-          as="p"
-          wordBreak={'break-word'}
-        >
-          {content}
-        </Text>
-      </Flex>
-    </BorderBox>
+        이벤트 내용
+      </Text>
+      <Text
+        color={'gray.900'}
+        whiteSpace={'pre-wrap'}
+        as="p"
+        wordBreak={'break-word'}
+      >
+        {content}
+      </Text>
+    </Flex>
   );
 };
 

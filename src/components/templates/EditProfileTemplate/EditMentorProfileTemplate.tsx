@@ -11,6 +11,7 @@ import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { CareerContentModal } from '~/components/molecules/Modal';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
+import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { usePatchMentorProfile } from '~/queries/user/edit/userPatchMentorProfile';
@@ -62,7 +63,7 @@ const EditMentorProfileTemplate = () => {
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries({ queryKey: ['user'] });
-          navigate(`/mypage/${mentor?.id}`);
+          navigate(appPaths.myPage());
         },
       },
     );
