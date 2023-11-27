@@ -11,18 +11,17 @@ import {
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
 import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
-import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
+import { useGetFeedbacksSnapshot } from '~/queries/resume/feedback/useGetFeedbacksSnapshot';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const FeedbackCompleteTemplate = () => {
-  const { resumeId = '', eventId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const {
-    data: { commentResponses, overallReview },
-  } = useGetResumeFeedbacks({ resumeId, eventId });
+    data: { commentResponses, overallReview, mentorId },
+  } = useGetFeedbacksSnapshot({ resumeId });
 
   const { data: details } = useGetSnapshotResume({ resumeId });
-  /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
-  const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
+  const { data: mentorData } = useGetMentorDetail({ mentorId });
 
   return (
     <Flex

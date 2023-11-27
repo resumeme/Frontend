@@ -29,12 +29,12 @@ import {
 } from '~/queries/resume/details';
 import { useGetResumeBasic } from '~/queries/resume/details/useGetResumeBasic';
 import { useGetSnapshotResume } from '~/queries/resume/details/useGetSnapshotResume';
-import { useGetResumeFeedbacks } from '~/queries/resume/feedback/useGetResumeFeedbacks';
+import { useGetFeedbacksSnapshot } from '~/queries/resume/feedback/useGetFeedbacksSnapshot';
 import { usePatchFeedbackReflectComplete } from '~/queries/resume/feedback/usePatchFeedbackReflectComplete';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 
 const FeedbackReflectTemplate = () => {
-  const { resumeId = '', eventId = '' } = useParams();
+  const { resumeId = '' } = useParams();
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
   const { data: careersData } = useGetResumeCareer({ resumeId });
   const { data: trainingsData } = useGetResumeTraining({ resumeId });
@@ -49,7 +49,7 @@ const FeedbackReflectTemplate = () => {
 
   const {
     data: { commentResponses },
-  } = useGetResumeFeedbacks({ resumeId, eventId });
+  } = useGetFeedbacksSnapshot({ resumeId });
 
   const { data: snapshotData } = useGetSnapshotResume({
     resumeId,
