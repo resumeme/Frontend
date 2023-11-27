@@ -117,6 +117,7 @@ const Header = () => {
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
   ];
+
   return (
     <Box
       className="box"
