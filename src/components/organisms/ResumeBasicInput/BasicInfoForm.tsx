@@ -112,7 +112,7 @@ const BasicInfoForm = ({
                   placeholder="보유한 기술 스택"
                   onKeyDown={handleSkillsetChange}
                   error={errors.skills}
-                  defaultValue={defaultSkills}
+                  defaultValue={''}
                 />
                 {skills.length > 0 && (
                   <DynamicTags
