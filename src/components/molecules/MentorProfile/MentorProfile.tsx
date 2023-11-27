@@ -1,4 +1,5 @@
-import { Flex, HStack, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Flex, HStack, Heading, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
+import { MdOutlineStarPurple500, MdStarBorder } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -6,6 +7,9 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import useUser from '~/hooks/useUser';
+import { usePostMentorFollow } from '~/queries/follow/create/usePostMentorFollow';
+import { useDeleteMentorFollow } from '~/queries/follow/delete/useDeleteMentorFollow';
+import { useGetMentorFollow } from '~/queries/follow/details/useGetMentorFollow';
 import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
@@ -17,12 +21,20 @@ type MentorProfileProps = {
 
 const MentorProfile = ({
   mentor,
-  event: { currentApplicantCount, maximumCount, status },
+  event: { currentApplicantCount, maximumCount, status, mentorId },
   onApply,
 }: MentorProfileProps) => {
   const { user } = useUser();
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
+
+  const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
+  const { mutate: mentorFollow } = usePostMentorFollow();
+  const { data: followList } = useGetMentorFollow();
+
+  const isFollowed = !!followList.find((follow) => follow.mentorInfo.id === mentorId);
+
+  // const isFollowed = false;
 
   return (
     <VStack
@@ -35,13 +47,30 @@ const MentorProfile = ({
         name={nickname}
         src={imageUrl}
       />
-      <Heading
-        textAlign={'center'}
-        fontSize={'20px'}
-        color={'gray.800'}
+      <Flex
+        w={'full'}
+        align={'center'}
       >
-        {nickname}
-      </Heading>
+        <Heading
+          textAlign={'center'}
+          fontSize={'20px'}
+          color={'gray.800'}
+        >
+          {nickname}
+        </Heading>
+        <Spacer />
+        <IconButton
+          w={'fit-content'}
+          h={'fit-content'}
+          bg={'inherit'}
+          icon={isFollowed ? <MdOutlineStarPurple500 /> : <MdStarBorder />}
+          onClick={
+            isFollowed ? () => deleteMentorFollow({ mentorId }) : () => mentorFollow({ mentorId })
+          }
+          aria-label="follow"
+          color={'primary.900'}
+        />
+      </Flex>
       <Flex
         w={'100%'}
         minH={'12.44rem'}
