@@ -27,17 +27,20 @@ const SignUpPage = () => {
     navigate(appPaths.signIn());
   };
 
-  const signUpSuccessCallback = async (
-    accessToken: string,
-    refreshToken: string,
-    role: SignUpRole,
-  ) => {
-    const nextStep = role === 'mentee' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
+  const signUpSuccessCallback = async ({
+    accessToken,
+    refreshToken,
+  }: {
+    accessToken: string;
+    refreshToken: string;
+  }) => {
+    const nextStep = step === 'mentee' ? 'MENTEE_COMPLETE' : 'MENTOR_COMPLETE';
 
     resetCacheKey();
     if (accessToken && refreshToken) {
       await initialUser(accessToken, refreshToken);
     }
+
     setStep(nextStep);
   };
 
@@ -80,8 +83,7 @@ const SignUpPage = () => {
             signUpMutate(
               { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'pending' },
               {
-                onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'pending'),
+                onSuccess: signUpSuccessCallback,
                 onError: signUpErrorCallback,
               },
             );
@@ -98,8 +100,7 @@ const SignUpPage = () => {
             signUpMutate(
               { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'mentee' },
               {
-                onSuccess: ({ accessToken, refreshToken }) =>
-                  signUpSuccessCallback(accessToken, refreshToken, 'mentee'),
+                onSuccess: signUpSuccessCallback,
                 onError: signUpErrorCallback,
               },
             );
