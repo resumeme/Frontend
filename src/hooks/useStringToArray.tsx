@@ -15,6 +15,7 @@ export const useStringToArray = (
 
     if (key === 'Enter') {
       event.preventDefault();
+      event.currentTarget.value = '';
     }
 
     if (!skill.trim() || skill === ',') {
@@ -22,7 +23,6 @@ export const useStringToArray = (
     }
 
     if (skill.length > 1 && key === 'Enter') {
-      event.currentTarget.value = '';
       if (!array.includes(skill)) {
         setSkills([...array, skill]);
       }
