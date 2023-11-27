@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { BorderBox } from '~/components/atoms/BorderBox';
 
 type MentorCareerContent = {
   careerContent: string;

@@ -1,6 +1,5 @@
-import { Divider, HStack, Text } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
 import { Position } from '~/types/position';
 

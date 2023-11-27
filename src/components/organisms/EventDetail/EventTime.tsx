@@ -1,5 +1,4 @@
-import { Divider, Flex, HStack, Text } from '@chakra-ui/react';
-import { BorderBox } from '~/components/atoms/BorderBox';
+import { Flex, Text } from '@chakra-ui/react';
 import { formatDate } from '~/utils/formatDate';
 
 type EventTime = {

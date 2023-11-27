@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, VStack } from '@chakra-ui/react';
+import { Box, Flex, VStack } from '@chakra-ui/react';
 import EventContent from './EventContent';
 import EventTime from './EventTime';
 import EventTitle from './EventTitle';
