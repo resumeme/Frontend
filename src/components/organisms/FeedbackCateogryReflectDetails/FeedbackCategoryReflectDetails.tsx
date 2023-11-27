@@ -102,7 +102,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                     )}
                   </AccordionToggle>
                 )}
-                {index !== arrayData.length - 1 && (
+                {index !== snapshotData.length - 1 && (
                   <Divider
                     my={'3rem'}
                     borderColor={'gray.300'}
