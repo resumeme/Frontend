@@ -47,7 +47,7 @@ const BasicInfoForm = ({
     );
   };
 
-  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
+  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray(defaultSkills);
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
 

@@ -66,7 +66,7 @@ const CareerForm = ({
     name: 'duties',
   });
 
-  const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
+  const [skills, handleArrayChange, handleItemDelete] = useStringToArray(defaultValues?.skills);
 
   const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
