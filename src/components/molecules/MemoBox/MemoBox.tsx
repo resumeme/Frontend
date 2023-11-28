@@ -2,7 +2,7 @@ import { Box, Flex, Text, Icon } from '@chakra-ui/react';
 import { MdOutlineArticle } from 'react-icons/md';
 
 type MemoBoxProps = {
-  onOpen: () => void;
+  onOpen?: () => void;
   memo?: string;
 };
 
