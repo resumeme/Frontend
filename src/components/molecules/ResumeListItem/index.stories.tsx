@@ -16,6 +16,8 @@ export const Default = () => {
         id: 1,
         title: 'title1',
         modifiedAt: '2023-11-17',
+        position: '프론트엔드',
+        memo: '메모임!',
       }}
     />
   );
