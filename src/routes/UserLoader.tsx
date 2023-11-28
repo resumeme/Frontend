@@ -19,7 +19,10 @@ const userCheck = async ({ role }: CheckUser) => {
   }
 
   if (role && userRole !== role) {
-    toast({ description: '멘티로 로그인해야 확인할 수 있어요.', status: 'info' });
+    toast({
+      description: `${role === 'mentee' ? '멘티' : '멘토'}로 로그인해야 확인할 수 있어요.`,
+      status: 'info',
+    });
     return redirect('/');
   }
 
