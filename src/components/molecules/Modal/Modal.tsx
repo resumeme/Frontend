@@ -41,7 +41,12 @@ const Modal = ({
         {...modalContentProps}
       >
         {title && <ModalHeader paddingTop={0}>{title}</ModalHeader>}
-        {hasCloseButton && <ModalCloseButton p={'1.5rem'} />}
+        {hasCloseButton && (
+          <ModalCloseButton
+            p={'1.5rem'}
+            zIndex={'docked'}
+          />
+        )}
         <ModalBody p={0}>{children}</ModalBody>
       </ModalContent>
     </ChakraModal>
