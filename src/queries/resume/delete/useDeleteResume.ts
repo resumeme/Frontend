@@ -11,7 +11,7 @@ export const deleteResumeKeys = {
 export const useDeleteResume = () => {
   const queryClient = useQueryClient();
   const TARGET_QUERY_KEY = resumesKeys.my();
-  const toast = useToast();
+  const toast = useToast({ duration: 2000, position: 'top' });
   return useMutation({
     mutationKey: deleteResumeKeys.all,
     mutationFn: deleteResume,
