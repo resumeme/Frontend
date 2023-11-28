@@ -19,5 +19,6 @@ export const useGetManagementEvents = ({ userId, role }: useGetManagementEventsP
     queryKey: [eventsKeys.events({ userId })],
     queryFn: () => getManagementEvents({ userId }),
     enabled: !!(role === 'mentor'),
+    staleTime: Infinity,
   });
 };
