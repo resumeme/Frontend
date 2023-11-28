@@ -9,13 +9,13 @@ import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 type EventDetailProps = {
-  isAuthorizedMentor: boolean;
+  isEditable: boolean;
   mentor: ReadMentor;
   event: ReadEvent;
 };
 
 const EventDetail = ({
-  isAuthorizedMentor,
+  isEditable,
   mentor,
   event: {
     id,
@@ -34,7 +34,7 @@ const EventDetail = ({
       >
         <EventTitle
           id={id}
-          isAuthorizedMentor={isAuthorizedMentor}
+          isEditable={isEditable}
           eventStatus={status}
           title={title}
         />
