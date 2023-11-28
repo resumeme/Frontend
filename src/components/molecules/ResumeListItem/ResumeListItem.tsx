@@ -1,12 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { Label } from '~/components/atoms/Label';
+import { MemoBox } from '~/components/molecules/MemoBox';
 import { ResumeListItem } from '~/types/resume/resumeListItem';
 
 type ResumeListItemProps = {
   data: ResumeListItem;
 };
 
-const ResumeListItem = ({ data: { title, modifiedAt } }: ResumeListItemProps) => {
+const ResumeListItem = ({ data: { title, modifiedAt, position, memo } }: ResumeListItemProps) => {
   return (
     <Box>
       <Flex direction={'column'}>
@@ -17,13 +18,14 @@ const ResumeListItem = ({ data: { title, modifiedAt } }: ResumeListItemProps) =>
           >
             {new Date(modifiedAt).toLocaleString()}
           </Text>
-          {/**FIXME - 이력서 희망 직무 api 데이터 추가되면 대체하기 */}
-          <Label
-            bg={'gray.300'}
-            color={'gray.700'}
-          >
-            {'이력서 희망 직무'}
-          </Label>
+          {position && (
+            <Label
+              bg={'gray.300'}
+              color={'gray.700'}
+            >
+              {position}
+            </Label>
+          )}
         </Flex>
         <Text
           fontSize={'1.125rem'}
@@ -32,6 +34,7 @@ const ResumeListItem = ({ data: { title, modifiedAt } }: ResumeListItemProps) =>
           {title}
         </Text>
         {/**TODO - 메모 컴포넌트 */}
+        {memo && <MemoBox memo={memo} />}
       </Flex>
     </Box>
   );
