@@ -19,10 +19,6 @@ const axiosErrorHandler = (error: Error) => {
       duration: 2000,
       description: CONSTANTS.ERROR_MESSAGES[code],
       status: 'error',
-<<<<<<< HEAD
-=======
-      position: 'top',
->>>>>>> bd29e29 (style: 토스트 위치, 유지시간 변경)
     });
   }
   return;
