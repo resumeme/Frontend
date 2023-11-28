@@ -1,12 +1,9 @@
 import { Divider, Box, Text } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { AccordionToggle } from '~/components/atoms/AccordionToggle';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
-import { feedbackKeys } from '~/queries/resume/feedback/feedbackKeys.const';
 import { FeedbackComment } from '~/types/event/feedback';
 import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';
@@ -33,53 +30,50 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
   FormComponent,
   isCurrentUser,
 }: CategoryDetailsProps<T>) => {
-  const { resumeId = '', eventId = '' } = useParams();
   const [editTargetIndex, setEditTargetIndex] = useState<number | null>(null);
   const indexedComments = getIndexedCommentsObject(commentsData);
-  const indexedSnapshots = getIndexedSnapshotObject(snapshotData);
-  const queryClient = useQueryClient();
+  const indexedDetails = getIndexedDetails(arrayData);
   return (
     <>
-      {arrayData?.length > 0 && (
+      {snapshotData?.length > 0 && (
         <BorderBox variant={'wide'}>
-          {arrayData.map((data: T, index: number) => {
-            const currentBlockId = data.componentId;
-            const currentComments: FeedbackComment[] = indexedComments[currentBlockId];
-            const currentSnapshots = indexedSnapshots[data.originComponentId!];
-            const isReflectFeedback = data.originComponentId !== data.componentId;
+          {snapshotData.map((snapshotItem: T, index: number) => {
+            const currentComponentId = snapshotItem.componentId;
+            const currentDetail = indexedDetails[snapshotItem.originComponentId!];
+            const currentComments: FeedbackComment[] = indexedComments[snapshotItem.componentId];
+            const isReflectFeedback = currentComponentId !== currentDetail?.componentId;
             const isOpen = currentComments && !isReflectFeedback;
             return (
               <React.Fragment key={index}>
-                {editTargetIndex === index && FormComponent ? (
-                  <FormComponent
-                    defaultValues={{
-                      ...data,
-                      componentId: undefined,
-                      reflectFeedback: undefined,
-                      type: undefined,
-                      originComponentId: undefined,
-                      createdDate: undefined,
-                    }}
-                    isEdit
-                    blockId={data.componentId}
-                    quitEdit={() => {
-                      queryClient.refetchQueries({
-                        queryKey: feedbackKeys.resumeFeedbacks(resumeId, eventId),
-                      });
-                      setEditTargetIndex(null);
-                    }}
-                  />
-                ) : (
-                  <Box
-                    position={'relative'}
-                    role="group"
-                  >
-                    <DetailsComponent
-                      data={data}
-                      onEdit={() => setEditTargetIndex(index)}
-                      isCurrentUser={isCurrentUser}
-                    />
-                  </Box>
+                {currentDetail && (
+                  <>
+                    {editTargetIndex === index && FormComponent ? (
+                      <FormComponent
+                        defaultValues={{
+                          ...currentDetail,
+                          componentId: undefined,
+                          reflectFeedback: undefined,
+                          type: undefined,
+                          originComponentId: undefined,
+                          createdDate: undefined,
+                        }}
+                        isEdit
+                        blockId={currentDetail.componentId}
+                        quitEdit={() => setEditTargetIndex(null)}
+                      />
+                    ) : (
+                      <Box
+                        position={'relative'}
+                        role="group"
+                      >
+                        <DetailsComponent
+                          data={currentDetail}
+                          onEdit={() => setEditTargetIndex(index)}
+                          isCurrentUser={isCurrentUser}
+                        />
+                      </Box>
+                    )}
+                  </>
                 )}
                 {currentComments && (
                   <AccordionToggle
@@ -98,17 +92,17 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                         />
                       ))}
                     </>
-                    {isReflectFeedback && currentSnapshots && (
+                    {isReflectFeedback && (
                       <SnapshotSection>
                         <DetailsComponent
-                          data={currentSnapshots}
+                          data={snapshotItem}
                           isCurrentUser={false}
                         />
                       </SnapshotSection>
                     )}
                   </AccordionToggle>
                 )}
-                {index !== arrayData.length - 1 && (
+                {index !== snapshotData.length - 1 && (
                   <Divider
                     my={'3rem'}
                     borderColor={'gray.300'}
@@ -125,12 +119,12 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
 
 export default FeedbackCategoryReflectDetails;
 
-const getIndexedSnapshotObject = <T extends ReadCategories>(snapshotData: T[]) => {
-  const indexedSnapshot: { [blockId: string]: T } = {};
-  snapshotData.forEach((snapshotBlock) => {
-    indexedSnapshot[snapshotBlock.originComponentId!] = snapshotBlock;
+const getIndexedDetails = <T extends ReadCategories>(arrayData: T[]) => {
+  const indexedDetails: { [blockId: string]: T } = {};
+  arrayData.forEach((detailItem) => {
+    indexedDetails[detailItem.originComponentId!] = detailItem;
   });
-  return indexedSnapshot;
+  return indexedDetails;
 };
 
 const SnapshotSection = ({ children }: { children: React.ReactNode }) => {
