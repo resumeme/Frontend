@@ -11,7 +11,10 @@ const useCheckOpenedEvent = () => {
 
   const hasOpenedEvent = () => {
     refetch();
-    return !!(events && events.find((event) => event.info.status !== 'FINISH'));
+    return !!(
+      events &&
+      events.find((event) => event.info.status !== 'FINISH' && event.info.status !== 'CLOSE')
+    );
   };
 
   return hasOpenedEvent;
