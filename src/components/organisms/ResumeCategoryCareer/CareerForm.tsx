@@ -45,7 +45,12 @@ const CareerForm = ({
     handleSubmit,
     formState: { errors, isDirty },
     reset,
-  } = useForm<Career>({ defaultValues });
+  } = useForm<Career>({
+    defaultValues: {
+      ...defaultValues,
+      skills: [],
+    },
+  });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
@@ -66,7 +71,7 @@ const CareerForm = ({
     name: 'duties',
   });
 
-  const [skills, handleArrayChange, handleItemDelete] = useStringToArray();
+  const [skills, handleArrayChange, handleItemDelete] = useStringToArray(defaultValues?.skills);
 
   const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
@@ -99,6 +104,9 @@ const CareerForm = ({
     }
   }, [isEdit, setShowForm]);
 
+  // if (defaultValues?.skills && defaultValues?.skills?.length > 0) {
+  //   setValue('skills', ['']);
+  // }
   return (
     <Flex
       direction={'column'}

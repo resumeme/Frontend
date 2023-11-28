@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
-export const useStringToArray = (): [
+export const useStringToArray = (
+  defaultArray: string[] = [],
+): [
   string[],
   (event: React.KeyboardEvent<HTMLInputElement>) => void,
   (targetIndex: number) => void,
 ] => {
-  const [array, setSkills] = useState<string[]>([]);
+  const [array, setSkills] = useState(defaultArray);
 
   const handleArrayChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { value: skill } = event.currentTarget;
@@ -13,6 +15,7 @@ export const useStringToArray = (): [
 
     if (key === 'Enter') {
       event.preventDefault();
+      event.currentTarget.value = '';
     }
 
     if (!skill.trim() || skill === ',') {
@@ -20,7 +23,6 @@ export const useStringToArray = (): [
     }
 
     if (skill.length > 1 && key === 'Enter') {
-      event.currentTarget.value = '';
       if (!array.includes(skill)) {
         setSkills([...array, skill]);
       }

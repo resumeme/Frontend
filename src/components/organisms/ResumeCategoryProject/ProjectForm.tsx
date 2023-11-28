@@ -37,7 +37,7 @@ const ProjectForm = ({
     formState: { errors, isDirty },
     reset,
   } = useForm<Project>({
-    defaultValues: defaultValues ?? { team: true },
+    defaultValues: defaultValues ? { ...defaultValues, skills: [] } : { team: true },
   });
 
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
@@ -54,7 +54,7 @@ const ProjectForm = ({
     onMutateSuccess: quitEdit,
   });
 
-  const [skills, handleSkills, handleDeleteSkills] = useStringToArray();
+  const [skills, handleSkills, handleDeleteSkills] = useStringToArray(defaultValues?.skills);
 
   const onSubmit: SubmitHandler<Project> = (body) => {
     if (!resumeId) {

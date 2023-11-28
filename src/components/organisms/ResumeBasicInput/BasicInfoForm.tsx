@@ -47,7 +47,7 @@ const BasicInfoForm = ({
     );
   };
 
-  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray();
+  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray(defaultSkills);
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
 
@@ -112,7 +112,7 @@ const BasicInfoForm = ({
                   placeholder="보유한 기술 스택"
                   onKeyDown={handleSkillsetChange}
                   error={errors.skills}
-                  defaultValue={defaultSkills}
+                  defaultValue={''}
                 />
                 {skills.length > 0 && (
                   <DynamicTags
