@@ -4,6 +4,8 @@ import FeedbackLayout from './FeedbackLayout';
 import FocusLayout from './FocusLayout';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
+import UnUserLoader from './UnUserLoader';
+import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
 import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import EditEventPage from '~/pages/EventPages/EditEventPage/EditEventPage';
@@ -41,16 +43,20 @@ const router = createBrowserRouter([
           { path: 'user/edit-info', element: <EditProfilePage /> },
 
           { path: 'resume/create', element: <CreateResumePage /> },
-          { path: 'resume/management', element: <ManagementResumePage /> },
-          { path: 'resume/:resumeId/edit', element: <EditResumePage /> },
+          { path: 'resume/management', element: <ManagementResumePage />, loader: MenteeLoader },
+          { path: 'resume/:resumeId/edit', element: <EditResumePage />, loader: MenteeLoader },
 
-          { path: 'resume/:resumeId/event/:eventId/feedback', element: <FeedbackCompletePage /> },
+          {
+            path: 'resume/:resumeId/event/:eventId/feedback',
+            element: <FeedbackCompletePage />,
+            loader: UserLoader,
+          },
 
-          { path: 'resume/:resumeId', element: <ResumeDetailPage /> },
-          { path: 'write-review', element: <WriteReviewPage /> },
+          { path: 'resume/:resumeId', element: <ResumeDetailPage />, loader: MenteeLoader },
+          { path: 'write-review', element: <WriteReviewPage />, loader: MentorLoader },
 
-          { path: 'event/create', element: <CreateEventPage /> },
-          { path: 'event/edit/:eventId', element: <EditEventPage /> },
+          { path: 'event/create', element: <CreateEventPage />, loader: MentorLoader },
+          { path: 'event/edit/:eventId', element: <EditEventPage />, loader: MentorLoader },
           { path: 'event/', element: <EventListPage /> },
           { path: 'event/:eventId', element: <EventDetailPage /> },
 
@@ -61,17 +67,17 @@ const router = createBrowserRouter([
       {
         element: <FocusLayout />,
         children: [
-          { path: 'sign-up', element: <SignUpPage /> },
-          { path: 'sign-in', element: <SignInPage /> },
-          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
+          { path: 'sign-up', element: <SignUpPage />, loader: UnUserLoader },
+          { path: 'sign-in', element: <SignInPage />, loader: UnUserLoader },
+          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage />, loader: UnUserLoader },
         ],
       },
       {
         path: 'event/:eventId/resume/:resumeId/',
         element: <FeedbackLayout />,
         children: [
-          { index: true, element: <FeedbackResumePage /> },
-          { path: 'feedback/reflect', element: <FeedbackReflectPage /> },
+          { index: true, element: <FeedbackResumePage />, loader: MentorLoader },
+          { path: 'feedback/reflect', element: <FeedbackReflectPage />, loader: MenteeLoader },
         ],
       },
     ],
