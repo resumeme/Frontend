@@ -1,10 +1,18 @@
-import { Container, Flex, Heading, Highlight, Text } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Highlight, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
+import { appPaths } from '~/config/paths';
 
 const ErrorBoundary = () => {
   const TEXT_CONTENTS = {
     HEADING: 'ERROR ໒꒰ ◞ ‌ ◟ ꒱ྀིა',
-    DESCRIBE: '페이지 이동 중입니다. 잠시만 기다려 주세요.',
-    CODE: '__400_ BAD_REQUEST__',
+    DESCRIBE: '에러가 발생했어요. 잠시 후에 다시 시도해 주세요.',
+    CODE: '__BAD_REQUEST__',
+  };
+
+  const BUTTON_CONTENT = {
+    TEXT: '돌아가기',
+    HREF: appPaths.main(),
   };
 
   return (
@@ -62,6 +70,24 @@ const ErrorBoundary = () => {
               >
                 {TEXT_CONTENTS.CODE}
               </Text>
+              <Box
+                w={'full'}
+                mt={'30px'}
+              >
+                <Link
+                  to={BUTTON_CONTENT.HREF}
+                  replace
+                >
+                  <Button
+                    variant={'cancel'}
+                    color={'gray.600'}
+                    fontWeight={'semiBold'}
+                    _hover={{ bg: 'gray.300' }}
+                  >
+                    {BUTTON_CONTENT.TEXT}
+                  </Button>
+                </Link>
+              </Box>
             </Flex>
           </Flex>
         </Container>
