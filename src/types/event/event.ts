@@ -1,5 +1,6 @@
 import { EventStatus } from '../eventStatus';
 import { Position } from '../position';
+import { ResumeStatus } from '../resume/status';
 
 type CreateEvent = {
   info: EventInfo;
@@ -29,7 +30,7 @@ type EventResume = {
   menteeName: string;
   resumeTitle: string;
   //TODO - 이벤트 참여 상태코드 나오면 변경
-  progressStatus: string;
+  progressStatus: ResumeStatus;
   modifiedAt?: string;
 };
 
