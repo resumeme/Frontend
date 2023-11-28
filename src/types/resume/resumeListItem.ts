@@ -5,7 +5,8 @@ type ResumeListItem = {
   id: number;
   title: string;
   modifiedAt: string;
-  memo?: string;
+  position: string;
+  memo: string;
 };
 
 type MyResume = ResumeListItem & {
