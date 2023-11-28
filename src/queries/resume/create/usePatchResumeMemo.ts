@@ -14,6 +14,8 @@ export const usePatchResumeMemo = () => {
       toast({
         description: '메모가 저장되었어요 :)',
         status: 'success',
+        duration: 2000,
+        position: 'top',
       });
       queryClient.refetchQueries({ queryKey: resumesKeys.my() });
     },

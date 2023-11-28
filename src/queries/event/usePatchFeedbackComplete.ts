@@ -16,6 +16,8 @@ const usePatchFeedbackComplete = () => {
       toast({
         description: '성공적으로 첨삭되었습니다 :)',
         status: 'success',
+        duration: 2000,
+        position: 'top',
       });
 
       if (user) {

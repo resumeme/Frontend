@@ -20,7 +20,7 @@ const SignUpPage = () => {
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
   const { user, initialUser } = useUser();
-  const toast = useToast();
+  const toast = useToast({ duration: 2000, position: 'top', status: 'info' });
   const navigate = useNavigate();
 
   const signUpErrorCallback = () => {

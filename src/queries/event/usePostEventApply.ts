@@ -10,6 +10,8 @@ const usePostEventApply = () => {
       toast({
         status: 'success',
         description: '이벤트 신청에 성공했습니다 :)',
+        duration: 2000,
+        position: 'top',
       });
     },
   });

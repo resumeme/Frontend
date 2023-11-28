@@ -7,7 +7,7 @@ import { ReadReferenceLink } from '~/types/referenceLink';
 export const usePostResumeLink = (resumeId: string) => {
   const queryClient = useQueryClient();
   const TARGET_QUERY_KEY = resumeDetailKeys.referenceLinks(resumeId);
-  const toast = useToast();
+  const toast = useToast({ duration: 2000, position: 'top' });
 
   const { mutate, isPending, isError, isSuccess } = useMutation({
     mutationFn: postResumeLink,

@@ -11,7 +11,7 @@ const OAuthRedirectPage = () => {
   const [params] = useSearchParams();
   const code = params.get('code');
   const navigate = useNavigate();
-  const toast = useToast();
+  const toast = useToast({ duration: 2000, position: 'top' });
   const { initialUser } = useUser();
 
   type SignInCallback = { cacheKey?: string; accessToken?: string; refreshToken?: string };
@@ -29,11 +29,7 @@ const OAuthRedirectPage = () => {
     if (accessToken && refreshToken) {
       initialUser(accessToken, refreshToken);
     }
-    toast({
-      title: '로그인 성공',
-      status: 'success',
-      duration: 3000,
-    });
+    toast({ title: '로그인 성공', status: 'success' });
     navigate(appPaths.main());
     return;
   };
@@ -46,7 +42,6 @@ const OAuthRedirectPage = () => {
         title: '소셜 서비스의 인가 코드를 읽어올 수 없습니다.',
         description: '로그인을 다시 시도해주세요.',
         status: 'error',
-        duration: 9000,
       });
       navigate(appPaths.signIn());
       return;

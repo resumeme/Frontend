@@ -14,7 +14,7 @@ export const useOptimisticDeleteCategory = <T extends Categories>({
   onMutateSuccess,
 }: UseOptimisticDelete<T>) => {
   const queryClient = useQueryClient();
-  const toast = useToast();
+  const toast = useToast({ duration: 2000, position: 'top' });
 
   return useMutation({
     mutationFn,

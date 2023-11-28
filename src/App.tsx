@@ -16,6 +16,7 @@ const axiosErrorHandler = (error: Error) => {
     const { code } = error.response.data;
 
     toast({
+      duration: 2000,
       description: CONSTANTS.ERROR_MESSAGES[code],
       status: 'error',
     });
