@@ -8,7 +8,7 @@ export const userKeys = {
   user: ['user'] as const,
 };
 
-const getUser = async (): Promise<User | null> => {
+export const getUser = async (): Promise<User | null> => {
   if (!getCookie(CONSTANTS.ACCESS_TOKEN_HEADER)) return null;
 
   const { data } = await resumeMeAxios.get('/v1/user');
@@ -27,9 +27,10 @@ const useUser = () => {
   const initialUser = async (accessToken: string, refreshToken: string) => {
     setCookie(CONSTANTS.ACCESS_TOKEN_HEADER, accessToken);
     setCookie(CONSTANTS.REFRESH_TOKEN_HEADER, refreshToken, 100);
-    setCookie('role', String(user?.role));
 
     refetch();
+
+    setCookie('role', String(user?.role));
   };
 
   const clearUser = () => {

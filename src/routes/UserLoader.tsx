@@ -1,8 +1,8 @@
 import { createStandaloneToast } from '@chakra-ui/react';
 import { redirect } from 'react-router-dom';
 import { appPaths } from '~/config/paths';
+import { getUser } from '~/hooks/useUser';
 import theme from '~/theme';
-import { getCookie } from '~/utils/cookie';
 
 const { toast } = createStandaloneToast({ theme });
 
@@ -11,14 +11,14 @@ export type CheckUser = {
 };
 
 const userCheck = async ({ role }: CheckUser) => {
-  const userRole = getCookie('role');
+  const user = await getUser();
 
-  if (!userRole) {
+  if (!user) {
     toast({ description: '로그인이 필요해요.', status: 'info' });
     return redirect(appPaths.signIn());
   }
 
-  if (role && userRole !== role) {
+  if (role && user.role !== role) {
     toast({
       description: `${role === 'mentee' ? '멘티' : '멘토'}로 로그인해야 확인할 수 있어요.`,
       status: 'info',
