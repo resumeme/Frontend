@@ -1,12 +1,13 @@
+import { MentorFollow } from '../create/postMentorFollow';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
-import { FollowInfo } from '~/types/follow/followList';
+import { FollowId } from '~/types/follow/followList';
 import { getCookie } from '~/utils/cookie';
 
-const getMentorFollow = async (): Promise<FollowInfo[]> => {
+const getMentorFollow = async ({ mentorId }: MentorFollow): Promise<FollowId> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.get(`/v1/follows`, {
+  const { data } = await resumeMeAxios.get(`/v1/follows/mentors/${mentorId}`, {
     headers: {
       Authorization: accessToken,
     },

@@ -1,11 +1,12 @@
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
+import { FollowInfo } from '~/types/follow/followList';
 import { getCookie } from '~/utils/cookie';
 
-const deleteMentorFollow = async ({ followId }: { followId: number }) => {
+const getMentorFollowList = async (): Promise<FollowInfo[]> => {
   const accessToken = getCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
 
-  const { data } = await resumeMeAxios.delete(`/v1/follows/${followId}`, {
+  const { data } = await resumeMeAxios.get(`/v1/follows`, {
     headers: {
       Authorization: accessToken,
     },
@@ -14,4 +15,4 @@ const deleteMentorFollow = async ({ followId }: { followId: number }) => {
   return data;
 };
 
-export { deleteMentorFollow };
+export { getMentorFollowList };
