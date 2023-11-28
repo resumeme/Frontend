@@ -13,4 +13,6 @@ type FollowInfo = {
   };
 };
 
-export type { FollowInfo };
+type FollowId = { id: number };
+
+export type { FollowInfo, FollowId };

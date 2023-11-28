@@ -1,5 +1,6 @@
 import { Flex, HStack, Heading, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
-import { MdOutlineStarPurple500, MdStarBorder } from 'react-icons/md';
+import { FaRegBell } from 'react-icons/fa6';
+import { FaBell } from 'react-icons/fa6';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -28,11 +29,11 @@ const MentorProfile = ({
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
 
+  const {
+    data: { id: followId },
+  } = useGetMentorFollow({ mentorId });
   const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
   const { mutate: mentorFollow } = usePostMentorFollow();
-  const { data: followList } = useGetMentorFollow();
-
-  const isFollowed = !!followList.find((follow) => follow.mentorInfo.id === mentorId);
 
   // const isFollowed = false;
 
@@ -63,9 +64,11 @@ const MentorProfile = ({
           w={'fit-content'}
           h={'fit-content'}
           bg={'inherit'}
-          icon={isFollowed ? <MdOutlineStarPurple500 /> : <MdStarBorder />}
+          icon={followId ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
           onClick={
-            isFollowed ? () => deleteMentorFollow({ mentorId }) : () => mentorFollow({ mentorId })
+            followId
+              ? () => deleteMentorFollow({ followId: Number(followId) })
+              : () => mentorFollow({ mentorId })
           }
           aria-label="follow"
           color={'primary.900'}
