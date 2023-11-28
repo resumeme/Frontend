@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { eventsKeys } from './details/useGetManagementEvents';
 import { patchFeedbackComplete } from '~/api/resume/feedback/patchFeedbackComplete';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
@@ -9,6 +10,7 @@ const usePatchFeedbackComplete = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { user } = useUser();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: patchFeedbackComplete,
@@ -21,6 +23,7 @@ const usePatchFeedbackComplete = () => {
       });
 
       if (user) {
+        queryClient.refetchQueries({ queryKey: eventsKeys.events({ userId: user?.id }) });
         navigate(appPaths.myPage());
       } else {
         navigate(appPaths.main());

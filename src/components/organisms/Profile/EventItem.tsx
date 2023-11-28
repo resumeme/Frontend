@@ -104,9 +104,9 @@ const EventItem = ({
                     <ManagementPanel
                       key={uuidv4()}
                       url={
-                        progressStatus === 'COMPLETE'
-                          ? appPaths.feedbackComplete(resumeId, eventId)
-                          : appPaths.feedbackResume({ resumeId, eventId })
+                        progressStatus === 'APPLY'
+                          ? appPaths.feedbackResume({ resumeId, eventId })
+                          : appPaths.feedbackComplete(resumeId, eventId)
                       }
                       icon={
                         <Icon
