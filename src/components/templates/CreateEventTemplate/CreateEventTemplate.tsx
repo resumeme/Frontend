@@ -1,4 +1,4 @@
-import { Flex, Text, Checkbox, HStack } from '@chakra-ui/react';
+import { Flex, Text, Checkbox, HStack, Select } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
@@ -10,9 +10,14 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
+import { RadioOption } from '~/components/organisms/RadioCardGroup/RadioCardGroup';
+import CONSTANTS from '~/constants';
 import { usePatchEventDetail } from '~/queries/event/create/usePatchEventDetai';
 import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
 import { CreateEvent } from '~/types/event/event';
+import { Position } from '~/types/position';
+
+type CreateEventTemplateType = CreateEvent & { mainPosition: Position };
 
 type CreateEventTemplateProps = {
   isEdit?: boolean;
@@ -33,22 +38,34 @@ const CreateEventTemplate = ({
   const [isOpenDateDisabled, setIsOpenDateDisabled] = useState(false);
 
   const {
+    watch,
     setValue,
     control,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreateEvent>({ defaultValues });
-
+  } = useForm<CreateEventTemplateType>({ defaultValues });
   const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
 
-  const onSubmit: SubmitHandler<CreateEvent> = (values) => {
+  const onSubmit: SubmitHandler<CreateEventTemplateType> = (values) => {
+    values.positions.sort((position) => (position === values.mainPosition ? 1 : 0));
+
     if (isEdit) {
       patchEvent({ data: values, eventId });
     } else {
       createEvent(values);
     }
   };
+
+  const POSITION_OPTIONS: RadioOption<string>[] = [];
+
+  watch('positions') &&
+    watch('positions').map((position) => {
+      POSITION_OPTIONS.push({
+        children: <Text>{CONSTANTS.POSITION[position as Position]}</Text>,
+        value: position,
+      });
+    });
 
   return (
     <>
@@ -81,7 +98,7 @@ const CreateEventTemplate = ({
                 id="info.title"
                 register={{
                   ...register('info.title', {
-                    required: true,
+                    required: '이벤트 제목을 입력해주세요.',
                     maxLength: { value: 30, message: '최대 30자까지 입력할 수 있어요.' },
                   }),
                 }}
@@ -100,7 +117,7 @@ const CreateEventTemplate = ({
                 id="info.maximumAttendee"
                 register={{
                   ...register('info.maximumAttendee', {
-                    required: true,
+                    required: '신청 받을 인원 수(2~10)를 입력해주세요.',
                     max: { value: 10, message: '10이하로 입력해 주세요.' },
                     min: { value: 2, message: '2이상 입력해 주세요.' },
                     pattern: { value: /^(?:[2-9]|10)$/, message: '숫자를 입력해 주세요.' },
@@ -110,11 +127,13 @@ const CreateEventTemplate = ({
                 placeholder="신청 받을 인원 수(2~10)를 입력해주세요."
               />
             </FormControl>
+
             <FormControl
               spacing="1.63rem"
               isInvalid={!!errors.positions}
             >
               <FormLabel isRequired={true}>직무</FormLabel>
+
               <LabelCheckboxGroup
                 control={control}
                 name="positions"
@@ -123,9 +142,45 @@ const CreateEventTemplate = ({
                 errorMessage="직무를 선택해 주세요."
               />
             </FormControl>
+
+            <FormControl
+              display={!(watch('positions') && watch('positions').length > 1) ? 'none' : undefined}
+              spacing="1.63rem"
+            >
+              <FormLabel isRequired={true}>대표 직무</FormLabel>
+              <Flex
+                direction={'column'}
+                w={'max-content'}
+              >
+                <Select
+                  _focusVisible={{ boxShadow: 'none' }}
+                  h="36px"
+                  border="1px"
+                  borderColor="primary.800"
+                  borderRadius="0.75rem"
+                  color="gray.400"
+                  {...register('mainPosition', {
+                    required: '대표 직무를 선택해 주세요.',
+                  })}
+                >
+                  {watch('positions') &&
+                    watch('positions').map((position, index) => {
+                      return (
+                        <option
+                          selected={index === 0}
+                          key={position}
+                          value={position}
+                        >
+                          {CONSTANTS.POSITION[position as Position]}
+                        </option>
+                      );
+                    })}
+                </Select>
+              </Flex>
+            </FormControl>
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput<CreateEvent>
+              <TermInput<CreateEventTemplateType>
                 future={!isEdit}
                 control={control}
                 includeTime={true}
@@ -157,7 +212,7 @@ const CreateEventTemplate = ({
                 w={'47.6%'}
                 register={{
                   ...register('time.endDate', {
-                    required: true,
+                    required: '첨삭을 종료할 날짜를 입력해주세요.',
                     min: {
                       value: closeDateTime,
                       message: '신청 기간 이후의 날짜를 입력해주세요.',
@@ -179,7 +234,11 @@ const CreateEventTemplate = ({
               <FormTextarea
                 error={errors.info?.content}
                 id="info.content"
-                register={{ ...register('info.content', { required: true }) }}
+                register={{
+                  ...register('info.content', {
+                    required: '이벤트에 대한 상세 내용을 입력해주세요.',
+                  }),
+                }}
                 placeholder="이벤트에 대한 상세 내용을 입력해주세요."
               />
             </FormControl>
