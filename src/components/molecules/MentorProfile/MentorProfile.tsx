@@ -1,5 +1,4 @@
 import { Flex, HStack, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -20,15 +19,14 @@ type MentorProfileProps = {
 
 const MentorProfile = ({
   mentor,
-  event: { currentApplicantCount, maximumCount, status },
+  event: { id, currentApplicantCount, maximumCount, status },
   onApply,
 }: MentorProfileProps) => {
-  const { eventId = '' } = useParams();
   const { user } = useUser();
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
 
-  const { data: isApplied } = useGetIsAppliedEvent({ eventId });
+  const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString() });
 
   const getApplyButtonText = (status: EventStatus) => {
     if (status === 'OPEN' || status === 'REOPEN') {
@@ -109,7 +107,6 @@ const MentorProfile = ({
                   </HStack>
                 </Flex>
               )}
-
               {introduce && (
                 <Flex
                   direction={'column'}
