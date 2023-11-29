@@ -42,12 +42,14 @@ const EventGridTemplate = () => {
 
   return (
     <>
-      <Flex justifyContent={'space-between'}>
+      <Flex
+        justifyContent={'space-between'}
+        mb={'2rem'}
+      >
         <Text
           color={'gray.800'}
           fontSize={'1.5rem'}
           fontWeight={'semibold'}
-          mb={'2rem'}
         >
           진행 중인 피드백
         </Text>
