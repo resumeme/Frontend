@@ -100,7 +100,7 @@ const ActivityForm = ({
                 <FormLabel isRequired>활동명</FormLabel>
                 <FormTextInput
                   id="activityName"
-                  placeholder="활동명을 입력하세요"
+                  placeholder="활동명"
                   register={{ ...register('activityName', { required: '활동명을 입력하세요' }) }}
                   error={errors.activityName}
                 />
@@ -157,7 +157,7 @@ const ActivityForm = ({
                   autoComplete="off"
                   spellCheck="false"
                   h={'16.625rem'}
-                  placeholder="내용을 입력해주세요."
+                  placeholder="활동에 대한 설명을 입력해주세요."
                   id="description"
                   register={{ ...register('description') }}
                   error={errors.description}
