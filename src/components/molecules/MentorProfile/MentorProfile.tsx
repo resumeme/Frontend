@@ -31,7 +31,7 @@ const MentorProfile = ({
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
 
-  const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString() });
+  const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString(), role: user?.role });
 
   const getApplyButtonText = (status: EventStatus) => {
     if (status === 'OPEN' || status === 'REOPEN') {
@@ -42,9 +42,7 @@ const MentorProfile = ({
     }
     return CONSTANTS.EVENT_STATUS[status];
   };
-  const {
-    data: { id: followId },
-  } = useGetMentorFollow({ mentorId });
+  const { data: followData } = useGetMentorFollow({ mentorId, role: user?.role });
   const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
   const { mutate: mentorFollow } = usePostMentorFollow();
 
@@ -75,10 +73,10 @@ const MentorProfile = ({
           w={'fit-content'}
           h={'fit-content'}
           bg={'inherit'}
-          icon={followId ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
+          icon={followData?.id ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
           onClick={
-            followId
-              ? () => deleteMentorFollow({ followId: Number(followId) })
+            followData?.id
+              ? () => deleteMentorFollow({ followId: Number(followData?.id) })
               : () => mentorFollow({ mentorId })
           }
           aria-label="follow"
