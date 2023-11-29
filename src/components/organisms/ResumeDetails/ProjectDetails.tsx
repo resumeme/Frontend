@@ -89,7 +89,7 @@ const ProjectDetails = ({
               {teamMembers}
             </Text>
           )}
-          {skills && (
+          {skills?.every((skill) => skill !== '') && (
             <Flex
               pt={2}
               gap={2}

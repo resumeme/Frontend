@@ -89,26 +89,28 @@ const CareerDetails = ({
             pl={1}
             gap={2}
           >
-            <Flex
-              pt={2}
-              gap={2}
-              flexWrap={'wrap'}
-            >
-              {skills?.map((skill, i) => (
-                <Label
-                  key={i}
-                  width={'fit-content'}
-                  bg={'gray.500'}
-                  fontSize={'xs'}
-                  py={0}
-                  color={'gray.100'}
-                  fontWeight={'medium'}
-                >
-                  {skill}
-                </Label>
-              ))}
-            </Flex>
-            <Text mt={5}>{careerContent}</Text>
+            {skills?.every((skill) => skill !== '') && (
+              <Flex
+                pt={2}
+                gap={2}
+                flexWrap={'wrap'}
+              >
+                {skills?.map((skill, i) => (
+                  <Label
+                    key={i}
+                    width={'fit-content'}
+                    bg={'gray.500'}
+                    fontSize={'xs'}
+                    py={0}
+                    color={'gray.100'}
+                    fontWeight={'medium'}
+                  >
+                    {skill}
+                  </Label>
+                ))}
+              </Flex>
+            )}
+            {careerContent && <Text mt={5}>{careerContent}</Text>}
           </Flex>
         </Flex>
         {duties?.map((duty) => (
