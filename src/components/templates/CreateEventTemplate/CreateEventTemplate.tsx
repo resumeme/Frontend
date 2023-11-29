@@ -10,7 +10,6 @@ import { FormDateInput } from '~/components/molecules/FormDateInput';
 import FormTextInput from '~/components/molecules/FormTextInput/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
 import { TermInput } from '~/components/molecules/TermInput';
-import { RadioOption } from '~/components/organisms/RadioCardGroup/RadioCardGroup';
 import CONSTANTS from '~/constants';
 import { usePatchEventDetail } from '~/queries/event/create/usePatchEventDetai';
 import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
@@ -56,16 +55,6 @@ const CreateEventTemplate = ({
       createEvent(values);
     }
   };
-
-  const POSITION_OPTIONS: RadioOption<string>[] = [];
-
-  watch('positions') &&
-    watch('positions').map((position) => {
-      POSITION_OPTIONS.push({
-        children: <Text>{CONSTANTS.POSITION[position as Position]}</Text>,
-        value: position,
-      });
-    });
 
   return (
     <>
