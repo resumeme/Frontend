@@ -1,7 +1,6 @@
 import { Box, Flex, Heading, Image, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
-import { Describe } from '~/components/molecules/Describe';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { assets } from '~/config/assets';
@@ -178,10 +177,7 @@ const MainPage = () => {
             justify={'center'}
             align={'center'}
           >
-            <Describe
-              bg={'inherit'}
-              describe={CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}
-            />
+            <Text color={'gray.700'}>{CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}</Text>
           </Flex>
         )}
       </Box>
