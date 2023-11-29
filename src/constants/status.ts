@@ -1,8 +1,8 @@
 const RESUME_STATUS = {
-  APPLY: '신청 완료',
-  COMPLETE: '수정 완료',
-  FEEDBACK_COMPLETE: '첨삭 완료',
-  REJECT: '반려 됨',
+  APPLY: '피드백 중',
+  FEEDBACK_COMPLETE: '피드백 완료',
+  COMPLETE: '종료',
+  REJECT: '반려',
 };
 
 export { RESUME_STATUS };
