@@ -66,7 +66,11 @@ const CareerForm = ({
     onMutateSuccess: quitEdit,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields,
+    append,
+    remove: removeDuties,
+  } = useFieldArray({
     control,
     name: 'duties',
   });
@@ -81,18 +85,22 @@ const CareerForm = ({
     }
     body.skills = skills;
     body.duties = body.duties || [];
+    const initializeForm = () => {
+      initializeSkills();
+      removeDuties();
+    };
     if (!isEdit) {
       postCareerMutate(
         { resumeId, body },
         {
-          onSuccess: initializeSkills,
+          onSuccess: initializeForm,
         },
       );
     } else if (isEdit && blockId) {
       patchCareerMutate(
         { resumeId, blockId, body },
         {
-          onSuccess: initializeSkills,
+          onSuccess: initializeForm,
         },
       );
     }
@@ -212,7 +220,7 @@ const CareerForm = ({
                   index={index}
                   register={register}
                   errors={errors}
-                  remove={remove}
+                  remove={removeDuties}
                   control={control}
                 />
               ))}
