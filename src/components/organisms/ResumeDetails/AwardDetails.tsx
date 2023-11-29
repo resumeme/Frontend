@@ -16,7 +16,7 @@ const AwardDetails = ({
 }: DetailsComponentProps<ReadAward>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteAward } = useOptimisticDeleteCategory<Award>({
+  const { mutate: deleteAward } = useOptimisticDeleteCategory<Award, ReadAward>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),
   });
