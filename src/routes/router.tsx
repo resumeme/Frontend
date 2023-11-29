@@ -2,9 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import FeedbackLayout from './FeedbackLayout';
 import FocusLayout from './FocusLayout';
+import GuestLoader from './GuestLoader';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
-import UnUserLoader from './UnUserLoader';
 import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EditEventPage } from '~/pages/EventPages/EditEventPage';
@@ -62,9 +62,9 @@ const router = createBrowserRouter([
       {
         element: <FocusLayout />,
         children: [
-          { path: 'sign-up', element: <SignUpPage />, loader: UnUserLoader },
-          { path: 'sign-in', element: <SignInPage />, loader: UnUserLoader },
-          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage />, loader: UnUserLoader },
+          { path: 'sign-up', element: <SignUpPage />, loader: GuestLoader },
+          { path: 'sign-in', element: <SignInPage />, loader: GuestLoader },
+          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage />, loader: GuestLoader },
         ],
       },
       {

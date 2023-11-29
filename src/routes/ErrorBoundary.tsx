@@ -6,7 +6,7 @@ import { appPaths } from '~/config/paths';
 
 const ErrorBoundary = () => {
   const TEXT_CONTENTS = {
-    HEADING: 'ERROR ໒꒰ ◞ ‌ ◟ ꒱ྀིა',
+    HEADING: 'ERROR (•́д•̀)',
     DESCRIBE: '에러가 발생했어요. 잠시 후에 다시 시도해 주세요.',
     CODE: '__BAD_REQUEST__',
   };
