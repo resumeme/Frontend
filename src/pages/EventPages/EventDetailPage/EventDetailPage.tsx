@@ -13,13 +13,14 @@ import { useGetEventDetail } from '~/queries/event/details/useGetEventDetail';
 import { eventKeys } from '~/queries/event/eventKeys.const';
 import usePostEventApply from '~/queries/event/usePostEventApply';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
+import { userKeys } from '~/queries/user/userKeys';
 
 const EventDetailPage = () => {
   const { user } = useUser();
 
   const navigate = useNavigate();
 
-  const { resumeId = '', eventId = '' } = useParams();
+  const { eventId = '' } = useParams();
 
   const { data: event } = useGetEventDetail({ eventId });
   const { data: mentor } = useGetMentorDetail({ mentorId: String(event.mentorId) });
@@ -37,13 +38,14 @@ const EventDetailPage = () => {
         <Suspense fallback={<Spinner />}>
           <ResumeSelect
             onCancel={onClose}
-            onSubmit={() => {
+            onSubmit={({ resumeId }) => {
               postEventApplyMutate(
                 { resumeId: parseInt(resumeId), eventId },
                 {
                   onSettled: () => {
                     onClose();
                     queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
+                    queryClient.refetchQueries({ queryKey: userKeys.isAppliedEvent(eventId) });
                   },
                 },
               );
