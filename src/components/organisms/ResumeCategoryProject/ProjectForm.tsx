@@ -54,7 +54,9 @@ const ProjectForm = ({
     onMutateSuccess: quitEdit,
   });
 
-  const [skills, handleSkills, handleDeleteSkills] = useStringToArray(defaultValues?.skills);
+  const [skills, handleSkills, handleDeleteSkills, initializeSkills] = useStringToArray(
+    defaultValues?.skills,
+  );
 
   const onSubmit: SubmitHandler<Project> = (body) => {
     if (!resumeId) {
@@ -63,9 +65,19 @@ const ProjectForm = ({
     body.skills = skills;
     body.team = Boolean(body.team);
     if (!isEdit) {
-      postProjectMutate({ resumeId, body });
+      postProjectMutate(
+        { resumeId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     } else if (isEdit && blockId) {
-      patchResumeProjectMutate({ resumeId, blockId, body });
+      patchResumeProjectMutate(
+        { resumeId, blockId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     }
   };
 
