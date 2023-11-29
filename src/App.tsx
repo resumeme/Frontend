@@ -1,4 +1,4 @@
-import { ChakraProvider, Spinner } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { createStandaloneToast } from '@chakra-ui/toast';
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -39,10 +39,7 @@ const App = () => {
         toastOptions={{ defaultOptions: { position: 'top', duration: 2000 } }}
       >
         <Fonts />
-        <RouterProvider
-          router={router}
-          fallbackElement={<Spinner />}
-        />
+        <RouterProvider router={router} />
       </ChakraProvider>
     </QueryClientProvider>
   );
