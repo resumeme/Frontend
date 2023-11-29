@@ -1,3 +1,4 @@
+import { DESCRIBE_MESSAGE } from './describeMessage';
 import { ERROR_MESSAGES } from './errorMessage';
 import { EVENT_STATUS } from './eventStatus';
 import { FIELD } from './field';
@@ -6,6 +7,7 @@ import { RESUME_STATUS } from './status';
 import { environments } from '~/config/environments';
 
 const CONSTANTS = {
+  DESCRIBE_MESSAGE,
   ERROR_MESSAGES,
   POSITION,
   FIELD,
