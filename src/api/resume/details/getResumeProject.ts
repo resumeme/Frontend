@@ -13,7 +13,6 @@ export const getResumeProject = async ({ resumeId }: GetResumeProject): Promise<
   try {
     const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}/projects`, {
       headers: {
-        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });

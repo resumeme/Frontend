@@ -9,12 +9,12 @@ import { EventStatus } from '~/types/eventStatus';
 
 type EventTitle = {
   id: number;
-  isAuthorizedMentor: boolean;
+  isEditable: boolean;
   title: string;
   eventStatus: EventStatus;
 };
 
-const EventTitle = ({ id, isAuthorizedMentor, title, eventStatus }: EventTitle) => {
+const EventTitle = ({ id, isEditable, title, eventStatus }: EventTitle) => {
   const isActive = eventStatus === 'OPEN' || eventStatus === 'REOPEN';
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const EventTitle = ({ id, isAuthorizedMentor, title, eventStatus }: EventTitle) 
         {CONSTANTS.EVENT_STATUS[eventStatus]}
       </Label>
       <Spacer />
-      {isAuthorizedMentor && <OptionsButton options={options} />}
+      {isEditable && <OptionsButton options={options} />}
     </Flex>
   );
 };

@@ -223,26 +223,10 @@ const TrainingForm = ({
                     h={'3.125rem'}
                     {...register('maxGpa')}
                   >
-                    <option value={3.5}>3.5</option>
                     <option value={4.0}>4.0</option>
+                    <option value={4.3}>4.3</option>
                     <option value={4.5}>4.5</option>
                   </Select>
-                  {/* //NOTE select 사용이면 지우겠습니다. */}
-                  {/* <FormTextInput
-                    w={'6rem'}
-                    type="number"
-                    step={0.01}
-                    placeholder="4.5"
-                    id="maxGpa"
-                    register={{
-                      ...register('maxGpa', {
-                        valueAsNumber: true,
-                        max: { value: 4.5, message: '최대 학점은 4.5입니다.' },
-                        min: { value: 0, message: '올바른 학점을 입력해주세요.' },
-                      }),
-                    }}
-                    error={errors.maxGpa}
-                  /> */}
                 </FormControl>
               </Flex>
               <FormControl isInvalid={Boolean(errors.explanation)}>
@@ -251,8 +235,8 @@ const TrainingForm = ({
                   resize="none"
                   autoComplete="off"
                   spellCheck="false"
-                  h={'16.625rem'}
-                  placeholder="내용을 입력해주세요."
+                  h={'3rem'}
+                  placeholder="기타 필요한 설명이 있다면 입력해주세요."
                   id="projectContent"
                   register={{ ...register('explanation') }}
                   error={errors.explanation}

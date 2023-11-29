@@ -42,12 +42,14 @@ const BasicInfoForm = ({
         onSuccess: () => {
           queryClient.refetchQueries({ queryKey: categoryKeys.basic(resumeId) });
           onSaveClick();
+          initializeSkills();
         },
       },
     );
   };
 
-  const [skills, handleSkillsetChange, handleItemDelete] = useStringToArray(defaultSkills);
+  const [skills, handleSkillsetChange, handleItemDelete, initializeSkills] =
+    useStringToArray(defaultSkills);
   const introduceValue = useWatch({ name: 'introduce', control });
   const introduceValueLength = introduceValue ? introduceValue.length : 0;
 

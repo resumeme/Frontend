@@ -48,15 +48,14 @@ const FeedbackReflectTemplate = () => {
   const isCurrentUser = resumeAuthorId === user?.id;
 
   const {
-    data: { commentResponses },
+    data: { commentResponses, mentorId },
   } = useGetFeedbacksSnapshot({ resumeId });
 
   const { data: snapshotData } = useGetSnapshotResume({
     resumeId,
   });
 
-  /**FIXME - mentorId useGetResumeFeedbacks에서 꺼내오기 */
-  const { data: mentorData } = useGetMentorDetail({ mentorId: '1' });
+  const { data: mentorData } = useGetMentorDetail({ mentorId });
 
   const { mutate: patchReflectCompleteMutate } = usePatchFeedbackReflectComplete();
   const navigate = useNavigate();

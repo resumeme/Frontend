@@ -9,7 +9,7 @@ import { ResumeMeErrorResponse } from '~/types/errorResponse';
 const usePostFeedbackComment = (resumeId: string, eventId: string) => {
   const queryClient = useQueryClient();
   const TARGET_QUERY_KEY = feedbackKeys.resumeFeedbacks(resumeId, eventId);
-  const toast = useToast({ duration: 2000, position: 'top' });
+  const toast = useToast();
 
   return useMutation({
     mutationFn: postFeedbackComment,

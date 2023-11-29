@@ -96,7 +96,6 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
       return StateTooltip('empty');
     }
     if (isPending) {
-      /* TODO pending 상태일 때, Spinner가 돌아가는 최소 시간을 보장하는 로직을 추가해보자 */
       return (
         <Spinner
           thickness="2px"

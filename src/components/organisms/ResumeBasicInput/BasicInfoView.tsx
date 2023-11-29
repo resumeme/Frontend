@@ -36,7 +36,8 @@ const BasicInfoView = ({ position, skills, introduce, onEditClick }: BasicInfoVi
   };
 
   const renderSkills = () => {
-    if (skills.length > 0) {
+    const hasNoEmptyString = skills.every((skill) => skill !== '');
+    if (skills.length > 0 && hasNoEmptyString) {
       const skillLabels = skills.map((skill: string, index: number) => {
         return (
           <Badge

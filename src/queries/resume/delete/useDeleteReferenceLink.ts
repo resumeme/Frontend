@@ -7,7 +7,7 @@ import { ReadReferenceLink } from '~/types/referenceLink';
 export const useDeleteReferenceLink = (resumeId: string) => {
   const TARGET_QUERY_KEY = resumeDetailKeys.referenceLinks(resumeId);
   const queryClient = useQueryClient();
-  const toast = useToast({ duration: 2000, position: 'top' });
+  const toast = useToast();
   return useMutation({
     mutationFn: deleteReferenceLink,
     onMutate: async ({ linkId: targetLinkId }) => {

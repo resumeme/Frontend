@@ -1,4 +1,4 @@
-import { Flex, Select, VStack } from '@chakra-ui/react';
+import { Box, Flex, Select, Tooltip, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -54,7 +54,9 @@ const ProjectForm = ({
     onMutateSuccess: quitEdit,
   });
 
-  const [skills, handleSkills, handleDeleteSkills] = useStringToArray(defaultValues?.skills);
+  const [skills, handleSkills, handleDeleteSkills, initializeSkills] = useStringToArray(
+    defaultValues?.skills,
+  );
 
   const onSubmit: SubmitHandler<Project> = (body) => {
     if (!resumeId) {
@@ -63,9 +65,19 @@ const ProjectForm = ({
     body.skills = skills;
     body.team = Boolean(body.team);
     if (!isEdit) {
-      postProjectMutate({ resumeId, body });
+      postProjectMutate(
+        { resumeId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     } else if (isEdit && blockId) {
-      patchResumeProjectMutate({ resumeId, blockId, body });
+      patchResumeProjectMutate(
+        { resumeId, blockId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     }
   };
 
@@ -173,12 +185,12 @@ const ProjectForm = ({
                     팀 구성원
                   </FormLabel>
                   <FormTextInput
-                    placeholder="관우, 장비"
+                    placeholder="PM 1명, 디자이너 1명, 프론트엔드 3명, 백엔드 3명"
                     isDisabled={!watch('team')}
                     id="teamMembers"
                     register={{
                       ...register('teamMembers', {
-                        required: watch('team') ? '팀원을 입력해주세요.' : undefined,
+                        required: watch('team') ? '팀 구성을 입력해주세요.' : undefined,
                       }),
                     }}
                     error={errors.teamMembers}
@@ -197,17 +209,29 @@ const ProjectForm = ({
                   gap={'0.5rem'}
                   w={'full'}
                 >
-                  {/**TODO - 툴팁 */}
-                  <FormTextInput
-                    placeholder="엔터 키로 구분할 수 있습니다."
-                    id="skills"
-                    register={{ ...register('skills') }}
-                    onKeyDown={handleSkills}
-                  />
-                  <DynamicTags
-                    handleItemDelete={handleDeleteSkills}
-                    tagsArray={skills}
-                  />
+                  <Tooltip
+                    hasArrow
+                    placement="right"
+                    label={`엔터 키(Enter)로 구분할 수 있어요!`}
+                    aria-label="tooltip"
+                    borderRadius={'xl'}
+                    fontSize={'sm'}
+                    bg={'gray.300'}
+                    color={'gray.600'}
+                  >
+                    <Box>
+                      <FormTextInput
+                        placeholder="사용한 기술 스택"
+                        id="skills"
+                        register={{ ...register('skills') }}
+                        onKeyDown={handleSkills}
+                      />
+                      <DynamicTags
+                        handleItemDelete={handleDeleteSkills}
+                        tagsArray={skills}
+                      />
+                    </Box>
+                  </Tooltip>
                 </Flex>
               </FormControl>
               <FormControl>

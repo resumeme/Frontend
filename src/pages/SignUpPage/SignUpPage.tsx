@@ -20,7 +20,7 @@ const SignUpPage = () => {
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
   const resetCacheKey = useCacheKeyStore((state) => state.resetCacheKey);
   const { user, initialUser } = useUser();
-  const toast = useToast({ duration: 2000, position: 'top', status: 'info' });
+  const toast = useToast();
   const navigate = useNavigate();
 
   const signUpErrorCallback = () => {
@@ -49,6 +49,7 @@ const SignUpPage = () => {
       if (!cacheKey) {
         toast({
           description: '소셜 로그인을 먼저 해주세요.',
+          status: 'info',
         });
         navigate(appPaths.signIn());
         return;

@@ -15,8 +15,6 @@ const useDeleteFeedbackComment = (resumeId: string, eventId: string) => {
       toast({
         description: '성공적으로 삭제되었습니다 :)',
         status: 'success',
-        duration: 2000,
-        position: 'top',
       });
     },
   });

@@ -86,6 +86,7 @@ const LanguageForm = ({
                 <FormLabel isRequired>언어</FormLabel>
                 <FormTextInput
                   id="language"
+                  placeholder="언어"
                   register={{ ...register('language', { required: '언어를 입력하세요' }) }}
                   error={errors.language}
                 />
@@ -98,6 +99,7 @@ const LanguageForm = ({
                   <FormLabel isRequired>시험명</FormLabel>
                   <FormTextInput
                     id="examName"
+                    placeholder="시험명"
                     register={{ ...register('examName', { required: '시험명을 입력하세요.' }) }}
                     error={errors.examName}
                   />
@@ -106,6 +108,7 @@ const LanguageForm = ({
                   <FormLabel isRequired>점수 및 등급</FormLabel>
                   <FormTextInput
                     id="scoreOrGrade"
+                    placeholder="점수 및 등급"
                     register={{
                       ...register('scoreOrGrade', { required: '점수 및 등급을 입력해주세요' }),
                     }}
