@@ -7,7 +7,8 @@ export const useStringToArray = (
   (event: React.KeyboardEvent<HTMLInputElement>) => void,
   (targetIndex: number) => void,
 ] => {
-  const [array, setSkills] = useState(defaultArray);
+  const isEmptyString = (currentString: string) => currentString === '';
+  const [array, setSkills] = useState(defaultArray.every(isEmptyString) ? [] : defaultArray);
 
   const handleArrayChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { value: skill } = event.currentTarget;
