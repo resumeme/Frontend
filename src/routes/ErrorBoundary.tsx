@@ -1,7 +1,7 @@
 import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
-import { Describe } from '~/components/molecules/Describe';
+import { HighlightedDescribe } from '~/components/molecules/HighlightedDescribe';
 import { appPaths } from '~/config/paths';
 
 const ErrorBoundary = () => {
@@ -54,7 +54,7 @@ const ErrorBoundary = () => {
                 {TEXT_CONTENTS.HEADING}
               </Heading>
 
-              <Describe describe={TEXT_CONTENTS.DESCRIBE} />
+              <HighlightedDescribe describe={TEXT_CONTENTS.DESCRIBE} />
 
               <Text
                 fontSize="lg"

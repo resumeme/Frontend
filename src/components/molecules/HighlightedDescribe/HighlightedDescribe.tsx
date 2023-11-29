@@ -1,10 +1,10 @@
 import { ChakraProps, Highlight, Text } from '@chakra-ui/react';
 
-type DescribeProps = ChakraProps & {
+type HighlightedDescribeProps = ChakraProps & {
   describe: string;
 };
 
-const Describe = ({ describe, ...props }: DescribeProps) => {
+const HighlightedDescribe = ({ describe, ...props }: HighlightedDescribeProps) => {
   return (
     <Text fontSize="md">
       <Highlight
@@ -17,4 +17,4 @@ const Describe = ({ describe, ...props }: DescribeProps) => {
   );
 };
 
-export default Describe;
+export default HighlightedDescribe;
