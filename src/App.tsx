@@ -39,10 +39,7 @@ const App = () => {
         toastOptions={{ defaultOptions: { position: 'top', duration: 2000 } }}
       >
         <Fonts />
-        <RouterProvider
-          router={router}
-          fallbackElement={<Spinner />}
-        />
+        <RouterProvider router={router} />
       </ChakraProvider>
     </QueryClientProvider>
   );
