@@ -3,12 +3,12 @@ import { followKeys } from '../followKeys.const';
 import { postMentorFollow } from '~/api/follow/create/postMentorFollow';
 
 export const usePostMentorFollow = () => {
-  const queryCLient = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postMentorFollow,
     onSuccess: () => {
-      queryCLient.refetchQueries({ queryKey: followKeys.all });
+      queryClient.refetchQueries({ queryKey: followKeys.all });
     },
   });
 };

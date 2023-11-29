@@ -35,8 +35,6 @@ const MentorProfile = ({
   const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
   const { mutate: mentorFollow } = usePostMentorFollow();
 
-  // const isFollowed = false;
-
   return (
     <VStack
       flexShrink={0}
