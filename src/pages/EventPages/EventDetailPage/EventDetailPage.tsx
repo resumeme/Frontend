@@ -1,4 +1,5 @@
 import { Flex, useDisclosure } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '~/components/atoms/Spinner';
@@ -9,7 +10,10 @@ import ResumeSelect from '~/components/organisms/ResumeSelect/ResumeSelect';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { useGetEventDetail } from '~/queries/event/details/useGetEventDetail';
+import { eventKeys } from '~/queries/event/eventKeys.const';
+import usePostEventApply from '~/queries/event/usePostEventApply';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
+import { userKeys } from '~/queries/user/userKeys';
 
 const EventDetailPage = () => {
   const { user } = useUser();
@@ -20,8 +24,10 @@ const EventDetailPage = () => {
 
   const { data: event } = useGetEventDetail({ eventId });
   const { data: mentor } = useGetMentorDetail({ mentorId: String(event.mentorId) });
+  const { mutate: postEventApplyMutate } = usePostEventApply();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const queryClient = useQueryClient();
 
   return (
     <>
@@ -30,7 +36,21 @@ const EventDetailPage = () => {
         onClose={onClose}
       >
         <Suspense fallback={<Spinner />}>
-          <ResumeSelect onCancel={onClose} />
+          <ResumeSelect
+            onCancel={onClose}
+            onSubmit={({ resumeId }) => {
+              postEventApplyMutate(
+                { resumeId: parseInt(resumeId), eventId },
+                {
+                  onSettled: () => {
+                    onClose();
+                    queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
+                    queryClient.refetchQueries({ queryKey: userKeys.isAppliedEvent(eventId) });
+                  },
+                },
+              );
+            }}
+          />
         </Suspense>
       </Modal>
       <Flex

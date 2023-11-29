@@ -5,6 +5,7 @@ import { Button } from '~/components/atoms/Button';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 
@@ -70,7 +71,13 @@ const EventGridTemplate = () => {
           />
         </>
       ) : (
-        <Text>진행 중인 이벤트가 없어요. ૮ ´• ﻌ ´• ა</Text>
+        <Flex
+          h={'10rem'}
+          justify={'center'}
+          align={'center'}
+        >
+          <Text color={'gray.700'}>{CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}</Text>
+        </Flex>
       )}
     </>
   );

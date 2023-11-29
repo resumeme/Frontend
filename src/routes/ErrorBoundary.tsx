@@ -1,6 +1,7 @@
-import { Box, Container, Flex, Heading, Highlight, Text } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
+import { HighlightedDescribe } from '~/components/molecules/HighlightedDescribe';
 import { appPaths } from '~/config/paths';
 
 const ErrorBoundary = () => {
@@ -53,14 +54,7 @@ const ErrorBoundary = () => {
                 {TEXT_CONTENTS.HEADING}
               </Heading>
 
-              <Text fontSize="md">
-                <Highlight
-                  query={TEXT_CONTENTS.DESCRIBE}
-                  styles={{ px: '3', py: '1', rounded: 'full', bg: 'green.100', color: 'gray.700' }}
-                >
-                  {TEXT_CONTENTS.DESCRIBE}
-                </Highlight>
-              </Text>
+              <HighlightedDescribe describe={TEXT_CONTENTS.DESCRIBE} />
 
               <Text
                 fontSize="lg"

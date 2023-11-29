@@ -11,7 +11,9 @@ import useUser from '~/hooks/useUser';
 import { usePostMentorFollow } from '~/queries/follow/create/usePostMentorFollow';
 import { useDeleteMentorFollow } from '~/queries/follow/delete/useDeleteMentorFollow';
 import { useGetMentorFollow } from '~/queries/follow/details/useGetMentorFollow';
+import { useGetIsAppliedEvent } from '~/queries/user/useGetIsAppliedEvent';
 import { ReadEvent } from '~/types/event/event';
+import { EventStatus } from '~/types/eventStatus';
 import { ReadMentor } from '~/types/mentor';
 
 type MentorProfileProps = {
@@ -22,13 +24,24 @@ type MentorProfileProps = {
 
 const MentorProfile = ({
   mentor,
-  event: { currentApplicantCount, maximumCount, status, mentorId },
+  event: { id, currentApplicantCount, maximumCount, status, mentorId },
   onApply,
 }: MentorProfileProps) => {
   const { user } = useUser();
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
 
+  const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString() });
+
+  const getApplyButtonText = (status: EventStatus) => {
+    if (status === 'OPEN' || status === 'REOPEN') {
+      if (isApplied) {
+        return '신청 완료';
+      }
+      return '신청하기';
+    }
+    return CONSTANTS.EVENT_STATUS[status];
+  };
   const {
     data: { id: followId },
   } = useGetMentorFollow({ mentorId });
@@ -123,7 +136,6 @@ const MentorProfile = ({
                   </HStack>
                 </Flex>
               )}
-
               {introduce && (
                 <Flex
                   direction={'column'}
@@ -173,10 +185,10 @@ const MentorProfile = ({
           type="button"
           size={'full'}
           onClick={onApply}
-          isDisabled={!(status === 'OPEN')}
+          isDisabled={!(status === 'OPEN' || status === 'REOPEN') || isApplied}
           _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
         >
-          {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : CONSTANTS.EVENT_STATUS[status]}
+          {getApplyButtonText(status)}
         </Button>
       )}
     </VStack>

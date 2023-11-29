@@ -1,12 +1,9 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { resumeMeAxios } from '~/api/axios';
 import CONSTANTS from '~/constants';
+import { userKeys } from '~/queries/user/userKeys';
 import { User } from '~/types/user';
 import { getCookie, deleteCookie, setCookie } from '~/utils/cookie';
-
-export const userKeys = {
-  user: ['user'] as const,
-};
 
 export const getUser = async (): Promise<User | null> => {
   if (!getCookie(CONSTANTS.ACCESS_TOKEN_HEADER)) return null;
@@ -18,7 +15,7 @@ export const getUser = async (): Promise<User | null> => {
 
 const useUser = () => {
   const { data: user, refetch } = useSuspenseQuery({
-    queryKey: userKeys.user,
+    queryKey: userKeys.user(),
     queryFn: getUser,
     staleTime: Infinity,
     gcTime: Infinity,
