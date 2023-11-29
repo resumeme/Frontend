@@ -159,7 +159,7 @@ const MentorProfile = ({
           type="button"
           size={'full'}
           onClick={onApply}
-          isDisabled={!((status === 'OPEN' || 'REOPEN') && !isApplied)}
+          isDisabled={!(status === 'OPEN' || status === 'REOPEN') || isApplied}
           _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
         >
           {getApplyButtonText(status)}
