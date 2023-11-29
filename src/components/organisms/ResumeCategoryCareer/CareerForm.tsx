@@ -1,5 +1,14 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { VStack, Text, Divider, Button as ChakraButton, Checkbox, Flex } from '@chakra-ui/react';
+import {
+  VStack,
+  Text,
+  Divider,
+  Button as ChakraButton,
+  Checkbox,
+  Flex,
+  Tooltip,
+  Box,
+} from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import {
   Control,
@@ -19,6 +28,7 @@ import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
+import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
@@ -66,12 +76,18 @@ const CareerForm = ({
     onMutateSuccess: quitEdit,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields,
+    append,
+    remove: removeDuties,
+  } = useFieldArray({
     control,
     name: 'duties',
   });
 
-  const [skills, handleArrayChange, handleItemDelete] = useStringToArray(defaultValues?.skills);
+  const [skills, handleArrayChange, handleItemDelete, initializeSkills] = useStringToArray(
+    defaultValues?.skills,
+  );
 
   const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
@@ -79,10 +95,24 @@ const CareerForm = ({
     }
     body.skills = skills;
     body.duties = body.duties || [];
+    const initializeForm = () => {
+      initializeSkills();
+      removeDuties();
+    };
     if (!isEdit) {
-      postCareerMutate({ resumeId, body });
+      postCareerMutate(
+        { resumeId, body },
+        {
+          onSuccess: initializeForm,
+        },
+      );
     } else if (isEdit && blockId) {
-      patchCareerMutate({ resumeId, blockId, body });
+      patchCareerMutate(
+        { resumeId, blockId, body },
+        {
+          onSuccess: initializeForm,
+        },
+      );
     }
   });
 
@@ -104,9 +134,6 @@ const CareerForm = ({
     }
   }, [isEdit, setShowForm]);
 
-  // if (defaultValues?.skills && defaultValues?.skills?.length > 0) {
-  //   setValue('skills', ['']);
-  // }
   return (
     <Flex
       direction={'column'}
@@ -128,6 +155,7 @@ const CareerForm = ({
               <FormControl isInvalid={Boolean(errors.companyName)}>
                 <FormLabel isRequired>회사명</FormLabel>
                 <FormTextInput
+                  placeholder="회사"
                   id="companyName"
                   register={{ ...register('companyName', { required: '회사명을 입력하세요' }) }}
                   error={errors.companyName}
@@ -166,6 +194,7 @@ const CareerForm = ({
                 <FormLabel isRequired>직무</FormLabel>
                 <FormTextInput
                   id="position"
+                  placeholder="담당 직무"
                   register={{ ...register('position', { required: '직무를 입력하세요.' }) }}
                   error={errors.position}
                 />
@@ -177,11 +206,25 @@ const CareerForm = ({
                   direction={'column'}
                   w={'full'}
                 >
-                  <FormTextInput
-                    id="skills"
-                    register={{ ...register('skills') }}
-                    onKeyDown={handleArrayChange}
-                  />
+                  <Tooltip
+                    hasArrow
+                    placement="right"
+                    label={`엔터 키(Enter)로 구분할 수 있어요!`}
+                    aria-label="tooltip"
+                    borderRadius={'xl'}
+                    fontSize={'sm'}
+                    bg={'gray.300'}
+                    color={'gray.600'}
+                  >
+                    <Box>
+                      <FormTextInput
+                        placeholder="사용한 기술 스택"
+                        id="skills"
+                        register={{ ...register('skills') }}
+                        onKeyDown={handleArrayChange}
+                      />
+                    </Box>
+                  </Tooltip>
                   {skills.length > 0 && (
                     <DynamicTags
                       tagsArray={skills}
@@ -191,10 +234,12 @@ const CareerForm = ({
                 </Flex>
               </FormControl>
               <FormControl>
-                <FormLabel>기타 설명</FormLabel>
-                <FormTextInput
+                <FormLabel>상세 내용</FormLabel>
+                <FormTextarea
                   id="careerContent"
+                  placeholder="업무에 대한 상세 내용을 입력해주세요."
                   register={{ ...register('careerContent') }}
+                  h={'7rem'}
                 />
               </FormControl>
               {fields?.map((field, index) => (
@@ -203,7 +248,7 @@ const CareerForm = ({
                   index={index}
                   register={register}
                   errors={errors}
-                  remove={remove}
+                  remove={removeDuties}
                   control={control}
                 />
               ))}
@@ -271,6 +316,7 @@ const DutyForm = ({
         </FormLabel>
         <FormTextInput
           id="dutyTitle"
+          placeholder="주요 업무"
           register={{
             ...register(`duties.${index}.title`, { required: '주요 업무를 입력해주세요.' }),
           }}
@@ -300,8 +346,9 @@ const DutyForm = ({
       <FormControl>
         <FormLabel htmlFor="descriptions">상세 내용</FormLabel>
         {/*TODO 에디터로 대체 */}
-        <FormTextInput
+        <FormTextarea
           id="descriptions"
+          placeholder="주요 업무에 대한 상세 내용을 입력해주세요."
           register={{ ...register(`duties.${index}.description`) }}
         />
       </FormControl>

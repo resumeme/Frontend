@@ -1,4 +1,6 @@
-import { Flex, HStack, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Flex, HStack, Heading, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
+import { FaRegBell } from 'react-icons/fa6';
+import { FaBell } from 'react-icons/fa6';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -6,7 +8,12 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import useUser from '~/hooks/useUser';
+import { usePostMentorFollow } from '~/queries/follow/create/usePostMentorFollow';
+import { useDeleteMentorFollow } from '~/queries/follow/delete/useDeleteMentorFollow';
+import { useGetMentorFollow } from '~/queries/follow/details/useGetMentorFollow';
+import { useGetIsAppliedEvent } from '~/queries/user/useGetIsAppliedEvent';
 import { ReadEvent } from '~/types/event/event';
+import { EventStatus } from '~/types/eventStatus';
 import { ReadMentor } from '~/types/mentor';
 
 type MentorProfileProps = {
@@ -17,12 +24,27 @@ type MentorProfileProps = {
 
 const MentorProfile = ({
   mentor,
-  event: { currentApplicantCount, maximumCount, status },
+  event: { id, currentApplicantCount, maximumCount, status, mentorId },
   onApply,
 }: MentorProfileProps) => {
   const { user } = useUser();
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
+
+  const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString(), role: user?.role });
+
+  const getApplyButtonText = (status: EventStatus) => {
+    if (status === 'OPEN' || status === 'REOPEN') {
+      if (isApplied) {
+        return '신청 완료';
+      }
+      return '신청하기';
+    }
+    return CONSTANTS.EVENT_STATUS[status];
+  };
+  const { data: followData } = useGetMentorFollow({ mentorId, role: user?.role });
+  const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
+  const { mutate: mentorFollow } = usePostMentorFollow();
 
   return (
     <VStack
@@ -35,13 +57,32 @@ const MentorProfile = ({
         name={nickname}
         src={imageUrl}
       />
-      <Heading
-        textAlign={'center'}
-        fontSize={'20px'}
-        color={'gray.800'}
+      <Flex
+        w={'full'}
+        align={'center'}
       >
-        {nickname}
-      </Heading>
+        <Heading
+          textAlign={'center'}
+          fontSize={'20px'}
+          color={'gray.800'}
+        >
+          {nickname}
+        </Heading>
+        <Spacer />
+        <IconButton
+          w={'fit-content'}
+          h={'fit-content'}
+          bg={'inherit'}
+          icon={followData?.id ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
+          onClick={
+            followData?.id
+              ? () => deleteMentorFollow({ followId: Number(followData?.id) })
+              : () => mentorFollow({ mentorId })
+          }
+          aria-label="follow"
+          color={'primary.900'}
+        />
+      </Flex>
       <Flex
         w={'100%'}
         minH={'12.44rem'}
@@ -93,7 +134,6 @@ const MentorProfile = ({
                   </HStack>
                 </Flex>
               )}
-
               {introduce && (
                 <Flex
                   direction={'column'}
@@ -143,10 +183,10 @@ const MentorProfile = ({
           type="button"
           size={'full'}
           onClick={onApply}
-          isDisabled={!(status === 'OPEN')}
+          isDisabled={!(status === 'OPEN' || status === 'REOPEN') || isApplied}
           _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
         >
-          {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : CONSTANTS.EVENT_STATUS[status]}
+          {getApplyButtonText(status)}
         </Button>
       )}
     </VStack>

@@ -13,7 +13,6 @@ export const postResumeLanguage = async ({ resumeId, body }: PostResumeLanguage)
   try {
     const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/foreignLanguages`, body, {
       headers: {
-        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });

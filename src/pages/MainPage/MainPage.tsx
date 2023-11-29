@@ -7,6 +7,7 @@ import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { assets } from '~/config/assets';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import { useCheckOpenedEvent } from '~/hooks/useCheckOpendEvent';
 import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
@@ -69,8 +70,6 @@ const MainPage = () => {
       text: '이벤트 생성',
       onClick: () =>
         toast({
-          duration: 2000,
-          position: 'top',
           description: '멘토 가입이 승인되면 작성할 수 있어요.',
         }),
     },
@@ -238,10 +237,20 @@ const MainPage = () => {
             진행 중인 피드백
           </Heading>
         </Link>
-        <EventGrid
-          row={4}
-          events={events}
-        />
+        {events && events.length > 0 ? (
+          <EventGrid
+            row={4}
+            events={events}
+          />
+        ) : (
+          <Flex
+            h={'10rem'}
+            justify={'center'}
+            align={'center'}
+          >
+            <Text color={'gray.700'}>{CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}</Text>
+          </Flex>
+        )}
       </Box>
     </>
   );

@@ -25,7 +25,7 @@ const TraningDetails = ({
 }: DetailsComponentProps<ReadTraining>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Training>({
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Training, ReadTraining>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),
   });

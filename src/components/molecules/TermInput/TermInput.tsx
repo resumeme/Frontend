@@ -57,7 +57,7 @@ const TermInput = <T extends FieldValues>({
           isDisabled={isOpenDateDisabled}
           register={{
             ...register(startDateName, {
-              required: !isOpenDateDisabled && isRequired ? '시작일을 입력하세요.' : false,
+              required: !isOpenDateDisabled && isRequired ? '시작일을 입력해주세요.' : false,
               max: {
                 value: getOneYearLater({ includeTime }),
                 message: '최대 1년 후까지만 입력이 가능합니다.',
@@ -79,7 +79,7 @@ const TermInput = <T extends FieldValues>({
           isDisabled={isEndDateDisabled}
           register={{
             ...register(endDateName, {
-              required: !isEndDateDisabled && isRequired ? '종료일을 입력하세요.' : false,
+              required: !isEndDateDisabled && isRequired ? '종료일을 입력해주세요.' : false,
               min: { value: startDate, message: '시작일 이후의 날짜를 입력해주세요.' },
             }),
           }}

@@ -1,8 +1,12 @@
-import { Heading, Text } from '@chakra-ui/react';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
+import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
+import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
@@ -35,15 +39,27 @@ const EventGridTemplate = () => {
 
   const { data } = useGetEventList({ page: pageParamValue, size });
 
+  const { user } = useUser();
+
   return (
     <>
-      <Heading
-        fontSize={'1.5rem'}
-        color={'gray.800'}
+      <Flex
+        justifyContent={'space-between'}
         mb={'2rem'}
       >
-        진행 중인 피드백
-      </Heading>
+        <Heading
+          fontSize={'1.5rem'}
+          color={'gray.800'}
+          mb={'2rem'}
+        >
+          진행 중인 피드백
+        </Heading>
+        {user?.role === 'mentor' && (
+          <Link to={appPaths.eventCreate()}>
+            <Button size={'md'}>이벤트 생성</Button>
+          </Link>
+        )}
+      </Flex>
       {data.events.length ? (
         <>
           <EventGrid events={data.events} />
@@ -55,7 +71,13 @@ const EventGridTemplate = () => {
           />
         </>
       ) : (
-        <Text>진행 중인 이벤트가 없어요. ૮ ´• ﻌ ´• ა</Text>
+        <Flex
+          h={'10rem'}
+          justify={'center'}
+          align={'center'}
+        >
+          <Text color={'gray.700'}>{CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}</Text>
+        </Flex>
       )}
     </>
   );

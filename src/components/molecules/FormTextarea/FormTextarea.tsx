@@ -7,7 +7,7 @@ type FormTextInputProps = {
   error?: FieldError;
 } & TextareaProps;
 
-const FormTextarea = ({ h = '26.75rem', id, register, error, ...props }: FormTextInputProps) => {
+const FormTextarea = ({ h = '15rem', id, register, error, ...props }: FormTextInputProps) => {
   return (
     <Flex
       direction={'column'}

@@ -1,6 +1,7 @@
-import { Box, Container, Flex, Image, Heading, Text, Highlight } from '@chakra-ui/react';
+import { Box, Container, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
+import { HighlightedDescribe } from '~/components/molecules/HighlightedDescribe';
 import { assets } from '~/config/assets';
 
 const HEADER_HEIGHT = 65;
@@ -27,79 +28,70 @@ const NotFoundPage = () => {
   const pageHeight = `calc(100vh - ${HEADER_HEIGHT + FOOTER_HEIGHT}px)`;
 
   return (
-    <>
-      <Flex
-        align="center"
-        justify="center"
-        h={pageHeight}
+    <Flex
+      align="center"
+      justify="center"
+      minH={pageHeight}
+    >
+      <Container
+        maxW="550px"
+        color="gray.700"
       >
-        <Container
-          maxW="550px"
-          color="gray.700"
+        <Flex
+          align="center"
+          justify="center"
+          direction="column"
+          gap={8}
         >
+          <Image
+            src={IMAGE.SRC}
+            alt={IMAGE.ALT}
+            boxSize={IMAGE.SIZE}
+            pointerEvents="none"
+            userSelect="none"
+          />
           <Flex
-            align="center"
-            justify="center"
             direction="column"
-            gap={8}
+            align="center"
+            gap={3}
           >
-            <Image
-              src={IMAGE.SRC}
-              alt={IMAGE.ALT}
-              boxSize={IMAGE.SIZE}
-              pointerEvents="none"
-              userSelect="none"
-            />
-            <Flex
-              direction="column"
-              align="center"
-              gap={3}
+            <Heading
+              fontSize="3xl"
+              fontWeight={'black'}
+              mb="3"
             >
-              <Heading
-                fontSize="3xl"
-                fontWeight={'black'}
-                mb="3"
-              >
-                {TEXT_CONTENTS.HEADING}
-              </Heading>
+              {TEXT_CONTENTS.HEADING}
+            </Heading>
 
-              <Text fontSize="md">
-                <Highlight
-                  query={TEXT_CONTENTS.DESCRIBE}
-                  styles={{ px: '3', py: '1', rounded: 'full', bg: 'green.100', color: 'gray.700' }}
+            <HighlightedDescribe describe={TEXT_CONTENTS.DESCRIBE} />
+
+            <Text
+              fontSize="lg"
+              fontWeight={'light'}
+              color="gray.500"
+              mt={'20px'}
+            >
+              {TEXT_CONTENTS.CODE}
+            </Text>
+            <Box
+              w={'full'}
+              mt={'30px'}
+            >
+              <Link to={BUTTON_CONTENT.HREF}>
+                <Button
+                  variant={'cancel'}
+                  color={'gray.600'}
+                  fontWeight={'semiBold'}
+                  _hover={{ bg: 'gray.300' }}
                 >
-                  {TEXT_CONTENTS.DESCRIBE}
-                </Highlight>
-              </Text>
-
-              <Text
-                fontSize="lg"
-                fontWeight={'light'}
-                color="gray.500"
-                mt={'20px'}
-              >
-                {TEXT_CONTENTS.CODE}
-              </Text>
-              <Box
-                w={'full'}
-                mt={'30px'}
-              >
-                <Link to={BUTTON_CONTENT.HREF}>
-                  <Button
-                    variant={'cancel'}
-                    color={'gray.600'}
-                    fontWeight={'semiBold'}
-                    _hover={{ bg: 'gray.300' }}
-                  >
-                    {BUTTON_CONTENT.TEXT}
-                  </Button>
-                </Link>
-              </Box>
-            </Flex>
+                  {BUTTON_CONTENT.TEXT}
+                </Button>
+              </Link>
+            </Box>
           </Flex>
-        </Container>
-      </Flex>
-    </>
+        </Flex>
+      </Container>
+    </Flex>
   );
 };
 

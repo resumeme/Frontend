@@ -16,8 +16,6 @@ const usePatchFeedbackReject = () => {
       toast({
         description: '성공적으로 반려되었습니다 :)',
         status: 'success',
-        duration: 2000,
-        position: 'top',
       });
 
       if (user) {
