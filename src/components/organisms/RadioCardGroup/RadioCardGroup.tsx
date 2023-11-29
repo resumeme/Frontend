@@ -10,19 +10,21 @@ export type RadioOption<T extends string = string> = {
 type RadioCardGroupProps<T extends string> = {
   options: RadioOption<T>[];
   formName: string;
-  defaultValue: string;
+  defaultValue?: string;
   register: UseFormRegisterReturn;
   error?: Partial<FieldError>;
   direction?: 'row' | 'column';
+  gap?: string;
 } & BoxProps;
 
 const RadioCardGroup = ({
   options,
   formName,
-  defaultValue,
+  defaultValue = undefined,
   register,
   error,
   direction = 'row',
+  gap = '0.5rem',
   ...cardBoxProps
 }: RadioCardGroupProps<string>) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -37,7 +39,7 @@ const RadioCardGroup = ({
       <Flex
         direction={direction}
         w={'full'}
-        gap={'0.5rem'}
+        gap={gap}
         {...group}
       >
         {options.map(({ value, children }: RadioOption<string>) => {
