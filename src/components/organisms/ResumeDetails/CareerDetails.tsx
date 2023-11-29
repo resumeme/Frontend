@@ -26,7 +26,7 @@ const CareerDetails = ({
 }: DetailsComponentProps<ReadCareer>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Career>({
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Career, ReadCareer>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
   });

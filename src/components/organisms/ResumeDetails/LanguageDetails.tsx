@@ -15,7 +15,7 @@ const LanguageDetails = ({
 }: DetailsComponentProps<ReadLanguage>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language>({
+  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language, ReadLanguage>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),
   });
