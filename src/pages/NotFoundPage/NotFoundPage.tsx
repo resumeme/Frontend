@@ -1,6 +1,7 @@
-import { Box, Container, Flex, Image, Heading, Text, Highlight } from '@chakra-ui/react';
+import { Box, Container, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
+import { Describe } from '~/components/molecules/Describe';
 import { assets } from '~/config/assets';
 
 const HEADER_HEIGHT = 65;
@@ -62,14 +63,7 @@ const NotFoundPage = () => {
               {TEXT_CONTENTS.HEADING}
             </Heading>
 
-            <Text fontSize="md">
-              <Highlight
-                query={TEXT_CONTENTS.DESCRIBE}
-                styles={{ px: '3', py: '1', rounded: 'full', bg: 'green.100', color: 'gray.700' }}
-              >
-                {TEXT_CONTENTS.DESCRIBE}
-              </Highlight>
-            </Text>
+            <Describe describe={TEXT_CONTENTS.DESCRIBE} />
 
             <Text
               fontSize="lg"

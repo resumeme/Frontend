@@ -1,8 +1,10 @@
 import { Text } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Describe } from '~/components/molecules/Describe';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
+import CONSTANTS from '~/constants';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
@@ -35,6 +37,8 @@ const EventGridTemplate = () => {
 
   const { data } = useGetEventList({ page: pageParamValue, size });
 
+  data.events = [];
+
   return (
     <>
       <Text
@@ -56,7 +60,10 @@ const EventGridTemplate = () => {
           />
         </>
       ) : (
-        <Text>진행 중인 이벤트가 없어요. ૮ ´• ﻌ ´• ა</Text>
+        <Describe
+          bg={'inherit'}
+          describe={CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}
+        />
       )}
     </>
   );
