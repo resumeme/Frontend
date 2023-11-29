@@ -1,6 +1,8 @@
 import { Box, Flex, Heading, Image, Text, useToast } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { Label } from '~/components/atoms/Label';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { assets } from '~/config/assets';
@@ -10,6 +12,14 @@ import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { LAYOUT_SIZE } from '~/routes/layoutSize.const';
+
+const ANNOUNCEMENT = [
+  {
+    type: '한줄알림',
+    content: '이력.써 대망의 오픈! 멘티 간의 피드백 기능은 현재 열심히 개발 중에 있습니다 :)',
+    date: '2023.11.29',
+  },
+];
 
 const MainPage = () => {
   const { user } = useUser();
@@ -96,7 +106,6 @@ const MainPage = () => {
             justify={'space-between'}
             align={'center'}
             py={'4rem'}
-            // maxW={'950px'}
             flexShrink={1}
           >
             <Flex
@@ -106,20 +115,25 @@ const MainPage = () => {
               <Text
                 color={'gray.800'}
                 fontSize={'1.625rem'}
-                fontWeight={600}
+                fontWeight={700}
                 whiteSpace={'pre-line'}
               >
-                {`이력서를 작성하는 당신에게는, \n최대한의 많은 피드백이 필요합니다.`}
+                {`커리어를 시작하는 당신의 이력서에는\n최대한 많은 피드백이 필요합니다.`}
               </Text>
               <Flex mt={'1.5rem'}>
                 <Text
-                  color={'primary.900'}
-                  fontWeight={900}
+                  color={'gray.800'}
+                  fontWeight={'medium'}
+                  whiteSpace={'pre-line'}
                 >
-                  이력, 써
-                </Text>
-                <Text color={'gray.800'}>
-                  의 피드백 커뮤니티를 경험하고 커리어의 나침반을 찾으세요.
+                  <Text
+                    as={'span'}
+                    color={'primary.900'}
+                    fontWeight={700}
+                  >
+                    이력.써
+                  </Text>
+                  {`의 피드백 커뮤니티를 경험하고, 커리어의 나침반을 찾아보세요.`}
                 </Text>
               </Flex>
               <Flex
@@ -153,6 +167,57 @@ const MainPage = () => {
             />
           </Flex>
         </Box>
+      </Box>
+      <Box
+        maxW={'960px'}
+        mx={'auto'}
+        mb={'3rem'}
+      >
+        <Link to={appPaths.main()}>
+          <Text
+            mt={'3.5rem'}
+            mb={'1rem'}
+            fontSize={'1.5rem'}
+            fontWeight={'bold'}
+            color={'gray.800'}
+          >
+            안내사항
+          </Text>
+        </Link>
+        <BorderBox borderRadius={'lg'}>
+          {ANNOUNCEMENT.map((item, index) => {
+            return (
+              <Flex
+                key={index}
+                justify={'space-between'}
+                align={'center'}
+              >
+                <Flex>
+                  <Label
+                    py={0}
+                    maxH={'fit-content'}
+                    fontSize={'xs'}
+                    fontWeight={'bold'}
+                  >
+                    {item.type}
+                  </Label>
+                  <Text
+                    ml={5}
+                    fontWeight={'medium'}
+                  >
+                    {item.content}
+                  </Text>
+                </Flex>
+                <Text
+                  color={'gray.500'}
+                  fontSize={'sm'}
+                >
+                  {item.date}
+                </Text>
+              </Flex>
+            );
+          })}
+        </BorderBox>
       </Box>
       <Box
         maxW={'960px'}
