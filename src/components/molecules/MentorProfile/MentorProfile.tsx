@@ -58,7 +58,7 @@ const MentorProfile = ({
         src={imageUrl}
       />
       <Flex
-        w={'full'}
+        w={user?.role ? 'full' : undefined}
         align={'center'}
       >
         <Heading
@@ -68,20 +68,25 @@ const MentorProfile = ({
         >
           {nickname}
         </Heading>
-        <Spacer />
-        <IconButton
-          w={'fit-content'}
-          h={'fit-content'}
-          bg={'inherit'}
-          icon={followData?.id ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
-          onClick={
-            followData?.id
-              ? () => deleteMentorFollow({ followId: Number(followData?.id) })
-              : () => mentorFollow({ mentorId })
-          }
-          aria-label="follow"
-          color={'primary.900'}
-        />
+
+        {user?.role === 'mentee' && (
+          <>
+            <Spacer />
+            <IconButton
+              w={'fit-content'}
+              h={'fit-content'}
+              bg={'inherit'}
+              icon={followData?.id ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
+              onClick={
+                followData?.id
+                  ? () => deleteMentorFollow({ followId: Number(followData?.id) })
+                  : () => mentorFollow({ mentorId })
+              }
+              aria-label="follow"
+              color={'primary.900'}
+            />
+          </>
+        )}
       </Flex>
       <Flex
         w={'100%'}
