@@ -28,8 +28,6 @@ const FeedbackManagementItem = ({
       navigate(appPaths.feedbackReflect(resumeId, eventId));
     } else {
       toast({
-        duration: 2000,
-        position: 'top',
         description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.',
         status: 'info',
       });

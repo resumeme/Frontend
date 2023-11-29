@@ -14,7 +14,7 @@ export const useOptimisticPatchCategory = <T extends Categories>({
   onMutateSuccess,
 }: UseOptimisticPatch<T>) => {
   const queryClient = useQueryClient();
-  const toast = useToast({ duration: 2000, position: 'top' });
+  const toast = useToast();
   return useMutation({
     mutationFn,
     onMutate: async (newCategoryBlock) => {

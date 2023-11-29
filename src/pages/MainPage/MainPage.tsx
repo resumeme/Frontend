@@ -59,8 +59,6 @@ const MainPage = () => {
       text: '이벤트 생성',
       onClick: () =>
         toast({
-          duration: 2000,
-          position: 'top',
           description: '멘토 가입이 승인되면 작성할 수 있어요.',
         }),
     },
