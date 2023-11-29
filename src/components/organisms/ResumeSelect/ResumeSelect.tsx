@@ -1,34 +1,20 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { ResumeListItem } from '~/components/molecules/ResumeListItem';
-import { eventKeys } from '~/queries/event/eventKeys.const';
-import usePostEventApply from '~/queries/event/usePostEventApply';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
 import { useGetMyResumes } from '~/queries/resume/useGetMyResumes';
 
-const ResumeSelect = ({ onCancel }: { onCancel: () => void }) => {
-  const queryClient = useQueryClient();
+type ResumeSelectProps = {
+  onCancel: () => void;
+  onSubmit: SubmitHandler<{ resumeId: string }>;
+};
+const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
   const { data } = useGetMyResumes();
   const { mutate: postCreateResumeMutate } = usePostCreateResume();
-  const { mutate: postEventApplyMutate } = usePostEventApply();
-  const { eventId = '' } = useParams();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
-  const onSubmit: SubmitHandler<{ resumeId: string }> = ({ resumeId }) => {
-    postEventApplyMutate(
-      { resumeId: parseInt(resumeId), eventId },
-      {
-        onSettled: () => {
-          onCancel();
-          queryClient.refetchQueries({ queryKey: eventKeys.getEventDetail(eventId) });
-        },
-      },
-    );
-  };
   return (
     <>
       <Text

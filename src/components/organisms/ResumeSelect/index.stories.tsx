@@ -10,5 +10,10 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <ResumeSelect onCancel={() => {}} />;
+  return (
+    <ResumeSelect
+      onCancel={() => {}}
+      onSubmit={() => {}}
+    />
+  );
 };
