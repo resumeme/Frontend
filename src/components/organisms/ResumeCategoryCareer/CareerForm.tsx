@@ -28,6 +28,7 @@ import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import { ConfirmModal } from '~/components/molecules/ConfirmModal';
 import { DynamicTags } from '~/components/molecules/DynamicTags';
 import { FormControl } from '~/components/molecules/FormControl';
+import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { SubmitButtonGroup } from '~/components/molecules/SubmitButtonGroup';
 import { TermInput } from '~/components/molecules/TermInput';
@@ -113,9 +114,6 @@ const CareerForm = ({
     }
   }, [isEdit, setShowForm]);
 
-  // if (defaultValues?.skills && defaultValues?.skills?.length > 0) {
-  //   setValue('skills', ['']);
-  // }
   return (
     <Flex
       direction={'column'}
@@ -216,11 +214,12 @@ const CareerForm = ({
                 </Flex>
               </FormControl>
               <FormControl>
-                <FormLabel>기타 설명</FormLabel>
-                <FormTextInput
+                <FormLabel>상세 내용</FormLabel>
+                <FormTextarea
                   id="careerContent"
-                  placeholder="기타 필요한 설명이 있다면 작성해주세요."
+                  placeholder="업무에 대한 상세 내용을 입력해주세요."
                   register={{ ...register('careerContent') }}
+                  h={'7rem'}
                 />
               </FormControl>
               {fields?.map((field, index) => (
@@ -327,9 +326,9 @@ const DutyForm = ({
       <FormControl>
         <FormLabel htmlFor="descriptions">상세 내용</FormLabel>
         {/*TODO 에디터로 대체 */}
-        <FormTextInput
+        <FormTextarea
           id="descriptions"
-          placeholder="업무에 대한 상세 내용을 입력해주세요."
+          placeholder="주요 업무에 대한 상세 내용을 입력해주세요."
           register={{ ...register(`duties.${index}.description`) }}
         />
       </FormControl>

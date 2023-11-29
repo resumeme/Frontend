@@ -151,13 +151,13 @@ const ActivityForm = ({
                 />
               </FormControl>
               <FormControl isInvalid={Boolean(errors.description)}>
-                <FormLabel htmlFor="description">설명</FormLabel>
+                <FormLabel htmlFor="description">상세 내용</FormLabel>
                 <FormTextarea
                   resize="none"
                   autoComplete="off"
                   spellCheck="false"
-                  h={'16.625rem'}
-                  placeholder="활동에 대한 설명을 입력해주세요."
+                  h={'10rem'}
+                  placeholder="활동에 대한 상세 내용을 입력해주세요."
                   id="description"
                   register={{ ...register('description') }}
                   error={errors.description}
