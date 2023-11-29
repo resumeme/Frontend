@@ -16,8 +16,8 @@ const userCheck = async () => {
   return null;
 };
 
-const UnUserLoader = () => {
+const GuestLoader = () => {
   return userCheck();
 };
 
-export default UnUserLoader;
+export default GuestLoader;
