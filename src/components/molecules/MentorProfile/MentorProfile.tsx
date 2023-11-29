@@ -1,4 +1,5 @@
 import { Flex, HStack, Heading, Spacer, Text, VStack } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -6,7 +7,9 @@ import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import useUser from '~/hooks/useUser';
+import { useGetIsAppliedEvent } from '~/queries/user/useGetIsAppliedEvent';
 import { ReadEvent } from '~/types/event/event';
+import { EventStatus } from '~/types/eventStatus';
 import { ReadMentor } from '~/types/mentor';
 
 type MentorProfileProps = {
@@ -20,9 +23,22 @@ const MentorProfile = ({
   event: { currentApplicantCount, maximumCount, status },
   onApply,
 }: MentorProfileProps) => {
+  const { eventId = '' } = useParams();
   const { user } = useUser();
 
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
+
+  const { data: isApplied } = useGetIsAppliedEvent({ eventId });
+
+  const getApplyButtonText = (status: EventStatus) => {
+    if (status === 'OPEN' || status === 'REOPEN') {
+      if (isApplied) {
+        return '신청 완료';
+      }
+      return '신청하기';
+    }
+    return CONSTANTS.EVENT_STATUS[status];
+  };
 
   return (
     <VStack
@@ -143,10 +159,10 @@ const MentorProfile = ({
           type="button"
           size={'full'}
           onClick={onApply}
-          isDisabled={!(status === 'OPEN')}
+          isDisabled={!((status === 'OPEN' || 'REOPEN') && !isApplied)}
           _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
         >
-          {status === 'OPEN' || status === 'REOPEN' ? '신청하기' : CONSTANTS.EVENT_STATUS[status]}
+          {getApplyButtonText(status)}
         </Button>
       )}
     </VStack>
