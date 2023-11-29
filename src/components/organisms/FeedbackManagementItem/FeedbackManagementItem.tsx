@@ -1,4 +1,4 @@
-import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
+import { Box, Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
 import { FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -11,6 +11,16 @@ import { FeedbackResume } from '~/types/resume/resumeListItem';
 
 type FeedbackManagementItemProps = {
   resume: FeedbackResume;
+};
+
+const STATUS_SCHEME = {
+  APPLY: { color: 'teal.600', text: '멘토의 피드백을 기다리는 중이에요. (1/3)' },
+  FEEDBACK_COMPLETE: {
+    color: 'primary.900',
+    text: '멘토의 피드백이 완료되었어요. 확인 후 수정해보세요. (2/3)',
+  },
+  COMPLETE: { color: 'gray.500', text: '수정 사항이 반영되고 이벤트가 종료되었어요. (3/3)' },
+  REJECT: { color: 'red.600', text: '신청이 반려되었어요. 반려 사유를 확인하세요.' },
 };
 
 const FeedbackManagementItem = ({
@@ -34,20 +44,6 @@ const FeedbackManagementItem = ({
     }
   };
 
-  const StatusStepper = () => {
-    return (
-      <Label
-        fontSize={'0.75rem'}
-        h={'max-content'}
-        p={'0.2rem 0.37rem'}
-        borderRadius={'0.3125rem'}
-        bg={'gray.500'}
-      >
-        {CONSTANTS.RESUME_STATUS[status]}
-      </Label>
-    );
-  };
-
   return (
     <>
       <Flex
@@ -60,12 +56,28 @@ const FeedbackManagementItem = ({
           align={'center'}
           gap={2}
         >
-          <Flex
-            direction={'column'}
-            justify={'space-between'}
+          <Tooltip
+            label={STATUS_SCHEME[status].text}
+            fontSize={'sm'}
+            color={'gray.700'}
+            bg={'white'}
+            openDelay={500}
+            placement="auto"
+            hasArrow
           >
-            <StatusStepper />
-          </Flex>
+            <Box>
+              <Label
+                fontSize={'0.75rem'}
+                p={'0.2rem 0.37rem'}
+                borderRadius={'0.3125rem'}
+                textAlign={'center'}
+                cursor={'pointer'}
+                bg={STATUS_SCHEME[status].color}
+              >
+                {CONSTANTS.RESUME_STATUS[status]}
+              </Label>
+            </Box>
+          </Tooltip>
 
           <Tooltip
             openDelay={500}
@@ -78,8 +90,8 @@ const FeedbackManagementItem = ({
               type="button"
               w={'fit-content'}
               noOfLines={1}
-              fontSize={'1.35rem'}
-              fontWeight={600}
+              fontSize={'1.25rem'}
+              fontWeight={700}
               color={'gray.800'}
               as={ReactRouterLink}
               to={appPaths.eventDetail(eventId)}
@@ -88,40 +100,38 @@ const FeedbackManagementItem = ({
             </Link>
           </Tooltip>
         </Flex>
-        <Flex>
-          <Flex
-            direction={'column'}
-            justify={'center'}
+        <Flex
+          direction={'column'}
+          align={'space-between'}
+        >
+          <Text
+            flexShrink={0}
+            as={'span'}
+            fontSize={'0.875rem'}
+            color={'gray.500'}
           >
+            {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+              endDate,
+            ).toLocaleDateString()}`}
+          </Text>
+          <Flex
+            flexShrink={0}
+            align={'center'}
+            justify={'flex-end'}
+            gap={'0.5rem'}
+          >
+            <Badge
+              type="mentee"
+              py={0}
+            >
+              멘토
+            </Badge>
             <Text
-              flexShrink={0}
-              as={'span'}
               fontSize={'0.875rem'}
-              color={'gray.500'}
+              fontWeight={600}
             >
-              {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
-                endDate,
-              ).toLocaleDateString()}`}
+              {mentorName}
             </Text>
-            <Flex
-              flexShrink={0}
-              align={'center'}
-              justify={'flex-end'}
-              gap={'0.5rem'}
-            >
-              <Badge
-                type="mentee"
-                py={0}
-              >
-                멘토
-              </Badge>
-              <Text
-                fontSize={'0.875rem'}
-                fontWeight={600}
-              >
-                {mentorName}
-              </Text>
-            </Flex>
           </Flex>
         </Flex>
       </Flex>
@@ -140,7 +150,6 @@ const FeedbackManagementItem = ({
           color={'gray.600'}
           boxSize={'1rem'}
         />
-        {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
         <Tooltip
           maxW={'xl'}
           noOfLines={2}
@@ -161,7 +170,7 @@ const FeedbackManagementItem = ({
           </Text>
         </Tooltip>
         <Spacer />
-        {status && (
+        {status !== 'REJECT' && status !== 'APPLY' && (
           <Button
             bg={status === 'COMPLETE' ? 'gray.600' : 'primary.800'}
             borderRadius={'0.3125rem'}
@@ -174,7 +183,7 @@ const FeedbackManagementItem = ({
               opacity: '0.65',
             }}
           >
-            {status === 'COMPLETE' ? '확인' : '피드백 반영하기'}
+            {status === 'COMPLETE' ? '피드백 내역 확인' : '피드백 반영하기'}
           </Button>
         )}
       </Flex>

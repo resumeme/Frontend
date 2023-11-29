@@ -1,6 +1,6 @@
 const RESUME_STATUS = {
-  APPLY: '피드백 중',
-  FEEDBACK_COMPLETE: '피드백 완료',
+  APPLY: '대기중',
+  FEEDBACK_COMPLETE: '피드백',
   COMPLETE: '종료',
   REJECT: '반려',
 };
