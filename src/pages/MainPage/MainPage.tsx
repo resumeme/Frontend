@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Image, Text, useToast } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { EventGrid } from '~/components/organisms/EventGrid';
@@ -159,14 +159,16 @@ const MainPage = () => {
         mx={'auto'}
         mb={'3rem'}
       >
-        <Heading
-          mt={'3.5rem'}
-          mb={'1rem'}
-          fontSize={'1.5rem'}
-          color={'gray.800'}
-        >
-          진행중인 이벤트
-        </Heading>
+        <Link to={appPaths.viewEvent()}>
+          <Heading
+            mt={'3.5rem'}
+            mb={'1rem'}
+            fontSize={'1.5rem'}
+            color={'gray.800'}
+          >
+            진행 중인 피드백
+          </Heading>
+        </Link>
         <EventGrid
           row={4}
           events={events}

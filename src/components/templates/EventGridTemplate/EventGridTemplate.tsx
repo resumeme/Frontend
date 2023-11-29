@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Pagination } from '~/components/molecules/Pagination';
@@ -37,14 +37,13 @@ const EventGridTemplate = () => {
 
   return (
     <>
-      <Text
-        color={'gray.800'}
+      <Heading
         fontSize={'1.5rem'}
-        fontWeight={'semibold'}
+        color={'gray.800'}
         mb={'2rem'}
       >
         진행 중인 피드백
-      </Text>
+      </Heading>
       {data.events.length ? (
         <>
           <EventGrid events={data.events} />
