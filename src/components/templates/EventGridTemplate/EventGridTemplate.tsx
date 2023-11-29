@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
@@ -47,13 +47,12 @@ const EventGridTemplate = () => {
         justifyContent={'space-between'}
         mb={'2rem'}
       >
-        <Text
-          color={'gray.800'}
+        <Heading
           fontSize={'1.5rem'}
-          fontWeight={'semibold'}
+          color={'gray.800'}
         >
-          진행 중인 피드백
-        </Text>
+          진행 중인 이벤트
+        </Heading>
         {user?.role === 'mentor' && (
           <Link to={appPaths.eventCreate()}>
             <Button size={'md'}>이벤트 생성</Button>
