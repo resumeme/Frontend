@@ -230,6 +230,10 @@ const MainPage = () => {
             mb={'1rem'}
             fontSize={'1.5rem'}
             color={'gray.800'}
+            _hover={{
+              textDecoration: 'underline',
+              textUnderlineOffset: '.2rem',
+            }}
           >
             진행 중인 피드백
           </Heading>
