@@ -1,4 +1,14 @@
-import { Flex, HStack, Heading, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Heading,
+  IconButton,
+  Spacer,
+  Text,
+  Tooltip,
+  VStack,
+} from '@chakra-ui/react';
 import { FaRegBell } from 'react-icons/fa6';
 import { FaBell } from 'react-icons/fa6';
 import { v4 as uuidv4 } from 'uuid';
@@ -57,10 +67,7 @@ const MentorProfile = ({
         name={nickname}
         src={imageUrl}
       />
-      <Flex
-        w={'full'}
-        align={'center'}
-      >
+      <Flex align={'center'}>
         <Heading
           textAlign={'center'}
           fontSize={'20px'}
@@ -68,20 +75,37 @@ const MentorProfile = ({
         >
           {nickname}
         </Heading>
-        <Spacer />
-        <IconButton
-          w={'fit-content'}
-          h={'fit-content'}
-          bg={'inherit'}
-          icon={followData?.id ? <FaBell size="1.2rem" /> : <FaRegBell size="1.2rem" />}
-          onClick={
-            followData?.id
-              ? () => deleteMentorFollow({ followId: Number(followData?.id) })
-              : () => mentorFollow({ mentorId })
-          }
-          aria-label="follow"
-          color={'primary.900'}
-        />
+
+        {user?.role === 'mentee' && (
+          <>
+            <Tooltip
+              hasArrow
+              placement="right"
+              bg={'gray.300'}
+              color={'gray.600'}
+              label={followData?.id ? '이메일 알림 수신 중' : '이메일 알림 차단 중'}
+            >
+              <Box>
+                <IconButton
+                  display={'flex'}
+                  alignItems={'center'}
+                  boxSize={'1'}
+                  w={'auto'}
+                  h={'fit-content'}
+                  bg={'inherit'}
+                  icon={followData?.id ? <FaBell size="1rem" /> : <FaRegBell size="1rem" />}
+                  onClick={
+                    followData?.id
+                      ? () => deleteMentorFollow({ followId: Number(followData?.id) })
+                      : () => mentorFollow({ mentorId })
+                  }
+                  aria-label="follow"
+                  color={followData?.id ? 'primary.900' : 'gray.700'}
+                />
+              </Box>
+            </Tooltip>
+          </>
+        )}
       </Flex>
       <Flex
         w={'100%'}
