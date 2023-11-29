@@ -71,7 +71,9 @@ const CareerForm = ({
     name: 'duties',
   });
 
-  const [skills, handleArrayChange, handleItemDelete] = useStringToArray(defaultValues?.skills);
+  const [skills, handleArrayChange, handleItemDelete, initializeSkills] = useStringToArray(
+    defaultValues?.skills,
+  );
 
   const onSubmit = handleSubmit((body) => {
     if (!resumeId) {
@@ -80,9 +82,19 @@ const CareerForm = ({
     body.skills = skills;
     body.duties = body.duties || [];
     if (!isEdit) {
-      postCareerMutate({ resumeId, body });
+      postCareerMutate(
+        { resumeId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     } else if (isEdit && blockId) {
-      patchCareerMutate({ resumeId, blockId, body });
+      patchCareerMutate(
+        { resumeId, blockId, body },
+        {
+          onSuccess: initializeSkills,
+        },
+      );
     }
   });
 
@@ -104,9 +116,6 @@ const CareerForm = ({
     }
   }, [isEdit, setShowForm]);
 
-  // if (defaultValues?.skills && defaultValues?.skills?.length > 0) {
-  //   setValue('skills', ['']);
-  // }
   return (
     <Flex
       direction={'column'}
