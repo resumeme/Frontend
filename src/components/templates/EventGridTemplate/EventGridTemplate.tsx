@@ -1,8 +1,11 @@
-import { Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
+import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 
 const EventGridTemplate = () => {
@@ -35,16 +38,25 @@ const EventGridTemplate = () => {
 
   const { data } = useGetEventList({ page: pageParamValue, size });
 
+  const { user } = useUser();
+
   return (
     <>
-      <Text
-        color={'gray.800'}
-        fontSize={'1.5rem'}
-        fontWeight={'semibold'}
-        mb={'2rem'}
-      >
-        진행 중인 피드백
-      </Text>
+      <Flex justifyContent={'space-between'}>
+        <Text
+          color={'gray.800'}
+          fontSize={'1.5rem'}
+          fontWeight={'semibold'}
+          mb={'2rem'}
+        >
+          진행 중인 피드백
+        </Text>
+        {user?.role === 'mentor' && (
+          <Link to={appPaths.eventCreate()}>
+            <Button size={'md'}>이벤트 생성</Button>
+          </Link>
+        )}
+      </Flex>
       {data.events.length ? (
         <>
           <EventGrid events={data.events} />
