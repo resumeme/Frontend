@@ -34,7 +34,10 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider
+        theme={theme}
+        toastOptions={{ defaultOptions: { position: 'top', duration: 2000 } }}
+      >
         <Fonts />
         <RouterProvider
           router={router}

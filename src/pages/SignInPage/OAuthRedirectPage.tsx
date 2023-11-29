@@ -11,7 +11,7 @@ const OAuthRedirectPage = () => {
   const [params] = useSearchParams();
   const code = params.get('code');
   const navigate = useNavigate();
-  const toast = useToast({ duration: 2000, position: 'top' });
+  const toast = useToast();
   const { initialUser } = useUser();
 
   type SignInCallback = { cacheKey?: string; accessToken?: string; refreshToken?: string };
