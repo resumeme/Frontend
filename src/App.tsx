@@ -44,8 +44,6 @@ const axiosErrorHandler = (error: Error) => {
   return;
 };
 
-// const axiosErrorHandler = (error: Error) => {};
-
 const queryClient = new QueryClient({
   defaultOptions: { mutations: { onError: axiosErrorHandler }, queries: { retry: 1 } },
   queryCache: new QueryCache({
