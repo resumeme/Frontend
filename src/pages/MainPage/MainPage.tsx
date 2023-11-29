@@ -1,10 +1,12 @@
 import { Box, Flex, Heading, Image, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
+import { Describe } from '~/components/molecules/Describe';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { assets } from '~/config/assets';
 import { appPaths } from '~/config/paths';
+import CONSTANTS from '~/constants';
 import { useCheckOpenedEvent } from '~/hooks/useCheckOpendEvent';
 import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
@@ -165,10 +167,23 @@ const MainPage = () => {
         >
           진행중인 이벤트
         </Heading>
-        <EventGrid
-          row={4}
-          events={events}
-        />
+        {events && events.length > 0 ? (
+          <EventGrid
+            row={4}
+            events={events}
+          />
+        ) : (
+          <Flex
+            h={'10rem'}
+            justify={'center'}
+            align={'center'}
+          >
+            <Describe
+              bg={'inherit'}
+              describe={CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}
+            />
+          </Flex>
+        )}
       </Box>
     </>
   );
