@@ -1,8 +1,8 @@
 import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
-import { BiCommentError } from 'react-icons/bi';
-import { MdOutlineArticle } from 'react-icons/md';
+import { FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { Badge } from '~/components/atoms/Badge';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
@@ -19,8 +19,8 @@ const FeedbackManagementItem = ({
   const navigate = useNavigate();
 
   const toast = useToast();
-  // TODO api 상태 정해지면 label 컬러 추가
 
+  // TODO api 상태 정해지면 label 컬러 추가
   const handleClick = () => {
     if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
@@ -34,74 +34,111 @@ const FeedbackManagementItem = ({
     }
   };
 
+  const StatusStepper = () => {
+    return (
+      <Label
+        fontSize={'0.75rem'}
+        h={'max-content'}
+        p={'0.2rem 0.37rem'}
+        borderRadius={'0.3125rem'}
+        bg={'gray.500'}
+      >
+        {CONSTANTS.RESUME_STATUS[status]}
+      </Label>
+    );
+  };
+
   return (
     <>
       <Flex
-        align={'center'}
-        gap={'1rem'}
+        gap={'0.5rem'}
+        justify={'center'}
         w={'full'}
       >
-        <Link
-          type="button"
-          w={'fit-content'}
-          noOfLines={1}
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
-          as={ReactRouterLink}
-          to={appPaths.eventDetail(eventId)}
-        >
-          {title}
-        </Link>
-        <Label
-          fontSize={'0.75rem'}
-          p={'0.25rem 0.37rem'}
-          borderRadius={'0.3125rem'}
-        >
-          {CONSTANTS.RESUME_STATUS[status]}
-        </Label>
-        <Spacer />
-        <Text
-          flexShrink={0}
-          as={'span'}
-          fontSize={'0.875rem'}
-          color={'gray.500'}
-        >
-          {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
-            endDate,
-          ).toLocaleDateString()}`}
-        </Text>
         <Flex
-          flexShrink={0}
+          w={'70%'}
           align={'center'}
-          gap={'0.5rem'}
+          gap={2}
         >
-          <Icon
-            color={'highlight.900'}
-            as={BiCommentError}
-            w={'1.25rem'}
-          />
-          <Text
-            fontSize={'0.875rem'}
-            fontWeight={600}
+          <Flex
+            direction={'column'}
+            justify={'space-between'}
           >
-            {mentorName}
-          </Text>
+            <StatusStepper />
+          </Flex>
+
+          <Tooltip
+            openDelay={500}
+            label={title}
+            fontSize={'sm'}
+            color={'gray.700'}
+            bg={'white'}
+          >
+            <Link
+              type="button"
+              w={'fit-content'}
+              noOfLines={1}
+              fontSize={'1.35rem'}
+              fontWeight={600}
+              color={'gray.800'}
+              as={ReactRouterLink}
+              to={appPaths.eventDetail(eventId)}
+            >
+              {title}
+            </Link>
+          </Tooltip>
+        </Flex>
+        <Flex>
+          <Flex
+            direction={'column'}
+            justify={'center'}
+          >
+            <Text
+              flexShrink={0}
+              as={'span'}
+              fontSize={'0.875rem'}
+              color={'gray.500'}
+            >
+              {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+                endDate,
+              ).toLocaleDateString()}`}
+            </Text>
+            <Flex
+              flexShrink={0}
+              align={'center'}
+              justify={'flex-end'}
+              gap={'0.5rem'}
+            >
+              <Badge
+                type="mentee"
+                py={0}
+              >
+                멘토
+              </Badge>
+              <Text
+                fontSize={'0.875rem'}
+                fontWeight={600}
+              >
+                {mentorName}
+              </Text>
+            </Flex>
+          </Flex>
         </Flex>
       </Flex>
+
       <Flex
-        mt={'1.75rem'}
+        mt={'1rem'}
         borderRadius={'0.3125rem'}
-        p={'0.75rem 1rem'}
+        p={'0.5rem 0.75rem'}
         bg={'gray.200'}
         alignItems={'center'}
         w={'full'}
         gap={'0.69rem'}
       >
         <Icon
-          as={MdOutlineArticle}
-          color={'gray.500'}
-          w={'1.25rem'}
+          as={FiFileText}
+          color={'gray.600'}
+          boxSize={'1rem'}
         />
         {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
         <Tooltip
@@ -126,15 +163,18 @@ const FeedbackManagementItem = ({
         <Spacer />
         {status && (
           <Button
-            bg={'gray.500'}
+            bg={status === 'COMPLETE' ? 'gray.600' : 'primary.800'}
             borderRadius={'0.3125rem'}
             fontSize={'0.75rem'}
-            p={'0.25rem 1.25rem'}
+            p={'0.25rem 0.5rem'}
             h={'fit-content'}
             w={'fit-content'}
             onClick={handleClick}
+            _hover={{
+              opacity: '0.65',
+            }}
           >
-            {status === 'COMPLETE' ? '첨삭 내역 확인' : '수정하기'}
+            {status === 'COMPLETE' ? '확인' : '피드백 반영하기'}
           </Button>
         )}
       </Flex>
