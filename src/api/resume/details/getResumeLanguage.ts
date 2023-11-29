@@ -15,7 +15,6 @@ export const getResumeLanguage = async ({
   try {
     const { data } = await resumeMeAxios.get(`/v1/resumes/${resumeId}/foreignLanguages`, {
       headers: {
-        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });

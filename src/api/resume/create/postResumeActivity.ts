@@ -13,7 +13,6 @@ export const postResumeActivity = async ({ resumeId, body }: PostResumeActivity)
   try {
     const { data } = await resumeMeAxios.post(`/v1/resumes/${resumeId}/activities`, body, {
       headers: {
-        /**FIXME - 쿠키 등에 별도 저장된 토큰 가져오기 */
         Authorization: accessToken,
       },
     });
