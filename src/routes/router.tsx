@@ -6,24 +6,21 @@ import Layout from './Layout';
 import MainLayout from './MainLayout';
 import UnUserLoader from './UnUserLoader';
 import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
-import AdminPage from '~/pages/AdminPage/AdminPage';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
-import EditEventPage from '~/pages/EventPages/EditEventPage/EditEventPage';
+import { EditEventPage } from '~/pages/EventPages/EditEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
 import { EventListPage } from '~/pages/EventPages/EventListPage';
-import MainPage from '~/pages/MainPage/MainPage';
+import { MainPage } from '~/pages/MainPage';
 import { MyPage } from '~/pages/MyPage';
-import NotFoundPage from '~/pages/NotFoundPage/NotFoundPage';
+import { NotFoundPage } from '~/pages/NotFoundPage';
 import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { CreateResumePage } from '~/pages/ResumePages/CreateResumePage';
 import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
 import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
 import { FeedbackReflectPage } from '~/pages/ResumePages/FeedbackReflectPage';
 import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
 import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
 import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
-import OAuthRedirectPage from '~/pages/SignInPage/OAuthRedirectPage';
-import SignInPage from '~/pages/SignInPage/SignInPage';
+import { OAuthRedirectPage, SignInPage } from '~/pages/SignInPage';
 import { SignUpPage } from '~/pages/SignUpPage';
 import { WriteReviewPage } from '~/pages/WriteReviewPage';
 
@@ -42,7 +39,6 @@ const router = createBrowserRouter([
           { path: 'mypage', element: <MyPage />, loader: UserLoader },
           { path: 'user/edit-info', element: <EditProfilePage />, loader: UserLoader },
 
-          { path: 'resume/create', element: <CreateResumePage /> },
           { path: 'resume/management', element: <ManagementResumePage />, loader: MenteeLoader },
           { path: 'resume/:resumeId/edit', element: <EditResumePage />, loader: MenteeLoader },
 
@@ -60,7 +56,6 @@ const router = createBrowserRouter([
           { path: 'event/', element: <EventListPage /> },
           { path: 'event/:eventId', element: <EventDetailPage /> },
 
-          { path: 'admin', element: <AdminPage /> },
           { path: '*', element: <NotFoundPage /> },
         ],
       },
