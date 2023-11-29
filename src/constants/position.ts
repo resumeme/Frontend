@@ -4,5 +4,5 @@ export const POSITION = {
   FRONT: '프론트엔드',
   BACK: '백엔드',
   ML_AI: '인공지능/머신러닝',
-  MOBILE: '안드로이드/IOS',
+  MOBILE: '안드로이드/iOS',
 };
