@@ -33,7 +33,7 @@ const MemoBox = ({ onOpen, memo }: MemoBoxProps) => {
           p={0}
           m={0}
           border={0}
-          color={'gray.400'}
+          color={'gray.500'}
           fontSize={'sm'}
         >
           {memo

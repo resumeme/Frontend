@@ -1,8 +1,8 @@
-import { Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
-import { BiCommentError } from 'react-icons/bi';
-import { MdOutlineArticle } from 'react-icons/md';
+import { Box, Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
+import { FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { Badge } from '~/components/atoms/Badge';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import { appPaths } from '~/config/paths';
@@ -13,14 +13,24 @@ type FeedbackManagementItemProps = {
   resume: FeedbackResume;
 };
 
+const STATUS_SCHEME = {
+  APPLY: { color: 'teal.600', text: '멘토의 피드백을 기다리는 중이에요. (1/3)' },
+  FEEDBACK_COMPLETE: {
+    color: 'primary.900',
+    text: '멘토의 피드백이 완료되었어요. 확인 후 수정해보세요. (2/3)',
+  },
+  COMPLETE: { color: 'gray.500', text: '수정 사항이 반영되고 이벤트가 종료되었어요. (3/3)' },
+  REJECT: { color: 'red.600', text: '신청이 반려되었어요. 반려 사유를 확인하세요.' },
+};
+
 const FeedbackManagementItem = ({
   resume: { endDate, mentorName, resumeId, startDate, status, title, eventId },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
   const toast = useToast();
-  // TODO api 상태 정해지면 label 컬러 추가
 
+  // TODO api 상태 정해지면 label 컬러 추가
   const handleClick = () => {
     if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
@@ -37,73 +47,110 @@ const FeedbackManagementItem = ({
   return (
     <>
       <Flex
-        align={'center'}
-        gap={'1rem'}
+        gap={'0.5rem'}
+        justify={'center'}
         w={'full'}
       >
-        <Link
-          type="button"
-          w={'fit-content'}
-          noOfLines={1}
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
-          as={ReactRouterLink}
-          to={appPaths.eventDetail(eventId)}
-        >
-          {title}
-        </Link>
-        <Label
-          fontSize={'0.75rem'}
-          p={'0.25rem 0.37rem'}
-          borderRadius={'0.3125rem'}
-        >
-          {CONSTANTS.RESUME_STATUS[status]}
-        </Label>
-        <Spacer />
-        <Text
-          flexShrink={0}
-          as={'span'}
-          fontSize={'0.875rem'}
-          color={'gray.500'}
-        >
-          {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
-            endDate,
-          ).toLocaleDateString()}`}
-        </Text>
         <Flex
-          flexShrink={0}
+          w={'70%'}
           align={'center'}
-          gap={'0.5rem'}
+          gap={2}
         >
-          <Icon
-            color={'highlight.900'}
-            as={BiCommentError}
-            w={'1.25rem'}
-          />
-          <Text
-            fontSize={'0.875rem'}
-            fontWeight={600}
+          <Tooltip
+            label={STATUS_SCHEME[status].text}
+            fontSize={'sm'}
+            color="white"
+            bg={STATUS_SCHEME[status].color}
+            openDelay={500}
+            placement="top-start"
+            hasArrow
           >
-            {mentorName}
+            <Box>
+              <Label
+                fontSize={'0.75rem'}
+                p={'0.2rem 0.37rem'}
+                borderRadius={'0.3125rem'}
+                textAlign={'center'}
+                cursor={'pointer'}
+                bg={STATUS_SCHEME[status].color}
+              >
+                {CONSTANTS.RESUME_STATUS[status]}
+              </Label>
+            </Box>
+          </Tooltip>
+
+          <Tooltip
+            openDelay={500}
+            label={title}
+            fontSize={'sm'}
+            placement="top-start"
+            color={'gray.700'}
+            bg={'white'}
+          >
+            <Link
+              type="button"
+              w={'fit-content'}
+              noOfLines={1}
+              fontSize={'1.3rem'}
+              fontWeight={600}
+              color={'gray.800'}
+              as={ReactRouterLink}
+              to={appPaths.eventDetail(eventId)}
+            >
+              {title}
+            </Link>
+          </Tooltip>
+        </Flex>
+        <Flex
+          direction={'column'}
+          align={'space-between'}
+        >
+          <Flex
+            flexShrink={0}
+            align={'center'}
+            justify={'flex-end'}
+            gap={'0.5rem'}
+          >
+            <Badge
+              type="mentee"
+              py={0}
+            >
+              멘토
+            </Badge>
+            <Text
+              fontSize={'0.875rem'}
+              fontWeight={600}
+            >
+              {mentorName}
+            </Text>
+          </Flex>
+          <Text
+            flexShrink={0}
+            as={'span'}
+            fontSize={'0.875rem'}
+            color={'gray.500'}
+          >
+            {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+              endDate,
+            ).toLocaleDateString()}`}
           </Text>
         </Flex>
       </Flex>
+
       <Flex
-        mt={'1.75rem'}
+        mt={'1rem'}
         borderRadius={'0.3125rem'}
-        p={'0.75rem 1rem'}
+        p={'0.5rem 0.75rem'}
         bg={'gray.200'}
         alignItems={'center'}
         w={'full'}
         gap={'0.69rem'}
       >
         <Icon
-          as={MdOutlineArticle}
-          color={'gray.500'}
-          w={'1.25rem'}
+          as={FiFileText}
+          color={'gray.600'}
+          boxSize={'1rem'}
         />
-        {/*TODO 주석해제 {resumeTitle && <Text>{resumeTitle}</Text>} */}
         <Tooltip
           maxW={'xl'}
           noOfLines={2}
@@ -124,17 +171,20 @@ const FeedbackManagementItem = ({
           </Text>
         </Tooltip>
         <Spacer />
-        {status && (
+        {status !== 'REJECT' && status !== 'APPLY' && (
           <Button
-            bg={'gray.500'}
+            bg={status === 'COMPLETE' ? 'gray.600' : 'primary.800'}
             borderRadius={'0.3125rem'}
             fontSize={'0.75rem'}
-            p={'0.25rem 1.25rem'}
+            p={'0.25rem 0.5rem'}
             h={'fit-content'}
             w={'fit-content'}
             onClick={handleClick}
+            _hover={{
+              opacity: '0.65',
+            }}
           >
-            {status === 'COMPLETE' ? '첨삭 내역 확인' : '수정하기'}
+            {status === 'COMPLETE' ? '피드백 내역 확인' : '피드백 반영하기'}
           </Button>
         )}
       </Flex>
