@@ -33,7 +33,6 @@ const ResumeListItem = ({ data: { title, modifiedAt, position, memo } }: ResumeL
         >
           {title}
         </Text>
-        {/**TODO - 메모 컴포넌트 */}
         {memo && <MemoBox memo={memo} />}
       </Flex>
     </Box>
