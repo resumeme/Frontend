@@ -29,7 +29,6 @@ type EventResume = {
   resumeId: number;
   menteeName: string;
   resumeTitle: string;
-  //TODO - 이벤트 참여 상태코드 나오면 변경
   progressStatus: ResumeStatus;
   modifiedAt?: string;
 };

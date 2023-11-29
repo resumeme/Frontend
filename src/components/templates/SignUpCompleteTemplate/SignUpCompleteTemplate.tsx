@@ -10,8 +10,7 @@ const SignUpCompleteTemplate = ({ role, user }: { role: SignUpRole; user?: User 
   const TEXT = {
     pending: {
       MAIN: '멘토 가입 신청이 완료되었습니다.',
-      /**TODO - 멘트 점검: 가입 검토 소요 시간, 알람 기능 되는지 */
-      SUB: `멘토 가입 검토는 최소 5분에서 최대 3일까지 소요됩니다.\n검토가 끝난 경우, 연동한 소셜 서비스로 알람을 보내드려요.`,
+      SUB: `멘토 가입 검토는 최소 5분에서 최대 3일까지 소요됩니다.\n검토가 끝난 경우, 연동한 소셜 서비스의 이메일로 결과를 보내드려요.`,
     },
     mentee: {
       MAIN: '가입이 완료되었습니다.',

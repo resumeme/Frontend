@@ -24,7 +24,6 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
   } = useForm<SignUpCommon>();
 
   const onSubmit = (values: SignUpCommon) => {
-    /**TODO - cacheKey zustand 스토어에서 받아와서 가입 요청 시 api에 함께 전송하기 */
     onNext(values);
   };
 

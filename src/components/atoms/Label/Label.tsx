@@ -25,7 +25,6 @@ const Label = ({
   type = 'default',
   ...props
 }: LabelProps) => {
-  // TODO 라벨 색상들 테마에 추가하기 (색상 이름에 지정 라벨명 붙여서)
   const LABEL_TYPE_CONTENTS: Record<
     LabelType,
     { bg: ResponsiveValue<CSS.Property.Color | ThemeTypings['colors']> }

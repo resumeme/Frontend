@@ -167,11 +167,11 @@ const AwardForm = ({
                   htmlFor="description"
                   w={'8.625rem'}
                 >
-                  설명
+                  기타
                 </FormLabel>
                 <FormTextarea
-                  h={'16.625rem'}
-                  placeholder="내용을 입력해주세요."
+                  h={'3rem'}
+                  placeholder="기타 필요한 설명이 있다면 입력해주세요."
                   id="description"
                   register={{ ...register('description') }}
                   error={errors.description}
