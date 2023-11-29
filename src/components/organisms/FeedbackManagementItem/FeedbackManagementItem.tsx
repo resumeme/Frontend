@@ -59,10 +59,10 @@ const FeedbackManagementItem = ({
           <Tooltip
             label={STATUS_SCHEME[status].text}
             fontSize={'sm'}
-            color={'gray.700'}
-            bg={'white'}
+            color="white"
+            bg={STATUS_SCHEME[status].color}
             openDelay={500}
-            placement="auto"
+            placement="top-start"
             hasArrow
           >
             <Box>
@@ -83,6 +83,7 @@ const FeedbackManagementItem = ({
             openDelay={500}
             label={title}
             fontSize={'sm'}
+            placement="top-start"
             color={'gray.700'}
             bg={'white'}
           >
@@ -90,8 +91,8 @@ const FeedbackManagementItem = ({
               type="button"
               w={'fit-content'}
               noOfLines={1}
-              fontSize={'1.25rem'}
-              fontWeight={700}
+              fontSize={'1.3rem'}
+              fontWeight={600}
               color={'gray.800'}
               as={ReactRouterLink}
               to={appPaths.eventDetail(eventId)}
@@ -104,16 +105,6 @@ const FeedbackManagementItem = ({
           direction={'column'}
           align={'space-between'}
         >
-          <Text
-            flexShrink={0}
-            as={'span'}
-            fontSize={'0.875rem'}
-            color={'gray.500'}
-          >
-            {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
-              endDate,
-            ).toLocaleDateString()}`}
-          </Text>
           <Flex
             flexShrink={0}
             align={'center'}
@@ -133,6 +124,16 @@ const FeedbackManagementItem = ({
               {mentorName}
             </Text>
           </Flex>
+          <Text
+            flexShrink={0}
+            as={'span'}
+            fontSize={'0.875rem'}
+            color={'gray.500'}
+          >
+            {`${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+              endDate,
+            ).toLocaleDateString()}`}
+          </Text>
         </Flex>
       </Flex>
 

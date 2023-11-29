@@ -1,4 +1,4 @@
-import { Flex, FormErrorMessage, Spacer, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, FormErrorMessage, Spacer, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
@@ -121,15 +121,28 @@ const ResumeItem = ({ resume: { id, modifiedAt, title, memo } }: ResumeItemProps
         />
       </Flex>
       <Link to={appPaths.resumeDetail(id)}>
-        <Text
-          noOfLines={1}
-          mt={'1.5rem'}
-          fontSize={'1.5rem'}
-          fontWeight={600}
-          color={'gray.800'}
+        <Tooltip
+          openDelay={500}
+          label={title}
+          placement="top-start"
+          bg={'white'}
+          color={'gray.600'}
+          fontSize={'xs'}
         >
-          {title}
-        </Text>
+          <Text
+            noOfLines={1}
+            mt={'0.8rem'}
+            fontSize={'1.5rem'}
+            fontWeight={600}
+            color={'gray.800'}
+            _hover={{
+              textDecoration: 'underline',
+              textUnderlineOffset: '0.2rem',
+            }}
+          >
+            {title}
+          </Text>
+        </Tooltip>
       </Link>
       <MemoBox
         onOpen={onOpen}
