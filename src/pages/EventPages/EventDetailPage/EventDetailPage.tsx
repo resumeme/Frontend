@@ -1,4 +1,4 @@
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { Spinner } from '~/components/atoms/Spinner';
 import { MentorProfile } from '~/components/molecules/MentorProfile';
 import { Modal } from '~/components/molecules/Modal';
 import { EventDetail } from '~/components/organisms/EventDetail';
+import EventTitle from '~/components/organisms/EventDetail/EventTitle';
 import ResumeSelect from '~/components/organisms/ResumeSelect/ResumeSelect';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
@@ -14,6 +15,7 @@ import { eventKeys } from '~/queries/event/eventKeys.const';
 import usePostEventApply from '~/queries/event/usePostEventApply';
 import { useGetMentorDetail } from '~/queries/user/details/useGetMentorDetail';
 import { userKeys } from '~/queries/user/userKeys';
+import { calculateRemainingTime } from '~/utils/remainTime';
 
 const EventDetailPage = () => {
   const { user } = useUser();
@@ -28,6 +30,10 @@ const EventDetailPage = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
+
+  const isEditable = user?.id === event.mentorId && event.status === 'READY';
+
+  const remainHours = calculateRemainingTime(event.timeInfo.closeDateTime);
 
   return (
     <>
@@ -53,6 +59,15 @@ const EventDetailPage = () => {
           />
         </Suspense>
       </Modal>
+      <Box mb={4}>
+        <EventTitle
+          id={event.id}
+          isEditable={isEditable}
+          title={event.title}
+          eventStatus={event.status}
+          remainHours={remainHours.hours}
+        />
+      </Box>
       <Flex
         px={'0.56rem'}
         gap={'2rem'}
@@ -65,7 +80,7 @@ const EventDetailPage = () => {
           }}
         />
         <EventDetail
-          isEditable={user?.id === event.mentorId && event.status === 'READY'}
+          isEditable={isEditable}
           mentor={mentor}
           event={event}
         />

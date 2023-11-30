@@ -10,18 +10,14 @@ const EventContent = ({ content }: EventContent) => {
       w={'100%'}
       direction={'column'}
       gap={'1.25rem'}
+      p={5}
     >
-      <Text
-        fontWeight={700}
-        as="span"
-      >
-        이벤트 내용
-      </Text>
       <Text
         color={'gray.900'}
         whiteSpace={'pre-wrap'}
         as="p"
         wordBreak={'break-word'}
+        fontSize={'md'}
       >
         {content}
       </Text>
