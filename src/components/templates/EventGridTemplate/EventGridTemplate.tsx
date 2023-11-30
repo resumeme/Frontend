@@ -1,7 +1,7 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Icon } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
+import { HiPlusCircle } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '~/components/atoms/Button';
 import { Pagination } from '~/components/molecules/Pagination';
 import { EventGrid } from '~/components/organisms/EventGrid';
 import { appPaths } from '~/config/paths';
@@ -55,7 +55,41 @@ const EventGridTemplate = () => {
         </Heading>
         {user?.role === 'mentor' && (
           <Link to={appPaths.eventCreate()}>
-            <Button size={'md'}>이벤트 생성</Button>
+            <Box role="group">
+              <Flex
+                align={'center'}
+                gap={1}
+                _groupHover={{
+                  transform: 'translateY(-1px)',
+                  transition: 'all .25s linear',
+                }}
+              >
+                <Icon
+                  as={HiPlusCircle}
+                  color={'gray.400'}
+                  fontSize={'1.25rem'}
+                  verticalAlign={'center'}
+                  _groupHover={{
+                    color: 'primary.900',
+                    transition: 'all .6s linear',
+                    transform: 'rotateX(180deg)',
+                  }}
+                />
+                <Text
+                  fontSize={'md'}
+                  fontWeight={'semibold'}
+                  color={'gray.400'}
+                  textDecoration="underline 2px"
+                  textUnderlineOffset="0.25rem"
+                  _groupHover={{
+                    color: 'primary.900',
+                    transition: 'all .25s linear',
+                  }}
+                >
+                  이벤트 생성
+                </Text>
+              </Flex>
+            </Box>
           </Link>
         )}
       </Flex>

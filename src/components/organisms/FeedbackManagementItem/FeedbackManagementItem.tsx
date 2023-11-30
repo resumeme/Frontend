@@ -33,13 +33,13 @@ const FeedbackManagementItem = ({
     title: eventTitle,
     eventId,
     resumeTitle,
+    rejectMessage,
   },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
   const toast = useToast();
 
-  // TODO api 상태 정해지면 label 컬러 추가
   const handleClick = () => {
     if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
@@ -52,6 +52,8 @@ const FeedbackManagementItem = ({
       });
     }
   };
+
+  const isReject = status === 'REJECT';
 
   return (
     <>
@@ -164,18 +166,18 @@ const FeedbackManagementItem = ({
           maxW={'xl'}
           noOfLines={2}
           placement="bottom-start"
-          label={resumeTitle}
+          label={!isReject ? resumeTitle : rejectMessage}
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
-          bg={'gray.300'}
-          color={'gray.600'}
+          bg={'white'}
+          color={'gray.700'}
         >
           <Text
             as={'span'}
             noOfLines={1}
           >
-            {resumeTitle}
+            {!isReject ? resumeTitle : rejectMessage}
           </Text>
         </Tooltip>
         <Spacer />
