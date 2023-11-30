@@ -51,7 +51,7 @@ const EventGridTemplate = () => {
           fontSize={'1.5rem'}
           color={'gray.800'}
         >
-          진행 중인 이벤트
+          이벤트 목록
         </Heading>
         {user?.role === 'mentor' && (
           <Link to={appPaths.eventCreate()}>

@@ -95,7 +95,7 @@ export const data = {
       isTeam: true,
       teamMembers: '6명(프론트엔드 3명, 백엔드 3명)',
       skills: ['TypeScript', 'React.js', 'Chakra-UI', 'Tanstack-Qeury', 'React-Hook-Form'],
-      projectContent: '와우 지금 만들고 있는거에요 ㅋ 이력서 첨삭 서비스입니다. 2달 걸림',
+      projectContent: '와우 지금 만들고 있는거에요 ㅋ 이력서 피드백 서비스입니다. 2달 걸림',
       projectUrl: 'https://abcd.efg',
     },
     {

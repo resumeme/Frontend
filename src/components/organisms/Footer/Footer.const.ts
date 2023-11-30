@@ -41,10 +41,10 @@ const FOOTER_CONTENT = {
       },
     },
     event: {
-      text: '피드백',
+      text: '이벤트',
       link: {
         ongoingEvent: {
-          text: '진행중인 피드백',
+          text: '이벤트 목록',
           url: '/event',
         },
       },

@@ -65,7 +65,7 @@ const RemoteControlPannel = () => {
           fontSize={'sm'}
           type="submit"
         >
-          첨삭 완료하기
+          피드백 완료하기
         </Button>
       </form>
       <RemoteControlReject

@@ -23,7 +23,7 @@ const FeedbackInput = ({
   onChange,
   onSaveClick,
   onCancelClick,
-  label = '첨삭하기',
+  label = '피드백하기',
   saveLabel = '저장',
   ...editorProps
 }: FeedbackInputProps) => {

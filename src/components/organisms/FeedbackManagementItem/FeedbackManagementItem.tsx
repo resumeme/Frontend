@@ -38,7 +38,7 @@ const FeedbackManagementItem = ({
       navigate(appPaths.feedbackReflect(resumeId, eventId));
     } else {
       toast({
-        description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.',
+        description: '피드백 반영은 피드백이 완료된 후에 가능해요.',
         status: 'info',
       });
     }
