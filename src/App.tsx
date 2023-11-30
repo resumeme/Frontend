@@ -9,7 +9,6 @@ import { ResumeMeErrorResponse } from './types/errorResponse';
 import { deleteCookie } from './utils/cookie';
 import router from '~/routes/router';
 import theme from '~/theme';
-import Fonts from '~/theme/typography/fonts';
 
 const { toast } = createStandaloneToast({ theme });
 
@@ -59,7 +58,6 @@ const App = () => {
         theme={theme}
         toastOptions={{ defaultOptions: { position: 'top', duration: 2000 } }}
       >
-        <Fonts />
         <RouterProvider router={router} />
       </ChakraProvider>
     </QueryClientProvider>
