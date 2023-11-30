@@ -116,16 +116,16 @@ const BasicInfoForm = ({
                   error={errors.skills}
                   defaultValue={''}
                 />
-                {skills.length > 0 && (
-                  <DynamicTags
-                    tagsArray={skills}
-                    handleItemDelete={handleItemDelete}
-                  />
-                )}
               </Flex>
             </FormControl>
           </Box>
         </Tooltip>
+        {skills.length > 0 && (
+          <DynamicTags
+            tagsArray={skills}
+            handleItemDelete={handleItemDelete}
+          />
+        )}
         <Box>
           <FormControl isInvalid={Boolean(errors.introduce)}>
             <FormTextarea
