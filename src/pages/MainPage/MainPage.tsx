@@ -248,7 +248,12 @@ const MainPage = () => {
             justify={'center'}
             align={'center'}
           >
-            <Text color={'gray.700'}>{CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}</Text>
+            <Text
+              color={'gray.400'}
+              fontWeight={600}
+            >
+              {CONSTANTS.DESCRIBE_MESSAGE.NO_EVENTS}
+            </Text>
           </Flex>
         )}
       </Box>
