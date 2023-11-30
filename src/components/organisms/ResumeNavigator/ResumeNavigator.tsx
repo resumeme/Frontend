@@ -32,7 +32,7 @@ const ResumeNavigator = ({ pageStep, onStep }: ResumeNavigatorProps) => {
     },
     {
       step: 'FEEDBACK',
-      text: '첨삭 관리',
+      text: '피드백 관리',
       icon: RiQuestionAnswerFill,
       onClick: () => onStep('FEEDBACK'),
     },

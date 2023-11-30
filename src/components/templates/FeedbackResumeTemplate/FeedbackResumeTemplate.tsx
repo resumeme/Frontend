@@ -63,8 +63,8 @@ const FeedbackResumeTemplate = () => {
           hasArrow
           placement="left"
           fontSize={'xs'}
-          label="작업이 끝나면 화면 우측에서 첨삭 완료 버튼을 눌러주세요.
-          첨삭이 완료되기 전에는 첨삭 신청자에게 첨삭 내용이 보여지지 않습니다."
+          label="작업이 끝나면 화면 우측에서 피드백 완료 버튼을 눌러주세요.
+          피드백이 완료되기 전에는 피드백 신청자에게 피드백 내용이 보여지지 않습니다."
         >
           <Box>
             <Label bg={'highlight.900'}>완료되지 않음</Label>

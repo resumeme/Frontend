@@ -41,7 +41,7 @@ const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
           w={'15%'}
           as="span"
         >
-          첨삭 종료일
+          피드백 종료일
         </Text>
         <Text as="span">{formatDate(endDate)}</Text>
       </Flex>

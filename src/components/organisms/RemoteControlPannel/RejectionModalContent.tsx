@@ -42,7 +42,7 @@ const RejectionModalContent = ({ onClose, eventId, menteeId }: RejectionModalCon
             fontWeight={'bold'}
             color={'gray.800'}
           >
-            해당 이력서의 첨삭을 반려하시겠어요?
+            해당 이력서의 피드백을 반려하시겠어요?
           </Text>
           <FormControl isInvalid={Boolean(errors.rejectMessage)}>
             <FormTextarea
