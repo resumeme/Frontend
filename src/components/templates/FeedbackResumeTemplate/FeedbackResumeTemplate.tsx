@@ -167,16 +167,19 @@ const FeedbackResumeTemplate = () => {
                     justify={'flex-end'}
                     flexWrap={'wrap'}
                   >
-                    {data.basic.skills.map((skill: string, index: number) => (
-                      <Label
-                        key={index}
-                        bg={'gray.300'}
-                        color={'gray.700'}
-                        fontWeight={'medium'}
-                      >
-                        {skill}
-                      </Label>
-                    ))}
+                    {data.basic.skills.map(
+                      (skill: string, index: number) =>
+                        skill !== '' && (
+                          <Label
+                            key={index}
+                            bg={'gray.300'}
+                            color={'gray.700'}
+                            fontWeight={'medium'}
+                          >
+                            {skill}
+                          </Label>
+                        ),
+                    )}
                   </Flex>
                 </Flex>
               )}
