@@ -159,7 +159,7 @@ const FeedbackManagementItem = ({
       >
         <Icon
           as={FiFileText}
-          color={'gray.600'}
+          color={!isReject ? 'gray.600' : 'red.600'}
           boxSize={'1rem'}
         />
         <Tooltip
@@ -176,6 +176,7 @@ const FeedbackManagementItem = ({
           <Text
             as={'span'}
             noOfLines={1}
+            color={!isReject ? 'gray.600' : 'red.600'}
           >
             {!isReject ? resumeTitle : rejectMessage}
           </Text>
