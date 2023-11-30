@@ -25,7 +25,7 @@ const axiosErrorHandler = (error: Error) => {
 
         alert(CONSTANTS.ERROR_MESSAGES[code]);
 
-        window.location.href = appPaths.signIn();
+        window.location.replace(appPaths.signIn());
         break;
 
       default:
