@@ -24,7 +24,16 @@ const STATUS_SCHEME = {
 };
 
 const FeedbackManagementItem = ({
-  resume: { endDate, mentorName, resumeId, startDate, status, title, eventId },
+  resume: {
+    endDate,
+    mentorName,
+    resumeId,
+    startDate,
+    status,
+    title: eventTitle,
+    eventId,
+    resumeTitle,
+  },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
@@ -81,7 +90,7 @@ const FeedbackManagementItem = ({
 
           <Tooltip
             openDelay={500}
-            label={title}
+            label={eventTitle}
             fontSize={'sm'}
             placement="top-start"
             color={'gray.700'}
@@ -97,7 +106,7 @@ const FeedbackManagementItem = ({
               as={ReactRouterLink}
               to={appPaths.eventDetail(eventId)}
             >
-              {title}
+              {eventTitle}
             </Link>
           </Tooltip>
         </Flex>
@@ -155,8 +164,7 @@ const FeedbackManagementItem = ({
           maxW={'xl'}
           noOfLines={2}
           placement="bottom-start"
-          //TODO -  이력서 제목이 들어갈 부분
-          label={'내 이력서'}
+          label={resumeTitle}
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
@@ -167,7 +175,7 @@ const FeedbackManagementItem = ({
             as={'span'}
             noOfLines={1}
           >
-            {/* //TODO -  이력서 제목이 들어갈 부분 */}내 이력서
+            {resumeTitle}
           </Text>
         </Tooltip>
         <Spacer />
