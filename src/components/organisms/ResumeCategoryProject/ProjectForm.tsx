@@ -226,12 +226,14 @@ const ProjectForm = ({
                         register={{ ...register('skills') }}
                         onKeyDown={handleSkills}
                       />
-                      <DynamicTags
-                        handleItemDelete={handleDeleteSkills}
-                        tagsArray={skills}
-                      />
                     </Box>
                   </Tooltip>
+                  {skills.length > 0 && (
+                    <DynamicTags
+                      handleItemDelete={handleDeleteSkills}
+                      tagsArray={skills}
+                    />
+                  )}
                 </Flex>
               </FormControl>
               <FormControl>
