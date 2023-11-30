@@ -1,10 +1,11 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Box, Divider, Flex, HStack, Heading, Icon, Text, VStack } from '@chakra-ui/react';
+import { Image, Divider, Flex, HStack, Heading, Icon, Text, VStack } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { AiFillGithub } from 'react-icons/ai';
 import { RiNotionFill } from 'react-icons/ri';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { OAuthSignInButton } from '~/components/molecules/OAuthSignInButton';
+import { assets } from '~/config/assets';
 import CONSTANTS from '~/constants';
 
 const TEXT = {
@@ -64,12 +65,11 @@ const SignInTemplate = () => {
 const Logo = () => {
   return (
     <Flex align="center">
-      <Box
-        bg="gray.800"
-        w="24px"
-        h="24px"
-        borderRadius="md"
-        mr="12px"
+      <Image
+        h={'24px'}
+        minH={'24px'}
+        src={assets.logoSvg}
+        mr="0.7rem"
       />
       <Heading
         fontSize={'xl'}
