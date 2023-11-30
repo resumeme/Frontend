@@ -9,7 +9,7 @@ type FeedbackBlockProps = {
   blockId: number;
 };
 
-const LABEL_TEXT = '첨삭하기';
+const LABEL_TEXT = '피드백하기';
 
 const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
   const { eventId = '', resumeId = '' } = useParams();

@@ -77,7 +77,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                 )}
                 {currentComments && (
                   <AccordionToggle
-                    text="첨삭 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
+                    text="피드백 코멘트가 달려있어요! (੭˙ ˘ ˙)੭"
                     w={'full'}
                     isOpen={isOpen}
                   >

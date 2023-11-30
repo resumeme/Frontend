@@ -234,7 +234,7 @@ const MainPage = () => {
               textUnderlineOffset: '.2rem',
             }}
           >
-            진행 중인 이벤트
+            최신 이벤트
           </Heading>
         </Link>
         {events && events.length > 0 ? (

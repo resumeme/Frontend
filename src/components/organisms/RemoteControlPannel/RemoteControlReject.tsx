@@ -37,7 +37,7 @@ const RemoteControlReject = ({ eventId, menteeId }: RemoteControlRejectProps) =>
         onClick={onOpen}
         textAlign={'center'}
       >
-        이력서 첨삭 반려하기
+        이력서 피드백 반려하기
       </Text>
     </Box>
   );

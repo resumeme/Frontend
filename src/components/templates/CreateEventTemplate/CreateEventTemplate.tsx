@@ -63,7 +63,7 @@ const CreateEventTemplate = ({
         fontWeight={600}
         color={'gray.900'}
       >
-        첨삭 이벤트 생성
+        피드백 이벤트 생성
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BorderBox
@@ -193,7 +193,7 @@ const CreateEventTemplate = ({
               </Checkbox>
             </HStack>
             <FormControl isInvalid={!!errors.time?.endDate}>
-              <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
+              <FormLabel isRequired={true}>피드백 종료일</FormLabel>
               <FormDateInput
                 name="time.endDate"
                 min={closeDateTime}
@@ -201,7 +201,7 @@ const CreateEventTemplate = ({
                 w={'47.6%'}
                 register={{
                   ...register('time.endDate', {
-                    required: '첨삭을 종료할 날짜를 입력해주세요.',
+                    required: '피드백을 종료할 날짜를 입력해주세요.',
                     min: {
                       value: closeDateTime,
                       message: '신청 기간 이후의 날짜를 입력해주세요.',
