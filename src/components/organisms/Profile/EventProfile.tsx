@@ -17,7 +17,7 @@ const EventProfile = ({ events }: EventProfile) => {
         color={'gray.700'}
         fontWeight={700}
       >
-        진행중인 이벤트
+        이벤트 목록
       </Heading>
       <Flex
         mt={'1.25rem'}
