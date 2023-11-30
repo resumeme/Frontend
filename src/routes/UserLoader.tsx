@@ -14,12 +14,19 @@ const userCheck = async ({ role }: CheckUser) => {
   const user = await getUser();
 
   if (!user) {
-    toast({ description: '로그인이 필요해요.', status: 'info' });
+    toast({
+      duration: 2000,
+      position: 'top',
+      description: '로그인이 필요해요.',
+      status: 'info',
+    });
     return redirect(appPaths.signIn());
   }
 
   if (role && user.role !== role) {
     toast({
+      duration: 2000,
+      position: 'top',
       description: `${role === 'mentee' ? '멘티' : '멘토'}로 로그인해야 확인할 수 있어요.`,
       status: 'info',
     });

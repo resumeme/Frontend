@@ -34,6 +34,7 @@ const axiosErrorHandler = (error: Error) => {
         }
 
         toast({
+          position: 'top',
           duration: 2000,
           description: CONSTANTS.ERROR_MESSAGES[code],
           status: 'error',
