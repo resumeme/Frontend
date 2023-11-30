@@ -9,7 +9,12 @@ const userCheck = async () => {
   const user = await getUser();
 
   if (user) {
-    toast({ description: '이미 로그인 되어 있어요.', status: 'info' });
+    toast({
+      duration: 2000,
+      position: 'top',
+      description: '이미 로그인 되어 있어요.',
+      status: 'info',
+    });
     return redirect('/');
   }
 
