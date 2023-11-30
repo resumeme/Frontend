@@ -1,4 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { Label } from '~/components/atoms/Label';
 import { formatDate } from '~/utils/formatDate';
 
 type EventTime = {
@@ -14,36 +15,87 @@ const EventTime = ({ openDateTime, closeDateTime, endDate }: EventTime) => {
         gap={'1.5rem'}
         w={'100%'}
       >
-        <Text
-          w={'15%'}
-          fontWeight={700}
-          as="span"
-        >
-          모집 기간
-        </Text>
-
+        <Box w="15%">
+          <Label
+            fontWeight={800}
+            bg={'gray.200'}
+            w={'fit-content'}
+            color={'gray.800'}
+            fontSize={'sm'}
+            as="span"
+            py={0}
+          >
+            신청 기간
+          </Label>
+        </Box>
         <Flex
           flexGrow={1}
           gap={'1rem'}
         >
-          <Text as="span">{`${new Date(openDateTime).toLocaleString()}`}</Text>
-          <Text as="span"> ~ </Text>
-          <Text as="span">{`${new Date(closeDateTime).toLocaleString()}`}</Text>
+          <Text
+            color={'gray.700'}
+            fontSize={'sm'}
+            fontWeight={500}
+          >{`${new Date(openDateTime).toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          })}`}</Text>
+          <Text as="span">~</Text>
+          <Text
+            color={'gray.700'}
+            fontWeight={500}
+            fontSize={'sm'}
+          >{`${new Date(closeDateTime).toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          })}`}</Text>
+          <Text as="span"></Text>
         </Flex>
       </Flex>
-
       <Flex
         w={'100%'}
         gap={'1.5rem'}
       >
-        <Text
-          fontWeight={700}
-          w={'15%'}
-          as="span"
+        <Box w="15%">
+          <Label
+            fontWeight={800}
+            bg={'gray.200'}
+            w={'fit-content'}
+            color={'gray.800'}
+            fontSize={'sm'}
+            as="span"
+            py={0}
+          >
+            피드백 일정
+          </Label>
+        </Box>
+        <Flex
+          align={'center'}
+          gap={1}
         >
-          피드백 종료일
-        </Text>
-        <Text as="span">{formatDate(endDate)}</Text>
+          <Text
+            w={'fit-content'}
+            color={'gray.800'}
+            fontWeight={700}
+            fontSize={'sm'}
+          >
+            {formatDate(endDate)}
+          </Text>
+          <Text
+            color={'gray.700'}
+            fontWeight={500}
+            fontSize={'sm'}
+          >
+            {' '}
+            이전까지 완료 예정
+          </Text>
+        </Flex>
       </Flex>
     </>
   );

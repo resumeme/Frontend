@@ -1,10 +1,9 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Box, Divider, Flex, VStack } from '@chakra-ui/react';
+
 import EventContent from './EventContent';
 import EventTime from './EventTime';
-import EventTitle from './EventTitle';
 import MentorCareerContent from './MentorCareerContent';
 import MentorCareerTitle from './MentorCareerTitle';
-import { BorderBox } from '~/components/atoms/BorderBox';
 import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
@@ -15,51 +14,49 @@ type EventDetailProps = {
 };
 
 const EventDetail = ({
-  isEditable,
   mentor,
   event: {
-    id,
     content,
-    status,
     timeInfo: { closeDateTime, endDate, openDateTime },
-    title,
     positions,
   },
 }: EventDetailProps) => {
   return (
-    <Box w={'73%'}>
-      <VStack
-        fontSize={'0.875rem'}
-        w={'full'}
-      >
-        <EventTitle
-          id={id}
-          isEditable={isEditable}
-          eventStatus={status}
-          title={title}
-        />
-        <BorderBox
+    <Box flex={3.75}>
+      <VStack w={'full'}>
+        <Box
           borderRadius={'0.375rem'}
-          p={'2rem 2.5rem'}
+          p={'2rem 2rem'}
           w={'full'}
+          bg={'white'}
+          flex={0}
+          minH={'25rem'}
+          border={'1px solid'}
+          borderColor={'gray.300'}
+          boxShadow={'sm'}
         >
           <Flex
-            gap={'2rem'}
+            gap={'1rem'}
             direction={'column'}
           >
-            <EventTime
-              endDate={endDate}
-              closeDateTime={closeDateTime}
-              openDateTime={openDateTime}
-            />
-
             <MentorCareerTitle experiencedPositions={positions} />
-
+            <Divider
+              borderColor={'gray.300'}
+              mb={5}
+            />
             <EventContent content={content} />
-
+            <Divider
+              borderColor={'gray.300'}
+              my={8}
+            />
+            <EventTime
+              openDateTime={openDateTime}
+              closeDateTime={closeDateTime}
+              endDate={endDate}
+            />
             <MentorCareerContent careerContent={mentor.careerContent} />
           </Flex>
-        </BorderBox>
+        </Box>
       </VStack>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Flex, Heading, Spacer } from '@chakra-ui/react';
+import { Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Label } from '~/components/atoms/Label';
 import { OptionsButton } from '~/components/molecules/OptionsButton';
@@ -12,9 +12,10 @@ type EventTitle = {
   isEditable: boolean;
   title: string;
   eventStatus: EventStatus;
+  remainHours: number;
 };
 
-const EventTitle = ({ id, isEditable, title, eventStatus }: EventTitle) => {
+const EventTitle = ({ id, isEditable, title, eventStatus, remainHours }: EventTitle) => {
   const isActive = eventStatus === 'OPEN' || eventStatus === 'REOPEN';
   const navigate = useNavigate();
 
@@ -22,30 +23,53 @@ const EventTitle = ({ id, isEditable, title, eventStatus }: EventTitle) => {
 
   return (
     <Flex
-      p={'1rem'}
+      p={'.5rem'}
       w={'full'}
-      align={'center'}
-      gap={'1.5rem'}
+      direction={'column'}
+      justify={'center'}
+      gap={1}
     >
-      <Heading
-        maxW={'50%'}
-        as={'span'}
-        overflow={'hidden'}
-        noOfLines={1}
-        fontSize={'1.5rem'}
+      <Flex
+        align={'center'}
+        gap={'.75rem'}
       >
-        {title}
-      </Heading>
-      <Label
-        py={'0.1rem'}
-        fontSize={'0.875rem'}
-        bg={isActive ? 'primary.900' : 'gray.400'}
-        textAlign={'center'}
-      >
-        {CONSTANTS.EVENT_STATUS[eventStatus]}
-      </Label>
-      <Spacer />
-      {isEditable && <OptionsButton options={options} />}
+        <Label
+          fontSize={'1rem'}
+          bg={isActive ? 'primary.900' : 'gray.800'}
+          textAlign={'center'}
+        >
+          {CONSTANTS.EVENT_STATUS[eventStatus]}
+        </Label>
+        <Heading
+          maxW={isEditable ? '50% ' : 'full'}
+          as={'span'}
+          overflow={'hidden'}
+          fontSize={'1.5rem'}
+          color={'gray.800'}
+        >
+          {title}
+        </Heading>
+        <Spacer />
+        {isEditable && <OptionsButton options={options} />}
+      </Flex>
+      {eventStatus === 'OPEN' && remainHours > 0 && (
+        <Flex justify={'flex-end'}>
+          <Text
+            fontSize={'sm'}
+            color={'gray.600'}
+          >
+            모집종료까지 약{' '}
+            <Text
+              as="span"
+              fontWeight={'bold'}
+              color={'green.600'}
+            >
+              {remainHours - 1}시간
+            </Text>{' '}
+            남았어요!
+          </Text>
+        </Flex>
+      )}
     </Flex>
   );
 };

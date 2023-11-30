@@ -1,20 +1,21 @@
 import {
   Box,
+  Card,
+  CardBody,
+  CardHeader,
   Flex,
-  HStack,
   Heading,
-  IconButton,
-  Spacer,
   Text,
   Tooltip,
-  VStack,
+  Icon,
+  Divider,
 } from '@chakra-ui/react';
 import { FaRegBell } from 'react-icons/fa6';
 import { FaBell } from 'react-icons/fa6';
 import { v4 as uuidv4 } from 'uuid';
 import CONSTANTS from './../../../constants/index';
 import { Avatar } from '~/components/atoms/Avatar';
-import { BorderBox } from '~/components/atoms/BorderBox';
+import { Badge } from '~/components/atoms/Badge';
 import { Button } from '~/components/atoms/Button';
 import { Label } from '~/components/atoms/Label';
 import useUser from '~/hooks/useUser';
@@ -25,6 +26,7 @@ import { useGetIsAppliedEvent } from '~/queries/user/useGetIsAppliedEvent';
 import { ReadEvent } from '~/types/event/event';
 import { EventStatus } from '~/types/eventStatus';
 import { ReadMentor } from '~/types/mentor';
+import { Position } from '~/types/position';
 
 type MentorProfileProps = {
   mentor: ReadMentor;
@@ -38,10 +40,9 @@ const MentorProfile = ({
   onApply,
 }: MentorProfileProps) => {
   const { user } = useUser();
-
   const { nickname, introduce, imageUrl, careerYear, experiencedPositions } = mentor;
-
   const { data: isApplied } = useGetIsAppliedEvent({ eventId: id.toString(), role: user?.role });
+  const isFullCount = currentApplicantCount >= maximumCount;
 
   const getApplyButtonText = (status: EventStatus) => {
     if (status === 'OPEN' || status === 'REOPEN') {
@@ -57,164 +58,234 @@ const MentorProfile = ({
   const { mutate: mentorFollow } = usePostMentorFollow();
 
   return (
-    <VStack
-      flexShrink={0}
-      w="14.25rem"
-      gap={'1.56rem'}
-    >
-      <Avatar
-        size="lg"
-        name={nickname}
-        src={imageUrl}
-      />
-      <Flex align={'center'}>
-        <Heading
-          textAlign={'center'}
-          fontSize={'20px'}
-          color={'gray.800'}
-        >
-          {nickname}
-        </Heading>
-
+    <>
+      <Flex
+        direction={'column'}
+        gap={5}
+        flex={1.5}
+      >
+        <Card role="group">
+          <CardHeader>
+            <Flex
+              flex="1"
+              gap="3"
+              alignItems="center"
+            >
+              <Avatar
+                name={nickname}
+                src={imageUrl}
+              />
+              <Flex
+                flex={1}
+                direction={'column'}
+                justify={'center'}
+                align={'flex-start'}
+                w={'100%'}
+                gap={'.2rem'}
+              >
+                <Flex
+                  align={'center'}
+                  gap={2}
+                >
+                  <Heading
+                    size="sm"
+                    _groupHover={{ textDecoration: 'underline' }}
+                  >
+                    {nickname}
+                  </Heading>
+                </Flex>
+                <Flex
+                  align={'center'}
+                  gap={2}
+                >
+                  <Badge
+                    type="mentee"
+                    py={0}
+                  >
+                    멘토
+                  </Badge>
+                  <Text
+                    fontSize={'sm'}
+                    color={'gray.500'}
+                  >{`${careerYear}년차`}</Text>
+                </Flex>
+                <Flex mt={2}>
+                  {experiencedPositions && <PositionLabels positions={experiencedPositions} />}
+                </Flex>
+              </Flex>
+            </Flex>
+          </CardHeader>
+          {introduce && (
+            <CardBody
+              h={'fit-content'}
+              pt={'.5rem'}
+            >
+              <Text
+                fontSize={'sm'}
+                color={'gray.700'}
+                textAlign={'center'}
+                noOfLines={3}
+              >
+                "{introduce}"
+              </Text>
+            </CardBody>
+          )}
+        </Card>
         {user?.role === 'mentee' && (
-          <>
+          <Flex
+            mt={5}
+            px={1}
+            gap={3}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
             <Tooltip
               hasArrow
               placement="right"
-              bg={'gray.300'}
+              bg={'white'}
               color={'gray.600'}
-              label={followData?.id ? '이메일 알림 수신 중' : '이메일 알림 차단 중'}
+              label={followData?.id ? '이메일 알림 받는중' : '이메일 알림 받기'}
             >
-              <Box>
-                <IconButton
+              <Flex
+                bg={'gray.100'}
+                outline={'1px solid'}
+                outlineColor={'gray.300'}
+                boxSize={10}
+                borderRadius={'lg'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                cursor={'pointer'}
+                boxShadow={'base'}
+                onClick={
+                  followData?.id
+                    ? () => deleteMentorFollow({ followId: Number(followData?.id) })
+                    : () => mentorFollow({ mentorId })
+                }
+                _hover={{
+                  bg: 'gray.300',
+                  transition: '.2s',
+                }}
+              >
+                <Icon
                   display={'flex'}
+                  boxSize={'1rem'}
                   alignItems={'center'}
-                  boxSize={'1'}
                   w={'auto'}
                   h={'fit-content'}
                   bg={'inherit'}
-                  icon={followData?.id ? <FaBell size="1rem" /> : <FaRegBell size="1rem" />}
-                  onClick={
-                    followData?.id
-                      ? () => deleteMentorFollow({ followId: Number(followData?.id) })
-                      : () => mentorFollow({ mentorId })
-                  }
+                  as={followData?.id ? FaBell : FaRegBell}
                   aria-label="follow"
                   color={followData?.id ? 'primary.900' : 'gray.700'}
                 />
-              </Box>
+              </Flex>
             </Tooltip>
-          </>
-        )}
-      </Flex>
-      <Flex
-        w={'100%'}
-        minH={'12.44rem'}
-        direction={'column'}
-      >
-        {(introduce || careerYear) && (
-          <BorderBox>
-            <Flex
-              fontSize={'0.875rem'}
-              direction={'column'}
-              gap={'0.5rem'}
+            <Divider
+              borderColor={'gray.400'}
+              orientation="vertical"
+              h={'90%'}
+            />
+            <Text
+              fontSize={'xs'}
+              fontWeight={500}
+              color={'gray.500'}
+              whiteSpace={'pre-line'}
+              lineHeight={'1rem'}
             >
-              {careerYear && (
-                <HStack
-                  w={'100%'}
-                  gap={'1.5rem'}
-                >
-                  <Text as="span">경력</Text>
-                  <Text
-                    fontWeight={500}
-                    as="span"
-                    color={'gray.900'}
-                  >{`${careerYear}년`}</Text>
-                </HStack>
-              )}
-
-              {experiencedPositions && (
-                <Flex
-                  w={'100%'}
-                  gap={'1.5rem'}
-                >
-                  <Text
-                    flexShrink={0}
-                    as="span"
-                  >
-                    직무
-                  </Text>
-                  <HStack flexWrap={'wrap'}>
-                    {experiencedPositions.map((position) => (
-                      <Label
-                        py={'0.05rem'}
-                        fontWeight={500}
-                        alignSelf={'center'}
-                        fontSize={'0.875rem'}
-                        key={uuidv4()}
-                        type={position}
-                      />
-                    ))}
-                  </HStack>
-                </Flex>
-              )}
-              {introduce && (
-                <Flex
-                  direction={'column'}
-                  gap={'0.5rem'}
-                >
-                  <Text
-                    flexShrink={0}
-                    as="span"
-                  >
-                    자기소개
-                  </Text>
-                  <Text
-                    noOfLines={6}
-                    overflow={'hidden'}
-                    color={'gray.700'}
-                    fontWeight={500}
-                  >
-                    {introduce}
-                  </Text>
-                </Flex>
-              )}
-            </Flex>
-          </BorderBox>
+              {`이 멘토의 다음 이벤트를\n이메일 알림으로 받아보세요.`}
+            </Text>
+          </Flex>
         )}
-        <Spacer />
         <Flex
-          w={'100%'}
-          justifyContent={'space-between'}
-          mt={'1.56rem'}
+          justify={'space-between'}
+          px={2}
+          mt={10}
         >
           <Text
-            as={'span'}
-            color={'gray.800'}
+            fontSize={'sm'}
+            color={'gray.600'}
+            fontWeight={'semibold'}
           >
-            인원
+            신청인원
           </Text>
-          <Text
-            as={'span'}
-            color={'gray.800'}
+          <Label
+            py={0}
+            px={1.5}
+            maxH={'1.3rem'}
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            bg={status === 'OPEN' ? 'green.100' : 'gray.300'}
+            color={'gray.700'}
+            textDecoration={isFullCount ? 'line-through' : 'none'}
           >
-            {currentApplicantCount}/{maximumCount}
-          </Text>
+            {currentApplicantCount} / {maximumCount}
+          </Label>
         </Flex>
+        <Box>
+          {(!user || user?.role === 'mentee') && (
+            <Button
+              type="button"
+              size={'full'}
+              onClick={onApply}
+              isDisabled={!(status === 'OPEN' || status === 'REOPEN') || isApplied}
+              _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
+              _hover={{
+                opacity: '80%',
+              }}
+            >
+              {getApplyButtonText(status)}
+            </Button>
+          )}
+        </Box>
       </Flex>
-      {(!user || user?.role === 'mentee') && (
-        <Button
-          type="button"
-          size={'full'}
-          onClick={onApply}
-          isDisabled={!(status === 'OPEN' || status === 'REOPEN') || isApplied}
-          _disabled={{ _hover: { bg: 'primary.500' }, bg: 'primary.500', cursor: 'default' }}
-        >
-          {getApplyButtonText(status)}
-        </Button>
-      )}
-    </VStack>
+    </>
   );
 };
 
 export default MentorProfile;
+
+const PositionLabels = ({ positions }: { positions: Position[] }) => {
+  const MAX_LABELS_TO_DISPLAY = 1;
+
+  return (
+    <Flex gap={'0.2rem'}>
+      {positions.slice(0, MAX_LABELS_TO_DISPLAY).map((position) => (
+        <Label
+          key={uuidv4()}
+          type={position}
+          py={0}
+        />
+      ))}
+      {positions.length > MAX_LABELS_TO_DISPLAY && (
+        <Tooltip
+          placement="top"
+          bg={'white'}
+          rounded={'xl'}
+          hasArrow
+          label={
+            <Flex
+              direction={'column'}
+              align={'start'}
+            >
+              {positions.slice(MAX_LABELS_TO_DISPLAY).map((position) => (
+                <Label
+                  key={uuidv4()}
+                  w={'fit-content'}
+                  type={position}
+                  py={0}
+                />
+              ))}
+            </Flex>
+          }
+        >
+          <Text
+            ml={1}
+            fontSize={'xs'}
+            color={'gray.500'}
+            fontWeight={'semibold'}
+            cursor={'pointer'}
+          >{`+${positions.length - MAX_LABELS_TO_DISPLAY}`}</Text>
+        </Tooltip>
+      )}
+    </Flex>
+  );
+};
