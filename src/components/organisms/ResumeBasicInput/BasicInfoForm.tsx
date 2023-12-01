@@ -79,7 +79,9 @@ const BasicInfoForm = ({
                 spellCheck="false"
                 defaultValue={position ?? null}
                 onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  event.preventDefault();
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                  }
                 }}
               />
             </FormControl>
