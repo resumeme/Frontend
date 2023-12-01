@@ -21,7 +21,7 @@ const Pagination = ({ total, size, page, setPage }: PaginationProps) => {
       w={'full'}
       justifyContent={'center'}
       align={'center'}
-      mt={'10rem'}
+      mt={'4rem'}
     >
       <IconButton
         w={'auto'}
