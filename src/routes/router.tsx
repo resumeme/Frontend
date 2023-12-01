@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
+import { EventCreateLoader } from './EventCreateLoader';
 import FeedbackLayout from './FeedbackLayout';
 import FocusLayout from './FocusLayout';
 import GuestLoader from './GuestLoader';
@@ -51,7 +52,15 @@ const router = createBrowserRouter([
           { path: 'resume/:resumeId', element: <ResumeDetailPage />, loader: MenteeLoader },
           { path: 'write-review', element: <WriteReviewPage />, loader: MentorLoader },
 
-          { path: 'event/create', element: <CreateEventPage />, loader: MentorLoader },
+          {
+            element: <EventCreateLoader />,
+            children: [
+              {
+                path: 'event/create',
+                element: <CreateEventPage />,
+              },
+            ],
+          },
           { path: 'event/edit/:eventId', element: <EditEventPage />, loader: MentorLoader },
           { path: 'event/', element: <EventListPage /> },
           { path: 'event/:eventId', element: <EventDetailPage /> },

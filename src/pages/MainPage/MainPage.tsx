@@ -34,8 +34,6 @@ const MainPage = () => {
 
   const navigate = useNavigate();
 
-  // const hasOpenedEvent = useCheckOpenedEvent();
-
   const mentorButton: Option[] = [
     {
       text: '이벤트 생성',
