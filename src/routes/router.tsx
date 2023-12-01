@@ -80,11 +80,12 @@ const router = createBrowserRouter([
       },
       {
         element: <FocusLayout />,
+
         children: [
+          { path: 'sign-up', element: <SignUpPage /> },
           {
             element: <GuestLoader />,
             children: [
-              { path: 'sign-up', element: <SignUpPage /> },
               { path: 'sign-in', element: <SignInPage /> },
               { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
             ],

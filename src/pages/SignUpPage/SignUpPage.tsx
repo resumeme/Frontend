@@ -46,12 +46,18 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (step === 'COMMON') {
+      if (user) {
+        toast({
+          description: '이미 가입되 회원입니다. :)',
+        });
+        navigate(appPaths.main(), { replace: true });
+        return;
+      }
       if (!cacheKey) {
         toast({
-          description: '소셜 로그인을 먼저 해주세요.',
-          status: 'info',
+          description: '소셜 로그인을 먼저 해주세요. :)',
         });
-        navigate(appPaths.signIn());
+        navigate(appPaths.signIn(), { replace: true });
         return;
       }
     }
