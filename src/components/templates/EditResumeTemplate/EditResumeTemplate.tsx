@@ -1,6 +1,6 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
@@ -113,7 +113,7 @@ const EditResumeTemplate = () => {
       <Button
         alignSelf={'end'}
         size={'md'}
-        onClick={() => navigate(appPaths.resumeDetail(parseInt(resumeId)))}
+        onClick={() => navigate(appPaths.resumeDetail(parseInt(resumeId)), { replace: true })}
       >
         작성 완료
       </Button>
