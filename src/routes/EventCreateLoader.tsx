@@ -14,7 +14,12 @@ const EventCreateLoader = () => {
 
   if (hasOpenedEvent) {
     toast({ description: '한 번에 하나의 이벤트만 진행할 수 있어요.', status: 'info' });
-    return <Navigate to={appPaths.main()} />;
+    return (
+      <Navigate
+        to={appPaths.main()}
+        replace
+      />
+    );
   }
 
   return <Outlet />;
