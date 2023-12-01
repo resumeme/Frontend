@@ -19,6 +19,9 @@ export const useDeleteResume = () => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousResumes = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: MyResume[]) => {
+        if (!old) {
+          return;
+        }
         return old.filter((resume) => resume.id !== parseInt(resumeId));
       });
       return { previousResumes };
