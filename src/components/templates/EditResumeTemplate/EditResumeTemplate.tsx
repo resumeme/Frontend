@@ -1,6 +1,7 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
@@ -17,6 +18,7 @@ import {
   AwardDetails,
   ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
 import { useGetResumeAward } from '~/queries/resume/details/useGetResumeAward';
@@ -39,6 +41,7 @@ const EditResumeTemplate = () => {
   const resumeAuthorId = basicInfo.ownerInfo?.id;
   const { user } = useUser();
   const isCurrentUser = resumeAuthorId === user?.id;
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -107,6 +110,13 @@ const EditResumeTemplate = () => {
           isCurrentUser={isCurrentUser}
         />
       </CategoryContainer>
+      <Button
+        alignSelf={'end'}
+        size={'md'}
+        onClick={() => navigate(appPaths.resumeDetail(parseInt(resumeId)))}
+      >
+        작성 완료
+      </Button>
     </Flex>
   );
 };
