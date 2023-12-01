@@ -1,28 +1,35 @@
 import { createStandaloneToast } from '@chakra-ui/react';
-import { redirect } from 'react-router-dom';
-import { getUser } from '~/hooks/useUser';
+import { Navigate, Outlet } from 'react-router-dom';
+import { appPaths } from '~/config/paths';
+import useUser from '~/hooks/useUser';
 import theme from '~/theme';
 
 const { toast } = createStandaloneToast({ theme });
 
-const userCheck = async () => {
-  const user = await getUser();
+const useUserCheck = () => {
+  const { user } = useUser();
 
   if (user) {
+    toast.closeAll();
     toast({
       duration: 2000,
       position: 'top',
       description: '이미 로그인 되어 있어요.',
       status: 'info',
     });
-    return redirect('/');
+    return (
+      <Navigate
+        to={appPaths.main()}
+        replace
+      />
+    );
   }
 
-  return null;
+  return <Outlet />;
 };
 
 const GuestLoader = () => {
-  return userCheck();
+  return useUserCheck();
 };
 
 export default GuestLoader;

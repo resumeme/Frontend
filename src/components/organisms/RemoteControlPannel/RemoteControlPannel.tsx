@@ -30,7 +30,12 @@ const RemoteControlPannel = () => {
 
       mutate(
         { eventId, body: value },
-        { onSuccess: () => navigate(appPaths.feedbackComplete(Number(resumeId), Number(eventId))) },
+        {
+          onSuccess: () =>
+            navigate(appPaths.feedbackComplete(Number(resumeId), Number(eventId)), {
+              replace: true,
+            }),
+        },
       );
     } else {
       alert('eventId와 resumeId를 찾을 수 없습니다.');

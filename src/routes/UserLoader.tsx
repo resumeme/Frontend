@@ -1,51 +1,53 @@
-import { createStandaloneToast } from '@chakra-ui/react';
-import { redirect } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
+import { Navigate, Outlet } from 'react-router-dom';
 import { appPaths } from '~/config/paths';
-import { getUser } from '~/hooks/useUser';
-import theme from '~/theme';
-
-const { toast } = createStandaloneToast({ theme });
+import useUser from '~/hooks/useUser';
 
 export type CheckUser = {
   role?: 'mentee' | 'mentor' | 'pending';
 };
 
-const userCheck = async ({ role }: CheckUser) => {
-  const user = await getUser();
+const useUserCheck = ({ role }: CheckUser) => {
+  const { user } = useUser();
+
+  const toast = useToast();
 
   if (!user) {
+    toast.closeAll();
     toast({
-      duration: 2000,
-      position: 'top',
       description: '로그인이 필요해요.',
       status: 'info',
     });
-    return redirect(appPaths.signIn());
+    return (
+      <Navigate
+        to={appPaths.signIn()}
+        replace
+      />
+    );
   }
 
   if (role && user.role !== role) {
+    toast.closeAll();
     toast({
-      duration: 2000,
-      position: 'top',
       description: `${role === 'mentee' ? '멘티' : '멘토'}로 로그인해야 확인할 수 있어요.`,
       status: 'info',
     });
-    return redirect('/');
+    return <Navigate to={appPaths.main()} />;
   }
 
-  return null;
+  return <Outlet />;
 };
 
-const UserLoader = async () => {
-  return userCheck({});
+const UserLoader = () => {
+  return useUserCheck({});
 };
 
-const MentorLoader = async () => {
-  return userCheck({ role: 'mentor' });
+const MentorLoader = () => {
+  return useUserCheck({ role: 'mentor' });
 };
 
-const MenteeLoader = async () => {
-  return userCheck({ role: 'mentee' });
+const MenteeLoader = () => {
+  return useUserCheck({ role: 'mentee' });
 };
 
 export { UserLoader, MentorLoader, MenteeLoader };
