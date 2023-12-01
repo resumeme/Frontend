@@ -3,10 +3,8 @@ import { createStandaloneToast } from '@chakra-ui/toast';
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { RouterProvider } from 'react-router-dom';
-import { appPaths } from './config/paths';
 import CONSTANTS from './constants/index';
 import { ResumeMeErrorResponse } from './types/errorResponse';
-import { deleteCookie } from './utils/cookie';
 import router from '~/routes/router';
 import theme from '~/theme';
 import Fonts from '~/theme/typography/fonts';
@@ -19,15 +17,6 @@ const axiosErrorHandler = (error: Error) => {
     const { status } = error.response;
 
     switch (status) {
-      case 401:
-        deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
-        deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
-
-        alert(CONSTANTS.ERROR_MESSAGES[code]);
-
-        window.location.replace(appPaths.signIn());
-        break;
-
       default:
         if (!(code in CONSTANTS.ERROR_MESSAGES)) {
           return;
