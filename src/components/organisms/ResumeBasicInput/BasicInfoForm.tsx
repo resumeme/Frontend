@@ -33,7 +33,11 @@ const BasicInfoForm = ({
     formState: { errors },
   } = useForm<BasicInfo>();
 
-  const onSubmit: SubmitHandler<BasicInfo> = (data) => {
+  const onSubmit: SubmitHandler<BasicInfo> = (data, event) => {
+    if (event?.currentTarget.key === 'Enter') {
+      event.preventDefault();
+    }
+
     const resumeBasicInfo = data;
     resumeBasicInfo.skills = skills;
     patchResumeBasicInfo(
