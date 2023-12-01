@@ -8,7 +8,6 @@ import { EventGrid } from '~/components/organisms/EventGrid';
 import { assets } from '~/config/assets';
 import { appPaths } from '~/config/paths';
 import CONSTANTS from '~/constants';
-import { useCheckOpenedEvent } from '~/hooks/useCheckOpendEvent';
 import useUser from '~/hooks/useUser';
 import { useGetEventList } from '~/queries/event/useGetEventList';
 import { usePostCreateResume } from '~/queries/resume/create/usePostCreateResume';
@@ -35,18 +34,10 @@ const MainPage = () => {
 
   const navigate = useNavigate();
 
-  const hasOpenedEvent = useCheckOpenedEvent();
-
   const mentorButton: Option[] = [
     {
       text: '이벤트 생성',
-      onClick: () => {
-        if (hasOpenedEvent()) {
-          toast({ description: '한 번에 하나의 이벤트만 진행할 수 있어요.', status: 'info' });
-        } else {
-          navigate(appPaths.eventCreate());
-        }
-      },
+      onClick: () => navigate(appPaths.eventCreate()),
     },
     {
       text: '이벤트 관리',

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
+import { EventCreateLoader } from './EventCreateLoader';
 import FeedbackLayout from './FeedbackLayout';
 import { FeedbackResumeLoader } from './FeedbackResumeLoader';
 import FocusLayout from './FocusLayout';
@@ -64,7 +65,10 @@ const router = createBrowserRouter([
             children: [
               { path: 'write-review', element: <WriteReviewPage /> },
 
-              { path: 'event/create', element: <CreateEventPage /> },
+              {
+                element: <EventCreateLoader />,
+                children: [{ path: 'event/create', element: <CreateEventPage /> }],
+              },
               { path: 'event/edit/:eventId', element: <EditEventPage /> },
             ],
           },

@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Stack, Image, Heading, useToast } from '@chakra-ui/react';
+import { Box, Flex, Button, Stack, Image, Heading } from '@chakra-ui/react';
 import { IoCaretDownOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -6,7 +6,6 @@ import { OptionsButton } from '~/components/molecules/OptionsButton';
 import { Option } from '~/components/molecules/OptionsButton/OptionsButton';
 import { assets } from '~/config/assets';
 import { appPaths } from '~/config/paths';
-import { useCheckOpenedEvent } from '~/hooks/useCheckOpendEvent';
 import useUser from '~/hooks/useUser';
 import { usePostSignOut } from '~/queries/usePostSignOut';
 import { User, UserRole } from '~/types/user';
@@ -105,21 +104,11 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const hasOpenedEvent = useCheckOpenedEvent();
-
-  const toast = useToast();
-
   const mentorOptions: Option[] = [
     { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     {
       text: TEXT_CONTENTS.CREATE_EVENT,
-      onClick: () => {
-        if (hasOpenedEvent()) {
-          toast({ description: '한 번에 하나의 이벤트만 진행할 수 있어요.', status: 'info' });
-        } else {
-          navigate(appPaths.eventCreate());
-        }
-      },
+      onClick: () => navigate(appPaths.eventCreate()),
     },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
     { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
