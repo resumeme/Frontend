@@ -17,7 +17,7 @@ const EventProfile = ({ events }: EventProfile) => {
         color={'gray.700'}
         fontWeight={700}
       >
-        진행중인 이벤트
+        이벤트 목록
       </Heading>
       <Flex
         mt={'1.25rem'}
@@ -37,7 +37,7 @@ const EventProfile = ({ events }: EventProfile) => {
         </BorderBox>
         {events.map(
           (
-            { info: { currentApplicantCount, maximumCount, timeInfo, title, id }, resumes },
+            { info: { currentApplicantCount, maximumCount, timeInfo, title, id, status }, resumes },
             index,
           ) => (
             <BorderBox
@@ -53,6 +53,7 @@ const EventProfile = ({ events }: EventProfile) => {
                 maximumCount={maximumCount}
                 resumes={resumes}
                 timeInfo={timeInfo}
+                status={status}
                 title={title}
               />
             </BorderBox>

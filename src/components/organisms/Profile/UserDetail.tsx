@@ -38,6 +38,7 @@ const UserDetail = ({
       <Flex
         gap={'1rem'}
         align={'start'}
+        alignItems={'center'}
       >
         {nickname && (
           <Heading

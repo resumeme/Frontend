@@ -16,8 +16,6 @@ import { usePostCreateEvent } from '~/queries/usePostCreateEvent';
 import { CreateEvent } from '~/types/event/event';
 import { Position } from '~/types/position';
 
-type CreateEventTemplateType = CreateEvent & { mainPosition: Position };
-
 type CreateEventTemplateProps = {
   isEdit?: boolean;
   defaultValues?: CreateEvent;
@@ -43,11 +41,14 @@ const CreateEventTemplate = ({
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreateEventTemplateType>({ defaultValues });
+  } = useForm<CreateEvent>({ defaultValues });
+
+  const [mainPosition, setMainPosition] = useState<Position>();
+
   const closeDateTime = useWatch({ name: 'time.closeDateTime', control });
 
-  const onSubmit: SubmitHandler<CreateEventTemplateType> = (values) => {
-    values.positions.sort((position) => (position === values.mainPosition ? 1 : 0));
+  const onSubmit: SubmitHandler<CreateEvent> = (values) => {
+    values.positions.sort((position) => (position === mainPosition ? -1 : 0));
 
     if (isEdit) {
       patchEvent({ data: values, eventId });
@@ -63,7 +64,7 @@ const CreateEventTemplate = ({
         fontWeight={600}
         color={'gray.900'}
       >
-        첨삭 이벤트 생성
+        피드백 이벤트 생성
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BorderBox
@@ -131,45 +132,44 @@ const CreateEventTemplate = ({
                 errorMessage="직무를 선택해 주세요."
               />
             </FormControl>
-
-            <FormControl
-              display={!(watch('positions') && watch('positions').length > 1) ? 'none' : undefined}
-              spacing="1.63rem"
-            >
-              <FormLabel isRequired={true}>대표 직무</FormLabel>
-              <Flex
-                direction={'column'}
-                w={'max-content'}
-              >
-                <Select
-                  _focusVisible={{ boxShadow: 'none' }}
-                  h="36px"
-                  border="1px"
-                  borderColor="primary.800"
-                  borderRadius="0.75rem"
-                  color="gray.400"
-                  {...register('mainPosition', {
-                    required: '대표 직무를 선택해 주세요.',
-                  })}
+            {watch('positions') && watch('positions').length > 1 && (
+              <FormControl>
+                <FormLabel isRequired={true}>대표 직무</FormLabel>
+                <Flex
+                  direction={'column'}
+                  w={'max-content'}
                 >
-                  {watch('positions') &&
-                    watch('positions').map((position, index) => {
-                      return (
-                        <option
-                          selected={index === 0}
-                          key={position}
-                          value={position}
-                        >
-                          {CONSTANTS.POSITION[position as Position]}
-                        </option>
-                      );
-                    })}
-                </Select>
-              </Flex>
-            </FormControl>
+                  <Select
+                    _focusVisible={{ boxShadow: 'none' }}
+                    h="36px"
+                    border="1px"
+                    borderColor="primary.800"
+                    borderRadius="0.75rem"
+                    color="gray.400"
+                    defaultValue={watch('positions') && watch('positions')[0]}
+                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                      setMainPosition(event.target.value as Position);
+                    }}
+                  >
+                    {watch('positions') &&
+                      watch('positions').map((position) => {
+                        return (
+                          <option
+                            key={position}
+                            value={position}
+                          >
+                            {CONSTANTS.POSITION[position as Position]}
+                          </option>
+                        );
+                      })}
+                  </Select>
+                </Flex>
+              </FormControl>
+            )}
+
             <HStack spacing={'1.6rem'}>
               <FormLabel isRequired={true}>신청 기간</FormLabel>
-              <TermInput<CreateEventTemplateType>
+              <TermInput<CreateEvent>
                 future={!isEdit}
                 control={control}
                 includeTime={true}
@@ -193,7 +193,7 @@ const CreateEventTemplate = ({
               </Checkbox>
             </HStack>
             <FormControl isInvalid={!!errors.time?.endDate}>
-              <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
+              <FormLabel isRequired={true}>피드백 종료일</FormLabel>
               <FormDateInput
                 name="time.endDate"
                 min={closeDateTime}
@@ -201,7 +201,7 @@ const CreateEventTemplate = ({
                 w={'47.6%'}
                 register={{
                   ...register('time.endDate', {
-                    required: '첨삭을 종료할 날짜를 입력해주세요.',
+                    required: '피드백을 종료할 날짜를 입력해주세요.',
                     min: {
                       value: closeDateTime,
                       message: '신청 기간 이후의 날짜를 입력해주세요.',

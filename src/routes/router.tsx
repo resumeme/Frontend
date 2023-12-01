@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import { EventCreateLoader } from './EventCreateLoader';
 import FeedbackLayout from './FeedbackLayout';
+import { FeedbackResumeLoader } from './FeedbackResumeLoader';
 import FocusLayout from './FocusLayout';
 import GuestLoader from './GuestLoader';
 import Layout from './Layout';
@@ -37,31 +38,40 @@ const router = createBrowserRouter([
       {
         element: <Layout />,
         children: [
-          { path: 'mypage', element: <MyPage />, loader: UserLoader },
-          { path: 'user/edit-info', element: <EditProfilePage />, loader: UserLoader },
-
-          { path: 'resume/management', element: <ManagementResumePage />, loader: MenteeLoader },
-          { path: 'resume/:resumeId/edit', element: <EditResumePage />, loader: MenteeLoader },
-
           {
-            path: 'resume/:resumeId/event/:eventId/feedback',
-            element: <FeedbackCompletePage />,
-            loader: UserLoader,
-          },
-
-          { path: 'resume/:resumeId', element: <ResumeDetailPage />, loader: MenteeLoader },
-          { path: 'write-review', element: <WriteReviewPage />, loader: MentorLoader },
-
-          {
-            element: <EventCreateLoader />,
+            element: <UserLoader />,
             children: [
+              { path: 'mypage', element: <MyPage /> },
+              { path: 'user/edit-info', element: <EditProfilePage /> },
               {
-                path: 'event/create',
-                element: <CreateEventPage />,
+                path: 'resume/:resumeId/event/:eventId/feedback',
+                element: <FeedbackCompletePage />,
               },
             ],
           },
-          { path: 'event/edit/:eventId', element: <EditEventPage />, loader: MentorLoader },
+          {
+            element: <MenteeLoader />,
+            children: [
+              {
+                path: 'resume/management',
+                element: <ManagementResumePage />,
+              },
+              { path: 'resume/:resumeId/edit', element: <EditResumePage /> },
+              { path: 'resume/:resumeId', element: <ResumeDetailPage /> },
+            ],
+          },
+          {
+            element: <MentorLoader />,
+            children: [
+              { path: 'write-review', element: <WriteReviewPage /> },
+
+              {
+                element: <EventCreateLoader />,
+                children: [{ path: 'event/create', element: <CreateEventPage /> }],
+              },
+              { path: 'event/edit/:eventId', element: <EditEventPage /> },
+            ],
+          },
           { path: 'event/', element: <EventListPage /> },
           { path: 'event/:eventId', element: <EventDetailPage /> },
 
@@ -71,17 +81,29 @@ const router = createBrowserRouter([
       {
         element: <FocusLayout />,
         children: [
-          { path: 'sign-up', element: <SignUpPage />, loader: GuestLoader },
-          { path: 'sign-in', element: <SignInPage />, loader: GuestLoader },
-          { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage />, loader: GuestLoader },
+          {
+            element: <GuestLoader />,
+            children: [
+              { path: 'sign-up', element: <SignUpPage /> },
+              { path: 'sign-in', element: <SignInPage /> },
+              { path: 'sign-in/oauth/kakao', element: <OAuthRedirectPage /> },
+            ],
+          },
         ],
       },
       {
         path: 'event/:eventId/resume/:resumeId/',
         element: <FeedbackLayout />,
         children: [
-          { index: true, element: <FeedbackResumePage />, loader: MentorLoader },
-          { path: 'feedback/reflect', element: <FeedbackReflectPage />, loader: MenteeLoader },
+          {
+            // element: <MentorLoader />,
+            element: <FeedbackResumeLoader />,
+            children: [{ index: true, element: <FeedbackResumePage /> }],
+          },
+          {
+            element: <MenteeLoader />,
+            children: [{ path: 'feedback/reflect', element: <FeedbackReflectPage /> }],
+          },
         ],
       },
     ],

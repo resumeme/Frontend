@@ -33,7 +33,7 @@ export const DefaultFormDateInput = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <BorderBox>
         <FormControl isInvalid={!!errors['endDate']}>
-          <FormLabel isRequired={true}>첨삭 종료일</FormLabel>
+          <FormLabel isRequired={true}>피드백 종료일</FormLabel>
           <FormDateInput
             name="endDate"
             w={'100%'}

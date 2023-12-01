@@ -6,7 +6,7 @@ export const ERROR_MESSAGES = {
   DUPLICATED_EVENT_OPEN: '이미 오픈된 이벤트가 있어요.',
   SERVER_ERROR: '서버에 문제가 있어요 :(',
   NOT_OPEN_TIME: '아직 오픈 시간이 아니에요',
-  EVENT_REJECTED: '첨삭 신청이 거절되었어요 :(',
+  EVENT_REJECTED: '피드백 신청이 거절되었어요 :(',
   RANGE_MAXIMUM_ATTENDEE: '인원은 2~10명으로 해주세요',
   RESUME_NOT_FOUND: '이력서를 찾을 수 없어요. :(',
   INVALID_ACCESS_TOKEN: '액세스 토큰이 유효하지 않아요.',

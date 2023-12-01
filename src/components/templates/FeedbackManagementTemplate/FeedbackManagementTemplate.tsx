@@ -17,7 +17,7 @@ const FeedbackManagementTemplate = ({ resumes }: FeedbackManagementTemplateProps
         color={'gray.700'}
         fontWeight={700}
       >
-        첨삭 신청 내역
+        피드백 신청 내역
       </Heading>
       <Flex
         mt={'1.25rem'}

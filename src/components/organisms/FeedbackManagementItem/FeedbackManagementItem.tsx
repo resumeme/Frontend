@@ -24,13 +24,22 @@ const STATUS_SCHEME = {
 };
 
 const FeedbackManagementItem = ({
-  resume: { endDate, mentorName, resumeId, startDate, status, title, eventId },
+  resume: {
+    endDate,
+    mentorName,
+    resumeId,
+    startDate,
+    status,
+    title: eventTitle,
+    eventId,
+    resumeTitle,
+    rejectMessage,
+  },
 }: FeedbackManagementItemProps) => {
   const navigate = useNavigate();
 
   const toast = useToast();
 
-  // TODO api 상태 정해지면 label 컬러 추가
   const handleClick = () => {
     if (status === 'COMPLETE') {
       navigate(appPaths.feedbackComplete(resumeId, eventId));
@@ -38,11 +47,13 @@ const FeedbackManagementItem = ({
       navigate(appPaths.feedbackReflect(resumeId, eventId));
     } else {
       toast({
-        description: '첨삭 반영은 첨삭이 완료된 후에 가능해요.',
+        description: '피드백 반영은 피드백이 완료된 후에 가능해요.',
         status: 'info',
       });
     }
   };
+
+  const isReject = status === 'REJECT';
 
   return (
     <>
@@ -81,7 +92,7 @@ const FeedbackManagementItem = ({
 
           <Tooltip
             openDelay={500}
-            label={title}
+            label={eventTitle}
             fontSize={'sm'}
             placement="top-start"
             color={'gray.700'}
@@ -97,7 +108,7 @@ const FeedbackManagementItem = ({
               as={ReactRouterLink}
               to={appPaths.eventDetail(eventId)}
             >
-              {title}
+              {eventTitle}
             </Link>
           </Tooltip>
         </Flex>
@@ -148,26 +159,26 @@ const FeedbackManagementItem = ({
       >
         <Icon
           as={FiFileText}
-          color={'gray.600'}
+          color={!isReject ? 'gray.600' : 'red.600'}
           boxSize={'1rem'}
         />
         <Tooltip
           maxW={'xl'}
           noOfLines={2}
           placement="bottom-start"
-          //TODO -  이력서 제목이 들어갈 부분
-          label={'내 이력서'}
+          label={!isReject ? resumeTitle : rejectMessage}
           aria-label="tooltip"
           borderRadius={'xl'}
           fontSize={'sm'}
-          bg={'gray.300'}
-          color={'gray.600'}
+          bg={'white'}
+          color={'gray.700'}
         >
           <Text
             as={'span'}
             noOfLines={1}
+            color={!isReject ? 'gray.600' : 'red.600'}
           >
-            {/* //TODO -  이력서 제목이 들어갈 부분 */}내 이력서
+            {!isReject ? resumeTitle : rejectMessage}
           </Text>
         </Tooltip>
         <Spacer />

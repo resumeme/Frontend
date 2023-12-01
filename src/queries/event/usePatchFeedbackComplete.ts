@@ -16,7 +16,7 @@ const usePatchFeedbackComplete = () => {
     mutationFn: patchFeedbackComplete,
     onSuccess: () => {
       toast({
-        description: '성공적으로 첨삭되었습니다 :)',
+        description: '성공적으로 피드백되었습니다 :)',
         status: 'success',
       });
 

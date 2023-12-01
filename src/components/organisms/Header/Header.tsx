@@ -27,19 +27,19 @@ const USER_NAV_ITEMS: Record<UserRole | 'common', Record<string, string>[]> = {
       href: appPaths.managementResume(),
     },
     {
-      label: '피드백',
+      label: '이벤트',
       href: appPaths.viewEvent(),
     },
   ],
   mentor: [
     {
-      label: '피드백',
+      label: '이벤트',
       href: appPaths.viewEvent(),
     },
   ],
   pending: [
     {
-      label: '피드백',
+      label: '이벤트',
       href: appPaths.viewEvent(),
     },
   ],
@@ -49,7 +49,7 @@ const USER_NAV_ITEMS: Record<UserRole | 'common', Record<string, string>[]> = {
       href: appPaths.signIn(),
     },
     {
-      label: '피드백',
+      label: '이벤트',
       href: appPaths.viewEvent(),
     },
   ],
