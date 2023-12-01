@@ -75,12 +75,6 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
                 >
                   <Radio
                     {...register('linkType')}
-                    value="OTHER"
-                  >
-                    링크
-                  </Radio>
-                  <Radio
-                    {...register('linkType')}
                     value="GITHUB"
                   >
                     깃허브
@@ -90,6 +84,12 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
                     value="BLOG"
                   >
                     블로그
+                  </Radio>
+                  <Radio
+                    {...register('linkType')}
+                    value="OTHER"
+                  >
+                    기타
                   </Radio>
                 </Stack>
               </RadioGroup>
