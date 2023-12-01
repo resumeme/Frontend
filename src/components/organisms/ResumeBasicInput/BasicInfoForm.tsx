@@ -33,11 +33,7 @@ const BasicInfoForm = ({
     formState: { errors },
   } = useForm<BasicInfo>();
 
-  const onSubmit: SubmitHandler<BasicInfo> = (data, event) => {
-    if (event?.currentTarget.key === 'Enter') {
-      event.preventDefault();
-    }
-
+  const onSubmit: SubmitHandler<BasicInfo> = (data) => {
     const resumeBasicInfo = data;
     resumeBasicInfo.skills = skills;
     patchResumeBasicInfo(
@@ -82,6 +78,9 @@ const BasicInfoForm = ({
                 autoComplete="off"
                 spellCheck="false"
                 defaultValue={position ?? null}
+                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                  event.preventDefault();
+                }}
               />
             </FormControl>
           </Box>
