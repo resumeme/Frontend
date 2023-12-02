@@ -16,4 +16,5 @@ export const ERROR_MESSAGES = {
   GPA_ERROR: '최대 학점은 내 학점보다 커야 해요',
   MENTOR_NOT_FOUND: '멘토를 찾을 수 없어요 :(',
   NOT_UPDATE_EVENT: '모집 받는 중에는 수정할 수 없어요.',
+  MENTOR_ALREADY_APPROVED: '멘토로 승인되었어요. 다시 로그인 해주세요.',
 };
