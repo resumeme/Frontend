@@ -110,7 +110,14 @@ const CareerDetails = ({
                 ))}
               </Flex>
             )}
-            {careerContent && <Text mt={5}>{careerContent}</Text>}
+            {careerContent && (
+              <Text
+                mt={5}
+                whiteSpace={'pre-line'}
+              >
+                {careerContent}
+              </Text>
+            )}
           </Flex>
         </Flex>
         {duties?.map((duty) => (
@@ -133,7 +140,7 @@ const CareerDetails = ({
                 >
                   {duty.startDate} - {duty.endDate}
                 </Text>
-                <Text>{duty.description}</Text>
+                <Text whiteSpace={'pre-line'}>{duty.description}</Text>
               </Flex>
             </Flex>
           </Box>
