@@ -17,7 +17,7 @@ const axiosErrorHandler = (error: Error) => {
     const { status } = error.response;
 
     switch (status) {
-      default:
+      case 400:
         if (!(code in CONSTANTS.ERROR_MESSAGES)) {
           return;
         }

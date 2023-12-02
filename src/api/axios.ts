@@ -50,12 +50,20 @@ resumeMeAxios.interceptors.response.use(
     }
 
     if (statusCode === 401) {
-      deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
-      deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
+      if (code === 'MENTOR_ALREADY_APPROVED') {
+        if (getCookie(CONSTANTS.ACCESS_TOKEN_HEADER)) {
+          deleteCookie(CONSTANTS.ACCESS_TOKEN_HEADER);
+          deleteCookie(CONSTANTS.REFRESH_TOKEN_HEADER);
 
-      alert(CONSTANTS.ERROR_MESSAGES[code]);
+          alert(CONSTANTS.ERROR_MESSAGES[code]);
 
-      window.location.href = appPaths.signIn();
+          window.location.href = appPaths.signIn();
+        }
+      } else {
+        alert(CONSTANTS.ERROR_MESSAGES.LOGIN_REQUIRED);
+
+        window.location.href = appPaths.signIn();
+      }
     }
 
     return Promise.reject(error);
