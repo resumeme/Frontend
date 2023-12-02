@@ -16,6 +16,12 @@ const Button = forwardRef<ButtonProps, 'button'>(
       size={size}
       {...props}
       ref={ref}
+      _hover={{
+        opacity: '80%',
+      }}
+      _groupHover={{
+        opacity: '80%',
+      }}
     >
       {children}
     </ChakraButton>
