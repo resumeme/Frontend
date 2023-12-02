@@ -1,4 +1,5 @@
 import { Box, Flex, Icon, Link, Spacer, Text, Tooltip, useToast } from '@chakra-ui/react';
+import { BiCommentError } from 'react-icons/bi';
 import { FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -158,7 +159,7 @@ const FeedbackManagementItem = ({
         gap={'0.69rem'}
       >
         <Icon
-          as={FiFileText}
+          as={!isReject ? FiFileText : BiCommentError}
           color={!isReject ? 'gray.600' : 'red.600'}
           boxSize={'1rem'}
         />
@@ -178,7 +179,7 @@ const FeedbackManagementItem = ({
             noOfLines={1}
             color={!isReject ? 'gray.600' : 'red.600'}
           >
-            {!isReject ? resumeTitle : rejectMessage}
+            {!isReject ? resumeTitle : `반려 메시지: ${rejectMessage}`}
           </Text>
         </Tooltip>
         <Spacer />
