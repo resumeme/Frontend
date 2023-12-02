@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ScrollRestoration } from 'react-router-dom';
 import { LAYOUT_SIZE } from './layoutSize.const';
 import { Spinner } from '~/components/atoms/Spinner';
 import { Footer } from '~/components/organisms/Footer';
@@ -15,6 +16,7 @@ const Layout = () => {
       flexDirection={'column'}
       overflowX={'hidden'}
     >
+      <ScrollRestoration />
       <Box
         position={'fixed'}
         zIndex={'sticky'}
