@@ -109,15 +109,6 @@ const EventItem = ({
                 {title}
               </Text>
             </Tooltip>
-
-            {/* <Text
-            fontSize={'1.25rem'}
-            fontWeight={600}
-            color={'gray.800'}
-            noOfLines={1}
-          >
-            {title}
-          </Text> */}
           </Link>
         </Flex>
         <Flex direction={'column'}>
