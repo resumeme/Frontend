@@ -23,6 +23,9 @@ const CategoryAddHeader = ({ categoryTitle, onAddItem }: CategoryAddHeaderProps)
         borderRadius={'1.22rem'}
         bg={'none'}
         onClick={onAddItem}
+        _hover={{
+          bg: 'primary.100',
+        }}
       >
         <AddIcon color={'primary.900'} />
       </Button>
