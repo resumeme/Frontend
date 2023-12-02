@@ -1,4 +1,4 @@
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
 import {
   VStack,
   Text,
@@ -8,6 +8,7 @@ import {
   Flex,
   Tooltip,
   Box,
+  Icon,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import {
@@ -19,6 +20,7 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
+import { LuDelete } from 'react-icons/lu';
 import { useParams } from 'react-router-dom';
 import { postResumeCareer } from '~/api/resume/create/postResumeCareer';
 import { patchResumeCareer } from '~/api/resume/edit/patchResumeCareer';
@@ -299,14 +301,30 @@ const DutyForm = ({
         m={'1.5rem'}
         borderColor={'gray.300'}
       />
-      <ChakraButton
-        w={0}
-        h={0}
-        alignSelf={'self-end'}
-        onClick={() => remove(index)}
+      <Tooltip
+        placement="left-end"
+        label="삭제하기"
+        bg={'gray.800'}
+        color={'gray.100'}
+        hasArrow
       >
-        <DeleteIcon />
-      </ChakraButton>
+        <ChakraButton
+          w={'fit-content'}
+          minW={'fit-content'}
+          h={'fit-content'}
+          _hover={{
+            bg: 'gray.200',
+          }}
+          p={0}
+          alignSelf={'self-end'}
+          onClick={() => remove(index)}
+        >
+          <Icon
+            as={LuDelete}
+            boxSize={6}
+          />
+        </ChakraButton>
+      </Tooltip>
       <FormControl isInvalid={Boolean(errors.duties && errors.duties[index]?.title)}>
         <FormLabel
           htmlFor="dutyTitle"
