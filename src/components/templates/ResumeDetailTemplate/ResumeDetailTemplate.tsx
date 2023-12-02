@@ -1,6 +1,5 @@
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
@@ -46,10 +45,6 @@ const ResumeDetailTemplate = () => {
     award: details?.certifications,
     language: details?.['foreignLanguages'],
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     /* 전체 레이아웃 */
