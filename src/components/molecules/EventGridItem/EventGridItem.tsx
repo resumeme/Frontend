@@ -37,6 +37,10 @@ const EventGridItem = ({ event: { info, mentorInfo } }: { event: EventListItem }
         overflow={'hidden'}
         role="group"
         position={'relative'}
+        _hover={{
+          boxShadow: '1px 2px 5px 0 rgba(0, 0, 0, 0.2)',
+          transition: '.5s',
+        }}
       >
         <Box
           overflow={'hidden'}
