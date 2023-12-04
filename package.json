@@ -28,6 +28,7 @@
     "react-router-dom": "^6.17.0",
     "rehype-sanitize": "^6.0.0",
     "uuid": "^9.0.1",
+    "vite-plugin-favicons-inject": "^2.2.0",
     "zustand": "^4.4.3"
   },
   "devDependencies": {
