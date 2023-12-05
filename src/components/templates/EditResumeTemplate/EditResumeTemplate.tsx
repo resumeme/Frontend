@@ -45,7 +45,6 @@ const EditResumeTemplate = () => {
 
   return (
     <Flex
-      width="960px"
       direction="column"
       gap="3rem"
     >
