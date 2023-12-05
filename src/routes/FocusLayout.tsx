@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 const FocusLayout = () => {
   return (
@@ -8,6 +8,7 @@ const FocusLayout = () => {
       justifyContent={'center'}
       alignItems={'center'}
     >
+      <ScrollRestoration />
       <Box maxW={'992px'}>
         <Outlet />
       </Box>
