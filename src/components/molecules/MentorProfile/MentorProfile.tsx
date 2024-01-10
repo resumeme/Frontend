@@ -55,7 +55,7 @@ const MentorProfile = ({
   };
   const { data: followData } = useGetMentorFollow({ mentorId, role: user?.role });
   const { mutate: deleteMentorFollow } = useDeleteMentorFollow();
-  const { mutate: mentorFollow } = usePostMentorFollow();
+  const { mutate: postMentorFollow } = usePostMentorFollow();
 
   return (
     <>
@@ -159,7 +159,7 @@ const MentorProfile = ({
                 onClick={
                   followData?.id
                     ? () => deleteMentorFollow({ followId: Number(followData?.id) })
-                    : () => mentorFollow({ mentorId })
+                    : () => postMentorFollow({ mentorId })
                 }
                 _hover={{
                   bg: 'gray.300',

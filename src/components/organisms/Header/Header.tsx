@@ -100,7 +100,7 @@ const Navigation = ({ user }: { user: User | null }) => {
 
 const Header = () => {
   const { user } = useUser();
-  const { mutate: signOut } = usePostSignOut();
+  const { mutate: postSignOut } = usePostSignOut();
 
   const navigate = useNavigate();
 
@@ -111,14 +111,14 @@ const Header = () => {
       onClick: () => navigate(appPaths.eventCreate()),
     },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
-    { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
+    { text: TEXT_CONTENTS.SIGN_OUT, onClick: postSignOut },
   ];
 
   const menteeOptions: Option[] = [
     { text: TEXT_CONTENTS.MY_PAGE, onClick: () => navigate(appPaths.myPage()) },
     { text: TEXT_CONTENTS.RESUME, onClick: () => navigate(appPaths.managementResume()) },
     { text: TEXT_CONTENTS.EDIT_PROFILE, onClick: () => navigate(appPaths.userEditInfo()) },
-    { text: TEXT_CONTENTS.SIGN_OUT, onClick: signOut },
+    { text: TEXT_CONTENTS.SIGN_OUT, onClick: postSignOut },
   ];
 
   return (

@@ -30,7 +30,7 @@ const MainPage = () => {
     data: { events },
   } = useGetEventList({ page: 1, size: 4 });
 
-  const { mutate: createResume } = usePostCreateResume();
+  const { mutate: postCreateResume } = usePostCreateResume();
 
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const MainPage = () => {
   const menteeButton: Option[] = [
     {
       text: '새 이력서 작성',
-      onClick: createResume,
+      onClick: postCreateResume,
     },
     {
       text: '이력서 관리',

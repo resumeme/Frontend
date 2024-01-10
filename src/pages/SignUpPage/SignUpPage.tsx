@@ -14,7 +14,7 @@ import { SignUpRole, SignUpCommon } from '~/types/signUp';
 export type Step = 'COMMON' | SignUpRole | 'MENTOR_COMPLETE' | 'MENTEE_COMPLETE';
 
 const SignUpPage = () => {
-  const { mutate: signUpMutate } = usePostOAuthSignUp();
+  const { mutate: postSignUpMutate } = usePostOAuthSignUp();
   const [step, setStep] = useState<Step>('COMMON');
   const [commonData, setCommonData] = useState<SignUpCommon>();
   const cacheKey = useCacheKeyStore((state) => state.cacheKey);
@@ -80,7 +80,7 @@ const SignUpPage = () => {
               setStep('COMMON');
               return;
             }
-            signUpMutate(
+            postSignUpMutate(
               { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'pending' },
               {
                 onSuccess: signUpSuccessCallback,
@@ -97,7 +97,7 @@ const SignUpPage = () => {
               setStep('COMMON');
               return;
             }
-            signUpMutate(
+            postSignUpMutate(
               { body: { ...data, requiredInfo: commonData, cacheKey }, role: 'mentee' },
               {
                 onSuccess: signUpSuccessCallback,
