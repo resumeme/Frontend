@@ -12,7 +12,7 @@ type RejectionModalContentProps = {
 };
 
 const RejectionModalContent = ({ onClose, eventId, menteeId }: RejectionModalContentProps) => {
-  const { mutate } = usePatchFeedbackReject();
+  const { mutate: patchRejectMutate } = usePatchFeedbackReject();
 
   const {
     register,
@@ -23,7 +23,7 @@ const RejectionModalContent = ({ onClose, eventId, menteeId }: RejectionModalCon
   const onSubmit = (value: EventReject) => {
     value.menteeId = menteeId;
 
-    mutate({ eventId, body: value });
+    patchRejectMutate({ eventId, body: value });
 
     if (onClose) {
       onClose();
