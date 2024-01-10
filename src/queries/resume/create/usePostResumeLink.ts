@@ -9,7 +9,7 @@ export const usePostResumeLink = (resumeId: string) => {
   const TARGET_QUERY_KEY = resumeDetailKeys.referenceLinks(resumeId);
   const toast = useToast();
 
-  const { mutate, isPending, isError, isSuccess } = useMutation({
+  return useMutation({
     mutationFn: postResumeLink,
     onMutate: async (newReferenceLinks) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
@@ -33,6 +33,4 @@ export const usePostResumeLink = (resumeId: string) => {
       queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });
     },
   });
-
-  return { mutate, isPending, isError, isSuccess };
 };
