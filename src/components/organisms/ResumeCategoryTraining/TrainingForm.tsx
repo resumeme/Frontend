@@ -39,12 +39,12 @@ const TrainingForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postTrainingMutate } = useOptimisticPostCategory({
+  const { mutate: postTraining } = useOptimisticPostCategory({
     mutationFn: postResumeTraining,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchResumeTrainingMutate } = useOptimisticPatchCategory({
+  const { mutate: patchTraining } = useOptimisticPatchCategory({
     mutationFn: patchResumeTraining,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),
     onMutateSuccess: quitEdit,
@@ -55,9 +55,9 @@ const TrainingForm = ({
       return;
     }
     if (!isEdit) {
-      postTrainingMutate({ resumeId, body });
+      postTraining({ resumeId, body });
     } else if (isEdit && blockId) {
-      patchResumeTrainingMutate({ resumeId, blockId, body });
+      patchTraining({ resumeId, blockId, body });
     }
   };
 

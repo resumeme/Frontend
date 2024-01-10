@@ -25,7 +25,7 @@ const TraningDetails = ({
 }: DetailsComponentProps<ReadTraining>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Training, ReadTraining>({
+  const { mutate: deleteCategory } = useOptimisticDeleteCategory<Training, ReadTraining>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.training(resumeId),
   });
@@ -135,7 +135,7 @@ const TraningDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => deleteMutate({ resumeId, blockId })}
+          onDelete={() => deleteCategory({ resumeId, blockId })}
         />
       )}
     </Flex>

@@ -15,8 +15,8 @@ type ReferenceLinkFormProps = {
 };
 
 const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) => {
-  const { mutate: postReferenceLinkMutate } = usePostResumeLink(resumeId);
-  const { mutate: deleteReferenceLinkMutate } = useDeleteReferenceLink(resumeId);
+  const { mutate: postReferenceLink } = usePostResumeLink(resumeId);
+  const { mutate: deleteReferenceLink } = useDeleteReferenceLink(resumeId);
   const {
     register,
     handleSubmit,
@@ -33,12 +33,12 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
       return;
     }
 
-    postReferenceLinkMutate({ resumeId, body });
+    postReferenceLink({ resumeId, body });
     reset();
   });
 
   const handleRemoveLink = (componentId: number) => {
-    deleteReferenceLinkMutate({ resumeId, linkId: componentId });
+    deleteReferenceLink({ resumeId, linkId: componentId });
   };
   return (
     <>

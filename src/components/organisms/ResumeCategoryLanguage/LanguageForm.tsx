@@ -36,12 +36,12 @@ const LanguageForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postLanguageMutate } = useOptimisticPostCategory({
+  const { mutate: postLanguage } = useOptimisticPostCategory({
     mutationFn: postResumeLanguage,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchResumeLanguageMutate } = useOptimisticPatchCategory({
+  const { mutate: patchLanguage } = useOptimisticPatchCategory({
     mutationFn: patchResumeLanguage,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),
     onMutateSuccess: quitEdit,
@@ -52,9 +52,9 @@ const LanguageForm = ({
       return;
     }
     if (!isEdit) {
-      postLanguageMutate({ resumeId, body });
+      postLanguage({ resumeId, body });
     } else if (isEdit && blockId) {
-      patchResumeLanguageMutate({ resumeId, blockId, body });
+      patchLanguage({ resumeId, blockId, body });
     }
   };
 

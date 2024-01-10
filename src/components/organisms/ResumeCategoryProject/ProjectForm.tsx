@@ -43,12 +43,12 @@ const ProjectForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postProjectMutate } = useOptimisticPostCategory({
+  const { mutate: postProject } = useOptimisticPostCategory({
     mutationFn: postResumeProject,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchResumeProjectMutate } = useOptimisticPatchCategory({
+  const { mutate: patchProject } = useOptimisticPatchCategory({
     mutationFn: patchResumeProject,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
     onMutateSuccess: quitEdit,
@@ -65,14 +65,14 @@ const ProjectForm = ({
     body.skills = skills;
     body.team = Boolean(body.team);
     if (!isEdit) {
-      postProjectMutate(
+      postProject(
         { resumeId, body },
         {
           onSuccess: initializeSkills,
         },
       );
     } else if (isEdit && blockId) {
-      patchResumeProjectMutate(
+      patchProject(
         { resumeId, blockId, body },
         {
           onSuccess: initializeSkills,

@@ -27,7 +27,7 @@ const ResumeDetailTemplate = () => {
 
   const { data: details } = useGetResumeDetails({ resumeId });
   const { data: basicInfo } = useGetResumeBasic({ resumeId });
-  const { mutate: deleteResumeMutate } = useDeleteResume();
+  const { mutate: deleteResume } = useDeleteResume();
 
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ const ResumeDetailTemplate = () => {
           <EditDeleteOptionsButton
             onEdit={() => navigate(appPaths.resumeEdit(parseInt(resumeId)))}
             onDelete={() =>
-              deleteResumeMutate(
+              deleteResume(
                 { resumeId },
                 {
                   onSuccess: () => navigate(appPaths.managementResume()),

@@ -56,7 +56,7 @@ type TitleInputFormProps = {
 
 const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
   const { resumeId } = useParams();
-  const { mutate: patchResumeTitleMutate, isPending, isSuccess, isError } = usePatchResumeTitle();
+  const { mutate: patchResumeTitle, isPending, isSuccess, isError } = usePatchResumeTitle();
   const navigate = useNavigate();
   const [empty, setEmpty] = useState(false);
 
@@ -87,7 +87,7 @@ const TitleInputForm = ({ defaultValue }: TitleInputFormProps) => {
       } else {
         setEmpty(false);
       }
-      patchResumeTitleMutate({ resumeId, resumeTitle });
+      patchResumeTitle({ resumeId, resumeTitle });
     }, 1000);
   };
 

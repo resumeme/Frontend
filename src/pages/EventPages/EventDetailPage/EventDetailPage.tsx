@@ -26,7 +26,7 @@ const EventDetailPage = () => {
 
   const { data: event } = useGetEventDetail({ eventId });
   const { data: mentor } = useGetMentorDetail({ mentorId: String(event.mentorId) });
-  const { mutate: postEventApplyMutate } = usePostEventApply();
+  const { mutate: postEventApply } = usePostEventApply();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
@@ -45,7 +45,7 @@ const EventDetailPage = () => {
           <ResumeSelect
             onCancel={onClose}
             onSubmit={({ resumeId }) => {
-              postEventApplyMutate(
+              postEventApply(
                 { resumeId: parseInt(resumeId), eventId },
                 {
                   onSettled: () => {
