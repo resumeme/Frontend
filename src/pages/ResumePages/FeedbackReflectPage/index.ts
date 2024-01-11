@@ -1,1 +1,3 @@
-export { FeedbackReflectPage } from './FeedbackReflectPage';
+import FeedbackReflectPage from './FeedbackReflectPage';
+
+export { FeedbackReflectPage };
