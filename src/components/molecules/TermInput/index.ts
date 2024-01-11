@@ -1,1 +1,3 @@
-export { default as TermInput } from './TermInput';
+import TermInput from './TermInput';
+
+export { TermInput };

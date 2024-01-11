@@ -1,1 +1,3 @@
-export { default as FeedbackCategoryReflectDetails } from './FeedbackCategoryReflectDetails';
+import FeedbackCategoryReflectDetails from './FeedbackCategoryReflectDetails';
+
+export { FeedbackCategoryReflectDetails };

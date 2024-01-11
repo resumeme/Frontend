@@ -1,1 +1,3 @@
-export { default as SubmitButtonGroup } from './SubmitButtonGroup';
+import SubmitButtonGroup from './SubmitButtonGroup';
+
+export { SubmitButtonGroup };

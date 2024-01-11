@@ -1,2 +1,4 @@
-export { default as Modal } from './Modal';
-export { default as CareerContentModal } from './CareerContentModal';
+import CareerContentModal from './CareerContentModal';
+import Modal from './Modal';
+
+export { Modal, CareerContentModal };

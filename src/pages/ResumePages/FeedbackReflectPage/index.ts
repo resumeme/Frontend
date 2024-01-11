@@ -1,1 +1,1 @@
-export { default as FeedbackReflectPage } from './FeedbackReflectPage';
+export { FeedbackReflectPage } from './FeedbackReflectPage';

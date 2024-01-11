@@ -1,1 +1,3 @@
-export { default as BorderBox } from './BorderBox';
+import BorderBox from './BorderBox';
+
+export { BorderBox };

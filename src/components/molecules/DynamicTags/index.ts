@@ -1,1 +1,3 @@
-export { default as DynamicTags } from './DynamicTags';
+import DynamicTags from './DynamicTags';
+
+export { DynamicTags };

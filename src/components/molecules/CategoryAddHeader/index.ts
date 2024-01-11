@@ -1,1 +1,3 @@
-export { default as CategoryAddHeader } from './CategoryAddHeader';
+import CategoryAddHeader from './CategoryAddHeader';
+
+export { CategoryAddHeader };

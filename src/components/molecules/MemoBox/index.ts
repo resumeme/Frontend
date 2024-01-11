@@ -1,1 +1,3 @@
-export { default as MemoBox } from './MemoBox';
+import MemoBox from './MemoBox';
+
+export { MemoBox };

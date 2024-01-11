@@ -1,1 +1,3 @@
-export { default as RemoteControl } from './RemoteControl';
+import RemoteControl from './RemoteControl';
+
+export { RemoteControl };

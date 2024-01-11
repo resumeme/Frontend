@@ -1,1 +1,3 @@
-export { default as EditResumeTemplate } from './EditResumeTemplate';
+import EditResumeTemplate from './EditResumeTemplate';
+
+export { EditResumeTemplate };

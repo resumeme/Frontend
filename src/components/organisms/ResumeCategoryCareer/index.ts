@@ -1,1 +1,3 @@
-export { default as ResumeCategory } from './ResumeCategory';
+import ResumeCategory from './ResumeCategory';
+
+export { ResumeCategory };

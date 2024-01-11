@@ -1,1 +1,3 @@
-export { default as FeedbackInput } from './FeedbackInput';
+import FeedbackInput from './FeedbackInput';
+
+export { FeedbackInput };

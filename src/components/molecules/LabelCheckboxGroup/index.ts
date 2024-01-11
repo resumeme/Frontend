@@ -1,1 +1,3 @@
-export { default as LabelCheckboxGroup } from './LabelCheckboxGroup';
+import LabelCheckboxGroup from './LabelCheckboxGroup';
+
+export { LabelCheckboxGroup };

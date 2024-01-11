@@ -1,1 +1,3 @@
-export { default as RemoteControlPannel } from './RemoteControlPannel';
+import RemoteControlPannel from './RemoteControlPannel';
+
+export { RemoteControlPannel };
