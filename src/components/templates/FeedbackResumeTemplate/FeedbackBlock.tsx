@@ -13,7 +13,7 @@ const LABEL_TEXT = '피드백하기';
 
 const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
   const { eventId = '', resumeId = '' } = useParams();
-  const { mutate } = usePostFeedbackComment(resumeId, eventId);
+  const { mutate: postFeedbackComment } = usePostFeedbackComment(resumeId, eventId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState<string>('');
 
@@ -29,7 +29,7 @@ const FeedbackBlock = ({ blockId }: FeedbackBlockProps) => {
       content: value,
     };
 
-    mutate(
+    postFeedbackComment(
       { eventId, resumeId, body },
       {
         onSuccess: () => {

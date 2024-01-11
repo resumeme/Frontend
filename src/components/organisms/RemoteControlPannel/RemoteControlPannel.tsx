@@ -15,7 +15,7 @@ const RemoteControlPannel = () => {
   const { eventId = '', resumeId = '' } = useParams();
   const { data } = useGetResumeBasic({ resumeId });
   const menteeId = data?.ownerInfo?.id as number;
-  const { mutate } = usePatchFeedbackComplete();
+  const { mutate: patchFeedbackComplete } = usePatchFeedbackComplete();
   const navigate = useNavigate();
 
   const {
@@ -28,7 +28,7 @@ const RemoteControlPannel = () => {
     if (eventId !== '' && resumeId !== '') {
       value.resumeId = Number(resumeId);
 
-      mutate(
+      patchFeedbackComplete(
         { eventId, body: value },
         {
           onSuccess: () =>

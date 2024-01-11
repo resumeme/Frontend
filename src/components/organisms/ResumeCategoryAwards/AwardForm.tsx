@@ -39,12 +39,12 @@ const AwardForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postAwardMutate } = useOptimisticPostCategory({
+  const { mutate: postAward } = useOptimisticPostCategory({
     mutationFn: postResumeAward,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchResumeAwardMutate } = useOptimisticPatchCategory({
+  const { mutate: patchAward } = useOptimisticPatchCategory({
     mutationFn: patchResumeAward,
     TARGET_QUERY_KEY: categoryKeys.award(resumeId),
     onMutateSuccess: quitEdit,
@@ -55,9 +55,9 @@ const AwardForm = ({
       return;
     }
     if (!isEdit) {
-      postAwardMutate({ resumeId, body });
+      postAward({ resumeId, body });
     } else if (isEdit && blockId) {
-      patchResumeAwardMutate({ resumeId, blockId, body });
+      patchAward({ resumeId, blockId, body });
     }
   };
 

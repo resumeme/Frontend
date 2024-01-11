@@ -26,7 +26,7 @@ const CareerDetails = ({
 }: DetailsComponentProps<ReadCareer>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Career, ReadCareer>({
+  const { mutate: deleteCategory } = useOptimisticDeleteCategory<Career, ReadCareer>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
   });
@@ -149,7 +149,7 @@ const CareerDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => deleteMutate({ resumeId, blockId })}
+          onDelete={() => deleteCategory({ resumeId, blockId })}
         />
       )}
     </Flex>

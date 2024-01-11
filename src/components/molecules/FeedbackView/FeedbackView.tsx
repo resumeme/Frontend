@@ -38,8 +38,8 @@ const FeedbackView = ({
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [value, setValue] = useState<string | undefined>(content);
   const { resumeId = '', eventId = '' } = useParams();
-  const { mutate: patchCommentMutate } = usePatchFeedbackComment(resumeId, eventId);
-  const { mutate: deleteCommentMutate } = useDeleteFeedbackComment(resumeId, eventId);
+  const { mutate: patchComment } = usePatchFeedbackComment(resumeId, eventId);
+  const { mutate: deleteComment } = useDeleteFeedbackComment(resumeId, eventId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -62,7 +62,7 @@ const FeedbackView = ({
       const body = {
         content: value,
       };
-      patchCommentMutate(
+      patchComment(
         { resumeId, eventId, commentId, body },
         {
           onSuccess: () => {
@@ -76,7 +76,7 @@ const FeedbackView = ({
 
   const handleRemove = () => {
     if (resumeId && eventId && commentId) {
-      deleteCommentMutate({ resumeId, eventId, commentId });
+      deleteComment({ resumeId, eventId, commentId });
     }
   };
 

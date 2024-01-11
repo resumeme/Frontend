@@ -42,12 +42,12 @@ const ActivityForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postActivityMutate } = useOptimisticPostCategory({
+  const { mutate: postActivity } = useOptimisticPostCategory({
     mutationFn: postResumeActivity,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchResumeActivityMutate } = useOptimisticPatchCategory({
+  const { mutate: patchActivity } = useOptimisticPatchCategory({
     mutationFn: patchResumeActivity,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
     onMutateSuccess: quitEdit,
@@ -58,9 +58,9 @@ const ActivityForm = ({
       return;
     }
     if (!isEdit) {
-      postActivityMutate({ resumeId, body });
+      postActivity({ resumeId, body });
     } else if (isEdit && blockId) {
-      patchResumeActivityMutate({ resumeId, blockId, body });
+      patchActivity({ resumeId, blockId, body });
     }
   };
 

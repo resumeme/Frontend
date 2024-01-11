@@ -13,7 +13,7 @@ type ResumeSelectProps = {
 };
 const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
   const { data } = useGetMyResumes();
-  const { mutate: postCreateResumeMutate } = usePostCreateResume();
+  const { mutate: postCreateResume } = usePostCreateResume();
   const { register, handleSubmit } = useForm<{ resumeId: string }>();
   return (
     <>
@@ -52,7 +52,7 @@ const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
                   </Text>
                   <Button
                     size={'md'}
-                    onClick={() => postCreateResumeMutate()}
+                    onClick={() => postCreateResume()}
                   >
                     이력서 작성하러 가기
                   </Button>

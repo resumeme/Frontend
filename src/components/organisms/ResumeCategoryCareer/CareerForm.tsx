@@ -67,12 +67,12 @@ const CareerForm = ({
   const { isOpen, onClose, showForm, setShowForm, handleCancel, handleDeleteForm } =
     useHandleFormState(isDirty, reset);
 
-  const { mutate: postCareerMutate } = useOptimisticPostCategory({
+  const { mutate: postCareer } = useOptimisticPostCategory({
     mutationFn: postResumeCareer,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
-  const { mutate: patchCareerMutate } = useOptimisticPatchCategory({
+  const { mutate: patchCareer } = useOptimisticPatchCategory({
     mutationFn: patchResumeCareer,
     TARGET_QUERY_KEY: categoryKeys.career(resumeId),
     onMutateSuccess: quitEdit,
@@ -102,14 +102,14 @@ const CareerForm = ({
       removeDuties();
     };
     if (!isEdit) {
-      postCareerMutate(
+      postCareer(
         { resumeId, body },
         {
           onSuccess: initializeForm,
         },
       );
     } else if (isEdit && blockId) {
-      patchCareerMutate(
+      patchCareer(
         { resumeId, blockId, body },
         {
           onSuccess: initializeForm,

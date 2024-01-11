@@ -21,7 +21,7 @@ type ButtonInfo = {
 };
 
 const ResumeNavigator = ({ pageStep, onStep }: ResumeNavigatorProps) => {
-  const { mutate: createResume } = usePostCreateResume();
+  const { mutate: postCreateResume } = usePostCreateResume();
 
   const BUTTONS_INFO: ButtonInfo[] = [
     {
@@ -39,7 +39,7 @@ const ResumeNavigator = ({ pageStep, onStep }: ResumeNavigatorProps) => {
     {
       text: '새 이력서',
       icon: MdPostAdd,
-      onClick: createResume,
+      onClick: postCreateResume,
     },
   ];
 

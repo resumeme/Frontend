@@ -57,7 +57,7 @@ const FeedbackReflectTemplate = () => {
 
   const { data: mentorData } = useGetMentorDetail({ mentorId });
 
-  const { mutate: patchReflectCompleteMutate } = usePatchFeedbackReflectComplete();
+  const { mutate: patchReflectComplete } = usePatchFeedbackReflectComplete();
   const navigate = useNavigate();
   return (
     <Flex
@@ -147,7 +147,7 @@ const FeedbackReflectTemplate = () => {
 
       <Button
         onClick={() =>
-          patchReflectCompleteMutate(
+          patchReflectComplete(
             { resumeId },
             {
               onSuccess: () => {

@@ -15,7 +15,7 @@ const LanguageDetails = ({
 }: DetailsComponentProps<ReadLanguage>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Language, ReadLanguage>({
+  const { mutate: deleteCategory } = useOptimisticDeleteCategory<Language, ReadLanguage>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.language(resumeId),
   });
@@ -62,7 +62,7 @@ const LanguageDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => deleteMutate({ resumeId, blockId })}
+          onDelete={() => deleteCategory({ resumeId, blockId })}
         />
       )}
     </Flex>

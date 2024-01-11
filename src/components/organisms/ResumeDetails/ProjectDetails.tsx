@@ -25,7 +25,7 @@ const ProjectDetails = ({
 }: DetailsComponentProps<ReadProject>) => {
   const { resumeId = '' } = useParams();
   const blockId = componentId;
-  const { mutate: deleteMutate } = useOptimisticDeleteCategory<Project, ReadProject>({
+  const { mutate: deleteCategory } = useOptimisticDeleteCategory<Project, ReadProject>({
     mutationFn: deleteResumeCategoryBlock,
     TARGET_QUERY_KEY: categoryKeys.project(resumeId),
   });
@@ -133,7 +133,7 @@ const ProjectDetails = ({
       {isCurrentUser && (
         <EditDeleteOptionsButton
           onEdit={onEdit}
-          onDelete={() => deleteMutate({ resumeId, blockId })}
+          onDelete={() => deleteCategory({ resumeId, blockId })}
         />
       )}
     </Flex>
