@@ -1,1 +1,3 @@
-export { default as ResumeBasicInput } from './ResumeBasicInput';
+import ResumeBasicInput from './ResumeBasicInput';
+
+export { ResumeBasicInput };

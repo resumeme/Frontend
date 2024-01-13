@@ -1,1 +1,3 @@
-export { default as SignUpHeader } from './SignUpHeader';
+import SignUpHeader from './SignUpHeader';
+
+export { SignUpHeader };

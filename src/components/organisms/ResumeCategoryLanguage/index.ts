@@ -1,1 +1,3 @@
-export { default as LanguageForm } from './LanguageForm';
+import LanguageForm from './LanguageForm';
+
+export { LanguageForm };

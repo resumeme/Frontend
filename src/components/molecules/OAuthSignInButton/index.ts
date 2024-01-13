@@ -1,1 +1,3 @@
-export { default as OAuthSignInButton } from './OAuthSignInButton';
+import OAuthSignInButton from './OAuthSignInButton';
+
+export { OAuthSignInButton };

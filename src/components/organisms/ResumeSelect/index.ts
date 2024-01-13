@@ -1,1 +1,3 @@
-export { default as ResumeSelect } from './ResumeSelect';
+import ResumeSelect from './ResumeSelect';
+
+export { ResumeSelect };

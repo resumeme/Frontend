@@ -1,1 +1,3 @@
-export { default as EventGrid } from './EventGrid';
+import EventGrid from './EventGrid';
+
+export { EventGrid };

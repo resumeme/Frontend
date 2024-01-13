@@ -1,1 +1,3 @@
-export { default as SignUpCommonTemplate } from './SignUpCommonTemplate';
+import SignUpCommonTemplate from './SignUpCommonTemplate';
+
+export { SignUpCommonTemplate };

@@ -1,1 +1,3 @@
-export { default as SignUpCompleteTemplate } from './SignUpCompleteTemplate';
+import SignUpCompleteTemplate from './SignUpCompleteTemplate';
+
+export { SignUpCompleteTemplate };

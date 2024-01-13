@@ -1,1 +1,3 @@
-export { default as SignUpMentorTemplate } from './SignUpMentorTemplate';
+import SignUpMentorTemplate from './SignUpMentorTemplate';
+
+export { SignUpMentorTemplate };

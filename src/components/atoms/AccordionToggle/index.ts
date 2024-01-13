@@ -1,1 +1,3 @@
-export { default as AccordionToggle } from './AccordionToggle';
+import AccordionToggle from './AccordionToggle';
+
+export { AccordionToggle };

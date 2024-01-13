@@ -1,1 +1,3 @@
-export { default as FeedbackCompleteTemplate } from './FeedbackCompleteTemplate';
+import FeedbackCompleteTemplate from './FeedbackCompleteTemplate';
+
+export { FeedbackCompleteTemplate };

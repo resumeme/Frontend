@@ -1,1 +1,3 @@
-export { default as ResumeDetailTemplate } from './ResumeDetailTemplate';
+import ResumeDetailTemplate from './ResumeDetailTemplate';
+
+export { ResumeDetailTemplate };

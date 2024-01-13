@@ -1,1 +1,3 @@
-export { default as FeedbackView } from './FeedbackView';
+import FeedbackView from './FeedbackView';
+
+export { FeedbackView };

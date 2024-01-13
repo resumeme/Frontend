@@ -1,1 +1,3 @@
-export { default as FeedbackReflectTemplate } from './FeedbackReflectTemplate';
+import FeedbackReflectTemplate from './FeedbackReflectTemplate';
+
+export { FeedbackReflectTemplate };

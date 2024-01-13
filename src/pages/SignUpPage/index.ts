@@ -1,1 +1,3 @@
-export { default as SignUpPage } from './SignUpPage';
+import SignUpPage from './SignUpPage';
+
+export { SignUpPage };

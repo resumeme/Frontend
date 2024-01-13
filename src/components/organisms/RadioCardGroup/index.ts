@@ -1,1 +1,3 @@
-export { default as RadioCardGroup } from './RadioCardGroup';
+import RadioCardGroup from './RadioCardGroup';
+
+export { RadioCardGroup };

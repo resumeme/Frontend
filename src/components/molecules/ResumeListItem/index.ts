@@ -1,1 +1,3 @@
-export { default as ResumeListItem } from './ResumeListItem';
+import ResumeListItem from './ResumeListItem';
+
+export { ResumeListItem };
