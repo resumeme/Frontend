@@ -1,6 +1,6 @@
 import { Position } from '../position';
 
-type FollowInfo = {
+export type FollowInfo = {
   followId: number;
   mentorInfo: {
     id: number;
@@ -13,6 +13,4 @@ type FollowInfo = {
   };
 };
 
-type FollowId = { id: number };
-
-export type { FollowInfo, FollowId };
+export type FollowId = { id: number };

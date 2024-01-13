@@ -1,9 +1,9 @@
 import { Fields } from './fields';
 import { Position } from './position';
 
-type UserRole = 'mentee' | 'mentor' | 'pending';
+export type UserRole = 'mentee' | 'mentor' | 'pending';
 
-type User = {
+export type User = {
   id: number;
   imageUrl: string;
   realName: string;
@@ -17,5 +17,3 @@ type User = {
   careerYear: number;
   introduce: string;
 };
-
-export type { User, UserRole };

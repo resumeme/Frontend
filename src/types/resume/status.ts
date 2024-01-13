@@ -1,5 +1,3 @@
 import { RESUME_STATUS } from './../../constants/status';
 
-type ResumeStatus = keyof typeof RESUME_STATUS;
-
-export type { ResumeStatus };
+export type ResumeStatus = keyof typeof RESUME_STATUS;

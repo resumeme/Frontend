@@ -1,7 +1,7 @@
 import { ResumeStatus } from './status';
 import { Position } from '../position';
 
-type ResumeListItem = {
+export type ResumeListItem = {
   id: number;
   title: string;
   modifiedAt: string;
@@ -9,11 +9,11 @@ type ResumeListItem = {
   memo: string;
 };
 
-type MyResume = ResumeListItem & {
+export type MyResume = ResumeListItem & {
   position: Position[];
 };
 
-type FeedbackResume = {
+export type FeedbackResume = {
   resumeTitle?: string;
   eventId: number;
   resumeId: number;
@@ -24,5 +24,3 @@ type FeedbackResume = {
   endDate: string;
   rejectMessage?: string;
 };
-
-export type { MyResume, ResumeListItem, FeedbackResume };

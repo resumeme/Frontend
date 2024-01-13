@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
   projectName: string;
   productionYear: number;
   team?: boolean;
@@ -8,14 +8,12 @@ type Project = {
   projectUrl?: string;
 };
 
-type ReadProject = Project & {
+export type ReadProject = Project & {
   componentId: number;
   reflectFeedback: boolean;
   originComponentId: number | null;
 };
 
-type ProjectForm = {
+export type ProjectForm = {
   isTeam: boolean | string;
 } & Omit<Project, 'isTeam'>;
-
-export type { Project, ReadProject, ProjectForm };

@@ -8,13 +8,11 @@ type BaseMentor = {
   introduce: string;
 };
 
-type ReadMentor = BaseMentor & {
+export type ReadMentor = BaseMentor & {
   imageUrl: string;
   role: string;
 };
 
-type EditMentor = BaseMentor & {
+export type EditMentor = BaseMentor & {
   phoneNumber: string;
 };
-
-export type { ReadMentor, EditMentor };

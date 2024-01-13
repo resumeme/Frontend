@@ -1,4 +1,4 @@
-type Training = {
+export type Training = {
   organization: string;
   major: string;
   degree: string;
@@ -9,10 +9,8 @@ type Training = {
   explanation?: string;
 };
 
-type ReadTraining = Training & {
+export type ReadTraining = Training & {
   componentId: number;
   reflectFeedback: boolean;
   originComponentId: number | null;
 };
-
-export type { Training, ReadTraining };

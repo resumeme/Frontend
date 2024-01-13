@@ -2,7 +2,7 @@ import { EventStatus } from '../eventStatus';
 import { Position } from '../position';
 import { ResumeStatus } from '../resume/status';
 
-type CreateEvent = {
+export type CreateEvent = {
   info: EventInfo;
   time: CreateEventTime;
   positions: Position[];
@@ -14,18 +14,18 @@ type EventInfo = {
   maximumAttendee: number;
 };
 
-type EventTime = {
+export type EventTime = {
   now: string;
   openDateTime: string;
   closeDateTime: string;
   endDate: string;
 };
 
-type CreateEventTime = {
+export type CreateEventTime = {
   openDateTime: string | null;
 } & Omit<EventTime, 'openDateTime'>;
 
-type EventResume = {
+export type EventResume = {
   resumeId: number;
   menteeName: string;
   resumeTitle: string;
@@ -33,7 +33,7 @@ type EventResume = {
   modifiedAt?: string;
 };
 
-type ReadEvent = {
+export type ReadEvent = {
   id: number;
   mentorId: number;
   title: string;
@@ -45,7 +45,7 @@ type ReadEvent = {
   timeInfo: Omit<EventTime, 'now'>;
 };
 
-type ReadManagementEvent = {
+export type ReadManagementEvent = {
   info: {
     id: number;
     mentorId: number;
@@ -58,13 +58,4 @@ type ReadManagementEvent = {
     timeInfo: Omit<EventTime, 'now'>;
   };
   resumes: EventResume[];
-};
-
-export type {
-  CreateEvent,
-  ReadEvent,
-  EventResume,
-  EventTime,
-  ReadManagementEvent,
-  CreateEventTime,
 };
