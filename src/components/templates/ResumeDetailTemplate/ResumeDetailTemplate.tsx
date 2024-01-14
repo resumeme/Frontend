@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '../../atoms/BorderBox';
 import { Label } from '~/components/atoms/Label';
-import EditDeleteOptionsButton from '~/components/molecules/OptionsButton/EditDeleteOptionsButton';
+import EditDeleteOptionsButton from '~/components/organisms/EditDeleteOptionsButton/EditDeleteOptionsButton';
 import { ReferenceLinkBox } from '~/components/molecules/ReferenceLinkBox';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {

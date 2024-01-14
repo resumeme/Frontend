@@ -1,5 +1,5 @@
 import { useDisclosure, Text, Box } from '@chakra-ui/react';
-import RejectionModalContent from './RejectionModalContent';
+import RejectionModalContent from '../../molecules/RejectionModalContent/RejectionModalContent';
 import { Modal } from '~/components/molecules/Modal';
 
 type RemoteControlRejectProps = {

@@ -1,6 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import ImageCard from './ImageCard';
-import UserDetail from './UserDetail';
+import ImageCard from '../../molecules/ImageCard/ImageCard';
+import UserDetail from '../UserDetail/UserDetail';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { User } from '~/types/user';
 

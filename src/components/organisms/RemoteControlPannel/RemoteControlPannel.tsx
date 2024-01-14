@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import RemoteControlReject from './RemoteControlReject';
+import RemoteControlReject from '../RemoteControlReject/RemoteControlReject';
 import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { RemoteControl } from '~/components/atoms/RemoteControl';

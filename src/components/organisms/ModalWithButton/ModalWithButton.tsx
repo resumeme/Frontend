@@ -1,5 +1,5 @@
 import { Button, useDisclosure } from '@chakra-ui/react';
-import Modal, { ModalProps } from './Modal';
+import Modal, { ModalProps } from '../../molecules/Modal/Modal';
 
 const ModalWithButton = ({ size, title, hasCloseButton, hasFooter, children }: ModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

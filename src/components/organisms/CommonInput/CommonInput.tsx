@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
-import { FORM_STYLE } from './EditMentorProfileTemplate';
+import { FORM_STYLE } from '../../templates/EditProfileTemplate/EditMentorProfileTemplate';
 import { Avatar } from '~/components/atoms/Avatar';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';

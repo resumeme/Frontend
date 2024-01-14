@@ -1,7 +1,7 @@
 import { useDisclosure } from '@chakra-ui/react';
-import OptionsButton from './OptionsButton';
-import { Option } from './OptionsButton';
-import { ConfirmModal } from '../ConfirmModal';
+import { ConfirmModal } from '../../molecules/ConfirmModal';
+import OptionsButton from '../../molecules/OptionsButton/OptionsButton';
+import { Option } from '../../molecules/OptionsButton/OptionsButton';
 
 const EditDeleteOptionsButton = ({
   onEdit,

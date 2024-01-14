@@ -1,6 +1,6 @@
 import { Box, Flex, FormControl, Radio, RadioGroup } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import LinkItem from './LinkItem';
+import LinkItem from '../../molecules/LinkItem/LinkItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
 import { FormTextInput } from '~/components/molecules/FormTextInput';

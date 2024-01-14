@@ -2,7 +2,7 @@ import { Box, ChakraProps, Flex, Heading, Text, useDisclosure } from '@chakra-ui
 import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import CommonInput from './CommonInput';
+import CommonInput from '../../organisms/CommonInput/CommonInput';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';
 import { FormControl } from '~/components/molecules/FormControl';
