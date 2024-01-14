@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Avatar from './Avatar';
 
 const meta = {
-  title: 'Resumeme/Components/Avatar',
+  title: 'Resumeme/Components/Atoms/Avatar',
   component: Avatar,
   tags: ['autodocs'],
 } satisfies Meta<typeof Avatar>;

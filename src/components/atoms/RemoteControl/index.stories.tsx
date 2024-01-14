@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 import RemoteControl from './RemoteControl';
 
 const meta = {
-  title: 'Resumeme/Components/RemoteControl',
+  title: 'Resumeme/Components/Atoms/RemoteControl',
   component: RemoteControl,
   tags: ['autodocs'],
 } satisfies Meta<typeof RemoteControl>;

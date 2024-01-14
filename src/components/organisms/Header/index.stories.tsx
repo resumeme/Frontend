@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import Header from './Header';
 
 const meta = {
-  title: 'Resumeme/components/Header',
+  title: 'Resumeme/Components/Organisms/Header',
   component: Header,
   parameters: {
     layout: 'centered',

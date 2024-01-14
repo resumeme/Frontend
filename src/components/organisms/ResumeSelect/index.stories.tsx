@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import { ResumeSelect } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/ResumeSelect ',
+  title: 'Resumeme/Components/Organisms/ResumeSelect ',
   component: ResumeSelect,
   tags: ['autodocs'],
 } satisfies Meta<typeof ResumeSelect>;

@@ -4,7 +4,7 @@ import { EventListItem } from '~/types/event/eventList';
 import { Position } from '~/types/position';
 
 const meta = {
-  title: 'Resumeme/Components/EventGrid',
+  title: 'Resumeme/Components/Organisms/EventGrid',
   tags: ['autodocs'],
   component: EventGrid,
 } satisfies Meta<typeof EventGrid>;

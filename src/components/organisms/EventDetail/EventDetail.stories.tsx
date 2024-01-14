@@ -4,7 +4,7 @@ import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
 const meta = {
-  title: 'Resumeme/components/EventDetail',
+  title: 'Resumeme/Components/Organisms/EventDetail',
   component: EventDetail,
   parameters: {
     layout: 'centered',

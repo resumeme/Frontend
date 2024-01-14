@@ -5,7 +5,7 @@ import TermInput from './TermInput';
 import { Button } from '~/components/atoms/Button';
 
 const meta = {
-  title: 'Resumeme/components/TermInput',
+  title: 'Resumeme/components/Molecules/TermInput',
   component: TermInput,
   parameters: {
     layout: 'centered',

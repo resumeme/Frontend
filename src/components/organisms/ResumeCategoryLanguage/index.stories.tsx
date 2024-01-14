@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import LanguageForm from './LanguageForm';
 
 const meta = {
-  title: 'Resumeme/Components/LanguageForm',
+  title: 'Resumeme/Components/Organisms/LanguageForm',
   component: LanguageForm,
   parameters: {
     layout: 'centered',

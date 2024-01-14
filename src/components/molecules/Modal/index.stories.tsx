@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ModalWithButton from './ModalWithButton';
 
 const meta = {
-  title: 'Resumeme/components/Modal',
+  title: 'Resumeme/components/Molecules/Modal',
   component: ModalWithButton,
   parameters: {
     layout: 'centered',

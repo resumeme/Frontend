@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { CategoryAddHeader } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/CategoryAddHeader',
+  title: 'Resumeme/Components/Molecules/CategoryAddHeader',
   tags: ['autodocs'],
   component: CategoryAddHeader,
   argTypes: {

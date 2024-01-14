@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AwardForm from './AwardForm';
 
 const meta = {
-  title: 'Resumeme/Components/AwardForm',
+  title: 'Resumeme/Components/Organisms/AwardForm',
   component: AwardForm,
   tags: ['autodocs'],
   decorators: [

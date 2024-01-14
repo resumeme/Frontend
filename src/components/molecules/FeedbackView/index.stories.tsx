@@ -3,7 +3,7 @@ import FeedbackView from './FeedbackView';
 import { ReadMentor } from '~/types/mentor';
 
 const meta = {
-  title: 'Resumeme/Components/FeedbackView',
+  title: 'Resumeme/Components/Molecules/FeedbackView',
   component: FeedbackView,
   tags: ['autodocs'],
 } satisfies Meta<typeof FeedbackView>;

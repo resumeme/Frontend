@@ -8,7 +8,7 @@ import { FormLabel } from '~/components/atoms/FormLabel';
 import { CreateEvent } from '~/types/event/event';
 
 const meta = {
-  title: 'Resumeme/Components/FormControl',
+  title: 'Resumeme/Components/Molecules/FormControl',
   component: FormControl,
   tags: ['autodocs'],
 } satisfies Meta<typeof FormControl>;
