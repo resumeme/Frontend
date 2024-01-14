@@ -1,4 +1,4 @@
-import { VStack, HStack, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -81,7 +81,11 @@ const LanguageForm = ({
           p={isEdit ? 0 : '2rem'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              gap={'1.25rem'}
+            >
               <FormControl isInvalid={Boolean(errors.language)}>
                 <FormLabel isRequired>언어</FormLabel>
                 <FormTextInput
@@ -91,9 +95,9 @@ const LanguageForm = ({
                   error={errors.language}
                 />
               </FormControl>
-              <HStack
+              <Flex
                 alignSelf={'stretch'}
-                spacing={'3rem'}
+                gap={'3rem'}
               >
                 <FormControl isInvalid={Boolean(errors.examName)}>
                   <FormLabel isRequired>시험명</FormLabel>
@@ -115,7 +119,7 @@ const LanguageForm = ({
                     error={errors.scoreOrGrade}
                   />
                 </FormControl>
-              </HStack>
+              </Flex>
               <ConfirmModal
                 isOpen={isOpen}
                 onClose={onClose}
@@ -131,7 +135,7 @@ const LanguageForm = ({
                   if (isEdit && quitEdit) quitEdit();
                 }}
               />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}

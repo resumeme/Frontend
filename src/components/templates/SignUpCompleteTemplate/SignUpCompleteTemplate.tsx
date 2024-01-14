@@ -1,4 +1,4 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -23,9 +23,11 @@ const SignUpCompleteTemplate = ({ role, user }: { role: SignUpRole; user?: User 
       hasShadow
       w={'31.25rem'}
     >
-      <VStack
+      <Flex
+        justify={'center'}
+        direction={'column'}
         p={'3rem 3rem 2rem'}
-        spacing={'2.5rem'}
+        gap={'2.5rem'}
       >
         <Text
           color={'gray.900'}
@@ -41,7 +43,7 @@ const SignUpCompleteTemplate = ({ role, user }: { role: SignUpRole; user?: User 
           {TEXT[role]['SUB']}
         </Text>
         <Button onClick={() => navigate(appPaths.main())}>홈으로 이동하기</Button>
-      </VStack>
+      </Flex>
     </BorderBox>
   );
 };

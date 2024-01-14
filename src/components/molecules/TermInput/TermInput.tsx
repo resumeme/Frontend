@@ -1,4 +1,4 @@
-import { Divider, HStack, FormControl } from '@chakra-ui/react';
+import { Divider, FormControl, Flex } from '@chakra-ui/react';
 import {
   UseFormRegister,
   FieldValues,
@@ -48,7 +48,11 @@ const TermInput = <T extends FieldValues>({
   };
 
   return (
-    <HStack flexGrow={1}>
+    <Flex
+      align={'center'}
+      gap={2}
+      flexGrow={1}
+    >
       <FormControl isInvalid={!!getNestedError(errors, startDateName)}>
         <FormDateInput
           future={future}
@@ -86,7 +90,7 @@ const TermInput = <T extends FieldValues>({
           error={getNestedError(errors, endDateName)}
         />
       </FormControl>
-    </HStack>
+    </Flex>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Box, ChakraProps, Flex, Heading, Text, VStack, useDisclosure } from '@chakra-ui/react';
+import { Box, ChakraProps, Flex, Heading, Text, useDisclosure } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -128,9 +128,11 @@ const EditMentorProfileTemplate = () => {
             direction="column"
             px={'2rem'}
           >
-            <VStack
+            <Flex
+              justify={'center'}
+              direction={'column'}
               w={'full'}
-              spacing={'1.8rem'}
+              gap={'1.8rem'}
             >
               <FormControl
                 isInvalid={!!errors.experiencedPositions}
@@ -236,7 +238,7 @@ const EditMentorProfileTemplate = () => {
                   h={'7.2rem'}
                 />
               </FormControl>
-            </VStack>
+            </Flex>
           </Flex>
         </BorderBox>
         <Flex

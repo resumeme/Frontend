@@ -1,4 +1,4 @@
-import { Box, VStack } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,9 +26,11 @@ const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCate
             setIsShowForm(true);
           }}
         />
-        <VStack
+        <Flex
+          justify={'center'}
+          direction={'column'}
           marginTop={'1.2rem'}
-          spacing={'1rem'}
+          gap={'1rem'}
         >
           {detailsComponent}
           {isShowForm && (
@@ -44,7 +46,7 @@ const ResumeCategory = ({ categoryType, detailsComponent, children }: ResumeCate
               )}
             </BorderBox>
           )}
-        </VStack>
+        </Flex>
       </Box>
     </>
   );

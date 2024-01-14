@@ -1,4 +1,4 @@
-import { HStack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { Button } from '~/components/atoms/Button';
 import { ButtonProps } from '~/components/atoms/Button/Button';
 
@@ -9,7 +9,10 @@ type SubmitButtonGroupProps = {
 const SubmitButtonGroup = ({ size = 'sm', onCancel }: SubmitButtonGroupProps) => {
   return (
     <>
-      <HStack>
+      <Flex
+        align={'center'}
+        gap={2}
+      >
         <Button
           size={size}
           variant={'cancel'}
@@ -23,7 +26,7 @@ const SubmitButtonGroup = ({ size = 'sm', onCancel }: SubmitButtonGroupProps) =>
         >
           저장
         </Button>
-      </HStack>
+      </Flex>
     </>
   );
 };

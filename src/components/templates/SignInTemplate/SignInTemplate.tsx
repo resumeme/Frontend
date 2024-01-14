@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Image, Divider, Flex, HStack, Heading, Icon, Text, VStack } from '@chakra-ui/react';
+import { Image, Divider, Flex, Heading, Icon, Text } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { AiFillGithub } from 'react-icons/ai';
 import { RiNotionFill } from 'react-icons/ri';
@@ -26,7 +26,11 @@ const SignInTemplate = () => {
       w={'27.75rem'}
       py={'2.5rem'}
     >
-      <VStack spacing={'2.2rem'}>
+      <Flex
+        justify={'center'}
+        direction={'column'}
+        gap={'2.2rem'}
+      >
         <Logo />
         <Text
           fontSize={'1.125rem'}
@@ -57,7 +61,7 @@ const SignInTemplate = () => {
         >
           {TEXT.copyright}
         </Text>
-      </VStack>
+      </Flex>
     </BorderBox>
   );
 };
@@ -84,7 +88,10 @@ const Logo = () => {
 
 const ReferenceLinks = () => {
   return (
-    <HStack spacing={'1.69rem'}>
+    <Flex
+      align={'center'}
+      gap={'1.69rem'}
+    >
       <Link
         href={'https://github.com/resumeme'}
         isExternal
@@ -109,7 +116,7 @@ const ReferenceLinks = () => {
           <Text fontSize={'0.75rem'}>이력,써</Text>
         </Flex>
       </Link>
-    </HStack>
+    </Flex>
   );
 };
 

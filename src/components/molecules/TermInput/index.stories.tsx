@@ -1,4 +1,4 @@
-import { FormControl, HStack } from '@chakra-ui/react';
+import { Flex, FormControl } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import TermInput from './TermInput';
@@ -46,7 +46,10 @@ export const WithSubmit = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={Boolean(errors.endDate)}>
-        <HStack>
+        <Flex
+          align={'center'}
+          gap={2}
+        >
           <TermInput
             future
             startDateName="startDate"
@@ -62,7 +65,7 @@ export const WithSubmit = () => {
           >
             저장
           </Button>
-        </HStack>
+        </Flex>
       </FormControl>
     </form>
   );

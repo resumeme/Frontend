@@ -1,4 +1,4 @@
-import { Image, Text, Flex, VStack, Box } from '@chakra-ui/react';
+import { Image, Text, Flex, Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -74,9 +74,11 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
         alignItems={'center'}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack
+          <Flex
+            justify={'center'}
+            direction={'column'}
             w={'21.875rem'}
-            spacing={'1.8rem'}
+            gap={'1.8rem'}
           >
             <FormControl
               isInvalid={!!errors.realName}
@@ -185,7 +187,7 @@ const SignUpCommonTemplate = ({ onNext }: SignUpCommonTemplateProps) => {
             >
               다음으로
             </Button>
-          </VStack>
+          </Flex>
         </form>
       </Flex>
     </BorderBox>

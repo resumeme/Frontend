@@ -1,4 +1,4 @@
-import { CheckboxGroup, CheckboxGroupProps, Flex, FormErrorMessage, Stack } from '@chakra-ui/react';
+import { CheckboxGroup, CheckboxGroupProps, Flex, FormErrorMessage } from '@chakra-ui/react';
 import { Controller, Control, FieldValues, Path, FieldError } from 'react-hook-form';
 import CheckboxStyled from './CheckboxStyled';
 import CONSTANTS from '~/constants';
@@ -42,8 +42,8 @@ const LabelCheckboxGroup = <T extends FieldValues>({
             onChange={onChange}
             value={value}
           >
-            <Stack
-              spacing={spacing}
+            <Flex
+              gap={spacing}
               direction="row"
               flexWrap="wrap"
             >
@@ -56,7 +56,7 @@ const LabelCheckboxGroup = <T extends FieldValues>({
                     {selectedOptions[key]}
                   </CheckboxStyled>
                 ))}
-            </Stack>
+            </Flex>
           </CheckboxGroup>
         )}
         rules={{ required: required ? errorMessage : false }}

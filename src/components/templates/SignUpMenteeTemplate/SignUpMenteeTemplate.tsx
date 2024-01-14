@@ -1,4 +1,4 @@
-import { Flex, Text, VStack } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -65,9 +65,11 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
           추가 정보 작성하기
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack
+          <Flex
+            justify={'center'}
+            direction={'column'}
             w={'full'}
-            spacing={'1.8rem'}
+            gap={'1.8rem'}
           >
             <FormControl {...FORM_STYLE.control}>
               <FormLabel
@@ -105,7 +107,12 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
                 h={'7.2rem'}
               />
             </FormControl>
-            <VStack w={'full'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              w={'full'}
+              gap={2}
+            >
               <Button
                 onClick={handleDelayClick}
                 variant={'cancel'}
@@ -119,8 +126,8 @@ const SignUpMenteeTemplate = ({ onNext }: SignUpMenteeTemplateProps) => {
               >
                 완료하기
               </Button>
-            </VStack>
-          </VStack>
+            </Flex>
+          </Flex>
         </form>
       </Flex>
     </BorderBox>

@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, HStack, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Text } from '@chakra-ui/react';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { FOOTER_CONTENT } from './Footer.const';
@@ -27,11 +27,12 @@ const Footer = () => {
           >
             {FOOTER_CONTENT.main.title}
           </Text>
-          <HStack
+          <Flex
+            align={'center'}
             color={'gray.400'}
             fontSize={'1.125rem'}
             fontWeight={600}
-            spacing={'3.75rem'}
+            gap={'3.75rem'}
           >
             {Object.values(FOOTER_CONTENT.links).map((link) => (
               <Link
@@ -42,7 +43,7 @@ const Footer = () => {
                 <Text>{link.text}</Text>
               </Link>
             ))}
-          </HStack>
+          </Flex>
         </Flex>
         <Flex alignItems={'end'}>
           <Flex
@@ -52,7 +53,10 @@ const Footer = () => {
             fontSize={'0.75rem'}
             direction={'column'}
           >
-            <HStack spacing={'0.75rem'}>
+            <Flex
+              align={'center'}
+              gap={'0.75rem'}
+            >
               <Text fontWeight={600}>팀 아몬드빼빼로</Text>
               <Divider
                 h={'0.75rem'}
@@ -61,10 +65,11 @@ const Footer = () => {
                 borderColor={'gray.300'}
               />
               <Text>멘토 (BE) 조규현, (FE) 윤지석</Text>
-            </HStack>
-            <HStack
+            </Flex>
+            <Flex
+              align={'center'}
               mt={'32px'}
-              spacing={'0.75rem'}
+              gap={'0.75rem'}
             >
               <Text
                 w={'3.25rem'}
@@ -85,8 +90,11 @@ const Footer = () => {
                   )}
                 </Fragment>
               ))}
-            </HStack>
-            <HStack spacing={'0.75rem'}>
+            </Flex>
+            <Flex
+              align={'center'}
+              gap={'0.75rem'}
+            >
               <Text
                 w={'3.25rem'}
                 fontWeight={600}
@@ -106,10 +114,11 @@ const Footer = () => {
                   )}
                 </Fragment>
               ))}
-            </HStack>
-            <HStack
+            </Flex>
+            <Flex
+              align={'center'}
               mt={'32px'}
-              spacing={'0.75rem'}
+              gap={'0.75rem'}
             >
               <Text fontWeight={600}>{FOOTER_CONTENT.team.address}</Text>
               <Divider
@@ -119,12 +128,12 @@ const Footer = () => {
                 borderColor={'gray.300'}
               />
               <Text>{FOOTER_CONTENT.team.phoneNumber}</Text>
-            </HStack>
+            </Flex>
           </Flex>
-          <HStack
+          <Flex
             mt={'34px'}
             color={'gray.400'}
-            spacing={'5rem'}
+            gap={'5rem'}
             alignItems={'start'}
           >
             <Flex direction={'column'}>
@@ -155,7 +164,7 @@ const Footer = () => {
                 <Text>{FOOTER_CONTENT.pages.community.link.successfulResumes.text}</Text>
               </Link>
             </Flex>
-          </HStack>
+          </Flex>
         </Flex>
         <Divider
           mt={'5.38rem'}

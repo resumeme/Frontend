@@ -1,4 +1,4 @@
-import { Box, Flex, FormControl, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Box, Flex, FormControl, Radio, RadioGroup } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import LinkItem from './LinkItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -69,8 +69,8 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
                 colorScheme="primary"
                 mb={3}
               >
-                <Stack
-                  spacing={4}
+                <Flex
+                  gap={4}
                   direction={'row'}
                 >
                   <Radio
@@ -91,7 +91,7 @@ const ReferenceLinkForm = ({ defaultValue, resumeId }: ReferenceLinkFormProps) =
                   >
                     기타
                   </Radio>
-                </Stack>
+                </Flex>
               </RadioGroup>
               <FormTextInput
                 id="url"

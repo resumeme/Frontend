@@ -1,4 +1,4 @@
-import { Flex, Text, Checkbox, HStack, Select } from '@chakra-ui/react';
+import { Flex, Text, Checkbox, Select } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { FormTextarea } from './../../molecules/FormTextarea';
@@ -167,7 +167,10 @@ const CreateEventTemplate = ({
               </FormControl>
             )}
 
-            <HStack spacing={'1.6rem'}>
+            <Flex
+              align={'center'}
+              gap={'1.6rem'}
+            >
               <FormLabel isRequired={true}>신청 기간</FormLabel>
               <TermInput<CreateEvent>
                 future={!isEdit}
@@ -191,7 +194,7 @@ const CreateEventTemplate = ({
               >
                 즉시 오픈
               </Checkbox>
-            </HStack>
+            </Flex>
             <FormControl isInvalid={!!errors.time?.endDate}>
               <FormLabel isRequired={true}>피드백 종료일</FormLabel>
               <FormDateInput

@@ -1,4 +1,4 @@
-import { VStack, Checkbox, Flex } from '@chakra-ui/react';
+import { Checkbox, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -47,6 +47,7 @@ const ActivityForm = ({
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
     onMutateSuccess: handleDeleteForm,
   });
+
   const { mutate: patchActivity } = useOptimisticPatchCategory({
     mutationFn: patchResumeActivity,
     TARGET_QUERY_KEY: categoryKeys.activity(resumeId),
@@ -95,7 +96,11 @@ const ActivityForm = ({
           p={isEdit ? 0 : '2rem'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              gap={'1.25rem'}
+            >
               <FormControl isInvalid={Boolean(errors.activityName)}>
                 <FormLabel isRequired>활동명</FormLabel>
                 <FormTextInput
@@ -178,7 +183,7 @@ const ActivityForm = ({
                   if (isEdit && quitEdit) quitEdit();
                 }}
               />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}
