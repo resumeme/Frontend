@@ -1,5 +1,4 @@
-import { Box, Divider, Flex, VStack } from '@chakra-ui/react';
-
+import { Box, Divider, Flex } from '@chakra-ui/react';
 import EventContent from './EventContent';
 import EventTime from './EventTime';
 import MentorCareerContent from './MentorCareerContent';
@@ -23,7 +22,12 @@ const EventDetail = ({
 }: EventDetailProps) => {
   return (
     <Box flex={3.75}>
-      <VStack w={'full'}>
+      <Flex
+        justify={'center'}
+        direction={'column'}
+        gap={2}
+        w={'full'}
+      >
         <Box
           borderRadius={'0.375rem'}
           p={'2rem 2rem'}
@@ -57,7 +61,7 @@ const EventDetail = ({
             <MentorCareerContent careerContent={mentor.careerContent} />
           </Flex>
         </Box>
-      </VStack>
+      </Flex>
     </Box>
   );
 };

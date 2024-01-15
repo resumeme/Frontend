@@ -1,4 +1,4 @@
-import { Flex, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -59,9 +59,11 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
         px={'2rem'}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack
+          <Flex
+            justify={'center'}
+            direction={'column'}
             w={'full'}
-            spacing={'1.8rem'}
+            gap={'1.8rem'}
           >
             <FormControl
               isInvalid={!!errors.experiencedPositions}
@@ -174,7 +176,7 @@ const SignUpMentorTemplate = ({ onNext }: SignUpMentorTemplateProps) => {
             >
               완료하기
             </Button>
-          </VStack>
+          </Flex>
         </form>
       </Flex>
     </BorderBox>

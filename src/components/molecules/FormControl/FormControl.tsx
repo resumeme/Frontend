@@ -1,6 +1,6 @@
 import {
   FormControl as ChakraFormControl,
-  Stack,
+  Flex,
   FormControlProps as ChakraFormControlProps,
 } from '@chakra-ui/react';
 
@@ -17,12 +17,12 @@ const FormControl = ({
 }: FormControlProps) => {
   return (
     <ChakraFormControl {...props}>
-      <Stack
+      <Flex
         direction={direction}
-        spacing={spacing}
+        gap={spacing}
       >
         {children}
-      </Stack>
+      </Flex>
     </ChakraFormControl>
   );
 };

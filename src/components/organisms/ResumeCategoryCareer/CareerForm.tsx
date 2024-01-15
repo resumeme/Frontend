@@ -1,6 +1,5 @@
 import { AddIcon } from '@chakra-ui/icons';
 import {
-  VStack,
   Text,
   Divider,
   Button as ChakraButton,
@@ -153,7 +152,11 @@ const CareerForm = ({
           p={isEdit ? 0 : '2rem'}
         >
           <form onSubmit={onSubmit}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              gap={'1.25rem'}
+            >
               <FormControl isInvalid={Boolean(errors.companyName)}>
                 <FormLabel isRequired>회사명</FormLabel>
                 <FormTextInput
@@ -274,7 +277,7 @@ const CareerForm = ({
                   if (isEdit && quitEdit) quitEdit();
                 }}
               />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}

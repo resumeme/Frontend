@@ -1,4 +1,4 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -84,7 +84,11 @@ const AwardForm = ({
           p={isEdit ? 0 : '2rem'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              gap={'1.25rem'}
+            >
               <FormControl isInvalid={Boolean(errors.certificationTitle)}>
                 <FormLabel
                   htmlFor="certificationTitle"
@@ -195,7 +199,7 @@ const AwardForm = ({
                   if (isEdit && quitEdit) quitEdit();
                 }}
               />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}

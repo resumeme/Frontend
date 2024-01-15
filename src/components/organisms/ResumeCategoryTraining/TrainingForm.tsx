@@ -1,4 +1,4 @@
-import { Flex, Select, VStack } from '@chakra-ui/react';
+import { Flex, Select } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -84,7 +84,11 @@ const TrainingForm = ({
           p={isEdit ? 0 : '2rem'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={'1.25rem'}>
+            <Flex
+              justify={'center'}
+              direction={'column'}
+              gap={'1.25rem'}
+            >
               <Flex
                 gap={'2rem'}
                 alignSelf={'start'}
@@ -257,7 +261,7 @@ const TrainingForm = ({
                   if (isEdit && quitEdit) quitEdit();
                 }}
               />
-            </VStack>
+            </Flex>
           </form>
         </BorderBox>
       )}

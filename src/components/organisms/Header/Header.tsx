@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Stack, Image, Heading } from '@chakra-ui/react';
+import { Box, Flex, Button, Image, Heading } from '@chakra-ui/react';
 import { IoCaretDownOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '~/components/atoms/Avatar';
@@ -73,9 +73,9 @@ const Navigation = ({ user }: { user: User | null }) => {
   const NAV_ITEMS = user ? USER_NAV_ITEMS[user.role] : USER_NAV_ITEMS.common;
 
   return (
-    <Stack
+    <Flex
       direction={'row'}
-      spacing={'70px'}
+      gap={'70px'}
     >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
@@ -94,7 +94,7 @@ const Navigation = ({ user }: { user: User | null }) => {
           </Box>
         </Box>
       ))}
-    </Stack>
+    </Flex>
   );
 };
 
@@ -174,9 +174,9 @@ const Header = () => {
         </Flex>
 
         {/* NOTE LOGIN, NOTIFICATION */}
-        <Stack
+        <Flex
           direction={'row'}
-          spacing={2}
+          gap={2}
         >
           {user ? (
             <Flex
@@ -222,7 +222,7 @@ const Header = () => {
               </Button>
             </Link>
           )}
-        </Stack>
+        </Flex>
       </Flex>
     </Box>
   );

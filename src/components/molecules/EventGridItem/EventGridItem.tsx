@@ -2,7 +2,6 @@ import {
   Text,
   Box,
   Image,
-  HStack,
   Flex,
   Card,
   CardBody,
@@ -158,7 +157,10 @@ const StatusBadge = ({ status }: { status: EventStatus }) => {
 const MentorInfo = ({ imageUrl, nickname }: { imageUrl: string; nickname: string }) => {
   return (
     <Flex justifyContent={'space-between'}>
-      <HStack>
+      <Flex
+        align={'center'}
+        gap={2}
+      >
         <Avatar
           src={imageUrl}
           w={'1.5rem'}
@@ -180,7 +182,7 @@ const MentorInfo = ({ imageUrl, nickname }: { imageUrl: string; nickname: string
         >
           멘토
         </Badge>
-      </HStack>
+      </Flex>
     </Flex>
   );
 };

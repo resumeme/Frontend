@@ -1,4 +1,4 @@
-import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import RadioCardGroup from '../RadioCardGroup/RadioCardGroup';
 import { BorderBox } from '~/components/atoms/BorderBox';
@@ -42,7 +42,11 @@ const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
                 alignItems={'center'}
                 justifyContent={'center'}
               >
-                <VStack spacing={'2rem'}>
+                <Flex
+                  justify={'center'}
+                  direction={'column'}
+                  gap={'2rem'}
+                >
                   <Text
                     fontSize={'1rem'}
                     fontWeight={'600'}
@@ -56,7 +60,7 @@ const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
                   >
                     이력서 작성하러 가기
                   </Button>
-                </VStack>
+                </Flex>
               </Flex>
             ) : (
               <RadioCardGroup
@@ -74,7 +78,10 @@ const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
             )}
           </BorderBox>
           {data.length > 0 && (
-            <HStack alignSelf={'flex-end'}>
+            <Flex
+              alignSelf={'flex-end'}
+              gap={2}
+            >
               <Button
                 size={'sm'}
                 variant={'cancel'}
@@ -88,7 +95,7 @@ const ResumeSelect = ({ onCancel, onSubmit }: ResumeSelectProps) => {
               >
                 신청하기
               </Button>
-            </HStack>
+            </Flex>
           )}
         </Flex>
       </form>
