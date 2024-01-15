@@ -2,7 +2,7 @@ import { Box, Flex, Spinner, Tooltip } from '@chakra-ui/react';
 import { useState } from 'react';
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 import { useNavigate, useParams } from 'react-router-dom';
-import TitleInput from '~/components/atoms/TitleInput/TitleInput';
+import { TitleInput } from '~/components/atoms/TitleInput';
 import { renderIcon } from '~/components/molecules/ReferenceLinkBox';
 import { usePatchResumeTitle } from '~/queries/resume/create/usePatchResumeTitle';
 
