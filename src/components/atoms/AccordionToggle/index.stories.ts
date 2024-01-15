@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import AccordionToggle from './AccordionToggle';
 
 const meta = {
-  title: 'Resumeme/Components/AccordionToggle',
+  title: 'Resumeme/Components/Atoms/AccordionToggle',
   component: AccordionToggle,
   parameters: {
     layout: 'centered',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import BorderBox from './BorderBox';
 
 const meta = {
-  title: 'Resumeme/Components/BorderBox',
+  title: 'Resumeme/Components/Atoms/BorderBox',
   component: BorderBox,
   tags: ['autodocs'],
 } satisfies Meta<typeof BorderBox>;

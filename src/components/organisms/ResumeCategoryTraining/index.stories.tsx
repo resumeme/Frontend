@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import TrainingForm from './TrainingForm';
 
 const meta = {
-  title: 'Resumeme/Components/TrainingForm',
+  title: 'Resumeme/Components/Organisms/TrainingForm',
   component: TrainingForm,
   tags: ['autodocs'],
   decorators: [

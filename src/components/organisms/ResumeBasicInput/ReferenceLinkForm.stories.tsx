@@ -3,7 +3,7 @@ import ReferenceLinkForm from './ReferenceLinkForm';
 import { ReadReferenceLink } from '~/types/referenceLink';
 
 const meta: Meta = {
-  title: 'Resumeme/Components/ReferenceLinkForm',
+  title: 'Resumeme/Components/Organisms/ReferenceLinkForm',
   component: ReferenceLinkForm,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import FeedbackInput from './FeedbackInput';
 
 const meta = {
-  title: 'Resumeme/Components/FeedbackInput',
+  title: 'Resumeme/Components/Molecules/FeedbackInput',
   component: FeedbackInput,
   tags: ['autodocs'],
 } satisfies Meta<typeof FeedbackInput>;

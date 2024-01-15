@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { OptionsButton, EditDeleteOptionsButton } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/OptionsButton',
+  title: 'Resumeme/Components/Molecules/OptionsButton',
   tags: ['autodocs'],
   component: OptionsButton,
 } satisfies Meta<typeof OptionsButton>;

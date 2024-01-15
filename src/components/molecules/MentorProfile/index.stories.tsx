@@ -4,7 +4,7 @@ import { EventStatus } from '~/types/eventStatus';
 import { Position } from '~/types/position';
 
 const meta = {
-  title: 'Resumeme/Components/MentorProfile',
+  title: 'Resumeme/Components/Molecules/MentorProfile',
   component: MentorProfile,
   tags: ['autodocs'],
 } satisfies Meta<typeof MentorProfile>;

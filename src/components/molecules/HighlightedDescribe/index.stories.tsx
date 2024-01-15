@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { HighlightedDescribe } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/Describe',
+  title: 'Resumeme/Components/Molecules/Describe',
   tags: ['autodocs'],
   component: HighlightedDescribe,
 } satisfies Meta<typeof HighlightedDescribe>;

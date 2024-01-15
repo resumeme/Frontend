@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import OAuthSignInButton from './OAuthSignInButton';
 
 const meta = {
-  title: 'Resumeme/Components/OAuthSignInButton',
+  title: 'Resumeme/Components/Molecules/OAuthSignInButton',
   component: OAuthSignInButton,
   tags: ['autodocs'],
 } satisfies Meta<typeof OAuthSignInButton>;

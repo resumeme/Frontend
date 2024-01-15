@@ -7,7 +7,7 @@ import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 
 const meta = {
-  title: 'Resumeme/Components/FormTextarea',
+  title: 'Resumeme/Components/Molecules/FormTextarea',
   component: FormTextarea,
   tags: ['autodocs'],
 } satisfies Meta<typeof FormTextarea>;

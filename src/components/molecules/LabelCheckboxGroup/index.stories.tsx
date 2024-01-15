@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import LabelCheckboxGroup from './LabelCheckboxGroup';
 
 const meta: Meta = {
-  title: 'Resumeme/Components/LabelCheckboxGroup',
+  title: 'Resumeme/Components/Molecules/LabelCheckboxGroup',
   component: LabelCheckboxGroup,
   tags: ['autodocs'],
   argTypes: {

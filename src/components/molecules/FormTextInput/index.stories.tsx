@@ -8,7 +8,7 @@ import { FormLabel } from '~/components/atoms/FormLabel';
 import { CreateEvent } from '~/types/event/event';
 
 const meta = {
-  title: 'Resumeme/Components/FormTextInput',
+  title: 'Resumeme/Components/Molecules/FormTextInput',
   component: FormTextInput,
   tags: ['autodocs'],
 } satisfies Meta<typeof FormTextInput>;

@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import BasicInfoView from './BasicInfoView';
 
 const meta: Meta = {
-  title: 'Resumeme/Components/BasicInfoView',
+  title: 'Resumeme/Components/Organisms/BasicInfoView',
   component: BasicInfoView,
   tags: ['autodocs'],
   argTypes: {

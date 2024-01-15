@@ -7,7 +7,7 @@ import { Button } from '~/components/atoms/Button';
 import { FormLabel } from '~/components/atoms/FormLabel';
 
 const meta = {
-  title: 'Resumeme/Components/FormDateInput',
+  title: 'Resumeme/Components/Molecules/FormDateInput',
   component: FormDateInput,
   tags: ['autodocs'],
 } satisfies Meta<typeof FormDateInput>;
