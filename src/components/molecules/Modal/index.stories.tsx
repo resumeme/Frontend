@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ModalWithButton from './ModalWithButton';
+import ModalWithButton from '../../organisms/ModalWithButton/ModalWithButton';
 
 const meta = {
   title: 'Resumeme/components/Molecules/Modal',

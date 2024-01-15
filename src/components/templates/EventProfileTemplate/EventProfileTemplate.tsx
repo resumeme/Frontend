@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import EventItem from './EventItem';
+import EventItem from '../../organisms/EventItem/EventItem';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { ReadManagementEvent } from '~/types/event/event';
 
@@ -8,7 +8,7 @@ type EventProfile = {
   events: ReadManagementEvent[];
 };
 
-const EventProfile = ({ events }: EventProfile) => {
+const EventProfileTemplate = ({ events }: EventProfile) => {
   return (
     <>
       <Heading
@@ -63,4 +63,4 @@ const EventProfile = ({ events }: EventProfile) => {
     </>
   );
 };
-export default EventProfile;
+export default EventProfileTemplate;

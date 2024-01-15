@@ -1,5 +1,5 @@
 import { Text } from '@chakra-ui/react';
-import { Modal } from '.';
+import { Modal } from '../../molecules/Modal';
 
 const CareerContentModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (

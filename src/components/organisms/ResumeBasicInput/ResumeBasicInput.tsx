@@ -1,10 +1,10 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BasicInfoForm from './BasicInfoForm';
-import BasicInfoView from './BasicInfoView';
-import ReferenceLinkForm from './ReferenceLinkForm';
-import TitleInputForm from './TitleInputForm';
+import TitleInputForm from '../../molecules/TitleInputForm/TitleInputForm';
+import BasicInfoForm from '../BasicInfoForm/BasicInfoForm';
+import BasicInfoView from '../BasicInfoView/BasicInfoView';
+import ReferenceLinkForm from '../ReferenceLinkForm/ReferenceLinkForm';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import useUser from '~/hooks/useUser';
 import { useGetResumeReferenceLinks } from '~/queries/resume/details/useGetResumeReferenceLinks';

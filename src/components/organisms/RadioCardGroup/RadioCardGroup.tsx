@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex, FormErrorMessage, useRadioGroup } from '@chakra-ui/react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
-import RadioCard from './RadioCard';
+import RadioCard from '../../molecules/RadioCard/RadioCard';
 
 export type RadioOption<T extends string = string> = {
   value: T;

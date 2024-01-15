@@ -2,7 +2,7 @@ import { Box, Divider } from '@chakra-ui/react';
 import React from 'react';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FeedbackView } from '~/components/molecules/FeedbackView';
-import FeedbackBlock from '~/components/templates/FeedbackResumeTemplate/FeedbackBlock';
+import FeedbackBlock from '~/components/organisms/FeedbackBlock/FeedbackBlock';
 import { FeedbackComment } from '~/types/event/feedback';
 import { ReadMentor } from '~/types/mentor';
 import { DetailsComponentProps } from '~/types/props/detailsComponentProps';

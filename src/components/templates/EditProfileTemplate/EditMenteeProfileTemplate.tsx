@@ -2,7 +2,7 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import CommonInput from './CommonInput';
+import CommonInput from '../../organisms/CommonInput/CommonInput';
 import { FORM_STYLE } from './EditMentorProfileTemplate';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { FormLabel } from '~/components/atoms/FormLabel';

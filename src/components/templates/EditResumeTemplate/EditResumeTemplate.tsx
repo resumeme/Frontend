@@ -5,7 +5,7 @@ import { Button } from '~/components/atoms/Button';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
 import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
-import CareerForm from '~/components/organisms/ResumeCategoryCareer/CareerForm';
+import { CareerForm } from '~/components/organisms/ResumeCategoryCareer';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
 import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';

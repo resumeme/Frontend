@@ -1,8 +1,8 @@
 import { Box, Divider, Flex } from '@chakra-ui/react';
-import EventContent from './EventContent';
-import EventTime from './EventTime';
-import MentorCareerContent from './MentorCareerContent';
-import MentorCareerTitle from './MentorCareerTitle';
+import EventContent from '../../atoms/EventContent/EventContent';
+import EventTime from '../../molecules/EventTime/EventTime';
+import MentorCareerContent from '../../molecules/MentorCareerContent/MentorCareerContent';
+import MentorCareerTitle from '../../molecules/MentorCareerTitle/MentorCareerTitle';
 import { ReadEvent } from '~/types/event/event';
 import { ReadMentor } from '~/types/mentor';
 
