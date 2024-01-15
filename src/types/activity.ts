@@ -1,4 +1,4 @@
-type Activity = {
+export type Activity = {
   activityName: string;
   startDate: string;
   endDate: string;
@@ -7,10 +7,8 @@ type Activity = {
   description?: string;
 };
 
-type ReadActivity = Activity & {
+export type ReadActivity = Activity & {
   componentId: number;
   reflectFeedback: boolean;
   originComponentId: number | null;
 };
-
-export type { Activity, ReadActivity };
