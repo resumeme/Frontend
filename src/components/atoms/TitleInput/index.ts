@@ -1,3 +1,3 @@
-import { TermInput } from '~/components/molecules/TermInput';
+import TitleInput from './TitleInput';
 
-export { TermInput };
+export { TitleInput };

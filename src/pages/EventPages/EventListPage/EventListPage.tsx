@@ -1,4 +1,4 @@
-import EventGridTemplate from '~/components/templates/EventGridTemplate/EventGridTemplate';
+import { EventGridTemplate } from '~/components/templates/EventGridTemplate';
 
 const EventListPage = () => {
   return <EventGridTemplate />;
