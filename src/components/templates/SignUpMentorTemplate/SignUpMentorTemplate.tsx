@@ -7,7 +7,7 @@ import { FormControl } from '~/components/molecules/FormControl';
 import { FormTextarea } from '~/components/molecules/FormTextarea';
 import { FormTextInput } from '~/components/molecules/FormTextInput';
 import { LabelCheckboxGroup } from '~/components/molecules/LabelCheckboxGroup';
-import { CareerContentModal } from '~/components/molecules/Modal';
+import { CareerContentModal } from '~/components/organisms/CareerContentModal';
 import { SignUpHeader } from '~/components/organisms/SignUpHeader';
 import CONSTANTS from '~/constants';
 import { SignUpMentor } from '~/types/signUp';
