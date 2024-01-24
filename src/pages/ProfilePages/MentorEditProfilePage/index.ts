@@ -1,3 +1,3 @@
 import MentorEditProfilePage from './MentorEditProfilePage';
 
-export { MentorEditProfilePage };
+export default MentorEditProfilePage;

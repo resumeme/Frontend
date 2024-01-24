@@ -1,3 +1,3 @@
 import EditProfilePage from './EditProfilePage';
 
-export { EditProfilePage };
+export default EditProfilePage;

@@ -1,3 +1,3 @@
 import FeedbackCompletePage from './FeedbackCompletePage';
 
-export { FeedbackCompletePage };
+export default FeedbackCompletePage;

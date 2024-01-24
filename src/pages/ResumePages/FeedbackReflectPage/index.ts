@@ -1,3 +1,3 @@
 import FeedbackReflectPage from './FeedbackReflectPage';
 
-export { FeedbackReflectPage };
+export default FeedbackReflectPage;

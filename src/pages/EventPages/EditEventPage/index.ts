@@ -1,3 +1,3 @@
 import EditEventPage from './EditEventPage';
 
-export { EditEventPage };
+export default EditEventPage;

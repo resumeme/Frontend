@@ -1,3 +1,3 @@
 import EventListPage from './EventListPage';
 
-export { EventListPage };
+export default EventListPage;

@@ -1,3 +1,3 @@
 import ResumeDetailPage from './ResumeDetailPage';
 
-export { ResumeDetailPage };
+export default ResumeDetailPage;

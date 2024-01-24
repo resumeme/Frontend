@@ -1,3 +1,4 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import { EventCreateLoader } from './EventCreateLoader';
@@ -8,23 +9,25 @@ import GuestLoader from './GuestLoader';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
 import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
-import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
-import { EditEventPage } from '~/pages/EventPages/EditEventPage';
-import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
-import { EventListPage } from '~/pages/EventPages/EventListPage';
-import { MainPage } from '~/pages/MainPage';
-import { MyPage } from '~/pages/MyPage';
-import { NotFoundPage } from '~/pages/NotFoundPage';
-import { EditProfilePage } from '~/pages/ProfilePages/EditProfilePage';
-import { EditResumePage } from '~/pages/ResumePages/EditResumePage';
-import { FeedbackCompletePage } from '~/pages/ResumePages/FeedbackCompletePage';
-import { FeedbackReflectPage } from '~/pages/ResumePages/FeedbackReflectPage';
-import { FeedbackResumePage } from '~/pages/ResumePages/FeedbackResumePage';
-import { ManagementResumePage } from '~/pages/ResumePages/ManagementResumePage';
-import { ResumeDetailPage } from '~/pages/ResumePages/ResumeDetailPage';
-import { OAuthRedirectPage, SignInPage } from '~/pages/SignInPage';
-import { SignUpPage } from '~/pages/SignUpPage';
-import { WriteReviewPage } from '~/pages/WriteReviewPage';
+
+const MyPage = lazy(() => import('~/pages/MyPage'));
+const MainPage = lazy(() => import('~/pages/MainPage'));
+const EditProfilePage = lazy(() => import('~/pages/ProfilePages/EditProfilePage'));
+const FeedbackCompletePage = lazy(() => import('~/pages/ResumePages/FeedbackCompletePage'));
+const FeedbackReflectPage = lazy(() => import('~/pages/ResumePages/FeedbackReflectPage'));
+const FeedbackResumePage = lazy(() => import('~/pages/ResumePages/FeedbackResumePage'));
+const ManagementResumePage = lazy(() => import('~/pages/ResumePages/ManagementResumePage'));
+const ResumeDetailPage = lazy(() => import('~/pages/ResumePages/ResumeDetailPage'));
+const OAuthRedirectPage = lazy(() => import('~/pages/OAuthRedirectPage'));
+const SignInPage = lazy(() => import('~/pages/SignInPage'));
+const SignUpPage = lazy(() => import('~/pages/SignUpPage'));
+const WriteReviewPage = lazy(() => import('~/pages/WriteReviewPage'));
+const EditResumePage = lazy(() => import('~/pages/ResumePages/EditResumePage'));
+const CreateEventPage = lazy(() => import('~/pages/EventPages/CreateEventPage'));
+const EditEventPage = lazy(() => import('~/pages/EventPages/EditEventPage'));
+const EventDetailPage = lazy(() => import('~/pages/EventPages/EventDetailPage'));
+const EventListPage = lazy(() => import('~/pages/EventPages/EventListPage'));
+const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
 
 const router = createBrowserRouter([
   {

@@ -1,3 +1,3 @@
 import FeedbackResumePage from './FeedbackResumePage';
 
-export { FeedbackResumePage };
+export default FeedbackResumePage;

@@ -1,3 +1,3 @@
 import WriteReviewPage from './WriteReviewPage';
 
-export { WriteReviewPage };
+export default WriteReviewPage;

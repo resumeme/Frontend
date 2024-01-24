@@ -1,3 +1,3 @@
 import ManagementResumePage from './ManagementResumePage';
 
-export { ManagementResumePage };
+export default ManagementResumePage;

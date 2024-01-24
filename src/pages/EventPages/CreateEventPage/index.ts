@@ -1,3 +1,3 @@
 import CreateEventPage from './CreateEventPage';
 
-export { CreateEventPage };
+export default CreateEventPage;
