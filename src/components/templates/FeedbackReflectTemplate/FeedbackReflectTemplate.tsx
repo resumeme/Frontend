@@ -3,12 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { FeedbackCategoryReflectDetails } from '~/components/organisms/FeedbackCateogryReflectDetails';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
-import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
-import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
-import { CareerForm } from '~/components/organisms/ResumeCategoryCareer';
-import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
-import ProjectForm from '~/components/organisms/ResumeCategoryProject/ProjectForm';
-import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   ActivityDetails,
   AwardDetails,
@@ -17,6 +11,14 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import {
+  ActivityForm,
+  AwardForm,
+  CareerForm,
+  LanguageForm,
+  ProjectForm,
+  TrainingForm,
+} from '~/components/organisms/ResumeForms';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import {

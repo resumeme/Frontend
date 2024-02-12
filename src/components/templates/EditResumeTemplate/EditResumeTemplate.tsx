@@ -3,13 +3,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/components/atoms/Button';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
-import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
-import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
-import { CareerForm } from '~/components/organisms/ResumeCategoryCareer';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
-import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
-import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
-import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   CareerDetails,
   TrainingDetails,
@@ -18,6 +12,14 @@ import {
   AwardDetails,
   ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+import {
+  LanguageForm,
+  AwardForm,
+  ActivityForm,
+  CareerForm,
+  ProjectForm,
+  TrainingForm,
+} from '~/components/organisms/ResumeForms';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
