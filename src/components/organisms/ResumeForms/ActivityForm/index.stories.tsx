@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import ActivityForm from './ActivityForm';
+import { ActivityForm } from '.';
 
 const meta = {
   title: 'Resumeme/Components/Organisms/ActivityForm',

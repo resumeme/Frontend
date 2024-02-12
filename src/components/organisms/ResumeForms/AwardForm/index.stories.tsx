@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AwardForm from './AwardForm';
+import { AwardForm } from '.';
 
 const meta = {
   title: 'Resumeme/Components/Organisms/AwardForm',
