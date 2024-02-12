@@ -10,7 +10,7 @@ const SubmitButtonGroup = ({ size = 'sm', onCancel }: SubmitButtonGroupProps) =>
   return (
     <>
       <Flex
-        align={'center'}
+        justifyContent={'center'}
         gap={2}
       >
         <Button
