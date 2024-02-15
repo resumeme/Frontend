@@ -22,5 +22,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <ProjectForm />;
+  return <ProjectForm onCancel={() => {}} />;
 };

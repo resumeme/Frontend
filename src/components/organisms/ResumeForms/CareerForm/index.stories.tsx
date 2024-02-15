@@ -21,5 +21,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <CareerForm />;
+  return <CareerForm onCancel={() => {}} />;
 };

@@ -22,5 +22,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <TrainingForm />;
+  return <TrainingForm onCancel={() => {}} />;
 };

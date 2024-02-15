@@ -25,5 +25,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <LanguageForm />;
+  return <LanguageForm onCancel={() => {}} />;
 };
