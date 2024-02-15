@@ -59,7 +59,7 @@ const FeedbackCategoryReflectDetails = <T extends ReadCategories>({
                         }}
                         isEdit
                         blockId={currentDetail.componentId}
-                        quitEdit={() => setEditTargetIndex(null)}
+                        onCancel={() => setEditTargetIndex(null)}
                       />
                     ) : (
                       <Box
