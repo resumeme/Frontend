@@ -1,7 +1,9 @@
 import { Flex } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
 import {
@@ -45,72 +47,88 @@ const EditResumeTemplate = () => {
   const isCurrentUser = resumeAuthorId === user?.id;
   const navigate = useNavigate();
 
+  /*FIXME - 타입 정의하기 */
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const CATEGORIES: any[] = [
+    {
+      FormComponent: ActivityForm,
+      DetailsComponent: ActivityDetails,
+      data: activitiesData,
+      categoryTitle: '활동',
+    },
+    {
+      FormComponent: AwardForm,
+      DetailsComponent: AwardDetails,
+      data: awardData,
+      categoryTitle: '수상',
+    },
+    {
+      FormComponent: CareerForm,
+      DetailsComponent: CareerDetails,
+      data: careersData,
+      categoryTitle: '업무 경험',
+    },
+    {
+      FormComponent: ProjectForm,
+      DetailsComponent: ProjectDetails,
+      data: projectData,
+      categoryTitle: '프로젝트',
+    },
+    {
+      FormComponent: LanguageForm,
+      DetailsComponent: LanguageDetails,
+      data: languageData,
+      categoryTitle: '외국어',
+    },
+    {
+      FormComponent: TrainingForm,
+      DetailsComponent: TrainingDetails,
+      data: trainingsData,
+      categoryTitle: '교육',
+    },
+  ];
+
+  const [isOpenStates, setIsOpenStates] = useState<boolean[]>(
+    new Array(CATEGORIES.length).fill(false),
+  );
+
   return (
     <Flex
       direction="column"
       gap="3rem"
     >
       <ResumeBasicInput basicInfo={basicInfo} />
-
-      <CategoryContainer>
-        <CareerForm />
-        <ResumeCategoryDetails
-          arrayData={careersData}
-          DetailsComponent={CareerDetails}
-          FormComponent={CareerForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ProjectForm />
-        <ResumeCategoryDetails
-          arrayData={projectData}
-          DetailsComponent={ProjectDetails}
-          FormComponent={ProjectForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <AwardForm />
-        <ResumeCategoryDetails
-          arrayData={awardData}
-          DetailsComponent={AwardDetails}
-          FormComponent={AwardForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <LanguageForm />
-        <ResumeCategoryDetails
-          arrayData={languageData}
-          DetailsComponent={LanguageDetails}
-          FormComponent={LanguageForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <TrainingForm />
-        <ResumeCategoryDetails
-          arrayData={trainingsData}
-          DetailsComponent={TrainingDetails}
-          FormComponent={TrainingForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ActivityForm />
-        <ResumeCategoryDetails
-          arrayData={activitiesData}
-          DetailsComponent={ActivityDetails}
-          FormComponent={ActivityForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
+      {CATEGORIES.map(({ FormComponent, DetailsComponent, data, categoryTitle }, index) => (
+        <React.Fragment key={index}>
+          <CategoryAddHeader
+            categoryTitle={categoryTitle}
+            onAddItem={() =>
+              setIsOpenStates((prev) => [...prev.slice(0, index), true, ...prev.slice(index + 1)])
+            }
+          />
+          {isOpenStates[index] && (
+            <BorderBox p={'2rem'}>
+              <FormComponent
+                onCancel={() => {
+                  setIsOpenStates((prev) => [
+                    ...prev.slice(0, index),
+                    false,
+                    ...prev.slice(index + 1),
+                  ]);
+                }}
+              />
+            </BorderBox>
+          )}
+          {data && (
+            <ResumeCategoryDetails
+              arrayData={data}
+              DetailsComponent={DetailsComponent}
+              FormComponent={FormComponent}
+              isCurrentUser={isCurrentUser}
+            />
+          )}
+        </React.Fragment>
+      ))}
       <Button
         alignSelf={'end'}
         size={'md'}
@@ -123,14 +141,3 @@ const EditResumeTemplate = () => {
 };
 
 export default EditResumeTemplate;
-
-const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Flex
-      direction={'column'}
-      gap={'1rem'}
-    >
-      {children}
-    </Flex>
-  );
-};
