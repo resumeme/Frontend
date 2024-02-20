@@ -27,7 +27,7 @@ const SignInTemplate = () => {
       py={'2.5rem'}
     >
       <Flex
-        justify={'center'}
+        align={'center'}
         direction={'column'}
         gap={'2.2rem'}
       >
