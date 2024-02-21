@@ -1,4 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 import { EventGridItem } from '~/components/molecules/EventGridItem';
 import { EventListItem } from '~/types/event/eventList';
 
@@ -17,7 +18,7 @@ const EventGrid = ({ row = 3, events }: EventIdProps) => {
         gap={'2rem'}
       >
         {events.map((eventItem) => (
-          <GridItem key={eventItem.info.id}>
+          <GridItem key={uuidv4()}>
             <EventGridItem event={eventItem} />
           </GridItem>
         ))}
