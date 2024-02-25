@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
@@ -65,55 +65,14 @@ const FeedbackReflectTemplate = () => {
   const { mutate: patchReflectComplete } = usePatchFeedbackReflectComplete();
   const navigate = useNavigate();
 
-  /*FIXME - 타입 정의하기 */
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const CATEGORIES: any[] = [
-    {
-      FormComponent: ActivityForm,
-      DetailsComponent: ActivityDetails,
-      data: activitiesData,
-      snapshotData: snapshotData.activities,
-      categoryTitle: '활동',
-    },
-    {
-      FormComponent: AwardForm,
-      DetailsComponent: AwardDetails,
-      data: awardData,
-      snapshotData: snapshotData.certifications,
-      categoryTitle: '수상',
-    },
-    {
-      FormComponent: CareerForm,
-      DetailsComponent: CareerDetails,
-      data: careersData,
-      snapshotData: snapshotData.careers,
-      categoryTitle: '업무 경험',
-    },
-    {
-      FormComponent: ProjectForm,
-      DetailsComponent: ProjectDetails,
-      data: projectData,
-      snapshotData: snapshotData.projects,
-      categoryTitle: '프로젝트',
-    },
-    {
-      FormComponent: LanguageForm,
-      DetailsComponent: LanguageDetails,
-      data: languageData,
-      snapshotData: snapshotData.foreignLanguages,
-      categoryTitle: '외국어',
-    },
-    {
-      FormComponent: TrainingForm,
-      DetailsComponent: TrainingDetails,
-      data: trainingsData,
-      snapshotData: snapshotData.trainings,
-      categoryTitle: '교육',
-    },
-  ];
-  const [isOpenStates, setIsOpenStates] = useState<boolean[]>(
-    new Array(CATEGORIES.length).fill(false),
-  );
+  const [isOpenStates, setIsOpenStates] = useState({
+    activity: false,
+    award: false,
+    career: false,
+    project: false,
+    language: false,
+    training: false,
+  });
 
   return (
     <Flex
@@ -122,42 +81,131 @@ const FeedbackReflectTemplate = () => {
       gap="3rem"
     >
       <ResumeBasicInput basicInfo={basicInfo} />
-
-      {CATEGORIES.map(
-        ({ FormComponent, DetailsComponent, data, snapshotData, categoryTitle }, index) => (
-          <React.Fragment key={index}>
-            <CategoryAddHeader
-              categoryTitle={categoryTitle}
-              onAddItem={() =>
-                setIsOpenStates((prev) => [...prev.slice(0, index), true, ...prev.slice(index + 1)])
-              }
-            />
-            {isOpenStates[index] && (
-              <BorderBox p={'2rem'}>
-                <FormComponent
-                  onCancel={() => {
-                    setIsOpenStates((prev) => [
-                      ...prev.slice(0, index),
-                      false,
-                      ...prev.slice(index + 1),
-                    ]);
-                  }}
-                />
-              </BorderBox>
-            )}
-            {data && (
-              <FeedbackCategoryReflectDetails
-                arrayData={projectData}
-                DetailsComponent={DetailsComponent}
-                FormComponent={FormComponent}
-                isCurrentUser={isCurrentUser}
-                commentsData={commentResponses}
-                snapshotData={snapshotData}
-                mentorData={mentorData}
-              />
-            )}
-          </React.Fragment>
-        ),
+      <CategoryAddHeader
+        categoryTitle={'프로젝트'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, project: true }))}
+      />
+      {isOpenStates.project && (
+        <BorderBox p={'2rem'}>
+          <ProjectForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, project: false }))} />
+        </BorderBox>
+      )}
+      {projectData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={projectData}
+          DetailsComponent={ProjectDetails}
+          FormComponent={ProjectForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.projects}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'업무경험'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, career: true }))}
+      />
+      {isOpenStates.career && (
+        <BorderBox p={'2rem'}>
+          <CareerForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, career: false }))} />
+        </BorderBox>
+      )}
+      {careersData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={careersData}
+          DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.careers}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'활동'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, activity: true }))}
+      />
+      {isOpenStates.activity && (
+        <BorderBox p={'2rem'}>
+          <ActivityForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, activity: false }))}
+          />
+        </BorderBox>
+      )}
+      {activitiesData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={activitiesData}
+          DetailsComponent={ActivityDetails}
+          FormComponent={ActivityForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.activities}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'교육'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, training: true }))}
+      />
+      {isOpenStates.training && (
+        <BorderBox p={'2rem'}>
+          <TrainingForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, training: false }))}
+          />
+        </BorderBox>
+      )}
+      {trainingsData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={trainingsData}
+          DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.trainings}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'외국어'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, language: true }))}
+      />
+      {isOpenStates.language && (
+        <BorderBox p={'2rem'}>
+          <LanguageForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, language: false }))}
+          />
+        </BorderBox>
+      )}
+      {languageData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={languageData}
+          DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.foreignLanguages}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'수상'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, award: true }))}
+      />
+      {isOpenStates.award && (
+        <BorderBox p={'2rem'}>
+          <AwardForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, award: false }))} />
+        </BorderBox>
+      )}
+      {awardData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={awardData}
+          DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.certifications}
+          mentorData={mentorData}
+        />
       )}
 
       <Button
