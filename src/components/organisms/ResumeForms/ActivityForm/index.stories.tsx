@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import ActivityForm from './ActivityForm';
+import { ActivityForm } from '.';
 
 const meta = {
   title: 'Resumeme/Components/Organisms/ActivityForm',
@@ -10,5 +10,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <ActivityForm />;
+  return <ActivityForm onCancel={() => {}} />;
 };

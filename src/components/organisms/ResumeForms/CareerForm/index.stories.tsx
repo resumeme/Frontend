@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AwardForm from './AwardForm';
+import { CareerForm } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/Organisms/AwardForm',
-  component: AwardForm,
+  title: 'Resumeme/Components/Organisms/CareerForm',
+  component: CareerForm,
   tags: ['autodocs'],
   decorators: [
     (Story) => {
@@ -16,10 +16,10 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof AwardForm>;
+} satisfies Meta<typeof CareerForm>;
 
 export default meta;
 
 export const Default = () => {
-  return <AwardForm />;
+  return <CareerForm onCancel={() => {}} />;
 };

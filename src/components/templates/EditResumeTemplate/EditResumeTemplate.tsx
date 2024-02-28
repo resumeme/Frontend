@@ -1,15 +1,11 @@
 import { Flex } from '@chakra-ui/react';
-import React from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
-import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
-import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
-import { CareerForm } from '~/components/organisms/ResumeCategoryCareer';
 import { ResumeCategoryDetails } from '~/components/organisms/ResumeCategoryDetails';
-import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
-import { ProjectForm } from '~/components/organisms/ResumeCategoryProject';
-import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   CareerDetails,
   TrainingDetails,
@@ -18,6 +14,14 @@ import {
   AwardDetails,
   ActivityDetails,
 } from '~/components/organisms/ResumeDetails';
+import {
+  LanguageForm,
+  AwardForm,
+  ActivityForm,
+  CareerForm,
+  ProjectForm,
+  TrainingForm,
+} from '~/components/organisms/ResumeForms';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import { useGetResumeActivities } from '~/queries/resume/details/useGetResumeActivities';
@@ -43,72 +47,129 @@ const EditResumeTemplate = () => {
   const isCurrentUser = resumeAuthorId === user?.id;
   const navigate = useNavigate();
 
+  const [isOpenStates, setIsOpenStates] = useState({
+    activity: false,
+    award: false,
+    career: false,
+    project: false,
+    language: false,
+    training: false,
+  });
+
   return (
     <Flex
       direction="column"
       gap="3rem"
     >
       <ResumeBasicInput basicInfo={basicInfo} />
-
-      <CategoryContainer>
-        <CareerForm />
-        <ResumeCategoryDetails
-          arrayData={careersData}
-          DetailsComponent={CareerDetails}
-          FormComponent={CareerForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ProjectForm />
+      <CategoryAddHeader
+        categoryTitle={'프로젝트'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, project: true }))}
+      />
+      {isOpenStates.project && (
+        <BorderBox p={'2rem'}>
+          <ProjectForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, project: false }))} />
+        </BorderBox>
+      )}
+      {projectData && (
         <ResumeCategoryDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
           FormComponent={ProjectForm}
           isCurrentUser={isCurrentUser}
         />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <AwardForm />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'업무경험'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, career: true }))}
+      />
+      {isOpenStates.career && (
+        <BorderBox p={'2rem'}>
+          <CareerForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, career: false }))} />
+        </BorderBox>
+      )}
+      {careersData && (
         <ResumeCategoryDetails
-          arrayData={awardData}
-          DetailsComponent={AwardDetails}
-          FormComponent={AwardForm}
+          arrayData={careersData}
+          DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
           isCurrentUser={isCurrentUser}
         />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <LanguageForm />
-        <ResumeCategoryDetails
-          arrayData={languageData}
-          DetailsComponent={LanguageDetails}
-          FormComponent={LanguageForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <TrainingForm />
-        <ResumeCategoryDetails
-          arrayData={trainingsData}
-          DetailsComponent={TrainingDetails}
-          FormComponent={TrainingForm}
-          isCurrentUser={isCurrentUser}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ActivityForm />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'활동'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, activity: true }))}
+      />
+      {isOpenStates.activity && (
+        <BorderBox p={'2rem'}>
+          <ActivityForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, activity: false }))}
+          />
+        </BorderBox>
+      )}
+      {activitiesData && (
         <ResumeCategoryDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
           FormComponent={ActivityForm}
           isCurrentUser={isCurrentUser}
         />
-      </CategoryContainer>
+      )}
+      <CategoryAddHeader
+        categoryTitle={'교육'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, training: true }))}
+      />
+      {isOpenStates.training && (
+        <BorderBox p={'2rem'}>
+          <TrainingForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, training: false }))}
+          />
+        </BorderBox>
+      )}
+      {trainingsData && (
+        <ResumeCategoryDetails
+          arrayData={trainingsData}
+          DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
+          isCurrentUser={isCurrentUser}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'외국어'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, language: true }))}
+      />
+      {isOpenStates.language && (
+        <BorderBox p={'2rem'}>
+          <LanguageForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, language: false }))}
+          />
+        </BorderBox>
+      )}
+      {languageData && (
+        <ResumeCategoryDetails
+          arrayData={languageData}
+          DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
+          isCurrentUser={isCurrentUser}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'수상'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, award: true }))}
+      />
+      {isOpenStates.award && (
+        <BorderBox p={'2rem'}>
+          <AwardForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, award: false }))} />
+        </BorderBox>
+      )}
+      {languageData && (
+        <ResumeCategoryDetails
+          arrayData={awardData}
+          DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
+          isCurrentUser={isCurrentUser}
+        />
+      )}
       <Button
         alignSelf={'end'}
         size={'md'}
@@ -121,14 +182,3 @@ const EditResumeTemplate = () => {
 };
 
 export default EditResumeTemplate;
-
-const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Flex
-      direction={'column'}
-      gap={'1rem'}
-    >
-      {children}
-    </Flex>
-  );
-};

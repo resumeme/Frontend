@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import LanguageForm from './LanguageForm';
+import { LanguageForm } from '.';
 
 const meta = {
   title: 'Resumeme/Components/Organisms/LanguageForm',
@@ -25,5 +25,5 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  return <LanguageForm />;
+  return <LanguageForm onCancel={() => {}} />;
 };

@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import TrainingForm from './TrainingForm';
+import { ProjectForm } from '.';
 
 const meta = {
-  title: 'Resumeme/Components/Organisms/TrainingForm',
-  component: TrainingForm,
+  title: 'Resumeme/Components/Organisms/ProjectForm',
+  component: ProjectForm,
   tags: ['autodocs'],
   decorators: [
     (Story) => {
@@ -17,10 +17,10 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof TrainingForm>;
+} satisfies Meta<typeof ProjectForm>;
 
 export default meta;
 
 export const Default = () => {
-  return <TrainingForm />;
+  return <ProjectForm onCancel={() => {}} />;
 };

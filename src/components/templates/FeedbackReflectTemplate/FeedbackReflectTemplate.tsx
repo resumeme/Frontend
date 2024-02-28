@@ -1,14 +1,11 @@
 import { Flex } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BorderBox } from '~/components/atoms/BorderBox';
 import { Button } from '~/components/atoms/Button';
+import { CategoryAddHeader } from '~/components/molecules/CategoryAddHeader';
 import { FeedbackCategoryReflectDetails } from '~/components/organisms/FeedbackCateogryReflectDetails';
 import { ResumeBasicInput } from '~/components/organisms/ResumeBasicInput';
-import { ActivityForm } from '~/components/organisms/ResumeCategoryActivity';
-import { AwardForm } from '~/components/organisms/ResumeCategoryAwards';
-import { CareerForm } from '~/components/organisms/ResumeCategoryCareer';
-import { LanguageForm } from '~/components/organisms/ResumeCategoryLanguage';
-import ProjectForm from '~/components/organisms/ResumeCategoryProject/ProjectForm';
-import { TrainingForm } from '~/components/organisms/ResumeCategoryTraining';
 import {
   ActivityDetails,
   AwardDetails,
@@ -17,6 +14,14 @@ import {
   ProjectDetails,
   TrainingDetails,
 } from '~/components/organisms/ResumeDetails';
+import {
+  ActivityForm,
+  AwardForm,
+  CareerForm,
+  LanguageForm,
+  ProjectForm,
+  TrainingForm,
+} from '~/components/organisms/ResumeForms';
 import { appPaths } from '~/config/paths';
 import useUser from '~/hooks/useUser';
 import {
@@ -59,6 +64,16 @@ const FeedbackReflectTemplate = () => {
 
   const { mutate: patchReflectComplete } = usePatchFeedbackReflectComplete();
   const navigate = useNavigate();
+
+  const [isOpenStates, setIsOpenStates] = useState({
+    activity: false,
+    award: false,
+    career: false,
+    project: false,
+    language: false,
+    training: false,
+  });
+
   return (
     <Flex
       width="960px"
@@ -66,22 +81,16 @@ const FeedbackReflectTemplate = () => {
       gap="3rem"
     >
       <ResumeBasicInput basicInfo={basicInfo} />
-
-      <CategoryContainer>
-        <CareerForm />
-        <FeedbackCategoryReflectDetails
-          arrayData={careersData}
-          DetailsComponent={CareerDetails}
-          FormComponent={CareerForm}
-          isCurrentUser={isCurrentUser}
-          commentsData={commentResponses}
-          snapshotData={snapshotData.careers}
-          mentorData={mentorData}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ProjectForm />
+      <CategoryAddHeader
+        categoryTitle={'프로젝트'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, project: true }))}
+      />
+      {isOpenStates.project && (
+        <BorderBox p={'2rem'}>
+          <ProjectForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, project: false }))} />
+        </BorderBox>
+      )}
+      {projectData && (
         <FeedbackCategoryReflectDetails
           arrayData={projectData}
           DetailsComponent={ProjectDetails}
@@ -91,49 +100,39 @@ const FeedbackReflectTemplate = () => {
           snapshotData={snapshotData.projects}
           mentorData={mentorData}
         />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <AwardForm />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'업무경험'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, career: true }))}
+      />
+      {isOpenStates.career && (
+        <BorderBox p={'2rem'}>
+          <CareerForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, career: false }))} />
+        </BorderBox>
+      )}
+      {careersData && (
         <FeedbackCategoryReflectDetails
-          arrayData={awardData}
-          DetailsComponent={AwardDetails}
-          FormComponent={AwardForm}
+          arrayData={careersData}
+          DetailsComponent={CareerDetails}
+          FormComponent={CareerForm}
           isCurrentUser={isCurrentUser}
           commentsData={commentResponses}
-          snapshotData={snapshotData.certifications}
+          snapshotData={snapshotData.careers}
           mentorData={mentorData}
         />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <LanguageForm />
-        <FeedbackCategoryReflectDetails
-          arrayData={languageData}
-          DetailsComponent={LanguageDetails}
-          FormComponent={LanguageForm}
-          isCurrentUser={isCurrentUser}
-          commentsData={commentResponses}
-          snapshotData={snapshotData.foreignLanguages}
-          mentorData={mentorData}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <TrainingForm />
-        <FeedbackCategoryReflectDetails
-          arrayData={trainingsData}
-          DetailsComponent={TrainingDetails}
-          FormComponent={TrainingForm}
-          isCurrentUser={isCurrentUser}
-          commentsData={commentResponses}
-          snapshotData={snapshotData.trainings}
-          mentorData={mentorData}
-        />
-      </CategoryContainer>
-
-      <CategoryContainer>
-        <ActivityForm />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'활동'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, activity: true }))}
+      />
+      {isOpenStates.activity && (
+        <BorderBox p={'2rem'}>
+          <ActivityForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, activity: false }))}
+          />
+        </BorderBox>
+      )}
+      {activitiesData && (
         <FeedbackCategoryReflectDetails
           arrayData={activitiesData}
           DetailsComponent={ActivityDetails}
@@ -143,7 +142,71 @@ const FeedbackReflectTemplate = () => {
           snapshotData={snapshotData.activities}
           mentorData={mentorData}
         />
-      </CategoryContainer>
+      )}
+      <CategoryAddHeader
+        categoryTitle={'교육'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, training: true }))}
+      />
+      {isOpenStates.training && (
+        <BorderBox p={'2rem'}>
+          <TrainingForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, training: false }))}
+          />
+        </BorderBox>
+      )}
+      {trainingsData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={trainingsData}
+          DetailsComponent={TrainingDetails}
+          FormComponent={TrainingForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.trainings}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'외국어'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, language: true }))}
+      />
+      {isOpenStates.language && (
+        <BorderBox p={'2rem'}>
+          <LanguageForm
+            onCancel={() => setIsOpenStates((prev) => ({ ...prev, language: false }))}
+          />
+        </BorderBox>
+      )}
+      {languageData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={languageData}
+          DetailsComponent={LanguageDetails}
+          FormComponent={LanguageForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.foreignLanguages}
+          mentorData={mentorData}
+        />
+      )}
+      <CategoryAddHeader
+        categoryTitle={'수상'}
+        onAddItem={() => setIsOpenStates((prev) => ({ ...prev, award: true }))}
+      />
+      {isOpenStates.award && (
+        <BorderBox p={'2rem'}>
+          <AwardForm onCancel={() => setIsOpenStates((prev) => ({ ...prev, award: false }))} />
+        </BorderBox>
+      )}
+      {awardData && (
+        <FeedbackCategoryReflectDetails
+          arrayData={awardData}
+          DetailsComponent={AwardDetails}
+          FormComponent={AwardForm}
+          isCurrentUser={isCurrentUser}
+          commentsData={commentResponses}
+          snapshotData={snapshotData.certifications}
+          mentorData={mentorData}
+        />
+      )}
 
       <Button
         onClick={() =>
@@ -164,14 +227,3 @@ const FeedbackReflectTemplate = () => {
 };
 
 export default FeedbackReflectTemplate;
-
-const CategoryContainer = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Flex
-      direction={'column'}
-      gap={'1rem'}
-    >
-      {children}
-    </Flex>
-  );
-};

@@ -31,7 +31,7 @@ const ResumeCategoryDetails = <T extends ReadCategories>({
                   defaultValues={{ ...data, id: undefined }}
                   isEdit
                   blockId={data.componentId}
-                  quitEdit={() => setEditTargetIndex(null)}
+                  onCancel={() => setEditTargetIndex(null)}
                 />
               ) : (
                 <Box
