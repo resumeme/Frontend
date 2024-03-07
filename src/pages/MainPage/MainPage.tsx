@@ -85,6 +85,7 @@ const MainPage = () => {
         mt={LAYOUT_SIZE.HEADER_HEIGHT}
         borderBottom={'1px'}
         borderColor={'gray.300'}
+        padding={'1rem'}
       >
         <Box
           maxW={'960px'}
@@ -162,6 +163,7 @@ const MainPage = () => {
         maxW={'960px'}
         mx={'auto'}
         mb={'3rem'}
+        padding={'1rem'}
       >
         <Link to={appPaths.main()}>
           <Text
@@ -213,6 +215,7 @@ const MainPage = () => {
         maxW={'960px'}
         mx={'auto'}
         mb={'3rem'}
+        padding={'1rem'}
       >
         <Link to={appPaths.viewEvent()}>
           <Heading
