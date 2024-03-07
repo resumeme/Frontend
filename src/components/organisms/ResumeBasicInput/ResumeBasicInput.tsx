@@ -46,8 +46,11 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
     >
       <TitleInputForm defaultValue={defaultTitle} />
       <Box w={'full'}>
-        <Flex justifyContent={'space-between'}>
-          <Box w={'400px'}>
+        <Flex
+          justifyContent={'space-between'}
+          wrap={'wrap'}
+        >
+          <Box w={{ base: 'full', md: '45%' }}>
             <Flex
               direction={'column'}
               gap={5}
@@ -74,7 +77,7 @@ const ResumeBasicInput = ({ basicInfo }: ResumeBasicInputProps) => {
             </Flex>
           </Box>
           <BorderBox
-            w={'400px'}
+            w={{ base: 'full', md: '45%' }}
             height={'fit-content'}
             position={'relative'}
           >

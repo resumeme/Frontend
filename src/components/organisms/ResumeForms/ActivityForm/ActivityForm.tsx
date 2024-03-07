@@ -93,6 +93,7 @@ const ActivityForm = ({
             alignSelf={'start'}
             width={'100%'}
             gap={'1.63rem'}
+            wrap={'wrap'}
           >
             <FormLabel isRequired>활동 기간</FormLabel>
             <TermInput

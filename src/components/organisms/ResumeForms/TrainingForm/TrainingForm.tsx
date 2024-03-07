@@ -68,10 +68,14 @@ const TrainingForm = ({
           gap={'1.25rem'}
         >
           <Flex
-            gap={'2rem'}
-            alignSelf={'start'}
+            columnGap={'3rem'}
+            rowGap={'1rem'}
+            wrap={'wrap'}
           >
-            <FormControl isInvalid={Boolean(errors.organization)}>
+            <FormControl
+              w={{ base: 'full', md: '60%' }}
+              isInvalid={Boolean(errors.organization)}
+            >
               <FormLabel
                 htmlFor="organization"
                 isRequired
@@ -79,7 +83,6 @@ const TrainingForm = ({
                 학교/기관
               </FormLabel>
               <FormTextInput
-                w={'12rem'}
                 placeholder="OO학교"
                 id="organization"
                 register={{
@@ -88,7 +91,10 @@ const TrainingForm = ({
                 error={errors.organization}
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.major)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.major)}
+            >
               <FormLabel
                 w={'fit-content'}
                 htmlFor="major"
@@ -97,7 +103,6 @@ const TrainingForm = ({
                 전공
               </FormLabel>
               <FormTextInput
-                w={'12rem'}
                 placeholder="컴퓨터공학"
                 id="major"
                 register={{
@@ -106,9 +111,11 @@ const TrainingForm = ({
                 error={errors.major}
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.degree)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.degree)}
+            >
               <FormLabel
-                w={'fit-content'}
                 htmlFor="degree"
                 isRequired
               >
@@ -127,6 +134,7 @@ const TrainingForm = ({
           <Flex
             gap={'2rem'}
             alignSelf={'start'}
+            wrap={'wrap'}
           >
             <FormControl
               w={'fit-content'}
@@ -152,7 +160,10 @@ const TrainingForm = ({
                 error={errors.admissionDate}
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.graduationDate)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.graduationDate)}
+            >
               <FormLabel w={'fit-content'}>졸업(예정)</FormLabel>
               <FormDateInput
                 maxW={'12rem'}
@@ -169,8 +180,9 @@ const TrainingForm = ({
             </FormControl>
           </Flex>
           <Flex
-            gap={'3rem'}
-            alignSelf={'start'}
+            columnGap={'3rem'}
+            rowGap={'1rem'}
+            wrap={'wrap'}
           >
             <FormControl
               w={'fit-content'}
@@ -196,7 +208,10 @@ const TrainingForm = ({
                 error={errors.gpa}
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.maxGpa)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.maxGpa)}
+            >
               <FormLabel htmlFor="maxGpa">최대 학점</FormLabel>
               <Select
                 defaultValue={4.5}
