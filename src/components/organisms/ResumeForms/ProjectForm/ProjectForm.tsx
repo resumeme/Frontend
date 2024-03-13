@@ -89,7 +89,6 @@ const ProjectForm = ({
         >
           <Flex
             w={'full'}
-            columnGap={'3rem'}
             rowGap={'1rem'}
             justifyContent={'space-between'}
             wrap={'wrap'}
