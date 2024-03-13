@@ -20,6 +20,8 @@ const Footer = () => {
         <Flex
           w={'100%'}
           mt={'3.14rem'}
+          wrap={'wrap'}
+          rowGap={'1rem'}
         >
           <Text
             mr={'auto'}
@@ -32,7 +34,8 @@ const Footer = () => {
             color={'gray.400'}
             fontSize={'1.125rem'}
             fontWeight={600}
-            gap={'3.75rem'}
+            columnGap={'3.75rem'}
+            wrap={'wrap'}
           >
             {Object.values(FOOTER_CONTENT.links).map((link) => (
               <Link
@@ -45,7 +48,10 @@ const Footer = () => {
             ))}
           </Flex>
         </Flex>
-        <Flex alignItems={'end'}>
+        <Flex
+          alignItems={'end'}
+          wrap={'wrap'}
+        >
           <Flex
             mt={'34px'}
             mr={'auto'}

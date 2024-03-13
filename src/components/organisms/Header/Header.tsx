@@ -75,7 +75,7 @@ const Navigation = ({ user }: { user: User | null }) => {
   return (
     <Flex
       direction={'row'}
-      gap={'70px'}
+      gap={{ base: '1rem', md: '5rem' }}
     >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
@@ -83,7 +83,7 @@ const Navigation = ({ user }: { user: User | null }) => {
             as="a"
             p={2}
             href={navItem.href ?? '#'}
-            fontSize={'sm'}
+            fontSize={{ base: 'xs', sm: 'sm' }}
             fontWeight={600}
             color={linkColor}
             _hover={{
@@ -145,6 +145,7 @@ const Header = () => {
         <Flex
           flex={1}
           justify={'start'}
+          minWidth={'15rem'}
         >
           <Link to="/">
             {/* NOTE LOGO */}
@@ -157,7 +158,7 @@ const Header = () => {
                 mr="0.7rem"
               />
               <Heading
-                fontSize={'xl'}
+                fontSize={{ base: 'md', sm: 'lg', lg: 'xl' }}
                 fontWeight={'black'}
                 color={'gray.800'}
               >
@@ -167,7 +168,7 @@ const Header = () => {
           </Link>
           <Flex
             display="flex"
-            ml={10}
+            ml={{ sm: '3rem' }}
           >
             <Navigation user={user} />
           </Flex>
@@ -206,9 +207,9 @@ const Header = () => {
           ) : (
             <Link to={appPaths.signIn()}>
               <Button
-                w={'144px'}
+                w={'auto'}
                 h={'40px'}
-                fontSize={'sm'}
+                fontSize={{ base: 'xs', sm: 'sm' }}
                 fontWeight={600}
                 color={'primary.900'}
                 bg={'transparent'}

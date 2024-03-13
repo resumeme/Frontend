@@ -89,9 +89,14 @@ const ProjectForm = ({
         >
           <Flex
             w={'full'}
-            gap={'3rem'}
+            rowGap={'1rem'}
+            justifyContent={'space-between'}
+            wrap={'wrap'}
           >
-            <FormControl isInvalid={Boolean(errors.projectName)}>
+            <FormControl
+              w={{ base: 'full', md: '60%' }}
+              isInvalid={Boolean(errors.projectName)}
+            >
               <FormLabel
                 htmlFor="projectName"
                 isRequired
@@ -108,12 +113,11 @@ const ProjectForm = ({
               />
             </FormControl>
             <FormControl
-              w={'60%'}
+              w={'fit-content'}
               isInvalid={Boolean(errors.productionYear)}
             >
               <FormLabel
                 flexShrink={0}
-                w={'fit-content'}
                 isRequired
               >
                 제작 년도
@@ -144,9 +148,12 @@ const ProjectForm = ({
           </Flex>
           <Flex
             w={'full'}
-            gap={'3rem'}
+            columnGap={'3rem'}
+            rowGap={'1rem'}
+            justifyContent={'space-between'}
+            wrap={'wrap'}
           >
-            <FormControl w={'60%'}>
+            <FormControl w={'fit-content'}>
               <FormLabel flexShrink={0}>팀 구성</FormLabel>
               <Select
                 borderColor={'gray.300'}
@@ -158,11 +165,13 @@ const ProjectForm = ({
                 <option value="">개인</option>
               </Select>
             </FormControl>
-            <FormControl isInvalid={watch('team') ? Boolean(errors.teamMembers) : undefined}>
+            <FormControl
+              w={{ base: 'full', md: '70%' }}
+              isInvalid={watch('team') ? Boolean(errors.teamMembers) : undefined}
+            >
               <FormLabel
                 isRequired={watch('team')}
                 htmlFor="teamMembers"
-                w={'fit-content'}
               >
                 팀 구성원
               </FormLabel>

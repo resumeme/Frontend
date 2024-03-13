@@ -74,10 +74,14 @@ const LanguageForm = ({
             />
           </FormControl>
           <Flex
-            alignSelf={'stretch'}
-            gap={'3rem'}
+            columnGap={'3rem'}
+            rowGap={'1rem'}
+            wrap={'wrap'}
           >
-            <FormControl isInvalid={Boolean(errors.examName)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.examName)}
+            >
               <FormLabel isRequired>시험명</FormLabel>
               <FormTextInput
                 id="examName"
@@ -86,7 +90,10 @@ const LanguageForm = ({
                 error={errors.examName}
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.scoreOrGrade)}>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.scoreOrGrade)}
+            >
               <FormLabel isRequired>점수 및 등급</FormLabel>
               <FormTextInput
                 id="scoreOrGrade"

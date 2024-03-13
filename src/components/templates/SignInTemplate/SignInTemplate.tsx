@@ -23,8 +23,8 @@ const SignInTemplate = () => {
 
   return (
     <BorderBox
-      w={'27.75rem'}
       py={'2.5rem'}
+      p={'3rem'}
     >
       <Flex
         align={'center'}

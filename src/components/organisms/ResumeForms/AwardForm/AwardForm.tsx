@@ -70,8 +70,8 @@ const AwardForm = ({
           <FormControl isInvalid={Boolean(errors.certificationTitle)}>
             <FormLabel
               htmlFor="certificationTitle"
-              w={'8.625rem'}
               isRequired
+              w={'fit-content'}
             >
               수상/취득 내용
             </FormLabel>
@@ -85,11 +85,12 @@ const AwardForm = ({
             />
           </FormControl>
           <Flex
-            w={'full'}
-            gap={'3rem'}
+            columnGap={'3rem'}
+            rowGap={'1rem'}
+            wrap={'wrap'}
           >
             <FormControl
-              w={'60%'}
+              w={'fit-content'}
               isInvalid={Boolean(errors.acquisitionDate)}
             >
               <FormLabel
@@ -106,13 +107,11 @@ const AwardForm = ({
               />
             </FormControl>
 
-            <FormControl isInvalid={Boolean(errors.issuingAuthority)}>
-              <FormLabel
-                htmlFor="issuingAuthority"
-                w={'fit-content'}
-              >
-                수여 기관
-              </FormLabel>
+            <FormControl
+              w={'fit-content'}
+              isInvalid={Boolean(errors.issuingAuthority)}
+            >
+              <FormLabel htmlFor="issuingAuthority">수여 기관</FormLabel>
               <FormTextInput
                 placeholder="수여 기관을 입력해주세요."
                 id="issuingAuthority"
@@ -123,12 +122,7 @@ const AwardForm = ({
             </FormControl>
           </Flex>
           <FormControl isInvalid={Boolean(errors.link)}>
-            <FormLabel
-              htmlFor="link"
-              w={'8.625rem'}
-            >
-              링크
-            </FormLabel>
+            <FormLabel htmlFor="link">링크</FormLabel>
             <FormTextInput
               placeholder="URL 입력"
               id="link"
@@ -145,12 +139,7 @@ const AwardForm = ({
           </FormControl>
 
           <FormControl isInvalid={Boolean(errors.description)}>
-            <FormLabel
-              htmlFor="description"
-              w={'8.625rem'}
-            >
-              기타
-            </FormLabel>
+            <FormLabel htmlFor="description">기타</FormLabel>
             <FormTextarea
               h={'3rem'}
               placeholder="기타 필요한 설명이 있다면 입력해주세요."
