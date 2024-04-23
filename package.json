@@ -57,6 +57,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "msw": "^2.2.14",
     "prettier": "^3.0.3",
     "storybook": "^7.5.0",
     "storybook-addon-react-router-v6": "^2.0.9",
@@ -67,6 +68,11 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }
