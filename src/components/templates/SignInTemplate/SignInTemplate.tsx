@@ -1,12 +1,13 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Image, Divider, Flex, Heading, Icon, Text } from '@chakra-ui/react';
+import { Image, Divider, Flex, Heading, Icon, Text, Box } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { AiFillGithub } from 'react-icons/ai';
 import { RiNotionFill } from 'react-icons/ri';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { OAuthSignInButton } from '~/components/molecules/OAuthSignInButton';
+import { TestSignInButton } from '~/components/molecules/TestSignInButton';
 import { assets } from '~/config/assets';
-import CONSTANTS from '~/constants';
+// import CONSTANTS from '~/constants';
 
 const TEXT = {
   welcomeMessage: '이력, 써에 가입하고 피드백을 받아보세요.',
@@ -18,7 +19,8 @@ const TEXT = {
 
 const SignInTemplate = () => {
   const handleKakaoClick = () => {
-    window.location.href = CONSTANTS.KAKAO_SIGNIN_URL;
+    alert('현재는 테스트 계정만 로그인할 수 있습니다.');
+    // window.location.href = CONSTANTS.KAKAO_SIGNIN_URL;
   };
 
   return (
@@ -40,10 +42,27 @@ const SignInTemplate = () => {
         </Text>
         <Divider borderColor={'gray.300'} />
         <Text color={'gray.700'}>{TEXT.subMessage}</Text>
-        <OAuthSignInButton
-          oAuthPlatform="kakao"
-          onClick={handleKakaoClick}
-        />
+        <Box
+          display={'flex'}
+          gap={4}
+        >
+          <OAuthSignInButton
+            oAuthPlatform="kakao"
+            onClick={handleKakaoClick}
+          />
+          <TestSignInButton
+            logo="mentee"
+            onClick={() => {
+              alert('clicked!');
+            }}
+          />
+          <TestSignInButton
+            logo="mentor"
+            onClick={() => {
+              alert('clicked!');
+            }}
+          />
+        </Box>
         <Link href={'#'}>
           <Text
             display={'flex'}
