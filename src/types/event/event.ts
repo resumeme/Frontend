@@ -46,16 +46,6 @@ export type ReadEvent = {
 };
 
 export type ReadManagementEvent = {
-  info: {
-    id: number;
-    mentorId: number;
-    status: EventStatus;
-    title: string;
-    content: string;
-    maximumCount: number;
-    currentApplicantCount: number;
-    positions: Position[];
-    timeInfo: Omit<EventTime, 'now'>;
-  };
+  info: ReadEvent;
   resumes: EventResume[];
 };
