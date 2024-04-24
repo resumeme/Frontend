@@ -1,10 +1,11 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Image, Divider, Flex, Heading, Icon, Text } from '@chakra-ui/react';
+import { Image, Divider, Flex, Heading, Icon, Text, Box } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { AiFillGithub } from 'react-icons/ai';
 import { RiNotionFill } from 'react-icons/ri';
 import { BorderBox } from '~/components/atoms/BorderBox';
 import { OAuthSignInButton } from '~/components/molecules/OAuthSignInButton';
+import { TestSignInButton } from '~/components/molecules/TestSignInButton';
 import { assets } from '~/config/assets';
 import CONSTANTS from '~/constants';
 
@@ -40,10 +41,27 @@ const SignInTemplate = () => {
         </Text>
         <Divider borderColor={'gray.300'} />
         <Text color={'gray.700'}>{TEXT.subMessage}</Text>
-        <OAuthSignInButton
-          oAuthPlatform="kakao"
-          onClick={handleKakaoClick}
-        />
+        <Box
+          display={'flex'}
+          gap={4}
+        >
+          <OAuthSignInButton
+            oAuthPlatform="kakao"
+            onClick={handleKakaoClick}
+          />
+          <TestSignInButton
+            logo="mentee"
+            onClick={() => {
+              alert('clicked!');
+            }}
+          />
+          <TestSignInButton
+            logo="mentor"
+            onClick={() => {
+              alert('clicked!');
+            }}
+          />
+        </Box>
         <Link href={'#'}>
           <Text
             display={'flex'}

@@ -8,7 +8,7 @@ type TestSignInButtonProps = {
 };
 
 const TestSignInButton = ({ logo, onClick }: TestSignInButtonProps) => {
-  const PLATFORMS = {
+  const LOGOS = {
     mentee: {
       svg: assets.menteeSvg,
       text: '멘티',
@@ -32,36 +32,30 @@ const TestSignInButton = ({ logo, onClick }: TestSignInButtonProps) => {
         position={'relative'}
       >
         <Box
-          bgColor={'primary.900'}
-          borderTopRightRadius={'0.5rem'}
-          borderBottomLeftRadius={'0.5rem'}
-          borderBottomRightRadius={'2rem'}
           w={'auto'}
-          h={'1.5rem'}
-          paddingX={'0.5rem'}
-          pr={'0.7rem'}
-          textColor={'white'}
-          borderColor={'primary.900'}
-          position="absolute"
-          top={'-0.3'}
-          right={'-2'}
+          h={'1.2rem'}
           zIndex={1}
-          gap={0}
+          bgColor={'gray.900'}
+          position="absolute"
+          top={'0'}
+          right={'-3'}
+          borderLeftRadius={'0.2rem'}
+          paddingLeft={'0.4rem'}
+          paddingRight={'0.6rem'}
         >
           <Text
-            textAlign={'center'}
-            fontWeight={'black'}
-            fontSize={'sm'}
-            color={'gray.100'}
+            fontWeight={'bold'}
+            fontSize={'xs'}
+            color={'lightgreen'}
           >
             TEST
           </Text>
         </Box>
         <Image
-          src={PLATFORMS[logo].svg}
-          alt={PLATFORMS[logo].text}
+          src={LOGOS[logo].svg}
+          alt={LOGOS[logo].text}
         />
-        <Box as="span">{PLATFORMS[logo].text}</Box>
+        <Box as="span">{LOGOS[logo].text}</Box>
       </BorderBox>
     </button>
   );
