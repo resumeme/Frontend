@@ -2,12 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import { EventCreateLoader } from './EventCreateLoader';
 import FeedbackLayout from './FeedbackLayout';
-import { FeedbackResumeLoader } from './FeedbackResumeLoader';
+// import { FeedbackResumeLoader } from './FeedbackResumeLoader';
 import FocusLayout from './FocusLayout';
 import GuestLoader from './GuestLoader';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
-import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
+// import { MenteeLoader, MentorLoader, UserLoader } from './UserLoader';
 import { CreateEventPage } from '~/pages/EventPages/CreateEventPage';
 import { EditEventPage } from '~/pages/EventPages/EditEventPage';
 import { EventDetailPage } from '~/pages/EventPages/EventDetailPage';
@@ -39,7 +39,8 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
           {
-            element: <UserLoader />,
+            // element: <UserLoader />,
+            element: <></>,
             children: [
               { path: 'mypage', element: <MyPage /> },
               { path: 'user/edit-info', element: <EditProfilePage /> },
@@ -50,7 +51,8 @@ const router = createBrowserRouter([
             ],
           },
           {
-            element: <MenteeLoader />,
+            // element: <MenteeLoader />,
+            element: <></>,
             children: [
               {
                 path: 'resume/management',
@@ -61,7 +63,8 @@ const router = createBrowserRouter([
             ],
           },
           {
-            element: <MentorLoader />,
+            // element: <MentorLoader />,
+            element: <></>,
             children: [
               { path: 'write-review', element: <WriteReviewPage /> },
 
@@ -97,12 +100,13 @@ const router = createBrowserRouter([
         element: <FeedbackLayout />,
         children: [
           {
-            // element: <MentorLoader />,
-            element: <FeedbackResumeLoader />,
+            // element: <FeedbackResumeLoader />,
+            element: <></>,
             children: [{ index: true, element: <FeedbackResumePage /> }],
           },
           {
-            element: <MenteeLoader />,
+            // element: <MentorLoader />,
+            element: <></>,
             children: [{ path: 'feedback/reflect', element: <FeedbackReflectPage /> }],
           },
         ],
