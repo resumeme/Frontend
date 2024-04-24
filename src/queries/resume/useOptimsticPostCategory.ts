@@ -17,7 +17,7 @@ export const useOptimisticPostCategory = <T extends Categories>({
   const toast = useToast();
   return useMutation({
     mutationFn,
-    onMutate: async (newCategoryBlock) => {
+    onMutate: async ({ body: newCategoryBlock }) => {
       await queryClient.cancelQueries({ queryKey: TARGET_QUERY_KEY });
       const previousCategoryData = queryClient.getQueryData(TARGET_QUERY_KEY);
       queryClient.setQueryData(TARGET_QUERY_KEY, (old: T[]) => {
@@ -36,7 +36,8 @@ export const useOptimisticPostCategory = <T extends Categories>({
       queryClient.setQueryData(TARGET_QUERY_KEY, context?.previousCategoryData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });
+      /*NOTE - msw 작동으로 무조건 쿼리 업데이트 시키도록 임시 주석 처리! */
+      // queryClient.invalidateQueries({ queryKey: TARGET_QUERY_KEY });
     },
     onSuccess: () => {
       toast({

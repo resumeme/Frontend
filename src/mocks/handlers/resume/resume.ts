@@ -39,4 +39,22 @@ export const handlers = [
   http.get(`${environments.baseUrlEnv()}/v1/resumes/:id/trainings`, () => {
     return HttpResponse.json();
   }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/careers`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/projects`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/activities`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/certifications`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/foreignLanguages`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/trainings`, () => {
+    return HttpResponse.json();
+  }),
 ];
