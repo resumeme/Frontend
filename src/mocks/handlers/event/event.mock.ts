@@ -6,14 +6,14 @@ const pageDataMock: PageData = {
   first: true,
   last: false,
   number: 0,
-  size: 20,
+  size: 9,
   sort: {
     empty: true,
     sorted: false,
     unsorted: true,
   },
   totalPages: 5,
-  totalElements: 100,
+  totalElements: 4,
 };
 
 export const readEventMock0: ReadEvent = {
