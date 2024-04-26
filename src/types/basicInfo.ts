@@ -1,8 +1,6 @@
-import { Position } from './position';
-
 export type BasicInfo = {
   title?: string;
-  position: Position;
+  position: string;
   skills: string[];
   introduce: string;
   ownerInfo?: {
