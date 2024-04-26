@@ -10,15 +10,22 @@ const referenceLinkMock = [
     url: 'https://github.com/resumeme/Frontend',
   },
 ];
+const MOCK_RESUME_ID = 0;
 export const handlers = [
   http.post(`${environments.baseUrlEnv()}/v1/resumes`, () => {
-    return HttpResponse.json({ id: 0 });
+    return HttpResponse.json({ id: MOCK_RESUME_ID });
   }),
   http.get(`${environments.baseUrlEnv()}/v1/resumes/:id/basic`, () => {
     return HttpResponse.json();
   }),
   // patchResumeBasicInfo
   http.patch(`${environments.baseUrlEnv()}/v2/resumes/:id`, () => {
+    return HttpResponse.json();
+  }),
+  http.post(`${environments.baseUrlEnv()}/v1/resumes/:id/links`, () => {
+    return HttpResponse.json();
+  }),
+  http.delete(`${environments.baseUrlEnv()}/v1/resumes/:id/components/:linkId`, () => {
     return HttpResponse.json();
   }),
   http.get(`${environments.baseUrlEnv()}/v1/resumes/:id/links`, () => {
