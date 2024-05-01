@@ -1,10 +1,10 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { Label } from '~/components/atoms/Label';
 import { MemoBox } from '~/components/molecules/MemoBox';
-import { ResumeListItem } from '~/types/resume/resumeListItem';
+import { MyResume } from '~/types/resume/resumeListItem';
 
 type ResumeListItemProps = {
-  data: ResumeListItem;
+  data: MyResume;
 };
 
 const ResumeListItem = ({ data: { title, modifiedAt, position, memo } }: ResumeListItemProps) => {
