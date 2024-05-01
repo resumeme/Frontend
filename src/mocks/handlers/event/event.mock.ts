@@ -86,7 +86,7 @@ export const eventListMock: EventList = {
       info: readEventMock0,
       mentorInfo: {
         mentorId: 0,
-        nickname: '윤지석',
+        nickname: '손웅정',
         imageUrl: '',
       },
     },
@@ -94,7 +94,7 @@ export const eventListMock: EventList = {
       info: readEventMock1,
       mentorInfo: {
         mentorId: 0,
-        nickname: '윤지석',
+        nickname: '손웅정',
         imageUrl: '',
       },
     },
@@ -102,7 +102,7 @@ export const eventListMock: EventList = {
       info: readEventMock2,
       mentorInfo: {
         mentorId: 0,
-        nickname: '윤지석',
+        nickname: '손웅정',
         imageUrl: '',
       },
     },
@@ -110,7 +110,7 @@ export const eventListMock: EventList = {
       info: readEventMock3,
       mentorInfo: {
         mentorId: 0,
-        nickname: '윤지석',
+        nickname: '손웅정',
         imageUrl: '',
       },
     },

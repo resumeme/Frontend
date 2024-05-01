@@ -3,7 +3,7 @@ import { environments } from '~/config/environments';
 import { ReadMentor } from '~/types/mentor';
 
 const mentorMock: ReadMentor = {
-  nickname: '윤지석',
+  nickname: '손웅정',
   experiencedPositions: ['BACK', 'FRONT'],
   careerContent: '',
   careerYear: 4,
