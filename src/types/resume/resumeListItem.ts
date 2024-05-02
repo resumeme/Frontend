@@ -1,12 +1,11 @@
 import { ResumeStatus } from './status';
-import { Position } from '../position';
 
 export type MyResume = {
   id: number;
   title: string;
   modifiedAt: string;
   memo: string;
-  position: Position[];
+  position: string;
 };
 
 export type FeedbackResume = {
