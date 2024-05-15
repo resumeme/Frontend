@@ -1,5 +1,30 @@
 import { HttpResponse, http } from 'msw';
 import { environments } from '~/config/environments';
+import { MyResume } from '~/types/resume/resumeListItem';
+
+const myResumesMock: MyResume[] = [
+  {
+    id: 0,
+    title: '이력서 버전1',
+    modifiedAt: '2024-02-25T23:59:59.999Z',
+    position: 'Front-End',
+    memo: '',
+  },
+  {
+    id: 0,
+    title: '이력서 버전2',
+    modifiedAt: '2024-03-01T23:59:59.999Z',
+    position: 'Front-End',
+    memo: '',
+  },
+  {
+    id: 0,
+    title: '최종 이력서',
+    modifiedAt: '2024-05-02T23:59:59.999Z',
+    position: 'Front-End',
+    memo: '아몬드빼빼로 서합한 이력서',
+  },
+];
 
 const referenceLinkMock = [
   {
@@ -10,8 +35,12 @@ const referenceLinkMock = [
     url: 'https://github.com/resumeme/Frontend',
   },
 ];
+
 const MOCK_RESUME_ID = 0;
 export const handlers = [
+  http.get(`${environments.baseUrlEnv()}/v1/resumes`, () => {
+    return HttpResponse.json(myResumesMock);
+  }),
   http.post(`${environments.baseUrlEnv()}/v1/resumes`, () => {
     return HttpResponse.json({ id: MOCK_RESUME_ID });
   }),
